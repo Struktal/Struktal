@@ -1,0 +1,50 @@
+<?php
+
+class Config {
+    // Project Settings
+    public static array $PROJECT_SETTINGS;
+    // Log Settings
+    public static array $LOG_SETTINGS;
+
+    // Database Settings
+    public static array $DB_SETTINGS;
+
+    // Mail Settings
+    public static array $MAIL_SETTINGS;
+
+    /**
+     * Stores some Placeholder Config Values
+     * They are overridden by root/framework-config/app-config.php
+     */
+    public static function init(): void {
+        self::$PROJECT_SETTINGS = array(
+            "PROJECT_NAME" => "Project",
+            "PROJECT_URL" => "https://domain.com/"
+        );
+
+        self::$LOG_SETTINGS = array(
+            "LOG_DIRECTORY" => __DIR__ . "/../../logs/",
+            "LOG_FILENAME" => "log-%date%.log",
+            "LOG_LEVEL" => 2
+        );
+
+        self::$DB_SETTINGS = array(
+            "DB_HOST" => "localhost",
+            "DB_USER" => "username",
+            "DB_PASS" => "password",
+            "DB_NAME" => "database"
+        );
+
+        self::$MAIL_SETTINGS = array(
+            "MAIL_DEFAULT_SENDER_EMAIL" => "mail@framework",
+            "MAIL_DEFAULT_SENDER_NAME" => "Framework",
+            "MAIL_DEFAULT_REPLY_TO" => "reply@framework",
+            "MAIL_DEFAULT_SUBJECT" => "Framework Mail",
+            "MAIL_REDIRECT_ALL_MAILS" => false,
+            "MAIL_REDIRECT_ALL_MAILS_TO" => "redirect@framework"
+        );
+    }
+
+    private function __construct() {
+    }
+}
