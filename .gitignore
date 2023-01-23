@@ -1,0 +1,5 @@
+# Ignore Files such as php.ini or .user.ini
+*.ini
+
+# Ignore Files that contain sensible Information such as Passwords or secret Keys
+/framework-config/*.inc.php
