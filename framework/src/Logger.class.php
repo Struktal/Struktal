@@ -1,7 +1,7 @@
 <?php
 
 class Logger {
-    private static $instance = array();
+    private static array $instance = array();
     private string $tag;
 
     public static int $LOG_NONE = 0;

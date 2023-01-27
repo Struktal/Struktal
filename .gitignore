@@ -2,4 +2,7 @@
 *.ini
 
 # Ignore Files that contain sensible Information such as Passwords or secret Keys
-/framework-config/*.inc.php
+/project/config/*.inc.php
+
+# Ignore PHPStorm Files
+/.idea

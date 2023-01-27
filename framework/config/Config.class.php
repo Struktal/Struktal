@@ -12,9 +12,12 @@ class Config {
     // Mail Settings
     public static array $MAIL_SETTINGS;
 
+    // Class Loader Settings
+    public static array $CLASS_LOADER_SETTINGS;
+
     /**
      * Stores some Placeholder Config Values
-     * They are overridden by root/framework-config/app-config.php
+     * They are overridden by root/project/config/app-config.php
      */
     public static function init(): void {
         self::$PROJECT_SETTINGS = array(
@@ -32,7 +35,8 @@ class Config {
             "DB_HOST" => "localhost",
             "DB_USER" => "username",
             "DB_PASS" => "password",
-            "DB_NAME" => "database"
+            "DB_NAME" => "database",
+            "DB_USE" => true
         );
 
         self::$MAIL_SETTINGS = array(
@@ -42,6 +46,11 @@ class Config {
             "MAIL_DEFAULT_SUBJECT" => "Framework Mail",
             "MAIL_REDIRECT_ALL_MAILS" => false,
             "MAIL_REDIRECT_ALL_MAILS_TO" => "redirect@framework"
+        );
+
+        self::$CLASS_LOADER_SETTINGS = array(
+            "CLASS_LOADER_IGNORE_FILES" => array(),
+            "CLASS_LOADER_IMPORT_PATHS" => array()
         );
     }
 
