@@ -29,7 +29,8 @@ class Logger {
     
             $logfileName = str_replace("%date%", date("Y-m-d"), Config::$LOG_SETTINGS["LOG_FILENAME"]);
             $logfile = fopen(Config::$LOG_SETTINGS["LOG_DIRECTORY"] . $logfileName, "a");
-            fwrite($logfile, PHP_EOL . "[" . date("Y-m-d H:i:s") . "] [DEBUG] [" . $this->tag . "]: " . $message);
+            $lineNumber = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 1)[0]["line"] | 0;
+            fwrite($logfile, PHP_EOL . "[" . date("Y-m-d H:i:s") . "] [INFO] [{$this->tag}:{$lineNumber}]: " . $message);
         }
     }
 
@@ -41,7 +42,8 @@ class Logger {
     
             $logfileName = str_replace("%date%", date("Y-m-d"), Config::$LOG_SETTINGS["LOG_FILENAME"]);
             $logfile = fopen(Config::$LOG_SETTINGS["LOG_DIRECTORY"] . $logfileName, "a");
-            fwrite($logfile, PHP_EOL . "[" . date("Y-m-d H:i:s") . "] [INFO] [" . $this->tag . "]: " . $message);
+            $lineNumber = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 1)[0]["line"] | 0;
+            fwrite($logfile, PHP_EOL . "[" . date("Y-m-d H:i:s") . "] [INFO] [{$this->tag}:{$lineNumber}]: " . $message);
         }
     }
 
@@ -53,7 +55,8 @@ class Logger {
     
             $logfileName = str_replace("%date%", date("Y-m-d"), Config::$LOG_SETTINGS["LOG_FILENAME"]);
             $logfile = fopen(Config::$LOG_SETTINGS["LOG_DIRECTORY"] . $logfileName, "a");
-            fwrite($logfile, PHP_EOL . "[" . date("Y-m-d H:i:s") . "] [ERROR] [" . $this->tag . "]: " . $message);
+            $lineNumber = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 1)[0]["line"] | 0;
+            fwrite($logfile, PHP_EOL . "[" . date("Y-m-d H:i:s") . "] [INFO] [{$this->tag}:{$lineNumber}]: " . $message);
         }
     }
 }
