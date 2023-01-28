@@ -25,7 +25,6 @@ class ClassLoader {
      */
     public function load(string $absolutePath): void {
         require_once($absolutePath);
-        Logger::getLogger("ClassLoader")->debug("Loaded File: " . $absolutePath);
     }
     
     /**
@@ -39,8 +38,6 @@ class ClassLoader {
             $this->load($absolutePath);
             return true;
         }
-
-        Logger::getLogger("ClassLoader")->debug("Could not load Class: " . $absolutePath . " (File does not end with '.class.php')");
         
         return false;
     }
