@@ -4,6 +4,14 @@
 Config::$PROJECT_SETTINGS["PROJECT_NAME"] = "Project";
 Config::$PROJECT_SETTINGS["PROJECT_URL"] = "https://domain.com/";
 
+// Time Format Settings
+Config::$DATETIME_SETTINGS["DATE_TECHNICAL"] = "Y-m-d";
+Config::$DATETIME_SETTINGS["TIME_TECHNICAL"] = "H:i:s";
+Config::$DATETIME_SETTINGS["DATETIME_TECHNICAL"] = "Y-m-d H:i:s";
+Config::$DATETIME_SETTINGS["DATE_VISUAL"] = "d.m.Y";
+Config::$DATETIME_SETTINGS["TIME_VISUAL"] = "H:i";
+Config::$DATETIME_SETTINGS["DATETIME_VISUAL"] = "d.m.Y H:i";
+
 // Log Settings
 Config::$LOG_SETTINGS["LOG_DIRECTORY"] = __DIR__ . "/../../logs/";
 Config::$LOG_SETTINGS["LOG_FILENAME"] = "log-%date%.log";

@@ -3,6 +3,10 @@
 class Config {
     // Project Settings
     public static array $PROJECT_SETTINGS;
+
+    // DateTime Format Settings
+    public static array $DATETIME_SETTINGS;
+
     // Log Settings
     public static array $LOG_SETTINGS;
 
@@ -23,6 +27,15 @@ class Config {
         self::$PROJECT_SETTINGS = array(
             "PROJECT_NAME" => "Project",
             "PROJECT_URL" => "https://domain.com/"
+        );
+
+        self::$DATETIME_SETTINGS = array(
+            "DATE_TECHNICAL" => "Y-m-d",
+            "TIME_TECHNICAL" => "H:i:s",
+            "DATETIME_TECHNICAL" => "Y-m-d H:i:s",
+            "DATE_VISUAL" => "d.m.Y",
+            "TIME_VISUAL" => "H:i",
+            "DATETIME_VISUAL" => "d.m.Y H:i"
         );
 
         self::$LOG_SETTINGS = array(

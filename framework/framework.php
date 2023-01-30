@@ -12,6 +12,12 @@ $classLoader = ClassLoader::getInstance();
 // Load Logger
 $classLoader->loadClass(__DIR__ . "/src/Logger.class.php");
 
+// Load Util
+$classLoader->loadClass(__DIR__ . "/src/Util.class.php");
+
+// Load Comm
+$classLoader->loadClass(__DIR__ . "/src/Comm.class.php");
+
 // Load Libraries
 $classLoader->loadClasses(__DIR__ . "/src/lib/");
 
