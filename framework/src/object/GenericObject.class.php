@@ -1,7 +1,7 @@
 <?php
 
-class BaseObject {
-    private static ?BaseObjectDAO $dao = null;
+class GenericObject {
+    private static ?GenericObjectDAO $dao = null;
     
     public ?int $id;
     public DateTime $created;
@@ -17,15 +17,15 @@ class BaseObject {
     
     /**
      * Gets the Data Access Object for this Class
-     * @return BaseObjectDAO
+     * @return GenericObjectDAO
      */
-    public static function dao(): BaseObjectDAO {
+    public static function dao(): GenericObjectDAO {
         if(self::$dao === null) {
             if(class_exists(get_called_class() . "DAO")) {
                 $daoClassName = get_called_class() . "DAO";
                 self::$dao = new $daoClassName(get_called_class());
             } else {
-                Logger::getLogger("BaseObject")->error("DAO for Class " . get_called_class() . " requested but not found.");
+                Logger::getLogger("GenericObject")->error("DAO for Class " . get_called_class() . " requested but not found");
             }
         }
         
@@ -38,7 +38,7 @@ class BaseObject {
      * @return void
      */
     public function fromArray(array $data): void {
-        $classProperties = get_class_vars(get_class($this));
+        $classProperties = get_object_vars($this);
         foreach($classProperties as $property => $value) {
             if(array_key_exists($property, $data)) {
                 if($this->$property instanceof DateTime) {
@@ -47,7 +47,7 @@ class BaseObject {
                     $this->$property = $data[$property];
                 }
             } else {
-                Logger::getLogger("BaseObject")->error("Critical: Property \"{$property}\" does not exist in Data Array");
+                Logger::getLogger("GenericObject")->error("Critical: Property \"{$property}\" does not exist in Data Array");
             }
         }
     }
@@ -57,7 +57,7 @@ class BaseObject {
      * @return array
      */
     public function toArray(): array {
-        $classProperties = get_class_vars(get_class($this));
+        $classProperties = get_object_vars($this);
         $data = array();
         foreach($classProperties as $property => $value) {
             $data[$property] = $this->$property;
@@ -67,7 +67,7 @@ class BaseObject {
     }
     
     /**
-     * @return int
+     * @return ?int
      */
     public function getId(): ?int {
         return $this->id;
