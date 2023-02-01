@@ -1,13 +1,13 @@
 <?php
 
 class BaseObject {
-    public int $id;
+    public ?int $id;
     public DateTime $created;
     public DateTime $updated;
     public bool $deleted;
 
     public function __construct() {
-        $this->id = -1;
+        $this->id = null;
         $this->created = new DateTime();
         $this->updated = new DateTime();
         $this->deleted = false;
@@ -16,14 +16,14 @@ class BaseObject {
     /**
      * @return int
      */
-    public function getId(): int {
+    public function getId(): ?int {
         return $this->id;
     }
 
     /**
      * @param int $id
      */
-    public function setId(int $id): void {
+    private function setId(int $id): void {
         $this->id = $id;
     }
 
@@ -78,7 +78,11 @@ class BaseObject {
         $classProperties = get_class_vars(get_class($this));
         foreach($classProperties as $property => $value) {
             if(array_key_exists($property, $data)) {
-                $this->$property = $data[$property];
+                if($this->$property instanceof DateTime) {
+                    $this->$property = DateTime::createFromFormat("Y-m-d H:i:s", $data[$property]);
+                } else {
+                    $this->$property = $data[$property];
+                }
             } else {
                 Logger::getLogger("BaseObject")->error("Critical: Property \"{$property}\" does not exist in Data Array");
             }
