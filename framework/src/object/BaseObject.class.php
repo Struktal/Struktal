@@ -1,6 +1,8 @@
 <?php
 
 class BaseObject {
+    private static ?BaseObjectDAO $dao = null;
+    
     public ?int $id;
     public DateTime $created;
     public DateTime $updated;
@@ -12,61 +14,22 @@ class BaseObject {
         $this->updated = new DateTime();
         $this->deleted = false;
     }
-
+    
     /**
-     * @return int
+     * Gets the Data Access Object for this Class
+     * @return BaseObjectDAO
      */
-    public function getId(): ?int {
-        return $this->id;
-    }
-
-    /**
-     * @param int $id
-     */
-    private function setId(int $id): void {
-        $this->id = $id;
-    }
-
-    /**
-     * @return DateTime
-     */
-    public function getCreated(): DateTime {
-        return $this->created;
-    }
-
-    /**
-     * @param DateTime $created
-     */
-    public function setCreated(DateTime $created): void {
-        $this->created = $created;
-    }
-
-    /**
-     * @return DateTime
-     */
-    public function getUpdated(): DateTime {
-        return $this->updated;
-    }
-
-    /**
-     * @param DateTime $updated
-     */
-    public function setUpdated(DateTime $updated): void {
-        $this->updated = $updated;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isDeleted(): bool {
-        return $this->deleted;
-    }
-
-    /**
-     * @param bool $deleted
-     */
-    public function setDeleted(bool $deleted): void {
-        $this->deleted = $deleted;
+    public static function dao(): BaseObjectDAO {
+        if(self::$dao === null) {
+            if(class_exists(get_called_class() . "DAO")) {
+                $daoClassName = get_called_class() . "DAO";
+                self::$dao = new $daoClassName(get_called_class());
+            } else {
+                Logger::getLogger("BaseObject")->error("DAO for Class " . get_called_class() . " requested but not found.");
+            }
+        }
+        
+        return self::$dao;
     }
 
     /**
@@ -101,5 +64,61 @@ class BaseObject {
         }
 
         return $data;
+    }
+    
+    /**
+     * @return int
+     */
+    public function getId(): ?int {
+        return $this->id;
+    }
+    
+    /**
+     * @param int $id
+     */
+    private function setId(int $id): void {
+        $this->id = $id;
+    }
+    
+    /**
+     * @return DateTime
+     */
+    public function getCreated(): DateTime {
+        return $this->created;
+    }
+    
+    /**
+     * @param DateTime $created
+     */
+    public function setCreated(DateTime $created): void {
+        $this->created = $created;
+    }
+    
+    /**
+     * @return DateTime
+     */
+    public function getUpdated(): DateTime {
+        return $this->updated;
+    }
+    
+    /**
+     * @param DateTime $updated
+     */
+    public function setUpdated(DateTime $updated): void {
+        $this->updated = $updated;
+    }
+    
+    /**
+     * @return bool
+     */
+    public function isDeleted(): bool {
+        return $this->deleted;
+    }
+    
+    /**
+     * @param bool $deleted
+     */
+    public function setDeleted(bool $deleted): void {
+        $this->deleted = $deleted;
     }
 }
