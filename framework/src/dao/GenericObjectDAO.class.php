@@ -18,7 +18,12 @@ class GenericObjectDAO {
             $objectProperties = get_object_vars($object);
             if($object->getId() === null) {
                 // Object doesn't exist, perform INSERT
-                $sql = "INSERT INTO {$tableName} VALUES (";
+                $sql = "INSERT INTO {$tableName} (";
+                foreach($objectProperties as $property => $value) {
+                    $sql .= "{$property}, ";
+                }
+                $sql = substr($sql, 0, -2);
+                $sql .= ") VALUES (";
                 foreach($objectProperties as $property => $value) {
                     $sql .= ":{$property}, ";
                 }
@@ -29,15 +34,15 @@ class GenericObjectDAO {
                 foreach($objectProperties as $property => $value) {
                     if($value instanceof DateTime) {
                         $date = $value->format("Y-m-d H:i:s");
-                        $stmt->bindParam("{$property}", $date, PDO::PARAM_STR);
+                        $stmt->bindValue("{$property}", $date, PDO::PARAM_STR);
                     } else if(is_bool($value)) {
-                        $stmt->bindParam("{$property}", $value, PDO::PARAM_BOOL);
+                        $stmt->bindValue("{$property}", $value, PDO::PARAM_BOOL);
                     } else if(is_int($value)) {
-                        $stmt->bindParam("{$property}", $value, PDO::PARAM_INT);
+                        $stmt->bindValue("{$property}", $value, PDO::PARAM_INT);
                     } else if(is_null($value)) {
-                        $stmt->bindParam("{$property}", $value, PDO::PARAM_NULL);
+                        $stmt->bindValue("{$property}", $value, PDO::PARAM_NULL);
                     } else {
-                        $stmt->bindParam("{$property}", $value, PDO::PARAM_STR);
+                        $stmt->bindValue("{$property}", $value, PDO::PARAM_STR);
                     }
                 }
                 $stmt->execute();
@@ -46,33 +51,35 @@ class GenericObjectDAO {
                 return true;
             } else {
                 // Object already exists, perform UPDATE
-                $sql = "UPDATE {$tableName} SET (";
+                $sql = "UPDATE {$tableName} SET ";
                 foreach($objectProperties as $property => $value) {
-                    if($property !== "id" && $property !== "created") {
+                    if($property !== "created" && $property !== "id") {
                         $sql .= "{$property} = :{$property}, ";
                     }
                 }
                 $sql = substr($sql, 0, -2);
-                $sql .= ") WHERE id = :id";
-                
+                $sql .= " WHERE id = :id";
+
                 $stmt = Database::getConnection()->prepare($sql);
                 foreach($objectProperties as $property => $value) {
-                    if($property !== "created") {
+                    if($property !== "created" && $property !== "id") {
                         if($value instanceof DateTime) {
                             $date = $value->format("Y-m-d H:i:s");
-                            $stmt->bindParam("{$property}", $date, PDO::PARAM_STR);
+                            $stmt->bindValue("{$property}", $date, PDO::PARAM_STR);
                         } else if(is_bool($value)) {
-                            $stmt->bindParam("{$property}", $value, PDO::PARAM_BOOL);
+                            $stmt->bindValue("{$property}", $value, PDO::PARAM_BOOL);
                         } else if(is_int($value)) {
-                            $stmt->bindParam("{$property}", $value, PDO::PARAM_INT);
+                            $stmt->bindValue("{$property}", $value, PDO::PARAM_INT);
                         } else if(is_null($value)) {
-                            $stmt->bindParam("{$property}", $value, PDO::PARAM_NULL);
+                            $stmt->bindValue("{$property}", $value, PDO::PARAM_NULL);
                         } else {
-                            $stmt->bindParam("{$property}", $value, PDO::PARAM_STR);
+                            $stmt->bindValue("{$property}", $value, PDO::PARAM_STR);
                         }
                     }
                 }
+                $stmt->bindValue(":id", $object->id, PDO::PARAM_INT);
                 $stmt->execute();
+
                 return true;
             }
         } else {
@@ -92,7 +99,7 @@ class GenericObjectDAO {
      * @param int    $offset
      * @return GenericObject|null
      */
-    public function getObject(array $filter = array(), string $orderBy = "id", bool $orderAsc = true, int $limit = 1, int $offset = 0): ?GenericObject {
+    public function getObject(array $filter = array("deleted" => false), string $orderBy = "id", bool $orderAsc = true, int $limit = 1, int $offset = 0): ?GenericObject {
         if($this->tableExists($this->CLASS_INSTANCE)) {
             $sql = "SELECT * FROM " . $this->CLASS_INSTANCE;
             if(count($filter) > 0) {
@@ -107,7 +114,7 @@ class GenericObjectDAO {
     
             $stmt = Database::getConnection()->prepare($sql);
             foreach($filter as $key => $value) {
-                $stmt->bindParam(":{$key}", $value);
+                $stmt->bindValue("{$key}", $value);
             }
             $stmt->execute();
     
@@ -136,7 +143,7 @@ class GenericObjectDAO {
      * @param int    $offset
      * @return array
      */
-    public function getObjects(array $filter = array(), string $orderBy = "id", bool $orderAsc = true, int $limit = 1, int $offset = 0): array {
+    public function getObjects(array $filter = array("deleted" => false), string $orderBy = "id", bool $orderAsc = true, int $limit = 1, int $offset = 0): array {
         if($this->tableExists($this->CLASS_INSTANCE)) {
             $sql = "SELECT * FROM " . $this->CLASS_INSTANCE;
             if(count($filter) > 0) {
@@ -151,7 +158,7 @@ class GenericObjectDAO {
     
             $stmt = Database::getConnection()->prepare($sql);
             foreach($filter as $key => $value) {
-                $stmt->bindParam(":{$key}", $value);
+                $stmt->bindValue("{$key}", $value);
             }
             $stmt->execute();
     
@@ -177,7 +184,7 @@ class GenericObjectDAO {
      */
     public function tableExists(string $tableName) {
         $stmt = Database::getConnection()->prepare("SHOW TABLES LIKE :tableName");
-        $stmt->bindParam(":tableName", $tableName);
+        $stmt->bindValue(":tableName", $tableName);
         $stmt->execute();
         
         return $stmt->rowCount() > 0;

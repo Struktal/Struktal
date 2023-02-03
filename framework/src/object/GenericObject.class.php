@@ -1,7 +1,7 @@
 <?php
 
 class GenericObject {
-    private static ?GenericObjectDAO $dao = null;
+    private static array $dao = array();
     
     public ?int $id;
     public DateTime $created;
@@ -20,16 +20,16 @@ class GenericObject {
      * @return GenericObjectDAO
      */
     public static function dao(): GenericObjectDAO {
-        if(self::$dao === null) {
+        if(!(array_key_exists(get_called_class(), self::$dao))) {
             if(class_exists(get_called_class() . "DAO")) {
                 $daoClassName = get_called_class() . "DAO";
-                self::$dao = new $daoClassName(get_called_class());
+                self::$dao[get_called_class()] = new $daoClassName(get_called_class());
             } else {
                 Logger::getLogger("GenericObject")->error("DAO for Class " . get_called_class() . " requested but not found");
             }
         }
         
-        return self::$dao;
+        return self::$dao[get_called_class()];
     }
 
     /**
@@ -67,7 +67,7 @@ class GenericObject {
     }
     
     /**
-     * @return ?int
+     * @return int|null
      */
     public function getId(): ?int {
         return $this->id;
