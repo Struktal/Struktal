@@ -1,0 +1,4 @@
+# Rewrite all Requests to routes-handler.php
+RewriteEngine On
+RewriteBase /
+RewriteRule ^.*$ routes-handler.php [L]

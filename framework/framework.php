@@ -18,6 +18,10 @@ $classLoader->loadClass(__DIR__ . "/src/Util.class.php");
 // Load Comm
 $classLoader->loadClass(__DIR__ . "/src/Comm.class.php");
 
+// Load Router and initialize Routes
+$classLoader->loadClass(__DIR__ . "/src/Router.class.php");
+require_once(__DIR__ . "/../project/config/app-routes.php");
+
 // Load Libraries
 $classLoader->loadClasses(__DIR__ . "/src/lib/");
 
