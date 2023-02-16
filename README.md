@@ -41,13 +41,24 @@ It's recommeneded to use the following ``.gitignore``-template:
 5. Now, you can add new scripts inside of the ``project`` directory.
 
 ## How to use
-This section provides information for each of the framework's functions
+This section provides information for each of the framework's functions.
 
 ### Data Access Object Pattern
 TODO
 
 ### Router
-TODO
+To add Routes to your project, edit the ``app-routes.php`` file in the ``project`` directory.
+
+To add a route, use
+```php
+addRoute("HTTP_METHOD", "ROUTE", "TARGET_SCRIPT", "ROUTE_NAME");
+```
+Replace
+- ``HTTP_METHOD``: One or more HTTP methods that prescribe how the route should be accessed.<br>
+Multiple HTTP methods have to be separated by a pipe (``|``) character.
+- ``ROUTE``: A URI that prescribes how the route should be accessed.
+- ``TARGET_SCRIPT``: A target script in the ``htdocs`` directory where the user should get redirected to.
+- ``ROUTE_NAME``: A route name that is used by the ``Router::generate`` method.
 
 ### Class Loader
 TODO
