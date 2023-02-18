@@ -1,4 +1,9 @@
-# Rewrite all Requests to routes-handler.php
 RewriteEngine On
 RewriteBase /
+
+# Rewrite all Requests from static to project/htdocs/static
+RewriteRule ^static/(.*)$ project/htdocs/static/$1 [L]
+RewriteRule ^project/htdocs/static/.*$ - [L]
+
+# Rewrite all Requests to routes-handler.php
 RewriteRule ^.*$ routes-handler.php [L]
