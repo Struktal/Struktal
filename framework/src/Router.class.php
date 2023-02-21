@@ -4,6 +4,8 @@ class Router {
     private static array $routes = array();
     private static string $redirect400 = "/";
     private static string $redirect404 = "/";
+    
+    private static string $baseDirectory = "";
 
     /**
      * Adds a Route to the Registry
@@ -113,6 +115,8 @@ class Router {
      * @return void
      */
     public function startRouter(string $baseDirectory = "/"): void {
+        self::$baseDirectory = $baseDirectory;
+        
         $method = $_SERVER["REQUEST_METHOD"];
         $uri = $_SERVER["REQUEST_URI"];
         $uri = explode("?", $uri)[0];
@@ -252,6 +256,15 @@ class Router {
                 return;
             }
         }
+    }
+    
+    /**
+     * Generates the Import Path for a File in the Static Directory
+     * @param string $file
+     * @return string
+     */
+    public static function staticFilePath(string $file) {
+        return self::$baseDirectory . "static/" . trim($file, "/");
     }
 
     /**
