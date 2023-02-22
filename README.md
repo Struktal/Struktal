@@ -1,6 +1,14 @@
 # PHP-Framework
 A powerful and feature-rich PHP framework designed to simplify web development. With built-in support for data access and manipulation, routing and various utilities, this framework makes it easier to handle common web development tasks.
 
+## Contents
+1. <a href="#features">Features</a>
+2. <a href="#getting-started">Getting started</a>
+3. <a href="#how-to-use">How to use</a>
+4. <a href="#internal-classes">Internal classes</a>
+5. <a href="#contributing">Contributing</a>
+5. <a href="#license">License</a>
+
 ## Features
 - Data access object pattern to simplify database access
 - Routing system to redirect requests
@@ -10,7 +18,7 @@ A powerful and feature-rich PHP framework designed to simplify web development. 
 These instructions will help you to get the framework up and running.
 
 ### Prerequisites
-- PHP 8 or higher
+- PHP 8.2 or higher
 - A web server such as Apache or Nginx
 - A database system such as MySQL or MariaDB
 
@@ -41,12 +49,26 @@ It's recommeneded to use the following ``.gitignore``-template:
 5. Now, you can add new scripts inside of the ``project`` directory.
 
 ## How to use
-This section provides information for each of the framework's functions.
+This section provides information about how the framework works and about each of the framework's features.
+
+1. <a href="#file-structure">File structure</a>
+2. <a href="#logger">Logger</a>
+3. <a href="#data-access-object-pattern">Data access object pattern</a>
+4. <a href="#router">Router</a>
+5. <a href="#comm-class">COMM class</a>
+6. <a href="#info--warning--and-error-messages">Info-, warning- and error messages</a>
+7. <a href="#curl">Curl</a>
+8. <a href="#mail">Mail</a>
+9. <a href="#geolocation">Geolocation</a>
+10. <a href="#date-formatter">Date formatter</a>
 
 ### File structure
 TODO
 
-### Data Access Object Pattern
+### Logger
+TODO
+
+### Data access object pattern
 TODO
 
 ### Router
@@ -109,13 +131,10 @@ Router::generate("edit-user", array(
 ```
 and add it to an ``<a>`` tag in the users profile.
 
-### Class Loader
-TODO
+### COMM Class
+(HTTPResponses Class), TODO
 
-### Logger
-TODO
-
-### Comm Class, (HTTPResponses Class)
+### Info-, warning- and error messages
 TODO
 
 ### Curl
@@ -130,8 +149,16 @@ TODO
 ### Date Formatter
 TODO
 
-### Info, Warning and Error Messages
-TODO
+## Internal classes
+There are a few classes that should ideally be used by the framework only. Those classes are documented below.
+
+### Class loader
+The class loader used to import a single or all classes within a file or a directory. To do that, use
+```php
+$classLoader = ClassLoader::getInstance();
+$classLoader->loadClass("FILE");
+$classLoader->loadClasses("DIRECTORY");
+```
 
 ## Contributing
 TODO
