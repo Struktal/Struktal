@@ -66,7 +66,14 @@ This section provides information about how the framework works and about each o
 TODO
 
 ### Logger
-TODO
+A helpful tool for developing and maintaining a project with the framework is it's logger. It allows you to easily write info, error or debug messages into a logfile. To do that, use
+```php
+Logger::getLogger("NAME")->info("MESSAGE");
+Logger::getLogger("NAME")->error("MESSAGE");
+Logger::getLogger("NAME")->debug("MESSAGE");
+```
+
+The logfile is located in the ``logs`` directory and is labeled with the current date.
 
 ### Data access object pattern
 TODO
