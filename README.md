@@ -139,7 +139,51 @@ Router::generate("edit-user", array(
 and add it to an ``<a>`` tag in the users profile.
 
 ### COMM Class
-(HTTPResponses Class), TODO
+#### Redirect to another page
+You can redirect the user to another page by using
+```php
+Comm::redirect("PATH");
+```
+
+#### Send JSON response
+You can send the user an individual JSON response by using
+```php
+Comm::sendJson(DATA);
+```
+with ``DATA`` being the array that should be JSON-encoded.
+
+#### Send JSON API response
+If you're developing an API, you might want to send a status code and message along with the result. This can be achieved easily by using
+```php
+Comm::apiSendJson(RESPONSE, DATA);
+```
+Both ``RESPONSE`` AND ``DATA`` are arrays. ``DATA`` holds the main content that should be returned. ``RESPONSE`` holds the status code and message and should be formatted as shown in the following scheme:
+```json
+{
+    "code": STATUS_CODE,
+    "message": "STATUS_MESSAGE"
+}
+```
+There are predefined response arrays located in the ``HTTPResponses`` class. It contains the most relevant HTTP responses (``200``, ``201``, ``204``, ``400``, ``401``, ``403``, ``404``, ``405``, ``500``, ``501``, ``503``) that are also common to occur in API usage.
+
+You can use those responses with ``apiSendJson`` like in the following example:
+```php
+$userDAO = User::dao();
+Comm::apiSendJson(HTTPResponses::$RESPONSE_OK, $userDAO->getObjects());
+```
+This will return roughly the following response (``data`` will hold the information about all users of course):
+```json
+{
+    "code": 200,
+    "message": "OK",
+    "data": [
+        ...
+    ]
+}
+```
+<sub>
+    <b>Note:</b> You wouldn't want this to be a real API call since it will return <b>ALL</b> information about <b>EVERY</b> user from the database such as real names, password hashes, ...
+</sub>
 
 ### Info-, warning- and error messages
 TODO
