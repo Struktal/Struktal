@@ -63,7 +63,14 @@ This section provides information about how the framework works and about each o
 10. <a href="#date-formatter">Date formatter</a>
 
 ### File structure
-TODO
+The root directory contains the following files and subdirectories:
+- ``framework/``
+- ``project/``
+- ``.htaccess``
+- ``php.ini`` or ``.user.ini``
+- ``routes-handler.php``
+
+TODO Detailled Description
 
 ### Logger
 A helpful tool for developing and maintaining a project with the framework is it's logger. It allows you to easily write info, error or debug messages into a logfile. To do that, use
