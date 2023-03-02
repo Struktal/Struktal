@@ -28,8 +28,10 @@ These instructions will help you to get the framework up and running.
 git clone https://github.com/JensOstertag/PHP-Framework.git .
 ```
 
-2. If you didn't clone the repository in the root directory but in any Directory (e.g. ``your/directory``), change the ``RewriteBase`` in  the ``.htaccess`` file from ``/`` to that directory (``/`` -> ``/your/directory/``). If you cloned it in the root directory, you can skip this step.
-This is required because all requests withing ``your/directory`` should be rewritten to ``your/directory/routes-handler.php``.
+2. If you didn't clone the repository in the root directory but in any Directory (e.g. ``📁 your/directory/``), change the ``RewriteBase`` in  the ``.htaccess`` file from ``📁 /`` to that directory (``/`` -> ``/your/directory/``). If you cloned it in the root directory, you can skip this step.
+This is required because all (*) requests withing ``📁 your/directory/`` should be rewritten to ``your/directory/routes-handler.php``.
+
+<sub>* Not all requests within that directory will be rewritten. There's a directory called ``📁 static/`` where direct requests are allowed. It's described in <a href="#file-structure">File structure</a> as to why that is.</sub>
 
 3. In case you want to use git versioning for your project, navigate to the ``project`` directory and initialize a new repository:
 ```console
@@ -41,12 +43,12 @@ It's recommeneded to use the following ``.gitignore``-template:
 /project/config/*.inc.php
 ```
 
-4. Update the following configuration files within the ``project/config`` directory. 
+4. Update the following configuration files within the ``📁 project/config/`` directory. 
     - ``app-config.php`` - Basic project settings
     - ``app-config.inc.php`` - Project settings that shouldn't be in a git repository
     - ``app-routes.php`` - Routes initialization
 
-5. Now, you can add new scripts inside of the ``project`` directory.
+5. Now, you can add new scripts inside of the ``📁 project/`` directory.
 
 ## How to use
 This section provides information about how the framework works and about each of the framework's features.
@@ -64,13 +66,30 @@ This section provides information about how the framework works and about each o
 
 ### File structure
 The root directory contains the following files and subdirectories:
-- ``framework/``
-- ``project/``
+- ``📁 framework/``
+- ``📁 project/``
 - ``.htaccess``
 - ``php.ini`` or ``.user.ini``
 - ``routes-handler.php``
 
 TODO Detailled Description
+
+#### Framework directory
+The ``📁 framework/`` directory contains all files that are required by the framework and your project. If you're working on a project, it's recommended not to edit files in this directory in order to keep compatibility with newer versions.
+
+ There are the following files and subdirectories:
+- ``📁 config/``
+    - ``Config.class.php`` - Predefines the configurable variables and parameters
+- ``📁 src/`` - The primary source code
+    - ``📁 dao/`` - Predefined DAO classes for predefined objects
+    - ``📁 lib/`` - Libraries of the framework that aren't used often in the framework's code
+    - ``📁 object/`` - Predefined objects that can be used with the data access object pattern
+    - ``ClassLoader.class.php`` - Class loader
+    - ``Comm.class.php`` - Communication class
+    - ``Logger.class.php`` - Logger
+    - ``Router.class.php`` - Router
+    - ``Util.class.php`` - Class with utility functions
+- ``framework.php`` - The primary framework file that imports all necessary files
 
 ### Logger
 A helpful tool for developing and maintaining a project with the framework is it's logger. It allows you to easily write info, error or debug messages into a logfile. To do that, use
@@ -86,7 +105,7 @@ The logfile is located in the ``logs`` directory and is labeled with the current
 TODO
 
 ### Router
-To add Routes to your project, edit the ``app-routes.php`` file in the ``project`` directory.
+To add Routes to your project, edit the ``app-routes.php`` file in the ``📁 project/`` directory.
 
 To add a route, use
 ```php
@@ -98,7 +117,7 @@ You can set multiple HTTP methods by separating them with a pipe (``|``) charact
 - ``ROUTE``: The route describes with what URI the user should get redirected to the target file.<br>
 For more information about how HTTP GET parameters are included in the URI, please read the section <a href="#http-get-parameters">HTTP GET parameters</a> below.
 - ``TARGET_FILE``: The target file is the file that the user should get redirected to when he uses the route.<br>
-It is meant to be located in the ``htdocs`` directory. As described in <a href="#file-structure">File structure</a>, it can be any file that the user should get displayed (e.g. PHP scripts, HTML sites, ...).
+It is meant to be located in the ``📁 htdocs/`` directory. As described in <a href="#file-structure">File structure</a>, it can be any file that the user should get displayed (e.g. PHP scripts, HTML sites, ...).
 - ``ROUTE_NAME``: The route name is used by the ``Router::generate`` method.<br>
 For details about that methods abilities, please read the section <a href="#generate-urls">Generate URLs</a> below.
 
