@@ -81,13 +81,13 @@ class Router {
                     }
 
                     if(sizeof($requiredParams) == 0) {
-                        return $route;
+                        return self::$baseDirectory . ltrim($route, "/");
                     }
                 }
             }
         }
 
-        return "";
+        return self::$baseDirectory;
     }
 
     /**
