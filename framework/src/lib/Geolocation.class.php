@@ -4,6 +4,7 @@ class Geolocation {
     private static string $API_URL = "https://nominatim.openstreetmap.org/";
     private array $address;
     private array $coordinates;
+    
     public function __construct() {
         $this->coordinates = array(
             "latitude" => null,
