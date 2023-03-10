@@ -241,9 +241,10 @@ class Router {
             if(file_exists($routeTo)) {
                 include_once($routeTo);
             } else {
-                // TODO: Handle Not Found
+                // TODO: Handle Not Found (Testing required)
+                Comm::redirect(self::generate("404"));
                 http_response_code(404);
-                return;
+                Logger::getLogger("Router")->error("Could not find File \"{$routeTo}\" for Route \"{$route}\"");
             }
         } else {
             if(file_exists($routeTo)) {
@@ -251,9 +252,10 @@ class Router {
                 readfile($routeTo);
                 exit;
             } else {
-                // TODO: Handle Not Found
+                // TODO: Handle Not Found (Testing required)
+                Comm::redirect(self::generate("404"));
                 http_response_code(404);
-                return;
+                Logger::getLogger("Router")->error("Could not find File \"{$routeTo}\" for Route \"{$route}\"");
             }
         }
     }
