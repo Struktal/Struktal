@@ -2,10 +2,6 @@
 
 class Router {
     private static array $routes = array();
-    private static string $redirect400 = "/";
-    private static string $redirect404 = "/";
-    
-    private static string $baseDirectory = "";
 
     /**
      * Adds a Route to the Registry
@@ -81,47 +77,25 @@ class Router {
                     }
 
                     if(sizeof($requiredParams) == 0) {
-                        return self::$baseDirectory . ltrim($route, "/");
+                        return __SERVER_DIR__ . ltrim($route, "/");
                     }
                 }
             }
         }
 
-        return self::$baseDirectory;
-    }
-
-    /**
-     * Set the Default Redirect Page for 400 Errors
-     * @param string $redirect
-     * @return void
-     */
-    public static function setRedirect400(string $redirect) {
-        self::$redirect400 = $redirect;
-    }
-
-    /**
-     * Set the Default Redirect Page for 404 Errors
-     * @param string $redirect
-     * @return void
-     */
-    public static function setRedirect404(string $redirect) {
-        self::$redirect404 = $redirect;
+        return __SERVER_DIR__;
     }
 
     /**
      * Starts the Router
-     * @param string $baseDirectory Base Directory of the Application
-     *                              By setting this Parameter, the Router will ignore the Base Directory at the Beginning of the URI
      * @return void
      */
-    public function startRouter(string $baseDirectory = "/"): void {
-        self::$baseDirectory = $baseDirectory;
-        
+    public function startRouter(): void {
         $method = $_SERVER["REQUEST_METHOD"];
         $uri = $_SERVER["REQUEST_URI"];
         $uri = explode("?", $uri)[0];
-        if(str_starts_with($uri, $baseDirectory)) {
-            $uri = substr($uri, strlen($baseDirectory));
+        if(str_starts_with($uri, __SERVER_DIR__)) {
+            $uri = substr($uri, strlen(__SERVER_DIR__));
         }
         $uri = trim($uri, "/");
 
@@ -174,7 +148,7 @@ class Router {
         }
 
         if(!(array_key_exists("route", $foundRoute))) {
-            // TODO: Handle Not Found
+            Comm::redirect(Router::generate("404"));
             http_response_code(404);
             return;
         }
@@ -196,7 +170,7 @@ class Router {
                         if(filter_var($paramValue, FILTER_VALIDATE_BOOLEAN)) {
                             $paramValue = boolval($paramValue);
                         } else {
-                            // TODO: Handle Bad Request
+                            Comm::redirect(Router::generate("400"));
                             http_response_code(400);
                             return;
                         }
@@ -205,7 +179,7 @@ class Router {
                         if(DateTime::createFromFormat(Config::$DATETIME_SETTINGS["DATE_TECHNICAL"], $paramValue) !== false) {
                             $paramValue = strval($paramValue);
                         } else {
-                            // TODO: Handle Bad Request
+                            Comm::redirect(Router::generate("400"));
                             http_response_code(400);
                             return;
                         }
@@ -214,7 +188,7 @@ class Router {
                         if(filter_Var($paramValue, FILTER_VALIDATE_FLOAT)) {
                             $paramValue = floatval($paramValue);
                         } else {
-                            // TODO: Handle Bad Request
+                            Comm::redirect(Router::generate("400"));
                             http_response_code(400);
                             return;
                         }
@@ -223,7 +197,7 @@ class Router {
                         if(filter_var($paramValue, FILTER_VALIDATE_INT)) {
                             $paramValue = intval($paramValue);
                         } else {
-                            // TODO: Handle bad Request
+                            Comm::redirect(Router::generate("400"));
                             http_response_code(400);
                             return;
                         }
@@ -241,7 +215,6 @@ class Router {
             if(file_exists($routeTo)) {
                 include_once($routeTo);
             } else {
-                // TODO: Handle Not Found (Testing required)
                 Comm::redirect(self::generate("404"));
                 http_response_code(404);
                 Logger::getLogger("Router")->error("Could not find File \"{$routeTo}\" for Route \"{$route}\"");
@@ -252,7 +225,6 @@ class Router {
                 readfile($routeTo);
                 exit;
             } else {
-                // TODO: Handle Not Found (Testing required)
                 Comm::redirect(self::generate("404"));
                 http_response_code(404);
                 Logger::getLogger("Router")->error("Could not find File \"{$routeTo}\" for Route \"{$route}\"");
@@ -265,8 +237,8 @@ class Router {
      * @param string $file
      * @return string
      */
-    public static function staticFilePath(string $file) {
-        return self::$baseDirectory . "static/" . trim($file, "/");
+    public static function staticFilePath(string $file): string {
+        return __SERVER_DIR__ . "static/" . trim($file, "/");
     }
 
     /**
