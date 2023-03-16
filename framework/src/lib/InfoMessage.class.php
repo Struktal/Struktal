@@ -42,6 +42,16 @@ class InfoMessage {
         return $this->type;
     }
 
+    public function getTypeFormatted(): string {
+        return match($this->getType()) {
+            InfoMessage::$TYPE_INFO => "info",
+            InfoMessage::$TYPE_WARNING => "warning",
+            InfoMessage::$TYPE_ERROR => "error",
+            InfoMessage::$TYPE_SUCCESS => "success",
+            default => strval($this->getType()),
+        };
+    }
+
     private static function compare($a, $b) {
         return $b->getType() - $a->getType();
     }
