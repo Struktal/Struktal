@@ -1,0 +1,33 @@
+.infomessages-list {
+
+}
+
+.infomessages-list .infomessage {
+    color: var(--clr-infomessage-font);
+    border: var(--brd-thickness-small) solid;
+    border-radius: var(--brd-thickness-medium);
+    border-color: var(--clr-infomessage-none-border);
+    background-color: var(--clr-infomessage-none-background);
+
+    padding: 5px;
+}
+
+.infomessages-list .infomessage[message-type="info"] {
+    border-color: var(--clr-infomessage-info-border);
+    background-color: var(--clr-infomessage-info-background);
+}
+
+.infomessages-list .infomessage[message-type="warning"] {
+    border-color: var(--clr-infomessage-warning-border);
+    background-color: var(--clr-infomessage-warning-background);
+}
+
+.infomessages-list .infomessage[message-type="error"] {
+    border-color: var(--clr-infomessage-error-border);
+    background-color: var(--clr-infomessage-error-background);
+}
+
+.infomessages-list .infomessage[message-type="success"] {
+    border-color: var(--clr-infomessage-success-border);
+    background-color: var(--clr-infomessage-success-background);
+}
