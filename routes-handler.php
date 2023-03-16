@@ -8,6 +8,8 @@ define("__PROJECT_DIR__", __DIR__ . "/");
 $serverDirectory = str_replace("routes-handler.php", "", $_SERVER["SCRIPT_NAME"]);
 define("__SERVER_DIR__", $serverDirectory);
 
+session_start();
+
 // Start the Router
 $router = new Router();
 $router->startRouter();

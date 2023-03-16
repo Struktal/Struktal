@@ -15,25 +15,34 @@ class InfoMessage {
         $this->message = $message;
         $this->type = $type;
 
-        self::$infoMessages[] = $this;
+        if(array_key_exists("infoMessages", $_SESSION)) {
+            $_SESSION["infoMessages"][] = $this;
+        } else {
+            $_SESSION["infoMessages"] = array($this);
+        }
     }
 
-    public static function getMessages() {
-        $infoMessages = self::$infoMessages;
-        $infoMessages = usort($infoMessages, "compare");
-        self::$infoMessages = array();
-        return $infoMessages;
+    public static function getMessages(): array {
+        if(array_key_exists("infoMessages", $_SESSION)) {
+            $infoMessages = $_SESSION["infoMessages"];
+            usort($infoMessages, array("InfoMessage", "compare"));
+            unset($_SESSION["infoMessages"]);
+
+            return $infoMessages;
+        }
+
+        return array();
     }
 
-    public function getMessage() {
+    public function getMessage(): string {
         return $this->message;
     }
 
-    public function getType() {
+    public function getType(): int {
         return $this->type;
     }
 
-    private function compare($a, $b) {
-        return $a->getType() - $b->getType();
+    private static function compare($a, $b) {
+        return $b->getType() - $a->getType();
     }
 }
