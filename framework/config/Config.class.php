@@ -26,7 +26,9 @@ class Config {
     public static function init(): void {
         self::$PROJECT_SETTINGS = array(
             "PROJECT_NAME" => "Project",
-            "PROJECT_URL" => "https://domain.com/"
+            "PROJECT_URL" => "https://domain.com/",
+            "PROJECT_AUTHOR" => "Author",
+            "PROJECT_VERSION" => "1.0.0"
         );
 
         self::$DATETIME_SETTINGS = array(
@@ -41,7 +43,7 @@ class Config {
         self::$LOG_SETTINGS = array(
             "LOG_DIRECTORY" => __DIR__ . "/../../logs/",
             "LOG_FILENAME" => "log-%date%.log",
-            "LOG_LEVEL" => 2
+            "LOG_LEVEL" => Logger::$LOG_INFO
         );
 
         self::$DB_SETTINGS = array(

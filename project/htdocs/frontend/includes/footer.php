@@ -1,3 +1,5 @@
+        </main>
+
         <div class="footer">
             <hr>
             <div class="footer-text">

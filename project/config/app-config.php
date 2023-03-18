@@ -17,7 +17,7 @@ Config::$DATETIME_SETTINGS["DATETIME_VISUAL"] = "d.m.Y H:i";
 // Log Settings
 Config::$LOG_SETTINGS["LOG_DIRECTORY"] = __DIR__ . "/../../logs/";
 Config::$LOG_SETTINGS["LOG_FILENAME"] = "log-%date%.log";
-Config::$LOG_SETTINGS["LOG_LEVEL"] = 2;
+Config::$LOG_SETTINGS["LOG_LEVEL"] = Logger::$LOG_INFO;
 
 // Database Settings
 Config::$DB_SETTINGS["DB_HOST"] = "localhost";
