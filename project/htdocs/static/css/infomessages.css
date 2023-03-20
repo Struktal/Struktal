@@ -5,11 +5,12 @@
 .infomessages-list .infomessage {
     color: var(--clr-infomessage-font);
     border: var(--brd-thickness-small) solid;
-    border-radius: var(--brd-thickness-medium);
+    border-radius: var(--brd-radius-medium);
     border-color: var(--clr-infomessage-none-border);
     background-color: var(--clr-infomessage-none-background);
 
-    padding: 5px;
+    padding: var(--pad-medium);
+    margin: var(--spc-default) 0;
 }
 
 .infomessages-list .infomessage[message-type="info"] {
