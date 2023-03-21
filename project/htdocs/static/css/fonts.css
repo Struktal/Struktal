@@ -1,0 +1,19 @@
+/*
+ *  Import Font by a Link:
+ *
+ *  @font-face {
+ *      font-family: "Font";
+ *      src: url(https://url.com/font.woff2);
+ *  }
+ *
+ *  The Font can then be used in CSS by "Font".
+ */
+
+* {
+    font-family: sans-serif;
+}
+
+p,
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+}
