@@ -10,8 +10,39 @@
         <link rel="stylesheet" href="<?php echo Router::staticFilePath("css/infomessages.css"); ?>">
 
         <link rel="stylesheet" href="<?php echo Router::staticFilePath("css/project.css"); ?>">
+
+        <script src="<?php echo Router::staticFilePath("js/lib/jquery.min.js"); ?>"></script>
+
+        <script src="<?php echo Router::staticFilePath("js/sidebar.js"); ?>"></script>
     </head>
     <body>
+        <nav>
+            <div class="header-logo">
+                <a href="#">
+                    <img src="<?php echo Router::staticFilePath("img/logo.svg"); ?>" alt="Logo">
+                    <span>
+                        <?php echo Config::$PROJECT_SETTINGS["PROJECT_NAME"]; ?>
+                    </span>
+                </a>
+            </div>
+
+            <ul class="header-navigator header-navigator-default">
+                <!-- TODO: Fill with custom Menu Points -->
+            </ul>
+
+            <div class="header-burger">
+                <div class="l1"></div>
+                <div class="l2"></div>
+                <div class="l3"></div>
+            </div>
+
+            <div class="header-dark-background header-dark-background-default"></div>
+
+            <script>
+                let sidebar = new Sidebar(".header-navigator", ".header-burger", ".header-dark-background");
+            </script>
+        </nav>
+
         <?php
             Template::includeTemplate("infomessages.php");
         ?>
