@@ -30,7 +30,14 @@
             </div>
 
             <ul class="header-navigator header-navigator-default">
-                <!-- TODO: Fill with custom Menu Points -->
+                <?php foreach (Config::$MENU_SETTINGS["MENU_SIDEBAR"] as $displayName => $settings): ?>
+                    <li>
+                        <a href="<?php echo $settings["route"]; ?>">
+                            <span><?php echo $displayName; ?></span>
+                        </a>
+                    </li>
+                    <hr>
+                <?php endforeach; ?>
             </ul>
 
             <div class="header-burger">

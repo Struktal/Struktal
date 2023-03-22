@@ -4,6 +4,9 @@ class Config {
     // Project Settings
     public static array $PROJECT_SETTINGS;
 
+    // Menu Settings
+    public static array $MENU_SETTINGS;
+
     // DateTime Format Settings
     public static array $DATETIME_SETTINGS;
 
@@ -29,6 +32,10 @@ class Config {
             "PROJECT_URL" => "https://domain.com/",
             "PROJECT_AUTHOR" => "Author",
             "PROJECT_VERSION" => "1.0.0"
+        );
+
+        self::$MENU_SETTINGS = array(
+            "MENU_SIDEBAR" => array()
         );
 
         self::$DATETIME_SETTINGS = array(

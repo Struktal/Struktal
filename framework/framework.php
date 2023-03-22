@@ -7,11 +7,6 @@ $classLoader = ClassLoader::getInstance();
 // Load Logger
 $classLoader->loadClass(__DIR__ . "/src/Logger.class.php");
 
-// Configuration Files
-require_once(__DIR__ . "/config/Config.class.php");
-Config::init();
-require_once(__DIR__ . "/../project/config/app-config.php");
-
 // Load Util
 $classLoader->loadClass(__DIR__ . "/src/Util.class.php");
 
@@ -21,6 +16,11 @@ $classLoader->loadClass(__DIR__ . "/src/Comm.class.php");
 // Load Router and initialize Routes
 $classLoader->loadClass(__DIR__ . "/src/Router.class.php");
 require_once(__DIR__ . "/../project/config/app-routes.php");
+
+// Configuration Files
+require_once(__DIR__ . "/config/Config.class.php");
+Config::init();
+require_once(__DIR__ . "/../project/config/app-config.php");
 
 // Load Libraries
 $classLoader->loadClasses(__DIR__ . "/src/lib/");

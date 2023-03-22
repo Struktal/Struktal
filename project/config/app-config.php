@@ -6,6 +6,13 @@ Config::$PROJECT_SETTINGS["PROJECT_URL"] = "https://domain.com/";
 Config::$PROJECT_SETTINGS["PROJECT_AUTHOR"] = "Author";
 Config::$PROJECT_SETTINGS["PROJECT_VERSION"] = "1.0.0";
 
+// Menu Settings
+Config::$MENU_SETTINGS["MENU_SIDEBAR"] = array(
+    "Home" => array(
+        "route" => Router::generate("index")
+    )
+);
+
 // Time Format Settings
 Config::$DATETIME_SETTINGS["DATE_TECHNICAL"] = "Y-m-d";
 Config::$DATETIME_SETTINGS["TIME_TECHNICAL"] = "H:i:s";
