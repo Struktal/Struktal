@@ -1,16 +1,16 @@
 <?php
 
-// Configuration Files
-require_once(__DIR__ . "/config/Config.class.php");
-Config::init();
-require_once(__DIR__ . "/../project/config/app-config.php");
-
 // Class Loader
 require_once(__DIR__ . "/src/ClassLoader.class.php");
 $classLoader = ClassLoader::getInstance();
 
 // Load Logger
 $classLoader->loadClass(__DIR__ . "/src/Logger.class.php");
+
+// Configuration Files
+require_once(__DIR__ . "/config/Config.class.php");
+Config::init();
+require_once(__DIR__ . "/../project/config/app-config.php");
 
 // Load Util
 $classLoader->loadClass(__DIR__ . "/src/Util.class.php");
