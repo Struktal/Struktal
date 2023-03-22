@@ -7,14 +7,14 @@
                     <img src="<?php echo Router::staticFilePath("img/logo.svg"); ?>" alt="Logo">
                     <?php echo Config::$PROJECT_SETTINGS["PROJECT_NAME"]; ?>
                 </div>
-                <p class="footer-copyright">
+                <span class="footer-copyright">
                     &copy; 2020 - <?php echo (new DateTime())->format("Y"); ?> &nbsp;
-                </p>
-                <p class="footer-author">
+                </span>
+                <span class="footer-author">
                     <?php echo Config::$PROJECT_SETTINGS["PROJECT_AUTHOR"]; ?>
-                </p>
+                </span>
 
-                <p class="footer-version">
+                <span class="footer-version">
                     <svg class="svg-gear gear"
                          viewBox="0 0 356 356"
                          version="1.1"
@@ -25,7 +25,7 @@
                         </g>
                     </svg>
                     Version: <?php echo Config::$PROJECT_SETTINGS["PROJECT_VERSION"]; ?>
-                </p>
+                </span>
             </div>
         </div>
     </body>

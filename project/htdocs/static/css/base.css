@@ -39,6 +39,9 @@
 
     /* Spacing */
     --spc-default: 1em;
+    --spc-content-side-small: 5%;
+    --spc-content-side-medium: 10%;
+    --spc-content-side-large: 15%;
 
     /* Padding */
     --pad-small: .5em;
@@ -59,4 +62,22 @@ html, body {
     margin: 0;
     padding: 0;
     background-color: var(--clr-background);
+}
+
+main {
+    min-height: 90vh;
+
+    padding: var(--spc-default) var(--spc-content-side-large);
+}
+
+@media screen and (max-width: 768px) {
+    main {
+        padding: var(--spc-default) var(--spc-content-side-medium);
+    }
+}
+
+@media screen and (max-width: 480px) {
+    main {
+        padding: var(--spc-default) var(--spc-content-side-small);
+    }
 }

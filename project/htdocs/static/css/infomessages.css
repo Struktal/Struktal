@@ -1,8 +1,15 @@
 .infomessages-list {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-gap: var(--spc-default);
 
+    margin-bottom: var(--spc-default);
 }
 
 .infomessages-list .infomessage {
+    display: inline-block;
+    box-sizing: border-box;
+
     color: var(--clr-infomessage-font);
     border: var(--brd-thickness-small) solid;
     border-radius: var(--brd-radius-medium);
@@ -10,7 +17,6 @@
     background-color: var(--clr-infomessage-none-background);
 
     padding: var(--pad-medium);
-    margin: var(--spc-default) 0;
 }
 
 .infomessages-list .infomessage[message-type="info"] {
