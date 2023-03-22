@@ -8,7 +8,7 @@ class GenericObjectDAO {
     }
     
     /**
-     * Saves an Object with its current Attributes to the Database
+     * Save an Object with its current Attributes to the Database
      * @param GenericObject $object
      * @return bool
      */
@@ -90,7 +90,7 @@ class GenericObjectDAO {
     }
     
     /**
-     * Gets an Object from the Database
+     * Get an Object from the Database
      * The Object will be returned as an Instance of the corresponding Class
      * @param array  $filter
      * @param string $orderBy
@@ -134,7 +134,7 @@ class GenericObjectDAO {
     }
     
     /**
-     * Gets multiple Objects from the Database at once
+     * Get multiple Objects from the Database at once
      * The Objects will be returned as an Array of Instances of the corresponding Class
      * @param array  $filter
      * @param string $orderBy
@@ -178,7 +178,7 @@ class GenericObjectDAO {
     }
     
     /**
-     * Checks whether the Table for the specified Class exists
+     * Check whether the Table for the specified Class exists
      * @param string $tableName
      * @return bool
      */

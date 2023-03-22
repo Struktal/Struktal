@@ -16,7 +16,7 @@ class GenericObject {
     }
     
     /**
-     * Gets the Data Access Object for this Class
+     * Get the Data Access Object for this Class
      * @return GenericObjectDAO
      */
     public static function dao(): GenericObjectDAO {
@@ -33,7 +33,7 @@ class GenericObject {
     }
 
     /**
-     * Imports the Data from an Array to the Object
+     * Import Data from an Array to the Object
      * @param array $data
      * @return void
      */
@@ -53,7 +53,7 @@ class GenericObject {
     }
 
     /**
-     * Exports the Object to an Array
+     * Export the Object's Data to an Array
      * @return array
      */
     public function toArray(): array {
@@ -67,6 +67,7 @@ class GenericObject {
     }
     
     /**
+     * Get the Object's ID
      * @return int|null
      */
     public function getId(): ?int {
@@ -74,6 +75,7 @@ class GenericObject {
     }
     
     /**
+     * Set the Object's ID
      * @param int $id
      */
     private function setId(int $id): void {
@@ -81,6 +83,7 @@ class GenericObject {
     }
     
     /**
+     * Get the Object's Creation Date
      * @return DateTime
      */
     public function getCreated(): DateTime {
@@ -88,6 +91,7 @@ class GenericObject {
     }
     
     /**
+     * Set the Object's Creation Date
      * @param DateTime $created
      */
     public function setCreated(DateTime $created): void {
@@ -95,6 +99,7 @@ class GenericObject {
     }
     
     /**
+     * Get the Object's Last Update Date
      * @return DateTime
      */
     public function getUpdated(): DateTime {
@@ -102,6 +107,7 @@ class GenericObject {
     }
     
     /**
+     * Set the Object's Last Update Date
      * @param DateTime $updated
      */
     public function setUpdated(DateTime $updated): void {
@@ -109,6 +115,7 @@ class GenericObject {
     }
     
     /**
+     * Get the Object's Deleted Flag
      * @return bool
      */
     public function isDeleted(): bool {
@@ -116,6 +123,7 @@ class GenericObject {
     }
     
     /**
+     * Set the Object's Deleted Flag
      * @param bool $deleted
      */
     public function setDeleted(bool $deleted): void {

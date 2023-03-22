@@ -1,16 +1,15 @@
 <?php
 
-class User extends GenericObject {
+class GenericUser extends GenericObject {
     public string $username;
     public string $password;
     public string $email;
-    public string $firstName;
-    public string $lastName;
     public int $permissionLevel;
     public ?string $oneTimePassword;
     public ?DateTime $oneTimePasswordExpiration;
     
     /**
+     * Get the User's Username
      * @return string
      */
     public function getUsername(): string {
@@ -18,6 +17,7 @@ class User extends GenericObject {
     }
     
     /**
+     * Set the User's Username
      * @param string $username
      */
     public function setUsername(string $username): void {
@@ -25,6 +25,7 @@ class User extends GenericObject {
     }
     
     /**
+     * Get the User's Password Hash
      * @return string
      */
     public function getPassword(): string {
@@ -32,13 +33,16 @@ class User extends GenericObject {
     }
     
     /**
+     * Set the User's Password
+     * The passed Password will be hashed with the default PHP Hashing Algorithm
      * @param string $password
      */
     public function setPassword(string $password): void {
-        $this->password = $password;
+        $this->password = password_hash($password, PASSWORD_DEFAULT);
     }
     
     /**
+     * Get the User's E-Mail
      * @return string
      */
     public function getEmail(): string {
@@ -46,48 +50,16 @@ class User extends GenericObject {
     }
     
     /**
+     * Set the User's E-Mail
+     * The E-Mail will be converted to lowercase Letters
      * @param string $email
      */
     public function setEmail(string $email): void {
-        $this->email = $email;
+        $this->email = strtolower($email);
     }
     
     /**
-     * @return string
-     */
-    public function getFirstName(): string {
-        return $this->firstName;
-    }
-    
-    /**
-     * @param string $firstName
-     */
-    public function setFirstName(string $firstName): void {
-        $this->firstName = $firstName;
-    }
-    
-    /**
-     * @return string
-     */
-    public function getLastName(): string {
-        return $this->lastName;
-    }
-    
-    /**
-     * @param string $lastName
-     */
-    public function setLastName(string $lastName): void {
-        $this->lastName = $lastName;
-    }
-    
-    /**
-     * @return string
-     */
-    public function getFullName(): string {
-        return $this->firstName . " " . $this->lastName;
-    }
-    
-    /**
+     * Get the User's Permission Level
      * @return int
      */
     public function getPermissionLevel(): int {
@@ -95,6 +67,7 @@ class User extends GenericObject {
     }
     
     /**
+     * Set the User's Permission Level
      * @param int $permissionLevel
      */
     public function setPermissionLevel(int $permissionLevel): void {
@@ -102,6 +75,7 @@ class User extends GenericObject {
     }
     
     /**
+     * Get the User's One-Time-Password
      * @return string|null
      */
     public function getOneTimePassword(): ?string {
@@ -109,13 +83,16 @@ class User extends GenericObject {
     }
     
     /**
+     * Set the User's One-Time-Password
+     * The One-Time-Password will be hashed with the default PHP Hashing Algorithm
      * @param string $oneTimePassword
      */
     public function setOneTimePassword(string $oneTimePassword): void {
-        $this->oneTimePassword = $oneTimePassword;
+        $oneTimePassword = password_hash($oneTimePassword, PASSWORD_DEFAULT);
     }
     
     /**
+     * Get the User's One-Time-Password Expiration Date
      * @return DateTime|null
      */
     public function getOneTimePasswordExpiration(): ?DateTime {
@@ -123,6 +100,7 @@ class User extends GenericObject {
     }
     
     /**
+     * Set the User's One-Time-Password Expiration Date
      * @param DateTime $oneTimePasswordExpiration
      */
     public function setOneTimePasswordExpiration(DateTime $oneTimePasswordExpiration): void {

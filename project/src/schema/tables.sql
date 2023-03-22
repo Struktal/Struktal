@@ -1,0 +1,14 @@
+# User Table
+CREATE TABLE IF NOT EXISTS `User` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `username` VARCHAR(255) NOT NULL,
+    `password` VARCHAR(255) NOT NULL,
+    `email` VARCHAR(255) NOT NULL,
+    `permissionLevel` int(11) NOT NULL,
+    `oneTimePassword` VARCHAR(11) NULL,
+    `oneTimePasswordExpiration` DATETIME NULL,
+    `created` DATETIME NOT NULL,
+    `updated` DATETIME NOT NULL,
+    `deleted` tinyint(1) NOT NULL DEFAULT 0,
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
