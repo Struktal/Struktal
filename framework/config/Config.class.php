@@ -29,6 +29,7 @@ class Config {
     public static function init(): void {
         self::$PROJECT_SETTINGS = array(
             "PROJECT_NAME" => "Project",
+            "WEBSITE_TITLE" => "Project",
             "PROJECT_URL" => "https://domain.com/",
             "PROJECT_AUTHOR" => "Author",
             "PROJECT_VERSION" => "1.0.0"
