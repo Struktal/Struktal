@@ -143,7 +143,7 @@ class GenericObjectDAO {
      * @param int    $offset
      * @return array
      */
-    public function getObjects(array $filter = array("deleted" => false), string $orderBy = "id", bool $orderAsc = true, int $limit = 1, int $offset = 0): array {
+    public function getObjects(array $filter = array("deleted" => false), string $orderBy = "id", bool $orderAsc = true, int $limit = -1, int $offset = 0): array {
         if($this->tableExists($this->CLASS_INSTANCE)) {
             $sql = "SELECT * FROM " . $this->CLASS_INSTANCE;
             if(count($filter) > 0) {
@@ -154,7 +154,9 @@ class GenericObjectDAO {
                 $sql = substr($sql, 0, -5);
             }
             $sql .= " ORDER BY {$orderBy} " . ($orderAsc ? "ASC" : "DESC");
-            $sql .= " LIMIT {$limit} OFFSET {$offset}";
+            if($limit >= 0) {
+                $sql .= " LIMIT {$limit} OFFSET {$offset}";
+            }
     
             $stmt = Database::getConnection()->prepare($sql);
             foreach($filter as $key => $value) {
