@@ -58,7 +58,7 @@ This section provides information about how the framework works and about each o
 3. <a href="#data-access-object-pattern">Data access object pattern</a>
 4. <a href="#router">Router</a>
 5. <a href="#comm-class">``Comm`` class</a>
-6. <a href="#info--warning--and-error-messages">Info-, warning- and error messages</a>
+6. <a href="#info-messages">Info messages</a>
 7. <a href="#curl">Curl</a>
 8. <a href="#mail">Mail</a>
 9. <a href="#geolocation">Geolocation</a>
@@ -342,17 +342,55 @@ Because ``$userDAO->getObjects()`` returns a sequential array, the ``data`` fiel
     <b>Note:</b> You wouldn't want this to be a real API call since it will return <b>ALL</b> information about <b>EVERY</b> user from the database such as real names, password hashes, ...
 </sub>
 
-### Info-, warning- and error messages
-TODO
+### Info messages
+You can send different info messages to the user by using
+```php
+new InfoMessage("MESSAGE", InfoMessage::$TYPE_INFO);
+new InfoMessage("MESSAGE", InfoMessage::$TYPE_WARNING);
+new InfoMessage("MESSAGE", InfoMessage::$TYPE_ERROR);
+new InfoMessage("MESSAGE", InfoMessage::$TYPE_SUCCESS);
+```
+with ``MESSAGE`` being the message that should be displayed.
+
+An info message is stored in the ``$_SESSION`` storage (``$_SESSION["infoMessages"]``) and is displayed by the ``infomessages.php`` Template File on the next page load. Saving the info messages in the ``$_SESSION`` storage allows you to redirect the user to another route without losing them. 
+
+Info messages are automatically removed from the ``$_SESSION`` storage when they're retrieved with ``InfoMessage::getMessages()``. That method also returns the info messages ordered by their type (success, error, warning, info).
 
 ### Curl
-TODO
+You can use the ``Curl`` class to send HTTP GET or POST requests to other servers. To do that, use
+```php
+// GET request to a HTML page
+$curl = new Curl();
+$curl->setUrl("URL");
+$curl->setMethod(Curl::$METHOD_GET);
+$curl->addHeader(array(
+    "accept" => "text/html, application/xhtml+xml"
+));
+$response = $curl->execute();
+$responseCode = $curl->getHttpCode();
+$curl->close();
+
+// POST request to a JSON API 
+$curl = new Curl();
+$curl->setUrl("URL");
+$curl->setMethod(Curl::$METHOD_POST);
+$curl->addHeader(array(
+    "accept" => "application/json"
+));
+$curl->addPostData(array(
+    "key" => "value"
+));
+$response = $curl->execute();
+$responseCode = $curl->getHttpCode();
+$curl->close();
+```
+with ``URL`` being the URL of the server that you want to send the request to.
 
 ### Mail
 TODO
 
 ### Geolocation
-**Legal Note:** This library uses the [Nominatim](https://nominatim.org/) API. Please read the [Terms of Use](https://operations.osmfoundation.org/policies/nominatim/) before using it.
+**Legal Note:** This library uses the [Nominatim](https://nominatim.org/) API. Please read the [Terms of Use](https://operations.osmfoundation.org/policies/nominatim/) before using it and comply with them.
 
 The geocoding library allows you to get the coordinates of an address or the address of coordinates. To do that, use
 ```php
