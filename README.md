@@ -51,18 +51,20 @@ It's recommended to use the following ``.gitignore``-template:
 5. Now, you can add new scripts inside of the ``📁 project/`` directory.
 
 ## How to use
-This section provides information about how the framework works and about each of the frameworks features.
+This section provides information about how the framework works and about each of the framework's features.
 
 1. <a href="#file-structure">File structure</a>
+2. <a href="#config">Config</a>
 2. <a href="#logger">Logger</a>
 3. <a href="#data-access-object-pattern">Data access object pattern</a>
 4. <a href="#router">Router</a>
 5. <a href="#comm-class">``Comm`` class</a>
-6. <a href="#info-messages">Info messages</a>
-7. <a href="#curl">Curl</a>
-8. <a href="#mail">Mail</a>
-9. <a href="#geolocation">Geolocation</a>
-10. <a href="#date-formatter">Date formatter</a>
+6. <a href="#template-files">Template files</a>
+7. <a href="#info-messages">Info messages</a>
+8. <a href="#curl">Curl</a>
+9. <a href="#mail">Mail</a>
+10. <a href="#geolocation">Geolocation</a>
+11. <a href="#date-formatter">Date formatter</a>
 
 ### File structure
 The root directory contains the following files and subdirectories:
@@ -107,6 +109,48 @@ There are the following files and subdirectories:
   - ``📁 dao/`` - DAO classes that are used in your project
   - ``📁 lib/`` - Additional libraries that are used in your project
   - ``📁 object/`` - Objects that are used in your project
+
+### Config
+The framework provides a configuration file that allows you to configure the functions of the framework and your project.
+
+The configuration file (``app-config.php``) is located in the ``📁 project/config/`` directory. It includes the ``app-config.inc.php`` file, where settings that should be ignored in repositories (e.g. database credentials, parameters that are changed for testing purposes, ...) can be overwritten.
+
+You can modify the following settings:
+- Project Settings
+  - ``PROJECT_NAME`` - The project's name
+  - ``WEBSITE_TITLE`` - The title that is displayed for the browser tab
+  - ``WEBSITE_URL`` - The project's URL
+  - ``PROJECT_AUTHOR`` - The author of the project that is displayed in the footer
+  - ``PROJECT_VERSION`` - The version of the project that is displayed in the footer
+- Menu Settings
+  - ``MENU_SIDEBAR`` - The items shown in the sidebar navigator
+- Time Format Settings
+  - ``DATE_TECHNICAL`` - The format of a date that is used by the backend
+  - ``TIME_TECHNICAL`` - The format of a time that is used by the backend
+  - ``DATETIME_TECHNICAL`` - The format of a date and time that is used by the backend
+  - ``DATE_VISUAL`` - The format how a date is displayed in the frontend
+  - ``TIME_VISUAL`` - The format how a time is displayed in the frontend
+  - ``DATETIME_VISUAL`` - The format how a date and time is displayed in the frontend
+- Logger Settings
+  - ``LOG_DIRECTORY`` - The directory where the logfiles should be stored
+  - ``LOG_FILENAME`` - The filename format of a logfile
+  - ``LOG_LEVEL`` - The minimum importance that is required for a message to get written into a logfile
+- Database Settings
+  - ``DB_HOST`` - Database hostname
+  - ``DB_USER`` - Database username
+  - ``DB_PASSWORD`` - Database password
+  - ``DB_NAME`` - Database name
+  - ``DB_USE`` - Whether the database should be used or not
+- Mail Settings
+  - ``MAIL_DEFAULT_SENDER_EMAIL`` - The default sender email address
+  - ``MAIL_DEFAULT_SENDER_NAME`` - The default sender name
+  - ``MAIL_DEFAULT_REPLY_TO`` - The default reply-to email address
+  - ``MAIL_DEFAULT_SUBJECT`` - The default subject of an email
+  - ``MAIL_REDIRECT_ALL_MAILS`` - Whether all mails should be redirected to a specific email address for testing purposes
+  - ``MAIL_REDIRECT_ALL_MAILS_TO`` - The email address to which all mails should be redirected (if ``MAIL_REDIRECT_ALL_MAILS`` is set to ``true``)
+- Class Loader Settings
+  - ``CLASS_LOADER_IGNORE_FILES`` - Files that should be ignored by the class loader
+  - ``CLASS_LOADER_IMPORT_PATHS`` - Paths that should be imported by the class loader
 
 ### Logger
 A helpful tool for developing and maintaining a project with the framework is it's logger. It allows you to easily write info, error or debug messages into a logfile. To do that, use
@@ -169,7 +213,7 @@ The above example would allow us to access and manipulate the database table cal
 <b>Note:</b> Database tables are not set up automatically, this needs to be done manually.
 
 #### Saving an object to the database
-To create a new database entry for an object, you have to create an instance of the object, assign the attributes and save it with the DAOs ``save`` method:
+To create a new database entry for an object, you have to create an instance of the object, assign the attributes and save it with the DAO's ``save`` method:
 ```php
 // Create an instance of the object
 $myObject = new MyObject();
@@ -199,7 +243,7 @@ MyObject::dao()->save($myObject);
 Instead of creating a new object, you can also <a href="#loading-objects-from-the-database">load an existing object from the database</a> and modify it.
 
 #### Loading objects from the database
-To load objects from the database, you can use the DAOs ``getObject`` or ``getObjects`` methods:
+To load objects from the database, you can use the DAO's ``getObject`` or ``getObjects`` methods:
 ```php
 // Get the object with the ID 1 if it isn't deleted
 $myObject = MyObject::dao()->getObject(array("id" => 1, "deleted" => false));
@@ -225,7 +269,7 @@ MyObject::dao()->save($myObject);
 ```
 
 ### Router
-To add Routes to your project, edit the ``app-routes.php`` file in the ``📁 project/`` directory.
+To add routes to your project, edit the ``app-routes.php`` file in the ``📁 project/`` directory.
 
 To add a route, use
 ```php
@@ -239,7 +283,7 @@ For more information about how HTTP GET parameters are included in the URI, plea
 - ``TARGET_FILE``: The target file is the file that the user should get redirected to when he uses the route.<br>
 It is meant to be located in the ``📁 htdocs/`` directory. As described in <a href="#file-structure">File structure</a>, it can be any file that the user should get displayed (e.g. PHP scripts, HTML sites, ...).
 - ``ROUTE_NAME``: The route name is used by the ``Router::generate`` method.<br>
-For details about that methods abilities, please read the section <a href="#generate-urls">Generate URLs</a> below.
+For details about that method'ss abilities, please read the section <a href="#generate-urls">Generate URLs</a> below.
 
 #### HTTP GET parameters
 With this router, HTTP GET parameters cannot be set by adding e.g. ``?key1=value1&key2=value2`` at the end of the URI. Instead, the parameters are strictly included in the route, e.g.: ``/user/<username>/edit``, with "<username>" being replaced as an actual user name.
@@ -269,7 +313,7 @@ $username = $_GET["username"];
 #### Generate URLs
 The ``Router`` class also offers a method to generate routes that you can add into your PHP script to set button or link redirects or similar.
 
-This comes in handy specially if you want the URL of a route with may GET parameters. By handing the routes name and the array of parameters that should be bound into the URL, it will return the URI with all GET parameters set.
+This comes in handy specially if you want the URL of a route with may GET parameters. By handing the route's name and the array of parameters that should be bound into the URL, it will return the URI with all GET parameters set.
 
 Assumed you have already added the following route:
 ```php
@@ -342,6 +386,33 @@ Because ``$userDAO->getObjects()`` returns a sequential array, the ``data`` fiel
     <b>Note:</b> You wouldn't want this to be a real API call since it will return <b>ALL</b> information about <b>EVERY</b> user from the database such as real names, password hashes, ...
 </sub>
 
+### Template files
+Template files are, in this framework, PHP files that are used to generate the HTML content of the website (you could also add a templating engine such as Twig or Smarty to achieve that).They are located in the ``📁 project/htdocs/frontend/`` directory and are included by the scripts in the ``📁 project/htdocs/`` directory.
+
+To include a template file from a script, use
+```php
+Template::loadTemplate("TEMPLATE_FILE");
+```
+with ``TEMPLATE_FILE`` being the template file's name within the ``📁 project/htdocs/frontend/`` directory.
+
+To reduce code duplication and make it easier to maintain the project, you can include another template file within a template file. This comes in handy if you want to include the same header and footer on each page of the website.
+
+To do that, use
+```php
+Template::includeTemplate("TEMPLATE_FILE");
+```
+with ``TEMPLATE_FILE`` being the template file's name within the ``📁 project/htdocs/frontend/includes/`` directory.
+
+Because in that case, the website's title would be the same on every page, you can set it individually by using either
+```php
+Template::setWebsiteTitle("TITLE");
+```
+which will append the Value defined in the project config under ``WEBSITE_TITLE`` to the passed ``TITLE`` or
+```php
+Template::overrideWebsiteTitle("TITLE");
+```
+which will set the website's title only to the passed ``TITLE``.
+
 ### Info messages
 You can send different info messages to the user by using
 ```php
@@ -387,10 +458,26 @@ $curl->close();
 with ``URL`` being the URL of the server that you want to send the request to.
 
 ### Mail
-TODO
+You can use the ``Mail`` class to send emails. To do that, use
+```php
+// Initialize the mail object
+$mail = new Mail();
+$mail->setSenderEmail("SENDER_EMAIL");
+$mail->setSenderName("SENDER_NAME");
+$mail->setReplyTo("REPLY_TO");
+$mail->setSubject("SUBJECT");
+$mail->setMessage("MESSAGE");
+
+// Send the mail either as plain text or as HTML
+$mail->sendTextMail("RECIPIENT_EMAIL");
+$mail->sendHTMLMail("RECIPIENT_EMAIL");
+```
+with ``SENDER_EMAIL`` being the displayed sender email address, ``SENDER_NAME`` the displayed sender name, ``REPLY_TO`` the email address that should be used as reply-to address, ``SUBJECT`` the mail's subject, ``MESSAGE`` it's body and ``RECIPIENT_EMAIL`` the email address the mail should be sent to.
+
+The mail's body can be formatted as plain text or as HTML. To send it as plain text, use the ``sendTextMail`` method, if you want to send an HTML mail, use the ``sendHTMLMail`` method. The difference between both methods is that the ``sendHTMLMail`` method will add the ``Content-Type: text/html`` header to the mail.
 
 ### Geolocation
-**Legal Note:** This library uses the [Nominatim](https://nominatim.org/) API. Please read the [Terms of Use](https://operations.osmfoundation.org/policies/nominatim/) before using it and comply with them.
+<b>Legal Note:</b> This library uses the [Nominatim](https://nominatim.org/) API. Please read the [Terms of Use](https://operations.osmfoundation.org/policies/nominatim/) before using it and comply with them.
 
 The geocoding library allows you to get the coordinates of an address or the address of coordinates. To do that, use
 ```php
@@ -417,8 +504,13 @@ $country = $address["country"];
 $formattedAddress = $geolocation->getFormattedAddress();
 ```
 
-### Date Formatter
-TODO
+### Date formatter
+The ``DateFormatter`` class is used to format or parse DateTimes. The usage is demonstrated with the ``DATETIME_TECHNICAL`` format, but it is the same for all other formats defined in the date format config. These methods ensure that the date format is always the same and as defined in the config, no matter where it is used.
+```php
+$datetime = new DateTime();
+$formattedDate = DateFormatter::technicalDateTime($datetime);
+$parsedDate = DateFormatter::parseTechnicalDateTime($formattedDate);
+```
 
 ## Internal classes
 There are a few classes that should ideally be used by the framework only. Those classes are documented below.
