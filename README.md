@@ -31,7 +31,7 @@ git clone https://github.com/JensOstertag/PHP-Framework.git .
 2. If you didn't clone the repository in the root directory but in any Directory (e.g. ``📁 your/directory/``), change the ``RewriteBase`` in  the ``.htaccess`` file from ``📁 /`` to that directory (``/`` -> ``/your/directory/``). If you cloned it in the root directory, you can skip this step.
 This is required because all (*) requests withing ``📁 your/directory/`` should be rewritten to ``your/directory/routes-handler.php``.
 
-<sub>* Not all requests within that directory will be rewritten. There's a directory called ``📁 static/`` where direct requests are allowed. It's described in the <a href="">file structure documentation</a> as to why that is.</sub>
+<sub>* Not all requests within that directory will be rewritten. There's a directory called ``📁 static/`` where direct requests are allowed. It's described in the <a href="docs/file-structure.md">file structure documentation</a> as to why that is.</sub>
 
 3. In case you want to use git versioning for your project, navigate to the ``project`` directory and initialize a new repository:
 ```console
@@ -53,7 +53,7 @@ It's recommended to use the following ``.gitignore``-template:
 ## How to use
 This section provides quick tutorials about how to use the framework and it's features.
 
-If you haven't used the framework before, it's recommended to take a look at the documentation of the <a href="">file structure</a>, <a href="">config</a> and the <a href="">logger</a> first. It's important to know the file structure to understand the following information and it's helpful to work with the logger to understand what's going on.
+If you haven't used the framework before, it's recommended to take a look at the documentation of the <a href="docs/file-structure.md">file structure</a>, <a href="docs/config.md">config</a> and the <a href="docs/logger.md">logger</a> first. It's important to know the file structure to understand the following information and it's helpful to work with the logger to understand what's going on.
 
 <details>
 <summary><b>Change basic project settings (name, website title, URL, ...)</b></summary>
@@ -122,21 +122,21 @@ TODO
 
 ## Documentation
 Learn more about the framework and it's features in the documentation:
-- <a href="">File structure</a>
-- <a href="">Config</a>
-- <a href="">Logger</a>
-- <a href="">Data access object pattern</a>
-- <a href="">Router</a>
-- <a href="">``Comm`` class</a>
-- <a href="">Template files</a>
-- <a href="">Info messages</a>
-- <a href="">Curl</a>
-- <a href="">Mail</a>
-- <a href="">Geolocation</a>
-- <a href="">Date formatter</a>
+- <a href="docs/file-structure.md">File structure</a>
+- <a href="docs/config.md">Config</a>
+- <a href="docs/logger.md">Logger</a>
+- <a href="docs/dao-pattern.md">Data access object pattern</a>
+- <a href="docs/router.md">Router</a>
+- <a href="docs/comm.md">``Comm`` class</a>
+- <a href="docs/templates.md">Template files</a>
+- <a href="docs/info-messages.md">Info messages</a>
+- <a href="docs/curl.md">Curl</a>
+- <a href="docs/mail.md">Mail</a>
+- <a href="docs/geolocation.md">Geolocation</a>
+- <a href="docs/date-formatter.md">Date formatter</a>
 
 There's also a documentation for classes that are used internally by the framework:
-- <a href="">Class loader</a>
+- <a href="docs/internal/class-loader.md">Class loader</a>
 
 ## Contributing
 TODO
