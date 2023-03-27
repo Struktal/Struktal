@@ -3,9 +3,9 @@ Template::setWebsiteTitle("400");
 Template::includeTemplate("header.php");
 ?>
 
-<h1>400</h1>
+<h1>Home</h1>
 <p>
-    There was an error with your request.
+    Hello, World!
 </p>
 
 <?php

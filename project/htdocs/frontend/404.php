@@ -5,7 +5,7 @@ Template::includeTemplate("header.php");
 
 <h1>404</h1>
 <p>
-    Die angefragte Ressource konnte nicht gefunden werden.
+    The requested resource could not be found.
 </p>
 
 <?php
