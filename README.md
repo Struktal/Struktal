@@ -57,7 +57,53 @@ If you haven't used the framework before, it's recommended to take a look at the
 
 <details>
 <summary><b>Change basic project settings (name, website title, URL, ...)</b></summary>
-TODO
+
+You can (and should) change project settings for fresh projects in the ``📁 project/config/app-config.php`` and the `📁 project/config/app-config.inc.php` file. The difference between them is that the ``app-config.inc.php`` file can be ignored by a ``.gitignore``. This makes it possible to store information such as database credentials or other settings that might have been used for testing purposes.
+
+There are the following settings:
+- ``PROJECT_SETTINGS``
+  - ``PROJECT_NAME`` - The name of your project that is displayed in the header and footer of your website by default
+  - ``PROJECT_TITLE`` - The title of your project that is displayed in the browser tab
+  - ``PROJECT_URL`` - The URL of your project
+  - ``PROJECT_AUTHOR`` - Your name or the name of your company / team that is displayed in the website's footer by default
+  - ``PROJECT_VERSION`` - The current version of the project that is displayed in the website's footer by default
+- ``MENU_SETTINGS``
+  - ``MENU_ITEMS`` - An array with the following structure of all menu items that should be displayed in the sidebar<br>
+```php
+[
+    "DISPLAY_NAME" => [
+        "route" => "ROUTE"
+    ],
+    // ...
+]
+```
+- ``DATETIME_SETTINGS``
+  - ``DATE_TECHNICAL`` - The format of a date that is used for technical purposes (e.g. in the router)
+  - ``TIME_TECHNICAL`` - The format of a time that is used for technical purposes
+  - ``DATETIME_TECHNICAL`` - The format of a datetime that is used for technical purposes
+  - ``DATE_VISUAL`` - The format of a date that is displayed in the frontend
+  - ``TIME_VISUAL`` - The format of a time that is displayed in the frontend
+  - ``DATETIME_VISUAL`` - The format of a datetime that is displayed in the frontend
+- ``LOG_SETTINGS``
+  - ``LOG_DIRECTORY`` - The directory where logfiles are stored
+  - ``LOG_FILENAME`` - The filename format of a logfile with ``%date%`` replacing the date
+  - ``LOG_LEVEL`` - The minimum log level that is required for a message to be written in the logfile
+- ``DATABASE_SETTINGS`` (These settings should be changed in the ``app-config.inc.php`` file)
+  - ``DB_HOST`` - The host of the database
+  - ``DB_USER`` - The username of the database user
+  - ``DB_PASS`` - The password of the database user
+  - ``DB_NAME`` - The name of the database
+  - ``DB_USE`` - Whether or not the database should is used
+- ``MAIL_SETTINGS``
+  - ``MAIL_DEFAULT_SENDER_EMAIL`` - The default sender email address
+  - ``MAIL_DEFAULT_SENDER_NAME`` - The default sender name
+  - ``MAIL_DEFAULT_REPLY_TO`` - The default reply-to email address
+  - ``MAIL_DEFAULT_SUBJECT`` - The default subject of an email
+  - ``MAIL_REDIRECT_ALL_MAILS`` - Whether or not all mails should be redirected to a specific email address
+  - ``MAIL_REDIRECT_ALL_MAILS_TO`` - The email address to which all mails should be redirected
+- ``CLASS_LOADER_SETTINGS``
+  - ``CLASS_LOADER_IGNORE_FILES`` - An array of files that should be ignored by the class loader
+  - ``CLASS_LOADER_IMPORT_PATHS`` - An array of paths that should be included additionally to the default paths
 </details>
 
 <details>

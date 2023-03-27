@@ -27,7 +27,7 @@ You can modify the following settings:
 - Database Settings
     - ``DB_HOST`` - Database hostname
     - ``DB_USER`` - Database username
-    - ``DB_PASSWORD`` - Database password
+    - ``DB_PASS`` - Database password
     - ``DB_NAME`` - Database name
     - ``DB_USE`` - Whether the database should be used or not
 - Mail Settings
