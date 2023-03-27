@@ -35,7 +35,7 @@ The returned JSON response will look like this:
     "data": DATA
 }
 ```
-<b>Note:</b> The ``data`` field is a JSON object if the passed ``DATA`` array is an associative array and a JSON array if it is a sequential array.
+> <b>Note:</b> The ``data`` field is a JSON object if the passed ``DATA`` array is an associative array and a JSON array if it is a sequential array.
 
 You can use those responses with ``apiSendJson`` like shown in the following example:
 ```php
@@ -54,5 +54,5 @@ This will return roughly the following response (``data`` will hold the informat
 ```
 Because ``$userDAO->getObjects()`` returns a sequential array, the ``data`` field in the JSON response is a JSON array.<br>
 <sub>
-<b>Note:</b> You wouldn't want this to be a real API call since it will return <b>ALL</b> information about <b>EVERY</b> user from the database such as real names, password hashes, ...
+> <b>Note:</b> You wouldn't want this to be a real API call since it will return <b>ALL</b> information about <b>EVERY</b> user from the database such as real names, password hashes, ...
 </sub>

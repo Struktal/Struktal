@@ -2,11 +2,11 @@
 ## Config
 The framework provides a configuration file that allows you to configure the functions of the framework and your project.
 
-The configuration file (``app-config.php``) is located in the ``📁 project/config/`` directory. It includes the ``app-config.inc.php`` file, where settings that should be ignored in repositories (e.g. database credentials, parameters that are changed for testing purposes, ...) can be overwritten.
+The configuration file (``app-config.php``) is located in the ``📁 project/config/`` directory. It includes the ``app-config.inc.php`` file, where settings that should be ignored in git repositories (e.g. database credentials, parameters that are changed for testing purposes, ...) can be overwritten.
 
 You can modify the following settings:
 - Project Settings
-    - ``PROJECT_NAME`` - The project's name
+    - ``PROJECT_NAME`` - The project's name that is displayed in the header and footer
     - ``WEBSITE_TITLE`` - The title that is displayed for the browser tab
     - ``WEBSITE_URL`` - The project's URL
     - ``PROJECT_AUTHOR`` - The author of the project that is displayed in the footer

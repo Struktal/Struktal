@@ -23,27 +23,33 @@ These instructions will help you to get the framework up and running.
 - A database system such as MySQL or MariaDB
 
 ### Installing
-1. Clone this repository in any directory of the web server:
+1. Clone this repository into any directory of the web server (ideally the root directory):
 ```sh
 git clone https://github.com/JensOstertag/PHP-Framework.git .
 ```
 
-2. If you didn't clone the repository in the root directory but in any Directory (e.g. ``📁 your/directory/``), change the ``RewriteBase`` in  the ``.htaccess`` file from ``📁 /`` to that directory (``/`` -> ``/your/directory/``). If you cloned it in the root directory, you can skip this step.
-This is required because all (*) requests withing ``📁 your/directory/`` should be rewritten to ``your/directory/routes-handler.php``.
+2. If you didn't clone the repository into the root directory but in any other directory (e.g. ``📁 your/directory/``), you have to modify the ``.htaccess`` file as follows:<br>
+   - Change the value after ``RewriteBase`` from the default value ``/`` (that stands for your server's root directory) to the directory you cloned the repository into (e.g. ``/your/directory/``).
 
-<sub>* Not all requests within that directory will be rewritten. There's a directory called ``📁 static/`` where direct requests are allowed. It's described in the <a href="docs/file-structure.md">file structure documentation</a> as to why that is.</sub>
+   This is required because all (*) requests withing ``📁 your/directory/`` should be rewritten to ``your/directory/routes-handler.php``.
 
-3. In case you want to use git versioning for your project, navigate to the ``project`` directory and initialize a new repository:
-```sh
-git init
-```
-It's recommended to use the following ``.gitignore``-template:
-```console
-# Ignore Files that contain sensible Information such as Passwords or secret Keys
-/project/config/*.inc.php
-```
+   <sub>* Not all requests within that directory will be rewritten. There's a directory called ``📁 static/`` where direct requests are allowed. It's described in the <a href="docs/file-structure.md">file structure documentation</a> as to why that is.</sub>
 
-4. Update the following configuration files within the ``📁 project/config/`` directory. 
+3. In case you want to use git versioning for your project, remove the current remote and add a new one:
+   ```sh
+   git remote remove REMOTE
+   git remote add REMOTE URL
+   ```
+   with ``REMOTE`` being the remote's name (much likely ``origin``) and ``URL`` being the URL of the new remote.
+
+   It's recommended to use the following ``.gitignore``-template:
+   ```console
+   # Ignore Files that contain sensible Information such as Passwords or secret Keys
+   /project/config/*.inc.php
+   ```
+   It's up to you to decide whether or not you want to ignore the framework's files within the ``📁 framework/`` directory.
+
+4. Update the following configuration files in the ``📁 project/config/`` directory: 
     - ``app-config.php`` - Basic project settings
     - ``app-config.inc.php`` - Project settings that shouldn't be in a git repository
     - ``app-routes.php`` - Routes initialization
@@ -69,14 +75,14 @@ There are the following settings:
   - ``PROJECT_VERSION`` - The current version of the project that is displayed in the website's footer by default
 - ``MENU_SETTINGS``
   - ``MENU_ITEMS`` - An array with the following structure of all menu items that should be displayed in the sidebar<br>
-```php
-[
-    "DISPLAY_NAME" => [
-        "route" => "ROUTE"
-    ],
-    // ...
-]
-```
+    ```php
+    [
+        "DISPLAY_NAME" => [
+            "route" => "ROUTE"
+        ],
+        // ...
+    ]
+    ```
 - ``DATETIME_SETTINGS``
   - ``DATE_TECHNICAL`` - The format of a date that is used for technical purposes (e.g. in the router)
   - ``TIME_TECHNICAL`` - The format of a time that is used for technical purposes

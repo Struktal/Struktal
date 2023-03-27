@@ -14,7 +14,7 @@ For every object class, there's also an own belonging DAO class that is located 
 
 Every DAO is meant to inherit from the ``GenericObjectDAO`` class. This contains the required methods to save and load objects to or from the database.
 
-<b>Note:</b> A data access object can only be used for objects of it's belonging class, which is also the reason why there needs to be an own DAO class for each object class.
+> <b>Note:</b> A data access object can only be used for objects of it's belonging class, which is also the reason why there needs to be an own DAO class for each object class.
 
 ### Setting up a new object
 To set up a new object, you need to create a new class within the ``📁 project/src/object/`` directory. The class name has to be the same as the table name in the database.
@@ -95,6 +95,8 @@ For both methods you can set the following parameters:
 - ``limit``: The maximum amount of objects that should be returned (-1 for no limit)
 - ``offset``: The offset from which the objects should be returned
 
+> <b>Note:</b> As there is a ``deleted`` flag for every object, you should always set the ``deleted`` filter to ``false`` to only retrieve objects that aren't deleted, except of course you want to retrieve deleted objects.
+
 ### Deleting objects from the database
 To delete an object from the database, call the objects ``setDeleted`` method with the parameter ``true`` and save it with the DAOs ``save`` method:
 ```php
@@ -104,3 +106,4 @@ $myObject->setDeleted(true);
 $myObject->setUpdated(new DateTime());
 MyObject::dao()->save($myObject);
 ```
+> <b>Note:</b> You might notice that you can delete an object by setting the ``deleted`` flag to ``true``, which doesn't actually delete the database entry. This is done to allow undoing the deletion of an object. However, this enforces you to only retrieve objects that aren't deleted.
