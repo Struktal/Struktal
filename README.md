@@ -24,7 +24,7 @@ These instructions will help you to get the framework up and running.
 
 ### Installing
 1. Clone this repository in any directory of the web server:
-```console
+```sh
 git clone https://github.com/JensOstertag/PHP-Framework.git .
 ```
 
@@ -34,11 +34,11 @@ This is required because all (*) requests withing ``📁 your/directory/`` shoul
 <sub>* Not all requests within that directory will be rewritten. There's a directory called ``📁 static/`` where direct requests are allowed. It's described in the <a href="docs/file-structure.md">file structure documentation</a> as to why that is.</sub>
 
 3. In case you want to use git versioning for your project, navigate to the ``project`` directory and initialize a new repository:
-```console
+```sh
 git init
 ```
 It's recommended to use the following ``.gitignore``-template:
-```dockerfile
+```console
 # Ignore Files that contain sensible Information such as Passwords or secret Keys
 /project/config/*.inc.php
 ```
@@ -108,7 +108,22 @@ There are the following settings:
 
 <details>
 <summary><b>Using the logger correctly</b></summary>
-TODO
+
+It's helpful to use the logger to understand what's going on, whilst developing the project as well as in production. The logger is used to log messages with different log levels. The log levels are the following:
+- ``DEBUG``
+- ``INFO``
+- ``ERROR``
+
+You can set the minimum required log level for a message to be written in the logfile in the ``📁 project/config/app-config.php`` file. The default value is ``INFO``. You can also change the directory where logfiles should be saved in as well as their filename format there. By default, there is one logfile per day.
+
+In the following example you can see how the logger should be used:
+```php
+<?php
+    Logger::getLogger("TAG")->debug("MESSAGE");
+    Logger::getLogger("TAG")->info("MESSAGE");
+    Logger::getLogger("TAG")->error("MESSAGE");
+?>
+```
 </details>
 
 <details>
