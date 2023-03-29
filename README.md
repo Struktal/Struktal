@@ -154,7 +154,24 @@ TODO
 
 <details>
 <summary><b>Redirect to other pages or websites</b></summary>
-TODO
+
+To redirect the user to another page or website, you can use the ``Comm`` class' ``Comm::redirect(String $path)`` method. It sets the ``Location`` header to the given path and stops the execution of the script.
+
+The following example shows how to redirect to another page of your website:
+```php
+<?php
+    Comm::redirect(Router::generate("ROUTE"));
+?>
+```
+It uses the ``Router::generate(String $route)`` method to generate the path to the given route automatically. Have a look at the <a href="docs/router.md">router documentation</a> for more information.
+
+To redirect to another website, you can use the following code example:
+```php
+<?php
+    Comm::redirect("https://www.example.com");
+?>
+```
+
 </details>
 
 <details>
