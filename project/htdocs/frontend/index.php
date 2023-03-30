@@ -1,5 +1,5 @@
 <?php
-Template::setWebsiteTitle("400");
+Template::setWebsiteTitle("Home");
 Template::includeTemplate("header.php");
 ?>
 
