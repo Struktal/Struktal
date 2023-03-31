@@ -215,14 +215,36 @@ This will allow you to access the page by the URI ``/api/ID`` with ``ID`` being 
 <?php
     $id = $_GET["id"];
     // ...
-?>
 ```
 For more information about the ``Router`` class, take a look at the <a href="docs/router.md">router documentation</a>.
 </details>
 
 <details>
 <summary><b>Create a sidebar menu item for a page</b></summary>
-TODO
+
+The items in the sidebar menu are defined in the ``📁 project/config/app-config.php`` file in the ``$MENU_SETTINGS["MENU_SIDEBAR"]`` array with the following structure:
+```php
+[
+    "DISPLAY_NAME" => [
+        "route" => "ROUTE"
+    ],
+    // ...
+]
+```
+The ``DISPLAY_NAME`` is the name that is displayed in the sidebar menu. The ``ROUTE`` is the URI that is used to access the page. It's recommended to use the ``Router::generate(String $route)`` method to generate the URI automatically. Have a look at the <a href="docs/router.md">router documentation</a> for more information.
+
+Assumed you've already created a page and a route with the route name ``example`` to that page (as it was described in the corresponding tutorial), you can add a sidebar menu item as follows:
+```php
+<?php
+    // Config settings...
+    
+    // Add a sidebar menu item for the example page
+    $MENU_SETTINGS["MENU_SIDEBAR"]["Example"] = array(
+        "route" => Router::generate("example")
+    );
+
+    // Config settings...
+```
 </details>
 
 <details>
@@ -259,7 +281,27 @@ TODO
 
 <details>
 <summary><b>Display info, warning, error or success messages</b></summary>
-TODO
+
+To display info, warning, error or success messages, you can use the ``InfoMessage`` class. It's constructor takes a parameter for the message itself and the message type. The message type is an integer that is defined as static values of the ``InfoMessage`` class.
+
+This is how you can display an info message:
+```php
+<?php
+    // Info message
+    new InfoMessage("This is an info message", InfoMessage::INFO);
+
+    // Warning message
+    new InfoMessage("This is a warning message", InfoMessage::WARNING);
+
+    // Error message
+    new InfoMessage("This is an error message", InfoMessage::ERROR);
+
+    // Success message
+    new InfoMessage("This is a success message", InfoMessage::SUCCESS);
+```
+To prevent unwanted side effects, it's recommended to only send info messages from an executed website script. If you want to send info messages from other scripts.
+
+For more information about the ``InfoMessage`` class, take a look at the <a href="docs/info-messages.md">info message documentation</a>.
 </details>
 
 <details>
