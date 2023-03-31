@@ -306,12 +306,71 @@ For more information about the ``InfoMessage`` class, take a look at the <a href
 
 <details>
 <summary><b>Using the CURL helper class</b></summary>
-TODO
+
+You can use the ``Curl`` class to send HTTP GET or POST requests to other servers. The following example code shows how to send a GET request to read an HTML page:
+```php
+<?php
+    $curl = new Curl();
+    
+    // Define the request and headers
+    $curl->setUrl("URL");
+    $curl->setMethod(Curl::$METHOD_GET);
+    $curl->addHeader(array(
+        "accept" => "text/html, application/xhtml+xml"
+    ));
+    
+    // Get the response
+    $response = $curl->execute();
+    $responseCode = $curl->getHttpCode();
+    $curl->close();
+```
+with ``URL`` being the URL of the server that you want to send the request to.
+
+As a more complex example, let's assume you want to send a POST request to a server that requires a data body. You can do that as follows:
+```php
+<?php
+    $curl = new Curl();
+    
+    // Define the request and headers
+    $curl->setUrl("URL");
+    $curl->setMethod(Curl::$METHOD_POST);
+    $curl->addHeader(array(
+        "accept" => "application/json"
+    ));
+    
+    // Add data to the request
+    $curl->addPostData(array(
+        "key" => "value"
+    ));
+    
+    // Get the response
+    $response = $curl->execute();
+    $responseCode = $curl->getHttpCode();
+    $curl->close();
+```
+Here, the ``URL`` is also replaced by the URL of the server that you want to send the request to. 
 </details>
 
 <details>
 <summary><b>Using the mail helper class</b></summary>
-TODO
+
+You can use the ``Mail`` class to send emails. To do that, use
+```php
+// Initialize the mail object
+$mail = new Mail();
+$mail->setSenderEmail("SENDER_EMAIL");
+$mail->setSenderName("SENDER_NAME");
+$mail->setReplyTo("REPLY_TO");
+$mail->setSubject("SUBJECT");
+$mail->setMessage("MESSAGE");
+
+// Send the mail either as plain text or as HTML
+$mail->sendTextMail("RECIPIENT_EMAIL");
+$mail->sendHTMLMail("RECIPIENT_EMAIL");
+```
+with ``SENDER_EMAIL`` being the displayed sender email address, ``SENDER_NAME`` the displayed sender name, ``REPLY_TO`` the email address that should be used as reply-to address, ``SUBJECT`` the mail's subject, ``MESSAGE`` it's body and ``RECIPIENT_EMAIL`` the email address the mail should be sent to.
+
+The mail's body can be formatted as plain text or as HTML. To send it as plain text, use the ``sendTextMail`` method, if you want to send an HTML mail, use the ``sendHTMLMail`` method. The difference between both methods is that the ``sendHTMLMail`` method will add the ``Content-Type: text/html`` header to the mail.
 </details>
 
 <details>
