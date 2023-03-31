@@ -1,6 +1,6 @@
 <?php
 
-class Geolocation {
+class Geocoding {
     private static string $API_URL = "https://nominatim.openstreetmap.org/";
     private array $address;
     private array $coordinates;
@@ -19,7 +19,7 @@ class Geolocation {
         );
     }
 
-    public function setCoordinates(float $latitude, float $longitude): Geolocation {
+    public function setCoordinates(float $latitude, float $longitude): Geocoding {
         if(($latitude >= -90 || $latitude <= 90) && ($longitude >= -180 || $longitude <= 180)) {
             $this->coordinates["latitude"] = $latitude;
             $this->coordinates["longitude"] = $longitude;
@@ -31,32 +31,32 @@ class Geolocation {
         return $this;
     }
 
-    public function setStreet(string $street): Geolocation {
+    public function setStreet(string $street): Geocoding {
         $this->address["street"] = $street;
         return $this;
     }
 
-    public function setHouseNumber(string $houseNumber): Geolocation {
+    public function setHouseNumber(string $houseNumber): Geocoding {
         $this->address["houseNumber"] = $houseNumber;
         return $this;
     }
 
-    public function setCity(string $city): Geolocation {
+    public function setCity(string $city): Geocoding {
         $this->address["city"] = $city;
         return $this;
     }
 
-    public function setZipCode(string $zipCode): Geolocation {
+    public function setZipCode(string $zipCode): Geocoding {
         $this->address["zipCode"] = $zipCode;
         return $this;
     }
 
-    public function setCountry(string $country): Geolocation {
+    public function setCountry(string $country): Geocoding {
         $this->address["country"] = $country;
         return $this;
     }
 
-    public function setCountryCode(string $countryCode): Geolocation {
+    public function setCountryCode(string $countryCode): Geocoding {
         $this->address["countryCode"] = $countryCode;
         return $this;
     }
@@ -129,7 +129,7 @@ class Geolocation {
         );
     }
 
-    public function toAddress(): Geolocation {
+    public function toAddress(): Geocoding {
         $url = self::$API_URL . "reverse?format=json";
         $url .= "&lat=" . $this->coordinates["latitude"];
         $url .= "&lon=" . $this->coordinates["longitude"];
@@ -187,7 +187,7 @@ class Geolocation {
         return $this;
     }
 
-    public function toCoordinates(): Geolocation {
+    public function toCoordinates(): Geocoding {
         $url = self::$API_URL . "search?format=json";
         $url .= "&street=" . $this->address["street"] . " " . $this->address["houseNumber"];
         $url .= "&city=" . $this->address["city"];

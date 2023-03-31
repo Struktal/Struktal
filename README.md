@@ -315,8 +315,35 @@ TODO
 </details>
 
 <details>
-<summary><b>Using the geolocation helper class</b></summary>
-TODO
+<summary><b>Using the geocoding helper class</b></summary>
+
+> <b>Legal Note:</b> The geocoding library uses the [Nominatim](https://nominatim.org/) API. Please read the [Terms of Use](https://operations.osmfoundation.org/policies/nominatim/) before using it and comply with them.
+
+You can use the ``Geocoding`` class to get an address' coordinates or coordinates' address:
+```php
+<?php
+    // Get coordinates of an address
+    $geocoding = new Geocoding();
+    $geocoding->setStreet("Street");
+    $geocoding->setHouseNumber("House number");
+    $geocoding->setCity("City");
+    $geocoding->setZipCode("ZIP code");
+    $geocoding->setCountry("Country");
+    $coordinates = $geocoding->getCoordinates();
+    $lat = $coordinates["latitude"];
+    $lng = $coordinates["longitude"];
+    
+    // Get address of coordinates
+    $geocoding = new Geocoding();
+    $geocoding->setCoordinates(12.345678, 12.345678);
+    $address = $geocoding->getAddress();
+    $street = $address["street"];
+    $houseNumber = $address["houseNumber"];
+    $city = $address["city"];
+    $zipCode = $address["zipCode"];
+    $country = $address["country"];
+    $formattedAddress = $geocoding->getFormattedAddress();
+```
 </details>
 
 <details>
@@ -364,14 +391,14 @@ Learn more about the framework and it's features in the documentation:
 - <a href="docs/info-messages.md">Info messages</a>
 - <a href="docs/curl.md">Curl</a>
 - <a href="docs/mail.md">Mail</a>
-- <a href="docs/geolocation.md">Geolocation</a>
+- <a href="docs/geocoding.md">Geocoding</a>
 - <a href="docs/date-formatter.md">Date formatter</a>
 
 There's also a documentation for classes that are used internally by the framework:
 - <a href="docs/internal/class-loader.md">Class loader</a>
 
-## Contributing
-TODO
+<!--## Contributing-->
+<!--TODO-->
 
 ## License
 TODO
