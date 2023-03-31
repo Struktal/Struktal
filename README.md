@@ -134,7 +134,45 @@ In the following example you can see how the logger should be used:
 
 <details>
 <summary><b>Create a new website page</b></summary>
-TODO
+
+To create a new page for the website, create a new PHP file that should get executed when the user visits the page. The file should be located in the ``📁 project/htdocs/`` directory. There are no limitations what you can do in the script, but it's not recommended to output HTML code or other content directly (exception: you want to send JSON responses, please take a look at the corresponding tutorial or the <a href="docs/comm.md">``Comm`` class documentation</a>). 
+
+Instead, to output content, create a PHP template file in the ``📁 project/htdocs/templates/`` directory. A template file is a normal PHP File that is specialized for outputting content. This separation not only takes care of a better overview, it also separates the logic from the view. For further information about template files, please take a look at the <a href="docs/template.md">template documentation</a>.
+
+Have a look at the following example:
+
+``📁 project/htdocs/`` ``example.php``:
+```php
+<?php
+
+// Assign a variable
+$variable = "Hello World!";
+
+// Load the template
+Template::loadTemplate("example.php");
+```
+This file is the script that gets executed when the user visits the page. In this example, a variable is assigned and the template ``example.php`` is loaded.
+
+``📁 project/htdocs/frontend/`` ``example.php``:
+```php
+<?php
+    // Set the website title and include the header template
+    Template::setWebsiteTitle("Title");
+    Template::includeTemplate("header.php");
+?>
+
+<?php echo $variable; ?>
+
+<?php
+    // Include the footer template
+    Template::includeTemplate("footer.php");
+?>
+```
+This is the template file. It sets a website title and includes the header and footer template files located in the ``📁 project/htdocs/frontend/includes/`` directory. The variable that was assigned in the script is then outputted.
+
+> <b>Note:</b> You could also use [PHP short tags](https://www.php.net/manual/en/language.basic-syntax.phptags.php) within the template file, but make sure that they are enabled in your PHP configuration before doing so.
+
+To learn how to set up a route for your newly created page, take a look at the next tutorial.
 </details>
 
 <details>
