@@ -31,7 +31,7 @@ git clone https://github.com/JensOstertag/PHP-Framework.git .
 2. If you didn't clone the repository into the root directory but in any other directory (e.g. ``📁 your/directory/``), you have to modify the ``.htaccess`` file as follows:<br>
    - Change the value after ``RewriteBase`` from the default value ``/`` (that stands for your server's root directory) to the directory you cloned the repository into (e.g. ``/your/directory/``).
 
-   This is required because all (*) requests withing ``📁 your/directory/`` should be rewritten to ``your/directory/routes-handler.php``.
+   This is required because all (*) requests withing ``📁 your/directory/`` should be rewritten to ``📄 your/directory/routes-handler.php``.
 
    <sub>* Not all requests within that directory will be rewritten. There's a directory called ``📁 static/`` where direct requests are allowed. It's described in the <a href="docs/file-structure.md">file structure documentation</a> as to why that is.</sub>
 
@@ -50,9 +50,9 @@ git clone https://github.com/JensOstertag/PHP-Framework.git .
    It's up to you to decide whether or not you want to ignore the framework's files within the ``📁 framework/`` directory.
 
 4. Update the following configuration files in the ``📁 project/config/`` directory: 
-    - ``app-config.php`` - Basic project settings
-    - ``app-config.inc.php`` - Project settings that shouldn't be in a git repository
-    - ``app-routes.php`` - Routes initialization
+    - ``📄 app-config.php`` - Basic project settings
+    - ``📄 app-config.inc.php`` - Project settings that shouldn't be in a git repository
+    - ``📄 app-routes.php`` - Routes initialization
 
 5. Now, you can add new scripts inside of the ``📁 project/`` directory.
 
@@ -64,7 +64,7 @@ If you haven't used the framework before, it's recommended to take a look at the
 <details>
 <summary><b>Change basic project settings (name, website title, URL, ...)</b></summary>
 
-You can (and should) change project settings for fresh projects in the ``📁 project/config/app-config.php`` and the `📁 project/config/app-config.inc.php` file. The difference between them is that the ``app-config.inc.php`` file can be ignored by a ``.gitignore``. This makes it possible to store information such as database credentials or other settings that might have been used for testing purposes.
+You can (and should) change project settings for fresh projects in the ``📄 project/config/app-config.php`` and the `📄 project/config/app-config.inc.php` file. The difference between them is that the ``📄 app-config.inc.php`` file can be ignored by a ``.gitignore``. This makes it possible to store information such as database credentials or other settings that might have been used for testing purposes.
 
 There are the following settings:
 - ``PROJECT_SETTINGS``
@@ -94,7 +94,7 @@ There are the following settings:
   - ``LOG_DIRECTORY`` - The directory where logfiles are stored
   - ``LOG_FILENAME`` - The filename format of a logfile with ``%date%`` replacing the date
   - ``LOG_LEVEL`` - The minimum log level that is required for a message to be written in the logfile
-- ``DATABASE_SETTINGS`` (These settings should be changed in the ``app-config.inc.php`` file)
+- ``DATABASE_SETTINGS`` (These settings should be changed in the ``📄 app-config.inc.php`` file)
   - ``DB_HOST`` - The host of the database
   - ``DB_USER`` - The username of the database user
   - ``DB_PASS`` - The password of the database user
@@ -120,7 +120,7 @@ It's helpful to use the logger to understand what's going on, whilst developing 
 - ``INFO``
 - ``ERROR``
 
-You can set the minimum required log level for a message to be written in the logfile in the ``📁 project/config/app-config.php`` file. The default value is ``INFO``. You can also change the directory where logfiles should be saved in as well as their filename format there. By default, there is one logfile per day.
+You can set the minimum required log level for a message to be written in the logfile in the ``📄 project/config/app-config.php`` file. The default value is ``INFO``. You can also change the directory where logfiles should be saved in as well as their filename format there. By default, there is one logfile per day.
 
 In the following example you can see how the logger should be used:
 ```php
@@ -141,7 +141,7 @@ Instead, to output content, create a PHP template file in the ``📁 project/htd
 
 Have a look at the following example:
 
-``📁 project/htdocs/`` ``example.php``:
+``📄 project/htdocs/example.php``:
 ```php
 <?php
 
@@ -153,7 +153,7 @@ Template::loadTemplate("example.php");
 ```
 This file is the script that gets executed when the user visits the page. In this example, a variable is assigned and the template ``example.php`` is loaded.
 
-``📁 project/htdocs/frontend/`` ``example.php``:
+``📄 project/htdocs/frontend/example.php``:
 ```php
 <?php
     // Set the website title and include the header template
@@ -178,7 +178,7 @@ To learn how to set up a route for your newly created page, take a look at the n
 <details>
 <summary><b>Create a route for a page</b></summary>
 
-To create a route for a page, you have to add a new entry to the ``📁 project/config/app-routes.php`` file. In that file you can already see some examples and a helper function called ``addRoute`` that registers a new route. The function takes the following parameters:
+To create a route for a page, you have to add a new entry to the ``📄 project/config/app-routes.php`` file. In that file you can already see some examples and a helper function called ``addRoute`` that registers a new route. The function takes the following parameters:
 - ``$method`` - The HTTP method(s) that should be allowed to access the route<br>
   Multiple methods can be specified by separating them with a pipe (``|``) character. For example: ``GET|POST``
 - ``$route`` - The URI that should be used to access the route<br>
@@ -186,7 +186,7 @@ To create a route for a page, you have to add a new entry to the ``📁 project/
   Supported types are ``b`` (boolean), ``d`` (date (without time)), ``f`` (float), ``i`` (integer) and ``s`` (string).<br>
   The name of the parameter is used to identify the parameter within the ``$_GET`` array.
 
-Assumed you already have a page called ``example.php`` in the ``📁 project/htdocs/`` directory (as described in the previous tutorial about setting up a new page), you can use the following code example to add a route for that page:
+Assumed you already have a script called ``📄 example.php`` in the ``📁 project/htdocs/`` directory (as described in the previous tutorial about setting up a new page), you can use the following code example to add a route for that page:
 ```php
 <?php
     function addRoute(string $method, string $route, string $routeTo, string $name): void {
@@ -198,9 +198,9 @@ Assumed you already have a page called ``example.php`` in the ``📁 project/htd
 ```
 This will allow you to access the page with the URI ``/example`` with either the ``GET`` or ``POST`` method.
 
-Note that the ``addRoute`` function doesn't need to be copied as it is already defined in the ``📁 project/config/app-routes.php`` file. It's just shown here for better understanding.
+Note that the ``addRoute`` function doesn't need to be copied as it is already defined in the ``📄 project/config/app-routes.php`` file. It's just shown here for better understanding.
 
-Let's have a look at a more complex example: Assumed you've had a page (``api.php``) that represents an API call that requires passing a ``GET`` parameter called ``id`` of the integer type. You can add a route for this script as shown in the following code:
+Let's have a look at a more complex example: Assumed you've had a script (``api.php``) that represents an API call that requires passing a ``GET`` parameter called ``id`` of the integer type. You can add a route for this script as shown in the following code:
 ```php
 <?php
     function addRoute(string $method, string $route, string $routeTo, string $name): void {
@@ -210,7 +210,7 @@ Let's have a look at a more complex example: Assumed you've had a page (``api.ph
     // Add the route for the page
     addRoute("GET", "/api/{i:id}", "api.php", "api");
 ```
-This will allow you to access the page by the URI ``/api/ID`` with ``ID`` being the integer value of the ``id`` parameter with the ``GET`` method. The ``id`` parameter can then be accessed within the ``api.php`` script by using the ``$_GET`` array like this:
+This will allow you to access the page by the URI ``/api/ID`` with ``ID`` being the integer value of the ``id`` parameter with the ``GET`` method. The ``id`` parameter can then be accessed within the ``📄 api.php`` script by using the ``$_GET`` array like this:
 ```php
 <?php
     $id = $_GET["id"];
@@ -222,7 +222,7 @@ For more information about the ``Router`` class, take a look at the <a href="doc
 <details>
 <summary><b>Create a sidebar menu item for a page</b></summary>
 
-The items in the sidebar menu are defined in the ``📁 project/config/app-config.php`` file in the ``$MENU_SETTINGS["MENU_SIDEBAR"]`` array with the following structure:
+The items in the sidebar menu are defined in the ``📄 project/config/app-config.php`` file in the ``$MENU_SETTINGS["MENU_SIDEBAR"]`` array with the following structure:
 ```php
 [
     "DISPLAY_NAME" => [
@@ -249,7 +249,161 @@ Assumed you've already created a page and a route with the route name ``example`
 
 <details>
 <summary><b>Create a new object that can be stored in the database</b></summary>
-TODO
+
+Creating and modifying entries in the database is done automatically by the implemented data-access-object (DAO) pattern. 
+
+There are so-called "model objects" that represent the data that's being stored in the database, and for each table there is an own model object. They are located in the ``📁 project/src/object/`` directory. 
+
+There's also a data access object interface that defines the standard operations that can be performed on the model objects, such as creating, reading and updating entries. For every model object, there is an own belonging data access object that's located in the ``📁 project/src/dao/`` directory.
+
+To prevent you from having to write the same code over and over again, there are classes called ``GenericObject`` (model object) and ``GenericObjectDAO`` (data access object interface) that every custom object should extend from. The ``GenericObject`` class already implements the table columns
+- ``id`` (integer) - The unique identifier of the object
+- ``created`` (datetime) - The date and time when the object was created
+- ``updated`` (datetime) - The date and time when the object was last updated
+- ``deleted`` (boolean) - A flag that indicates whether the object was deleted or not
+
+and the ``GenericObjectDAO`` the standard operations
+- ``GenericObjectDAO::save(GenericObject $object)`` to create or update an object's database entry
+- ``GenericObjectDAO::getObject(array $filter, string $orderBy, bool $orderAsc, int $limit, int $offset)`` to get a single object from the database
+- ``GenericObjectDAO::getObjects(array $filter, string $orderBy, bool $orderAsc, int $limit, int $offset)`` to get multiple objects from the database
+
+Assumed, you want to create a new database table called ``Example`` with the following columns:
+
+| <i>``id``</i> | ``myAttribute`` | <i>``created``</i> | <i>``updated``</i> | <i>``deleted``</i> |
+|---------------|-----------------|--------------------|--------------------|--------------------|
+| integer       | varchar         | datetime           | datetime           | boolean            |
+
+> <b>Note:</b> The columns ``id``, ``created``, ``updated`` and ``deleted`` are already implemented in the ``GenericObject`` class and don't need to be defined in the custom object, but are required for the database table.
+
+At first, you need to create the table manually as this is not done automatically:
+```sql
+CREATE TABLE IF NOT EXISTS `Example` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `myAttribute` VARCHAR(255) NOT NULL,
+    `created` DATETIME NOT NULL,
+    `updated` DATETIME NOT NULL,
+    `deleted` tinyint(1) NOT NULL DEFAULT 0,
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+```
+> There is a file ``📄 project/src/schema/tables.sql`` where you can document the SQL statements that are required for your project. This allows you or other persons to easily recreate tables in case you want to set up another instance of your project in the future.
+
+Next, you have to create a class called ``Example`` that extends the ``GenericObject`` class for the model object in the ``📁 project/src/object/`` directory with public attributes named after the exact column names and getter and setter methods to manipulate the data. It's also important to name the class the same as your database table.
+
+``📄 project/src/object/Example.class.php``
+```php
+<?php
+    class Example extends GenericObject {
+        public string $myAttribute;
+        
+        public function getMyAttribute(): string {
+            return $this->myAttribute;
+        }
+        
+        public function setMyAttribute(string $myAttribute): void {
+            $this->myAttribute = $myAttribute
+        }
+    }
+```
+
+Finally, you have to add the class ``ExampleDAO`` that extends the ``GenericObjectDAO`` class in the ``📁 project/src/dao/`` directory. Here, it's also important to name the class the same as your database table concatenated with ``DAO``. 
+
+``📄 project/src/dao/ExampleDAO.class.php``
+```php
+<?php
+    class ExampleDAO extends GenericObjectDAO {
+    
+    }
+```
+
+For the plain usage of the DAO pattern you don't need to add custom methods as they are already implemented by the ``GenericObjectDAO``. However, if you need methods with custom SQL queries or statements, you should add them in this DAO class.
+</details>
+
+<details>
+<summary><b>Using data access objects</b></summary>
+
+To create a new database entry for an object, you have to create an instance of the model object, set it's attributes (except for the ``id`` attribute) and save it with the corresponding DAO's ``GenericObjectDAO::save(GenericObject $object)`` method. The ``id`` attribute will be set automatically by the database.
+
+The following example shows how to save a new ``Example`` object that was described in the previous tutorial:
+```php
+<?php
+    // Create a new instance of the Example object
+    $example = new Example();
+    
+    // Set the attributes
+    $example->setMyAttribute("Hello World!");
+    
+    // Save the object to the database
+    Example::dao()->save($example);
+```
+
+To retrieve objects from the database, you can use the belonging DAO's ``GenericObjectDAO::getObject(array $filter, string $orderBy, bool $orderAsc, int $limit, int $offset)`` or ``GenericObjectDAO::getObjects(array $filter, string $orderBy, bool $orderAsc, int $limit, int $offset)`` method. The difference between both is that the first onne returns a single object and the second one returns an array of found objects. The parameters are the same for both methods:
+- ``filters``: An associative array that contains requirements for the objects that should be returned with the column name as key and the value that the column should have as value
+- ``orderBy``: A column name that the returned objects should be ordered by
+- ``orderAsc``: Whether the returned objects should be ordered ascending or descending
+- ``limit``: The maximum amount of objects that should be returned (-1 for no limit)
+- ``offset``: The offset from which the objects should be returned
+
+Have a look at the following code examples:
+```php
+<?php
+    // Get all objects that are not deleted
+    $examples = Example::dao()->getObjects([
+        "deleted" => false
+    ]);
+    
+    // Get the first object that has the attribute "myAttribute" set to "Hello World!"
+    // Get the object with the id 42
+    $example = Example::dao()->getObject([
+        "myAttribute" => "Hello World!"
+    ]);
+    
+    // Get the first 10 objects that are not deleted and have the attribute "myAttribute" set to "Hello World!"
+    $examples = Example::dao()->getObjects([
+        "myAttribute" => "Hello World!",
+        "deleted" => false
+    ], "id", true, 10, 0);
+    
+    // Get the first 10 objects that are not deleted and have the attribute "myAttribute" set to "Hello World!" in descending order by the attribute "myAttribute"
+    $examples = Example::dao()->getObjects([
+        "myAttribute" => "Hello World!",
+        "deleted" => false
+    ], "myAttribute", false, 10, 0);
+```
+> <b>Note:</b> As there is a ``deleted`` flag for every object, you should always set the ``deleted`` filter to ``false`` to only retrieve objects that aren't deleted, except of course you want to retrieve deleted objects.
+
+To update an object, you have to retrieve it from the database first and then update it's attributes with the setter methods. After that, you can save the object again with the ``GenericObjectDAO::save(GenericObject $object)`` method. As it is the same object with a set value for the ``id`` attribute, the DAO will update the existing entry instead of creating a new one.
+```php
+<?php
+    // Get the object with the id 42
+    $example = Example::dao()->getObject([
+        "id" => 42
+    ]);
+    
+    // Update the attribute
+    $example->setMyAttribute("Hello World!");
+    
+    // Save the object to the database
+    Example::dao()->save($example);
+```
+> <b>Note:</b> The ``updated`` attribute is not set automatically.
+
+To delete an object, you would have to update the object with the ``deleted`` attribute set to ``true``:
+```php
+<?php
+    // Get the object with the id 42
+    $example = Example::dao()->getObject([
+        "id" => 42
+    ]);
+    
+    // Set the deleted attribute
+    $example->setDeleted(true);
+    
+    // Save the object to the database
+    Example::dao()->save($example);
+```
+
+For more information about the DAO pattern, make sure to read the <a href="docs/dao-pattern.md">DAO documentation</a>.
 </details>
 
 <details>
@@ -408,7 +562,7 @@ You can use the ``Geocoding`` class to get an address' coordinates or coordinate
 <details>
 <summary><b>Format and parse datetimes</b></summary>
 
-To ensure uniformity, there is a class called ``DateTimeFormatter`` that can be used to format and parse datetimes. The used format can be changed in the ``📁 project/config/app-config.php`` file.
+To ensure uniformity, there is a class called ``DateTimeFormatter`` that can be used to format and parse datetimes. The used format can be changed in the ``📄 project/config/app-config.php`` file.
 
 To format a datetime to display the current date and time in the frontend, you can use the following code:
 ```php
@@ -460,4 +614,4 @@ There's also a documentation for classes that are used internally by the framewo
 <!--TODO-->
 
 ## License
-TODO
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
