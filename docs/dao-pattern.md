@@ -102,11 +102,14 @@ Instead of creating a new object, you can also <a href="#loading-objects-from-th
 ### Loading objects from the database
 To load objects from the database, you can use the DAO's ``getObject`` or ``getObjects`` methods:
 ```php
-// Get the object with the ID 1 if it isn't deleted
-$myObject = MyObject::dao()->getObject(array("id" => 1, "deleted" => false));
+// Get the object with the ID 1 that isn't deleted
+$myObject = MyObject::dao()->getObject(array("id" => 1));
 
 // Get all objects that aren't deleted
-$myObjects = MyObject::dao()->getObjects(array("deleted" => false));
+$myObjects = MyObject::dao()->getObjects();
+
+// Get all objects that are deleted
+$myObjects = MyObject::dao()->getObjects(array("deleted" => true));
 ```
 For both methods you can set the following parameters:
 - ``filters``: An associative array that contains requirements for the objects that should be returned with the column name as key and the value that the column should have as value
@@ -115,7 +118,7 @@ For both methods you can set the following parameters:
 - ``limit``: The maximum amount of objects that should be returned (-1 for no limit)
 - ``offset``: The offset from which the objects should be returned
 
-> <b>Note:</b> As there is a ``deleted`` flag for every object, you should always set the ``deleted`` filter to ``false`` to only retrieve objects that aren't deleted, except of course you want to retrieve deleted objects.
+> <b>Note:</b> There is a ``deleted`` flag for every object. To prevent you from having to add the ``deleted = false`` filter to every query, both methods automatically add it if not explicitly set to ``false``.
 
 ### Deleting objects from the database
 To delete an object from the database, call the objects ``setDeleted`` method with the parameter ``true`` and save it with the DAOs ``save`` method:

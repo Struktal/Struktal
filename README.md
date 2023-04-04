@@ -348,8 +348,11 @@ Have a look at the following code examples:
 ```php
 <?php
     // Get all objects that are not deleted
+    $examples = Example::dao()->getObjects();
+    
+    // Get all objects that are deleted
     $examples = Example::dao()->getObjects([
-        "deleted" => false
+        "deleted" => true
     ]);
     
     // Get the first object that has the attribute "myAttribute" set to "Hello World!"
@@ -360,17 +363,15 @@ Have a look at the following code examples:
     
     // Get the first 10 objects that are not deleted and have the attribute "myAttribute" set to "Hello World!"
     $examples = Example::dao()->getObjects([
-        "myAttribute" => "Hello World!",
-        "deleted" => false
+        "myAttribute" => "Hello World!"
     ], "id", true, 10, 0);
     
     // Get the first 10 objects that are not deleted and have the attribute "myAttribute" set to "Hello World!" in descending order by the attribute "myAttribute"
     $examples = Example::dao()->getObjects([
-        "myAttribute" => "Hello World!",
-        "deleted" => false
+        "myAttribute" => "Hello World!"
     ], "myAttribute", false, 10, 0);
 ```
-> <b>Note:</b> As there is a ``deleted`` flag for every object, you should always set the ``deleted`` filter to ``false`` to only retrieve objects that aren't deleted, except of course you want to retrieve deleted objects.
+> <b>Note:</b> There is a ``deleted`` flag for every object. To prevent you from having to add the ``deleted = false`` filter to every query, both methods automatically add it if not explicitly set to ``false``.
 
 To update an object, you have to retrieve it from the database first and then update it's attributes with the setter methods. After that, you can save the object again with the ``GenericObjectDAO::save(GenericObject $object)`` method. As it is the same object with a set value for the ``id`` attribute, the DAO will update the existing entry instead of creating a new one.
 ```php

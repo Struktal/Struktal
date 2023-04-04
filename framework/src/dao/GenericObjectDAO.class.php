@@ -152,6 +152,12 @@ class GenericObjectDAO {
     public function getObjects(array $filter = array("deleted" => false), string $orderBy = "id", bool $orderAsc = true, int $limit = -1, int $offset = 0): array {
         if($this->tableExists($this->CLASS_INSTANCE)) {
             $sql = "SELECT * FROM " . $this->CLASS_INSTANCE;
+    
+            // Add Deleted Flag if not explicitly set
+            if(!array_key_exists("deleted", $filter)) {
+                $filter["deleted"] = false;
+            }
+            
             if(count($filter) > 0) {
                 $sql .= " WHERE ";
                 foreach($filter as $key => $value) {
