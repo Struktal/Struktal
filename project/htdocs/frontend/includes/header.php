@@ -17,6 +17,7 @@
         <script src="<?php echo Router::staticFilePath("js/lib/jquery.min.js"); ?>"></script>
 
         <script src="<?php echo Router::staticFilePath("js/sidebar.js"); ?>"></script>
+        <script src="<?php echo Router::staticFilePath("js/infomessage.js"); ?>"></script>
     </head>
     <body>
         <nav>
