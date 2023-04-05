@@ -2,8 +2,6 @@
     display: grid;
     grid-template-columns: 100%;
     grid-gap: var(--spc-default);
-
-    margin-bottom: var(--spc-default);
 }
 
 .infomessages-list .infomessage {
@@ -17,6 +15,10 @@
     background-color: var(--clr-infomessage-none-background);
 
     padding: var(--pad-medium);
+}
+
+.infomessages-list .infomessage:last-child {
+    margin-bottom: var(--spc-default);
 }
 
 .infomessages-list .infomessage[message-type="info"] {
