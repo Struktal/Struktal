@@ -32,30 +32,30 @@
     --clr-infomessage-success-background: #4dbb5f44;
 
     /* Colors - Header & Footer */
-    --clr-header-background: #222222;
-    --clr-header-font: #ffffff;
-    --clr-footer-background: #222222;
-    --clr-footer-font: #aaaaaa;
+    --clr-header-background: #ffffff;
+    --clr-header-font: #000000;
+    --clr-footer-background: #ffffff;
+    --clr-footer-font: #666666;
 
     /* Spacing */
     --spc-default: 1em;
-    --spc-content-side-small: 5%;
-    --spc-content-side-medium: 10%;
-    --spc-content-side-large: 15%;
-
-    /* Padding */
-    --pad-small: .5em;
-    --pad-medium: 1em;
-    --pad-large: 2em;
+    --spc-content-side: 10%;
 
     /* Borders */
-    --brd-thickness-small: 1px;
-    --brd-thickness-medium: 2px;
-    --brd-thickness-large: 3px;
+    --brd-thickness: 1px;
+    --brd-radius: 5px;
+}
 
-    --brd-radius-small: 3px;
-    --brd-radius-medium: 5px;
-    --brd-radius-large: 10px;
+@media screen and (max-width: 768px) {
+    :root {
+        --spc-content-side: 10%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    :root {
+        --spc-content-side: 5%;
+    }
 }
 
 html, body {
@@ -67,17 +67,5 @@ html, body {
 main {
     min-height: 90vh;
 
-    padding: var(--spc-default) var(--spc-content-side-large);
-}
-
-@media screen and (max-width: 768px) {
-    main {
-        padding: var(--spc-default) var(--spc-content-side-medium);
-    }
-}
-
-@media screen and (max-width: 480px) {
-    main {
-        padding: var(--spc-default) var(--spc-content-side-small);
-    }
+    padding: var(--spc-default) var(--spc-content-side);
 }
