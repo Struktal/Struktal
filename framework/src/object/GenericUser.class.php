@@ -4,10 +4,11 @@ class GenericUser extends GenericObject {
     public string $username;
     public string $password;
     public string $email;
+    public bool $emailVerified;
     public int $permissionLevel;
     public ?string $oneTimePassword;
     public ?DateTime $oneTimePasswordExpiration;
-    
+
     /**
      * Get the User's Username
      * @return string
@@ -15,7 +16,7 @@ class GenericUser extends GenericObject {
     public function getUsername(): string {
         return $this->username;
     }
-    
+
     /**
      * Set the User's Username
      * @param string $username
@@ -23,7 +24,7 @@ class GenericUser extends GenericObject {
     public function setUsername(string $username): void {
         $this->username = $username;
     }
-    
+
     /**
      * Get the User's Password Hash
      * @return string
@@ -31,7 +32,7 @@ class GenericUser extends GenericObject {
     public function getPassword(): string {
         return $this->password;
     }
-    
+
     /**
      * Set the User's Password
      * The passed Password will be hashed with the default PHP Hashing Algorithm
@@ -40,7 +41,7 @@ class GenericUser extends GenericObject {
     public function setPassword(string $password): void {
         $this->password = password_hash($password, PASSWORD_DEFAULT);
     }
-    
+
     /**
      * Get the User's E-Mail
      * @return string
@@ -48,7 +49,7 @@ class GenericUser extends GenericObject {
     public function getEmail(): string {
         return $this->email;
     }
-    
+
     /**
      * Set the User's E-Mail
      * The E-Mail will be converted to lowercase Letters
@@ -57,7 +58,23 @@ class GenericUser extends GenericObject {
     public function setEmail(string $email): void {
         $this->email = strtolower($email);
     }
-    
+
+    /**
+     * Get the User's E-Mail Verification Status
+     * @return bool
+     */
+    public function getEmailVerified(): bool {
+        return $this->emailVerified;
+    }
+
+    /**
+     * Set the User's E-Mail Verification Status
+     * @param bool $emailVerified
+     */
+    public function setEmailVerified(bool $emailVerified): void {
+        $this->emailVerified = $emailVerified;
+    }
+
     /**
      * Get the User's Permission Level
      * @return int
@@ -65,7 +82,7 @@ class GenericUser extends GenericObject {
     public function getPermissionLevel(): int {
         return $this->permissionLevel;
     }
-    
+
     /**
      * Set the User's Permission Level
      * @param int $permissionLevel
@@ -73,7 +90,7 @@ class GenericUser extends GenericObject {
     public function setPermissionLevel(int $permissionLevel): void {
         $this->permissionLevel = $permissionLevel;
     }
-    
+
     /**
      * Get the User's One-Time-Password
      * @return string|null
@@ -81,16 +98,16 @@ class GenericUser extends GenericObject {
     public function getOneTimePassword(): ?string {
         return $this->oneTimePassword;
     }
-    
+
     /**
      * Set the User's One-Time-Password
      * The One-Time-Password will be hashed with the default PHP Hashing Algorithm
      * @param string $oneTimePassword
      */
     public function setOneTimePassword(string $oneTimePassword): void {
-        $oneTimePassword = password_hash($oneTimePassword, PASSWORD_DEFAULT);
+        $this->oneTimePassword = password_hash($oneTimePassword, PASSWORD_DEFAULT);
     }
-    
+
     /**
      * Get the User's One-Time-Password Expiration Date
      * @return DateTime|null
@@ -98,12 +115,12 @@ class GenericUser extends GenericObject {
     public function getOneTimePasswordExpiration(): ?DateTime {
         return $this->oneTimePasswordExpiration;
     }
-    
+
     /**
      * Set the User's One-Time-Password Expiration Date
-     * @param DateTime $oneTimePasswordExpiration
+     * @param DateTime|null $oneTimePasswordExpiration
      */
-    public function setOneTimePasswordExpiration(DateTime $oneTimePasswordExpiration): void {
+    public function setOneTimePasswordExpiration(?DateTime $oneTimePasswordExpiration): void {
         $this->oneTimePasswordExpiration = $oneTimePasswordExpiration;
     }
 }

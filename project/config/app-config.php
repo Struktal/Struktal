@@ -3,7 +3,7 @@
 // Project Settings
 Config::$PROJECT_SETTINGS["PROJECT_NAME"] = "Project";
 Config::$PROJECT_SETTINGS["WEBSITE_TITLE"] = "Project";
-Config::$PROJECT_SETTINGS["PROJECT_URL"] = "https://domain.com/";
+Config::$PROJECT_SETTINGS["PROJECT_URL"] = "https://domain.com";
 Config::$PROJECT_SETTINGS["PROJECT_AUTHOR"] = "Author";
 Config::$PROJECT_SETTINGS["PROJECT_VERSION"] = "1.0.0";
 
