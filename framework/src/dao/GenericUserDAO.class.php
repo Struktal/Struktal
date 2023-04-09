@@ -10,8 +10,7 @@ class GenericUserDAO extends GenericObjectDAO {
      *                         0: Login not found
      *                         1: Password incorrect
      */
-    public function login(string $login, bool $loginWithEmail, string $password): ?GenericUser {
-        $user = null;
+    public function login(string $login, bool $loginWithEmail, string $password): GenericUser|int {
         if($loginWithEmail) {
             $login = strtolower($login);
             $user = $this->getObject(array(

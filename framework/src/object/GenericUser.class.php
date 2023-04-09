@@ -1,13 +1,13 @@
 <?php
 
 class GenericUser extends GenericObject {
-    public string $username;
-    public string $password;
-    public string $email;
-    public bool $emailVerified;
-    public int $permissionLevel;
-    public ?string $oneTimePassword;
-    public ?DateTime $oneTimePasswordExpiration;
+    public string $username = "";
+    public string $password = "";
+    public string $email = "";
+    public bool $emailVerified = false;
+    public int $permissionLevel = 0;
+    public ?string $oneTimePassword = null;
+    public ?DateTime $oneTimePasswordExpiration = null;
 
     /**
      * Get the User's Username
@@ -102,10 +102,14 @@ class GenericUser extends GenericObject {
     /**
      * Set the User's One-Time-Password
      * The One-Time-Password will be hashed with the default PHP Hashing Algorithm
-     * @param string $oneTimePassword
+     * @param string|null $oneTimePassword
      */
-    public function setOneTimePassword(string $oneTimePassword): void {
-        $this->oneTimePassword = password_hash($oneTimePassword, PASSWORD_DEFAULT);
+    public function setOneTimePassword(?string $oneTimePassword): void {
+        if($oneTimePassword !== null) {
+            $this->oneTimePassword = password_hash($oneTimePassword, PASSWORD_DEFAULT);
+        } else {
+            $this->oneTimePassword = null;
+        }
     }
 
     /**
