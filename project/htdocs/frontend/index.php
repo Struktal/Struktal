@@ -1,6 +1,6 @@
 <?php
 Template::setWebsiteTitle("Home");
-Template::includeTemplate("header.php");
+Template::include("header.php");
 ?>
 
 <h1>Home</h1>
@@ -9,5 +9,5 @@ Template::includeTemplate("header.php");
 </p>
 
 <?php
-Template::includeTemplate("footer.php");
+Template::include("footer.php");
 ?>

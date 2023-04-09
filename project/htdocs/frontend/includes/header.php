@@ -56,5 +56,5 @@
 
         <main>
             <?php
-                Template::includeTemplate("infomessages.php");
+                Template::include("infomessages.php");
             ?>

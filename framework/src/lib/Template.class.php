@@ -5,11 +5,16 @@ class Template {
     /**
      * Include a PHP Template File that contains the frontend Code
      * @param string $template Name of Template File within the frontend Directory
+     * @param array|null $variables Variables that should be available within the Template File
      * @return void
      */
-    public static function loadTemplate(string $template): void {
+    public static function display(string $template, ?array $variables = null): void {
         $file = __PROJECT_DIR__ . "project/htdocs/frontend/" . $template;
         if(file_exists($file)) {
+            if(isset($variables) && $variables != null) {
+                extract($variables);
+            }
+
             include_once($file);
         } else {
             Logger::getLogger("Template")->error("Could not find Template File \"{$file}\".");
@@ -19,11 +24,16 @@ class Template {
     /**
      * Include a PHP Template File within another Template File
      * @param string $template Name of Template File within the frontend/includes Directory
+     * @param array|null $variables Variables that should be available within the Template File
      * @return void
      */
-    public static function includeTemplate(string $template): void {
+    public static function include(string $template, ?array $variables = null): void {
         $file = __PROJECT_DIR__ . "project/htdocs/frontend/includes/" . $template;
         if(file_exists($file)) {
+            if(isset($variables) && $variables != null) {
+                extract($variables);
+            }
+
             include_once($file);
         } else {
             Logger::getLogger("Template")->error("Could not find Template File \"{$file}\".");

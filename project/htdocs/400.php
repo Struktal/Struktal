@@ -1,4 +1,4 @@
 <?php
 
 http_response_code(400);
-Template::loadTemplate("400.php");
+Template::display("400.php");

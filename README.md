@@ -149,7 +149,7 @@ Have a look at the following example:
 $variable = "Hello World!";
 
 // Load the template
-Template::loadTemplate("example.php");
+Template::display("example.php", array("variable" => $variable));
 ```
 This file is the script that gets executed when the user visits the page. In this example, a variable is assigned and the template ``example.php`` is loaded.
 
@@ -158,14 +158,14 @@ This file is the script that gets executed when the user visits the page. In thi
 <?php
     // Set the website title and include the header template
     Template::setWebsiteTitle("Title");
-    Template::includeTemplate("header.php");
+    Template::include("header.php");
 ?>
 
 <?php echo $variable; ?>
 
 <?php
     // Include the footer template
-    Template::includeTemplate("footer.php");
+    Template::include("footer.php");
 ?>
 ```
 This is the template file. It sets a website title and includes the header and footer template files located in the ``📁 project/htdocs/frontend/includes/`` directory. The variable that was assigned in the script is then outputted.
