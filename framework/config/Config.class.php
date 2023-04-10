@@ -32,7 +32,8 @@ class Config {
             "WEBSITE_TITLE" => "Project",
             "PROJECT_URL" => "https://domain.com",
             "PROJECT_AUTHOR" => "Author",
-            "PROJECT_VERSION" => "1.0.0"
+            "PROJECT_VERSION" => "1.0.0",
+            "PRODUCTION" => false
         );
 
         self::$MENU_SETTINGS = array(

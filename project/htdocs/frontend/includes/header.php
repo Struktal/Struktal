@@ -5,19 +5,27 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link rel="stylesheet" href="<?php echo Router::staticFilePath("css/base.css"); ?>">
-        <link rel="stylesheet" href="<?php echo Router::staticFilePath("css/fonts.css"); ?>">
+        <?php if (Config::$PROJECT_SETTINGS["PRODUCTION"]): ?>
+            <link rel="stylesheet" href="<?php echo Router::staticFilePath("css/style.min.css"); ?>">
+        <?php else: ?>
+            <link rel="stylesheet" href="<?php echo Router::staticFilePath("css/base.css"); ?>">
+            <link rel="stylesheet" href="<?php echo Router::staticFilePath("css/fonts.css"); ?>">
 
-        <link rel="stylesheet" href="<?php echo Router::staticFilePath("css/header.css"); ?>">
-        <link rel="stylesheet" href="<?php echo Router::staticFilePath("css/footer.css"); ?>">
-        <link rel="stylesheet" href="<?php echo Router::staticFilePath("css/infomessages.css"); ?>">
+            <link rel="stylesheet" href="<?php echo Router::staticFilePath("css/header.css"); ?>">
+            <link rel="stylesheet" href="<?php echo Router::staticFilePath("css/footer.css"); ?>">
+            <link rel="stylesheet" href="<?php echo Router::staticFilePath("css/infomessages.css"); ?>">
 
-        <link rel="stylesheet" href="<?php echo Router::staticFilePath("css/project.css"); ?>">
+            <link rel="stylesheet" href="<?php echo Router::staticFilePath("css/project.css"); ?>">
+        <?php endif; ?>
 
         <script src="<?php echo Router::staticFilePath("js/lib/jquery.min.js"); ?>"></script>
 
-        <script src="<?php echo Router::staticFilePath("js/sidebar.js"); ?>"></script>
-        <script src="<?php echo Router::staticFilePath("js/infomessage.js"); ?>"></script>
+        <?php if (Config::$PROJECT_SETTINGS["PRODUCTION"]): ?>
+            <script src="<?php echo Router::staticFilePath("js/script.min.js"); ?>"></script>
+        <?php else: ?>
+            <script src="<?php echo Router::staticFilePath("js/sidebar.js"); ?>"></script>
+            <script src="<?php echo Router::staticFilePath("js/infomessage.js"); ?>"></script>
+        <?php endif; ?>
     </head>
     <body>
         <nav>
