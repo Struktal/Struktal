@@ -11,6 +11,7 @@ You can modify the following settings:
     - ``WEBSITE_URL`` - The project's URL
     - ``PROJECT_AUTHOR`` - The author of the project that is displayed in the footer
     - ``PROJECT_VERSION`` - The version of the project that is displayed in the footer
+    - ``PRODUCTION`` - The project is in production mode (the production mode will load the minified CSS and JS files)
 - Menu Settings
     - ``MENU_SIDEBAR`` - The items shown in the sidebar navigator
 - Time Format Settings

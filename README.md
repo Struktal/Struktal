@@ -73,6 +73,7 @@ There are the following settings:
   - ``PROJECT_URL`` - The URL of your project
   - ``PROJECT_AUTHOR`` - Your name or the name of your company / team that is displayed in the website's footer by default
   - ``PROJECT_VERSION`` - The current version of the project that is displayed in the website's footer by default
+  - ``PRODUCTION`` - Boolean value that indicates whether the project is in production mode or not (the production mode will load the minified CSS and JS files)
 - ``MENU_SETTINGS``
   - ``MENU_ITEMS`` - An array with the following structure of all menu items that should be displayed in the sidebar<br>
     ```php
