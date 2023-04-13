@@ -666,6 +666,29 @@ You can also parse a datetime string to a datetime object:
 For an overview of all available methods, please have a look at the <a href="docs/date-formatter.md">documentation</a>.
 </details>
 
+<details>
+<summary><b>Deploying the application</b></summary>
+
+Before deploying the application, make sure you have enabled the production mode in the ``📄 project/config/app-config.php`` or ``📄 project/config/app-config.inc.php`` file. This will load the minified CSS and JS files. You might also want to change other settings to hide PHP errors and warnings or increase the log level.
+
+Next, minify the CSS and JS files. To do that, execute the following command in the project's root directory:
+```bash
+./minify.sh
+```
+> <b>Note:</b> You will need a working installation of a gcc compiler.
+
+> <b>Note:</b> As the minification scripts are selfmade, there might be some problems with the minification process. If you encounter any issues, please open an issue in [this GitHub repository](https://github.com/JensOstertag/MinificationScripts).
+> 
+> If there are problems, you can either try to find a workaround, minify the files manually (the minified files should be named ``📄 project/htdocs/static/css/style.min.css`` and ``📄 project/htdocs/static/js/script.min.js``) or use the unminified files by disabling the production mode in the ``📄 project/config/app-config.php`` or ``📄 project/config/app-config.inc.php`` file.
+
+Finally, you can upload the project to your web server. The following files and directories should be uploaded:
+- ``📁 framework/``
+- ``📁 project/``
+- ``📄 .htaccess``
+- ``📄 .user.ini`` or ``📄 php.ini``
+- ``📄 routes-handler.php``
+</details>
+
 ## Documentation
 Learn more about the framework and it's features in the documentation:
 - <a href="docs/file-structure.md">File structure</a>
