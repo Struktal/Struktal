@@ -49,18 +49,25 @@
 @media screen and (max-width: 768px) {
     :root {
         --spc-content-side: 10%;
+
+        --brd-thickness: 1px;
+        --brd-radius: 5px;
     }
 }
 
 @media screen and (max-width: 480px) {
     :root {
         --spc-content-side: 5%;
+
+        --brd-thickness: 1px;
+        --brd-radius: 5px;
     }
 }
 
 html, body {
     margin: 0;
     padding: 0;
+
     background-color: var(--clr-background);
 }
 
@@ -68,4 +75,8 @@ main {
     min-height: 90vh;
 
     padding: var(--spc-default) var(--spc-content-side);
+}
+
+section {
+    margin-bottom: 1em;
 }

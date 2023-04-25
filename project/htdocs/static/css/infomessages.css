@@ -8,13 +8,14 @@
     display: inline-block;
     box-sizing: border-box;
 
-    color: var(--clr-infomessage-font);
+    padding: var(--spc-default);
+
     border: var(--brd-thickness) solid;
     border-radius: var(--brd-radius);
-    border-color: var(--clr-infomessage-none-border);
-    background-color: var(--clr-infomessage-none-background);
 
-    padding: var(--spc-default);
+    color: var(--clr-infomessage-font);
+    background-color: var(--clr-infomessage-none-background);
+    border-color: var(--clr-infomessage-none-border);
 }
 
 .infomessages-list .infomessage:last-child {
@@ -22,21 +23,21 @@
 }
 
 .infomessages-list .infomessage[message-type="info"] {
-    border-color: var(--clr-infomessage-info-border);
     background-color: var(--clr-infomessage-info-background);
+    border-color: var(--clr-infomessage-info-border);
 }
 
 .infomessages-list .infomessage[message-type="warning"] {
-    border-color: var(--clr-infomessage-warning-border);
     background-color: var(--clr-infomessage-warning-background);
+    border-color: var(--clr-infomessage-warning-border);
 }
 
 .infomessages-list .infomessage[message-type="error"] {
-    border-color: var(--clr-infomessage-error-border);
     background-color: var(--clr-infomessage-error-background);
+    border-color: var(--clr-infomessage-error-border);
 }
 
 .infomessages-list .infomessage[message-type="success"] {
-    border-color: var(--clr-infomessage-success-border);
     background-color: var(--clr-infomessage-success-background);
+    border-color: var(--clr-infomessage-success-border);
 }
