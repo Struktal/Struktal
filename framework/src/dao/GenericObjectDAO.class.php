@@ -18,9 +18,9 @@ class GenericObjectDAO {
             $objectProperties = get_object_vars($object);
             if($object->getId() === null) {
                 // Object doesn't exist, perform INSERT
-                $sql = "INSERT INTO {$tableName} (";
+                $sql = "INSERT INTO `{$tableName}` (";
                 foreach($objectProperties as $property => $value) {
-                    $sql .= "{$property}, ";
+                    $sql .= "`{$property}`, ";
                 }
                 $sql = substr($sql, 0, -2);
                 $sql .= ") VALUES (";
@@ -51,14 +51,14 @@ class GenericObjectDAO {
                 return true;
             } else {
                 // Object already exists, perform UPDATE
-                $sql = "UPDATE {$tableName} SET ";
+                $sql = "UPDATE `{$tableName}` SET ";
                 foreach($objectProperties as $property => $value) {
                     if($property !== "created" && $property !== "id") {
-                        $sql .= "{$property} = :{$property}, ";
+                        $sql .= "`{$property}` = :{$property}, ";
                     }
                 }
                 $sql = substr($sql, 0, -2);
-                $sql .= " WHERE id = :id";
+                $sql .= " WHERE `id` = :id";
 
                 $stmt = Database::getConnection()->prepare($sql);
                 foreach($objectProperties as $property => $value) {
@@ -101,7 +101,7 @@ class GenericObjectDAO {
      */
     public function getObject(array $filter, string $orderBy = "id", bool $orderAsc = true, int $limit = 1, int $offset = 0): ?GenericObject {
         if($this->tableExists($this->CLASS_INSTANCE)) {
-            $sql = "SELECT * FROM " . $this->CLASS_INSTANCE;
+            $sql = "SELECT * FROM `" . $this->CLASS_INSTANCE . "`";
             
             // Add Deleted Flag if not explicitly set
             if(!array_key_exists("deleted", $filter)) {
@@ -111,11 +111,11 @@ class GenericObjectDAO {
             if(count($filter) > 0) {
                 $sql .= " WHERE ";
                 foreach($filter as $key => $value) {
-                    $sql .= "{$key} = :{$key} AND ";
+                    $sql .= "`{$key}` = :{$key} AND ";
                 }
                 $sql = substr($sql, 0, -5);
             }
-            $sql .= " ORDER BY {$orderBy} " . ($orderAsc ? "ASC" : "DESC");
+            $sql .= " ORDER BY `{$orderBy}` " . ($orderAsc ? "ASC" : "DESC");
             $sql .= " LIMIT {$limit} OFFSET {$offset}";
     
             $stmt = Database::getConnection()->prepare($sql);
@@ -151,7 +151,7 @@ class GenericObjectDAO {
      */
     public function getObjects(array $filter = array("deleted" => false), string $orderBy = "id", bool $orderAsc = true, int $limit = -1, int $offset = 0): array {
         if($this->tableExists($this->CLASS_INSTANCE)) {
-            $sql = "SELECT * FROM " . $this->CLASS_INSTANCE;
+            $sql = "SELECT * FROM `" . $this->CLASS_INSTANCE . "`";
     
             // Add Deleted Flag if not explicitly set
             if(!array_key_exists("deleted", $filter)) {
@@ -161,11 +161,11 @@ class GenericObjectDAO {
             if(count($filter) > 0) {
                 $sql .= " WHERE ";
                 foreach($filter as $key => $value) {
-                    $sql .= "{$key} = :{$key} AND ";
+                    $sql .= "`{$key}` = :{$key} AND ";
                 }
                 $sql = substr($sql, 0, -5);
             }
-            $sql .= " ORDER BY {$orderBy} " . ($orderAsc ? "ASC" : "DESC");
+            $sql .= " ORDER BY `{$orderBy}` " . ($orderAsc ? "ASC" : "DESC");
             if($limit >= 0) {
                 $sql .= " LIMIT {$limit} OFFSET {$offset}";
             }
