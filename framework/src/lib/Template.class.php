@@ -34,7 +34,7 @@ class Template {
                 extract($variables);
             }
 
-            include_once($file);
+            include($file);
         } else {
             Logger::getLogger("Template")->error("Could not find Template File \"{$file}\".");
         }
