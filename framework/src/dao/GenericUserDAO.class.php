@@ -70,7 +70,7 @@ class GenericUserDAO extends GenericObjectDAO {
         }
 
         // Check whether the generated One-Time-Password already exists
-        if(sizeof($this->getObjects(array("oneTimePassword" => $oneTimePassword, "deleted" => false)) + $this->getObjects(array("oneTimePassword" => $oneTimePassword, "deleted" => true))) > 0) {
+        if(sizeof($this->getObjects(array("oneTimePassword" => $oneTimePassword, "deleted" => false))) + sizeof($this->getObjects(array("oneTimePassword" => $oneTimePassword, "deleted" => true))) > 0) {
             $oneTimePassword = $this->generateOneTimePassword();
         }
 
