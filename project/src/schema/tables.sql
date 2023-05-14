@@ -10,6 +10,5 @@ CREATE TABLE IF NOT EXISTS `User` (
     `oneTimePasswordExpiration` DATETIME NULL,
     `created` DATETIME NOT NULL,
     `updated` DATETIME NOT NULL,
-    `deleted` tinyint(1) NOT NULL DEFAULT 0,
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

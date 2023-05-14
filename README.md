@@ -261,7 +261,6 @@ To prevent you from having to write the same code over and over again, there are
 - ``id`` (integer) - The unique identifier of the object
 - ``created`` (datetime) - The date and time when the object was created
 - ``updated`` (datetime) - The date and time when the object was last updated
-- ``deleted`` (boolean) - A flag that indicates whether the object was deleted or not
 
 and the ``GenericObjectDAO`` the standard operations
 - ``GenericObjectDAO::save(GenericObject $object)`` to create or update an object's database entry
@@ -270,11 +269,11 @@ and the ``GenericObjectDAO`` the standard operations
 
 Assumed, you want to create a new database table called ``Example`` with the following columns:
 
-| <i>``id``</i> | ``myAttribute`` | <i>``created``</i> | <i>``updated``</i> | <i>``deleted``</i> |
-|---------------|-----------------|--------------------|--------------------|--------------------|
-| integer       | varchar         | datetime           | datetime           | boolean            |
+| <i>``id``</i> | ``myAttribute`` | <i>``created``</i> | <i>``updated``</i> |
+|---------------|-----------------|--------------------|--------------------|
+| integer       | varchar         | datetime           | datetime           |
 
-> <b>Note:</b> The columns ``id``, ``created``, ``updated`` and ``deleted`` are already implemented in the ``GenericObject`` class and don't need to be defined in the custom object, but are required for the database table.
+> <b>Note:</b> The columns ``id``, ``created`` and ``updated`` are already implemented in the ``GenericObject`` class and don't need to be defined in the custom object, but are required for the database table.
 
 At first, you need to create the table manually as this is not done automatically:
 ```sql
@@ -283,7 +282,6 @@ CREATE TABLE IF NOT EXISTS `Example` (
     `myAttribute` VARCHAR(255) NOT NULL,
     `created` DATETIME NOT NULL,
     `updated` DATETIME NOT NULL,
-    `deleted` tinyint(1) NOT NULL DEFAULT 0,
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 ```
@@ -348,31 +346,29 @@ To retrieve objects from the database, you can use the belonging DAO's ``Generic
 Have a look at the following code examples:
 ```php
 <?php
-    // Get all objects that are not deleted
+    // Get all objects
     $examples = Example::dao()->getObjects();
     
-    // Get all objects that are deleted
-    $examples = Example::dao()->getObjects([
-        "deleted" => true
-    ]);
-    
     // Get the first object that has the attribute "myAttribute" set to "Hello World!"
-    // Get the object with the id 42
     $example = Example::dao()->getObject([
         "myAttribute" => "Hello World!"
     ]);
     
-    // Get the first 10 objects that are not deleted and have the attribute "myAttribute" set to "Hello World!"
+    // Get the object with the id 42
+    $example = Example::dao()->getObject([
+        "id" => 42
+    ]);
+    
+    // Get the first 10 objects that have the attribute "myAttribute" set to "Hello World!"
     $examples = Example::dao()->getObjects([
         "myAttribute" => "Hello World!"
     ], "id", true, 10, 0);
     
-    // Get the first 10 objects that are not deleted and have the attribute "myAttribute" set to "Hello World!" in descending order by the attribute "myAttribute"
+    // Get the first 10 objects that have the attribute "myAttribute" set to "Hello World!" in descending order by the attribute "myAttribute"
     $examples = Example::dao()->getObjects([
         "myAttribute" => "Hello World!"
     ], "myAttribute", false, 10, 0);
 ```
-> <b>Note:</b> There is a ``deleted`` flag for every object. To prevent you from having to add the ``deleted = false`` filter to every query, both methods automatically add it if not explicitly set to ``false``.
 
 To update an object, you have to retrieve it from the database first and then update it's attributes with the setter methods. After that, you can save the object again with the ``GenericObjectDAO::save(GenericObject $object)`` method. As it is the same object with a set value for the ``id`` attribute, the DAO will update the existing entry instead of creating a new one.
 ```php
@@ -388,9 +384,9 @@ To update an object, you have to retrieve it from the database first and then up
     // Save the object to the database
     Example::dao()->save($example);
 ```
-> <b>Note:</b> The ``updated`` attribute is not set automatically.
+> <b>Note:</b> The ``updated`` attribute is not changed automatically.
 
-To delete an object, you would have to update the object with the ``deleted`` attribute set to ``true``:
+To delete an object, you have to retrieve it from the database first and then call the ``GenericObjectDAO::delete(GenericObject $object)`` method which will physically delete the entry from the database.
 ```php
 <?php
     // Get the object with the id 42
@@ -398,11 +394,8 @@ To delete an object, you would have to update the object with the ``deleted`` at
         "id" => 42
     ]);
     
-    // Set the deleted attribute
-    $example->setDeleted(true);
-    
-    // Save the object to the database
-    Example::dao()->save($example);
+    // Delete the object
+    Example::dao()->delete($example);
 ```
 
 For more information about the DAO pattern, make sure to read the <a href="docs/dao-pattern.md">DAO documentation</a>.
