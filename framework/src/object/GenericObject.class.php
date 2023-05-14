@@ -6,13 +6,11 @@ class GenericObject {
     public ?int $id;
     public DateTime $created;
     public DateTime $updated;
-    public bool $deleted;
 
     public function __construct() {
         $this->id = null;
         $this->created = new DateTime();
         $this->updated = new DateTime();
-        $this->deleted = false;
     }
     
     /**
@@ -112,21 +110,5 @@ class GenericObject {
      */
     public function setUpdated(DateTime $updated): void {
         $this->updated = $updated;
-    }
-    
-    /**
-     * Get the Object's Deleted Flag
-     * @return bool
-     */
-    public function isDeleted(): bool {
-        return $this->deleted;
-    }
-    
-    /**
-     * Set the Object's Deleted Flag
-     * @param bool $deleted
-     */
-    public function setDeleted(bool $deleted): void {
-        $this->deleted = $deleted;
     }
 }

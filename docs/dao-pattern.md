@@ -8,7 +8,6 @@ Every object is meant to inherit from the ``GenericObject`` class that provides 
 - ``id`` (integer) - The auto-incremented ID of the object
 - ``created`` (datetime) - The date and time when the object was created
 - ``updated`` (datetime) - The date and time when the object was last updated
-- ``deleted`` (boolean) - Whether the object is deleted or not
 
 There are so-called "model objects" that represent the data that's being stored in the database, and for each table there is an own model object. They are located in the ``📁 project/src/object/`` directory.
 
@@ -18,10 +17,10 @@ To prevent you from having to write the same code over and over again, there are
 - ``id`` (integer) - The unique identifier of the object
 - ``created`` (datetime) - The date and time when the object was created
 - ``updated`` (datetime) - The date and time when the object was last updated
-- ``deleted`` (boolean) - A flag that indicates whether the object was deleted or not
 
 and the ``GenericObjectDAO`` the standard operations
 - ``GenericObjectDAO::save(GenericObject $object)`` to create or update an object's database entry
+- ``GenericObjectDAO::delete(GenericObject $object)`` to delete an object's database entry
 - ``GenericObjectDAO::getObject(array $filter, string $orderBy, bool $orderAsc, int $limit, int $offset)`` to get a single object from the database
 - ``GenericObjectDAO::getObjects(array $filter, string $orderBy, bool $orderAsc, int $limit, int $offset)`` to get multiple objects from the database
 
@@ -52,9 +51,9 @@ If you need to use custom queries or other non-default methods for this specific
 
 The above example would allow us to access and manipulate the database table called ``MyObject`` with the following structure:
 
-| ``id``  | ``myAttribute`` | ``created`` | ``updated`` | ``deleted`` |
-|---------|-----------------|-------------|-------------|-------------|
-| integer | varchar         | datetime    | datetime    | boolean     |
+| ``id``  | ``myAttribute`` | ``created`` | ``updated`` |
+|---------|-----------------|-------------|-------------|
+| integer | varchar         | datetime    | datetime    |
 
 The database tables need to be set up manually. Use the following template to do that:
 ```sql
@@ -63,7 +62,6 @@ CREATE TABLE IF NOT EXISTS `Example` (
     `myAttribute` VARCHAR(255) NOT NULL,
     `created` DATETIME NOT NULL,
     `updated` DATETIME NOT NULL,
-    `deleted` tinyint(1) NOT NULL DEFAULT 0,
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 ```
@@ -102,14 +100,11 @@ Instead of creating a new object, you can also <a href="#loading-objects-from-th
 ### Loading objects from the database
 To load objects from the database, you can use the DAO's ``getObject`` or ``getObjects`` methods:
 ```php
-// Get the object with the ID 1 that isn't deleted
+// Get the object with the ID 1
 $myObject = MyObject::dao()->getObject(array("id" => 1));
 
-// Get all objects that aren't deleted
+// Get all objects
 $myObjects = MyObject::dao()->getObjects();
-
-// Get all objects that are deleted
-$myObjects = MyObject::dao()->getObjects(array("deleted" => true));
 ```
 For both methods you can set the following parameters:
 - ``filters``: An associative array that contains requirements for the objects that should be returned with the column name as key and the value that the column should have as value
@@ -118,15 +113,10 @@ For both methods you can set the following parameters:
 - ``limit``: The maximum amount of objects that should be returned (-1 for no limit)
 - ``offset``: The offset from which the objects should be returned
 
-> <b>Note:</b> There is a ``deleted`` flag for every object. To prevent you from having to add the ``deleted = false`` filter to every query, both methods automatically add it if not explicitly set to ``false``.
-
 ### Deleting objects from the database
-To delete an object from the database, call the objects ``setDeleted`` method with the parameter ``true`` and save it with the DAOs ``save`` method:
+To delete an object from the database, call the DAO's ``delete`` method:
 ```php
 // Delete the object with the ID 1
 $myObject = MyObject::dao()->getObject(array("id" => 1));
-$myObject->setDeleted(true);
-$myObject->setUpdated(new DateTime());
-MyObject::dao()->save($myObject);
+MyObject::dao()->delete($myObject);
 ```
-> <b>Note:</b> You might notice that you can delete an object by setting the ``deleted`` flag to ``true``, which doesn't actually delete the database entry. This is done to allow undoing the deletion of an object. However, this enforces you to only retrieve objects that aren't deleted.

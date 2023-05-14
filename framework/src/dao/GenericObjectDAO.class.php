@@ -88,6 +88,32 @@ class GenericObjectDAO {
         
         return false;
     }
+
+    /**
+     * Delete an Object from the Database
+     * @param GenericObject $object
+     * @return bool
+     */
+    public function delete(GenericObject $object): bool {
+        if($this->tableExists(get_class($object))) {
+            $tableName = get_class($object);
+            if($object->getId() !== null) {
+                $sql = "DELETE FROM `{$tableName}` WHERE `id` = :id";
+
+                $stmt = Database::getConnection()->prepare($sql);
+                $stmt->bindValue(":id", $object->id, PDO::PARAM_INT);
+                $stmt->execute();
+
+                return true;
+            } else {
+                Logger::getLogger("GenericObjectDAO")->error("Critical: Trying to delete " . get_class($object) . " but id is null");
+            }
+        } else {
+            Logger::getLogger("GenericObjectDAO")->error("Critical: Trying to delete " . get_class($object) . " but table does not exist");
+        }
+
+        return false;
+    }
     
     /**
      * Get an Object from the Database
@@ -102,11 +128,6 @@ class GenericObjectDAO {
     public function getObject(array $filter, string $orderBy = "id", bool $orderAsc = true, int $limit = 1, int $offset = 0): ?GenericObject {
         if($this->tableExists($this->CLASS_INSTANCE)) {
             $sql = "SELECT * FROM `" . $this->CLASS_INSTANCE . "`";
-            
-            // Add Deleted Flag if not explicitly set
-            if(!array_key_exists("deleted", $filter)) {
-                $filter["deleted"] = false;
-            }
             
             if(count($filter) > 0) {
                 $sql .= " WHERE ";
@@ -149,14 +170,9 @@ class GenericObjectDAO {
      * @param int    $offset
      * @return array
      */
-    public function getObjects(array $filter = array("deleted" => false), string $orderBy = "id", bool $orderAsc = true, int $limit = -1, int $offset = 0): array {
+    public function getObjects(array $filter = array(), string $orderBy = "id", bool $orderAsc = true, int $limit = -1, int $offset = 0): array {
         if($this->tableExists($this->CLASS_INSTANCE)) {
             $sql = "SELECT * FROM `" . $this->CLASS_INSTANCE . "`";
-    
-            // Add Deleted Flag if not explicitly set
-            if(!array_key_exists("deleted", $filter)) {
-                $filter["deleted"] = false;
-            }
             
             if(count($filter) > 0) {
                 $sql .= " WHERE ";
