@@ -15,7 +15,7 @@ class Template {
                 extract($variables);
             }
 
-            include_once($file);
+            include($file);
         } else {
             Logger::getLogger("Template")->error("Could not find Template File \"{$file}\".");
         }
@@ -38,6 +38,18 @@ class Template {
         } else {
             Logger::getLogger("Template")->error("Could not find Template File \"{$file}\".");
         }
+    }
+
+    /**
+     * Fetch the HTML Code of a PHP Template File that contains the frontend Code
+     * @param string $template
+     * @param array|null $variables
+     * @return string
+     */
+    public static function fetch(string $template, ?array $variables = null): string {
+        ob_start();
+        self::display($template, $variables);
+        return ob_get_clean();
     }
 
     /**
