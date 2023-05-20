@@ -35,3 +35,9 @@ which will append the Value defined in the project config under ``WEBSITE_TITLE`
 Template::overrideWebsiteTitle("TITLE");
 ```
 which will set the website's title only to the passed ``TITLE``.
+
+If you want to get the HTML content after a template file would've been included, use
+```php
+Template::fetch("TEMPLATE_FILE");
+```
+with ``TEMPLATE_FILE`` being the template file's name within the ``📁 project/htdocs/frontend/`` directory. This method is useful if you want to send an email with a template file as the email's content or if you want to load contents with AJAX calls and display them with JavaScript.
