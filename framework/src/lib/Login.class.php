@@ -17,7 +17,9 @@ class Login {
         $user = User::dao()->getObject(array("id" => $userId, "emailVerified" => true));
 
         if($user instanceof User) {
-            return $user;
+            if($user->getPermissionLevel() >= $requiredPermissionLevel) {
+                return $user;
+            }
         }
 
         Comm::redirect($redirect);
