@@ -14,7 +14,7 @@ Template::display("TEMPLATE_FILE", array("title" => $title));
 ```
 and in the template file, you would use
 ```php
-<?php echo $title; ?>
+<?php output($title); ?>
 ```
 The keys of the array are the variable names that you want to use in the template file and the values are the values that are assigned to the variables.
 
