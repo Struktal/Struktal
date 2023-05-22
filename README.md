@@ -162,14 +162,14 @@ This file is the script that gets executed when the user visits the page. In thi
     Template::include("header.php");
 ?>
 
-<?php echo $variable; ?>
+<?php output($variable); ?>
 
 <?php
     // Include the footer template
     Template::include("footer.php");
 ?>
 ```
-This is the template file. It sets a website title and includes the header and footer template files located in the ``📁 project/htdocs/frontend/includes/`` directory. The variable that was assigned in the script is then outputted.
+This is the template file. It sets a website title and includes the header and footer template files located in the ``📁 project/htdocs/frontend/includes/`` directory. The variable that was assigned in the script is then outputted. The ``output`` function is a helper function that is used to output content. It takes care of escaping HTML characters. If there is a need to output unescaped content, the default ``echo`` function can be used instead.
 
 > <b>Note:</b> You could also use [PHP short tags](https://www.php.net/manual/en/language.basic-syntax.phptags.php) within the template file, but make sure that they are enabled in your PHP configuration before doing so.
 

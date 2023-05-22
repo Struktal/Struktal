@@ -24,6 +24,7 @@ require_once(__DIR__ . "/../project/config/app-config.php");
 
 // Load Libraries
 $classLoader->loadClasses(__DIR__ . "/src/lib/");
+$classLoader->load(__DIR__ . "/src/lib/methods.php");
 
 // Load Objects
 $classLoader->loadClasses(__DIR__ . "/src/object/");
