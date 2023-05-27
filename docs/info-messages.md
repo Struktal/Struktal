@@ -2,10 +2,10 @@
 ## Info messages
 You can send different info messages to the user by using
 ```php
-new InfoMessage("MESSAGE", InfoMessage::$TYPE_INFO);
-new InfoMessage("MESSAGE", InfoMessage::$TYPE_WARNING);
-new InfoMessage("MESSAGE", InfoMessage::$TYPE_ERROR);
-new InfoMessage("MESSAGE", InfoMessage::$TYPE_SUCCESS);
+new InfoMessage("MESSAGE", InfoMessageType::INFO);
+new InfoMessage("MESSAGE", InfoMessageType::WARNING);
+new InfoMessage("MESSAGE", InfoMessageType::ERROR);
+new InfoMessage("MESSAGE", InfoMessageType::SUCCESS);
 ```
 with ``MESSAGE`` being the message that should be displayed.
 

@@ -487,16 +487,16 @@ This is how you can display an info message:
 ```php
 <?php
     // Info message
-    new InfoMessage("This is an info message", InfoMessage::INFO);
+    new InfoMessage("This is an info message", InfoMessageType::INFO);
 
     // Warning message
-    new InfoMessage("This is a warning message", InfoMessage::WARNING);
+    new InfoMessage("This is a warning message", InfoMessageType::WARNING);
 
     // Error message
-    new InfoMessage("This is an error message", InfoMessage::ERROR);
+    new InfoMessage("This is an error message", InfoMessageType::ERROR);
 
     // Success message
-    new InfoMessage("This is a success message", InfoMessage::SUCCESS);
+    new InfoMessage("This is a success message", InfoMessageType::SUCCESS);
 ```
 To prevent unwanted side effects, it's recommended to only send info messages from an executed website script. If you want to send info messages from other scripts.
 
