@@ -41,3 +41,14 @@ You can modify the following settings:
 - Class Loader Settings
     - ``CLASS_LOADER_IGNORE_FILES`` - Files that should be ignored by the class loader
     - ``CLASS_LOADER_IMPORT_PATHS`` - Paths that should be imported by the class loader
+- SEO Settings
+    - ``SEO_DEFAULT_DESCRIPTION`` - The default description of the website
+    - ``SEO_KEYWORDS`` - The keywords of the website
+    - ``SEO_IMAGE_PREVIEW`` - The image that is shown when the website is shared on social media platforms. The setting is used by OpenGraph and Twitter meta tags.
+    - ``SEO_OPENGRAPH``
+        - ``OPENGRAPH_SITE_NAME`` - The value that should be used for the ``og:site_name`` meta tag
+    - ``SEO_TWITTER``
+        - ``TWITTER_SITE`` - The value that should be used for the ``twitter:site`` meta tag
+        - ``TWITTER_CREATOR`` - The value that should be used for the ``twitter:creator`` meta tag
+    - ``SEO_ROBOTS`` - An array of settings for the ``robots`` meta tag
+    - ``SEO_REVISIT`` - The value that should be used for the ``revisit-after`` meta tag

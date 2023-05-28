@@ -212,6 +212,14 @@ class Router {
             }
         }
     }
+
+    /**
+     * Get the URL that was called
+     * @return string
+     */
+    public static function getCalledURL(): string {
+        return rtrim(Config::$PROJECT_SETTINGS["PROJECT_URL"], "/") . "/" . ltrim($_SERVER["REQUEST_URI"], "/");
+    }
     
     /**
      * Generate the Import Path for a File within the Static Directory

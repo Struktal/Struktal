@@ -22,6 +22,9 @@ class Config {
     // Class Loader Settings
     public static array $CLASS_LOADER_SETTINGS;
 
+    // SEO Settings
+    public static array $SEO_SETTINGS;
+
     /**
      * Stores some Placeholder Config Values
      * They are overridden by root/project/config/app-config.php
@@ -31,6 +34,7 @@ class Config {
             "PROJECT_NAME" => "Project",
             "WEBSITE_TITLE" => "Project",
             "PROJECT_URL" => "https://domain.com",
+            "PROJECT_FAVICON" => Router::staticFilePath("img/favicon.png"),
             "PROJECT_AUTHOR" => "Author",
             "PROJECT_VERSION" => "1.0.0",
             "PRODUCTION" => false
@@ -75,6 +79,23 @@ class Config {
         self::$CLASS_LOADER_SETTINGS = array(
             "CLASS_LOADER_IGNORE_FILES" => array(),
             "CLASS_LOADER_IMPORT_PATHS" => array()
+        );
+
+        self::$SEO_SETTINGS = array(
+            "SEO_DEFAULT_DESCRIPTION" => "Default Description",
+            "SEO_KEYWORDS" => array(),
+            "SEO_IMAGE_PREVIEW" => Router::staticFilePath("img/seo/preview.png"),
+            "SEO_OPENGRAPH" => array(
+                "OPENGRAPH_SITE_NAME" => null,
+            ),
+            "SEO_TWITTER" => array(
+                "TWITTER_SITE" => null,
+                "TWITTER_CREATOR" => null
+            ),
+            "SEO_ROBOTS" => array(
+                "index", "follow"
+            ),
+            "SEO_REVISIT" => "1 days"
         );
     }
 
