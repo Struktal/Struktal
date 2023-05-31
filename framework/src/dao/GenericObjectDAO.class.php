@@ -2,11 +2,11 @@
 
 class GenericObjectDAO {
     private string $CLASS_INSTANCE = "";
-    
+
     public function __construct($CLASS_INSTANCE) {
         $this->CLASS_INSTANCE = $CLASS_INSTANCE;
     }
-    
+
     /**
      * Save an Object with its current Attributes to the Database
      * @param GenericObject $object
@@ -29,24 +29,24 @@ class GenericObjectDAO {
                 }
                 $sql = substr($sql, 0, -2);
                 $sql .= ")";
-        
+
                 $stmt = Database::getConnection()->prepare($sql);
                 foreach($objectProperties as $property => $value) {
                     if($value instanceof DateTime) {
                         $date = $value->format("Y-m-d H:i:s");
-                        $stmt->bindValue("{$property}", $date, PDO::PARAM_STR);
+                        $stmt->bindValue(":{$property}", $date, PDO::PARAM_STR);
                     } else if(is_bool($value)) {
-                        $stmt->bindValue("{$property}", $value, PDO::PARAM_BOOL);
+                        $stmt->bindValue(":{$property}", $value, PDO::PARAM_BOOL);
                     } else if(is_int($value)) {
-                        $stmt->bindValue("{$property}", $value, PDO::PARAM_INT);
+                        $stmt->bindValue(":{$property}", $value, PDO::PARAM_INT);
                     } else if(is_null($value)) {
-                        $stmt->bindValue("{$property}", $value, PDO::PARAM_NULL);
+                        $stmt->bindValue(":{$property}", $value, PDO::PARAM_NULL);
                     } else {
-                        $stmt->bindValue("{$property}", $value, PDO::PARAM_STR);
+                        $stmt->bindValue(":{$property}", $value, PDO::PARAM_STR);
                     }
                 }
                 $stmt->execute();
-        
+
                 $object->id = Database::getConnection()->lastInsertId();
                 return true;
             } else {
@@ -65,15 +65,15 @@ class GenericObjectDAO {
                     if($property !== "created" && $property !== "id") {
                         if($value instanceof DateTime) {
                             $date = $value->format("Y-m-d H:i:s");
-                            $stmt->bindValue("{$property}", $date, PDO::PARAM_STR);
+                            $stmt->bindValue(":{$property}", $date, PDO::PARAM_STR);
                         } else if(is_bool($value)) {
-                            $stmt->bindValue("{$property}", $value, PDO::PARAM_BOOL);
+                            $stmt->bindValue(":{$property}", $value, PDO::PARAM_BOOL);
                         } else if(is_int($value)) {
-                            $stmt->bindValue("{$property}", $value, PDO::PARAM_INT);
+                            $stmt->bindValue(":{$property}", $value, PDO::PARAM_INT);
                         } else if(is_null($value)) {
-                            $stmt->bindValue("{$property}", $value, PDO::PARAM_NULL);
+                            $stmt->bindValue(":{$property}", $value, PDO::PARAM_NULL);
                         } else {
-                            $stmt->bindValue("{$property}", $value, PDO::PARAM_STR);
+                            $stmt->bindValue(":{$property}", $value, PDO::PARAM_STR);
                         }
                     }
                 }
@@ -85,7 +85,7 @@ class GenericObjectDAO {
         } else {
             Logger::getLogger("GenericObjectDAO")->error("Critical: Trying to save " . get_class($object) . " but table does not exist");
         }
-        
+
         return false;
     }
 
@@ -114,7 +114,7 @@ class GenericObjectDAO {
 
         return false;
     }
-    
+
     /**
      * Get an Object from the Database
      * The Object will be returned as an Instance of the corresponding Class
@@ -128,23 +128,27 @@ class GenericObjectDAO {
     public function getObject(array $filter, string $orderBy = "id", bool $orderAsc = true, int $limit = 1, int $offset = 0): ?GenericObject {
         if($this->tableExists($this->CLASS_INSTANCE)) {
             $sql = "SELECT * FROM `" . $this->CLASS_INSTANCE . "`";
-            
+
             if(count($filter) > 0) {
                 $sql .= " WHERE ";
                 foreach($filter as $key => $value) {
-                    $sql .= "`{$key}` = :{$key} AND ";
+                    if($value === null) {
+                        $sql .= "`{$key}` IS :{$key} AND ";
+                    } else {
+                        $sql .= "`{$key}` = :{$key} AND ";
+                    }
                 }
                 $sql = substr($sql, 0, -5);
             }
             $sql .= " ORDER BY `{$orderBy}` " . ($orderAsc ? "ASC" : "DESC");
             $sql .= " LIMIT {$limit} OFFSET {$offset}";
-    
+
             $stmt = Database::getConnection()->prepare($sql);
             foreach($filter as $key => $value) {
-                $stmt->bindValue("{$key}", $value);
+                $stmt->bindValue(":{$key}", $value);
             }
             $stmt->execute();
-    
+
             if($stmt->rowCount() > 0) {
                 $result = $stmt->fetch(PDO::FETCH_ASSOC);
                 $object = new $this->CLASS_INSTANCE();
@@ -156,10 +160,10 @@ class GenericObjectDAO {
         } else {
             Logger::getLogger("GenericObjectDAO")->error("Critical: Trying to get " . $this->CLASS_INSTANCE . " but table does not exist");
         }
-        
+
         return null;
     }
-    
+
     /**
      * Get multiple Objects from the Database at once
      * The Objects will be returned as an Array of Instances of the corresponding Class
@@ -173,11 +177,15 @@ class GenericObjectDAO {
     public function getObjects(array $filter = array(), string $orderBy = "id", bool $orderAsc = true, int $limit = -1, int $offset = 0): array {
         if($this->tableExists($this->CLASS_INSTANCE)) {
             $sql = "SELECT * FROM `" . $this->CLASS_INSTANCE . "`";
-            
+
             if(count($filter) > 0) {
                 $sql .= " WHERE ";
                 foreach($filter as $key => $value) {
-                    $sql .= "`{$key}` = :{$key} AND ";
+                    if($value === null) {
+                        $sql .= "`{$key}` IS :{$key} AND ";
+                    } else {
+                        $sql .= "`{$key}` = :{$key} AND ";
+                    }
                 }
                 $sql = substr($sql, 0, -5);
             }
@@ -185,28 +193,28 @@ class GenericObjectDAO {
             if($limit >= 0) {
                 $sql .= " LIMIT {$limit} OFFSET {$offset}";
             }
-    
+
             $stmt = Database::getConnection()->prepare($sql);
             foreach($filter as $key => $value) {
-                $stmt->bindValue("{$key}", $value);
+                $stmt->bindValue(":{$key}", $value);
             }
             $stmt->execute();
-    
+
             $objects = array();
             while($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 $object = new $this->CLASS_INSTANCE();
                 $object->fromArray($result);
                 $objects[] = $object;
             }
-    
+
             return $objects;
         } else {
             Logger::getLogger("GenericObjectDAO")->error("Critical: Trying to get " . $this->CLASS_INSTANCE . " but table does not exist");
         }
-    
+
         return array();
     }
-    
+
     /**
      * Check whether the Table for the specified Class exists
      * @param string $tableName
@@ -216,7 +224,7 @@ class GenericObjectDAO {
         $stmt = Database::getConnection()->prepare("SHOW TABLES LIKE :tableName");
         $stmt->bindValue(":tableName", $tableName);
         $stmt->execute();
-        
+
         return $stmt->rowCount() > 0;
     }
 }
