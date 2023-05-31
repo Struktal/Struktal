@@ -1,15 +1,10 @@
 <?php
 
 class InfoMessage {
-    public static int $TYPE_INFO = 0;
-    public static int $TYPE_WARNING = 1;
-    public static int $TYPE_ERROR = 2;
-    public static int $TYPE_SUCCESS = 3;
-
     private string $message;
-    private string $type;
+    private InfoMessageType $type;
 
-    public function __construct(string $message, int $type) {
+    public function __construct(string $message, InfoMessageType $type) {
         $this->message = $message;
         $this->type = $type;
 
@@ -58,24 +53,10 @@ class InfoMessage {
 
     /**
      * Get the Info Message Type
-     * @return int
+     * @return InfoMessageType
      */
-    public function getType(): int {
+    public function getType(): InfoMessageType {
         return $this->type;
-    }
-
-    /**
-     * Get the Info Message Type as String
-     * @return string
-     */
-    public function getTypeFormatted(): string {
-        return match($this->getType()) {
-            InfoMessage::$TYPE_INFO => "info",
-            InfoMessage::$TYPE_WARNING => "warning",
-            InfoMessage::$TYPE_ERROR => "error",
-            InfoMessage::$TYPE_SUCCESS => "success",
-            default => strval($this->getType()),
-        };
     }
 
     /**
@@ -85,6 +66,6 @@ class InfoMessage {
      * @return mixed
      */
     private static function compare($a, $b) {
-        return $b->getType() - $a->getType();
+        return $b->getType()->getCode() - $a->getType()->getCode();
     }
 }

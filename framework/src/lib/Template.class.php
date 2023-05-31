@@ -2,6 +2,7 @@
 
 class Template {
     private static string $websiteTitle = "";
+
     /**
      * Include a PHP Template File that contains the frontend Code
      * @param string $template Name of Template File within the frontend Directory

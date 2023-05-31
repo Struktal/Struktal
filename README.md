@@ -111,6 +111,17 @@ There are the following settings:
 - ``CLASS_LOADER_SETTINGS``
   - ``CLASS_LOADER_IGNORE_FILES`` - An array of files that should be ignored by the class loader
   - ``CLASS_LOADER_IMPORT_PATHS`` - An array of paths that should be included additionally to the default paths
+- ``SEO_SETTINGS``
+    - ``SEO_DEFAULT_DESCRIPTION`` - The default description of the website
+    - ``SEO_KEYWORDS`` - The keywords of the website
+    - ``SEO_IMAGE_PREVIEW`` - The image that is shown when the website is shared on social media platforms. The setting is used by OpenGraph and Twitter meta tags.
+    - ``SEO_OPENGRAPH``
+      - ``OPENGRAPH_SITE_NAME`` - The value that should be used for the ``og:site_name`` meta tag
+    - ``SEO_TWITTER``
+      - ``TWITTER_SITE`` - The value that should be used for the ``twitter:site`` meta tag
+      - ``TWITTER_CREATOR`` - The value that should be used for the ``twitter:creator`` meta tag
+    - ``SEO_ROBOTS`` - An array of settings for the ``robots`` meta tag
+    - ``SEO_REVISIT`` - The value that should be used for the ``revisit-after`` meta tag
 </details>
 
 <details>
@@ -487,16 +498,16 @@ This is how you can display an info message:
 ```php
 <?php
     // Info message
-    new InfoMessage("This is an info message", InfoMessage::INFO);
+    new InfoMessage("This is an info message", InfoMessageType::INFO);
 
     // Warning message
-    new InfoMessage("This is a warning message", InfoMessage::WARNING);
+    new InfoMessage("This is a warning message", InfoMessageType::WARNING);
 
     // Error message
-    new InfoMessage("This is an error message", InfoMessage::ERROR);
+    new InfoMessage("This is an error message", InfoMessageType::ERROR);
 
     // Success message
-    new InfoMessage("This is a success message", InfoMessage::SUCCESS);
+    new InfoMessage("This is a success message", InfoMessageType::SUCCESS);
 ```
 To prevent unwanted side effects, it's recommended to only send info messages from an executed website script. If you want to send info messages from other scripts.
 

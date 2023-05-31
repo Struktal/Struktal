@@ -51,5 +51,15 @@ Config::$CLASS_LOADER_SETTINGS["CLASS_LOADER_IMPORT_PATHS"][] = __DIR__ . "/../s
 Config::$CLASS_LOADER_SETTINGS["CLASS_LOADER_IMPORT_PATHS"][] = __DIR__ . "/../src/object/";
 Config::$CLASS_LOADER_SETTINGS["CLASS_LOADER_IMPORT_PATHS"][] = __DIR__ . "/../src/dao/";
 
+// SEO Settings
+Config::$SEO_SETTINGS["SEO_DEFAULT_DESCRIPTION"] = "Default Description";
+Config::$SEO_SETTINGS["SEO_KEYWORDS"] = array();
+Config::$SEO_SETTINGS["SEO_IMAGE_PREVIEW"] = Router::staticFilePath("img/seo/preview.png");
+Config::$SEO_SETTINGS["SEO_OPENGRAPH"]["OPENGRAPH_SITE_NAME"] = null;
+Config::$SEO_SETTINGS["SEO_TWITTER"]["TWITTER_SITE"] = null;
+Config::$SEO_SETTINGS["SEO_TWITTER"]["TWITTER_CREATOR"] = null;
+Config::$SEO_SETTINGS["SEO_ROBOTS"] = array("index", "follow");
+Config::$SEO_SETTINGS["SEO_REVISIT"] = "1 days";
+
 // Other Settings that shouldn't be published
 include_once(__DIR__ . "/app-config.inc.php");
