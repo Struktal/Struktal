@@ -38,7 +38,7 @@
         <?php endif; ?>
 
         <?php // Indexing ?>
-        <meta name="robots" content="<?php output(implode(", ", Config::$SEO_SETTINGS["SEO_ROBOTS"])); ?>">
+        <meta name="robots" content="<?php output(implode(", ", SEO::getRobots())); ?>">
         <meta name="revisit-after" content="<?php output(Config::$SEO_SETTINGS["SEO_REVISIT"]); ?>">
 
         <?php // CSS ?>
