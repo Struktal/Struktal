@@ -2,10 +2,10 @@
 
 class ClassLoader {
     private static ?ClassLoader $instance = null;
-    
+
     private function __construct() {
     }
-    
+
     /**
      * Returns the Instance of the ClassLoader
      * @return ClassLoader
@@ -14,10 +14,10 @@ class ClassLoader {
         if(self::$instance === null) {
             self::$instance = new ClassLoader();
         }
-        
+
         return self::$instance;
     }
-    
+
     /**
      * Loads a single given File
      * @param string $absolutePath
@@ -26,7 +26,7 @@ class ClassLoader {
     public function load(string $absolutePath): void {
         require_once($absolutePath);
     }
-    
+
     /**
      * Loads a single given Class
      * Note that only Classes in Files with the Ending ".class.php" will be loaded
@@ -38,10 +38,10 @@ class ClassLoader {
             $this->load($absolutePath);
             return true;
         }
-        
+
         return false;
     }
-    
+
     /**
      * Loads all Classes in a given Directory and it's Subdirectories (recursively) except those specified in $exceptions
      * Note that only Classes in Files with the Ending ".class.php" will be loaded
@@ -60,6 +60,45 @@ class ClassLoader {
                     }
                 } else if($file !== "." && $file !== "..") {
                     $this->loadClasses($absolutePath . (str_ends_with($absolutePath, "/") ? "" : "/") . $file, $exceptions);
+                }
+            }
+        } else {
+            Logger::getLogger("ClassLoader")->error("Directory {$absolutePath} does not exist");
+        }
+    }
+
+    /**
+     * Loads a single given Enum
+     * @param string $absolutePath
+     * @return bool
+     */
+    public function loadEnum(string $absolutePath): bool {
+        if(str_ends_with($absolutePath, ".enum.php")) {
+            $this->load($absolutePath);
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Loads all Enums in a given Directory and it's Subdirectories (recursively) except those specified in $exceptions
+     * Note that only Enums in Files with the Ending ".enum.php" will be loaded
+     * @param string $absolutePath
+     * @param array  $exceptions
+     * @return void
+     */
+    public function loadEnums(string $absolutePath, array $exceptions = array()): void {
+        if(is_dir($absolutePath)) {
+            $files = scandir($absolutePath);
+
+            foreach($files as $file) {
+                if(!(is_dir($absolutePath . (str_ends_with($absolutePath, "/") ? "" : "/") . $file))) {
+                    if(str_ends_with($file, ".enum.php") && !(in_array($file, $exceptions))) {
+                        $this->loadEnum($absolutePath . (str_ends_with($absolutePath, "/") ? "" : "/") . $file);
+                    }
+                } else if($file !== "." && $file !== "..") {
+                    $this->loadEnums($absolutePath . (str_ends_with($absolutePath, "/") ? "" : "/") . $file, $exceptions);
                 }
             }
         } else {

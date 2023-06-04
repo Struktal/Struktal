@@ -22,6 +22,9 @@ require_once(__DIR__ . "/config/Config.class.php");
 Config::init();
 require_once(__DIR__ . "/../project/config/app-config.php");
 
+// Load Enums
+$classLoader->loadEnums(__DIR__ . "/src/enum/");
+
 // Load Libraries
 $classLoader->loadClasses(__DIR__ . "/src/lib/");
 $classLoader->load(__DIR__ . "/src/lib/methods.php");
@@ -34,5 +37,6 @@ $classLoader->loadClasses(__DIR__ . "/src/dao/");
 
 // Load Extra Classes
 foreach(Config::$CLASS_LOADER_SETTINGS["CLASS_LOADER_IMPORT_PATHS"] as $path) {
+    $classLoader->loadEnums($path);
     $classLoader->loadClasses($path);
 }
