@@ -45,16 +45,24 @@ git clone https://github.com/JensOstertag/PHP-Framework.git .
    It's recommended to use the following ``.gitignore``-template:
    ```console
    # Ignore Files that contain sensible Information such as Passwords or secret Keys
-   /project/config/*.inc.php
+   *.inc.php
+   
+   # Ignore Composer Vendor Folder
+   vendor/
    ```
    It's up to you to decide whether or not you want to ignore the framework's files within the ``📁 framework/`` directory.
 
-4. Update the following configuration files in the ``📁 project/config/`` directory: 
+4. Install the required dependencies using Composer:
+   ```sh
+   composer install
+   ```
+
+5. Update the following configuration files in the ``📁 project/config/`` directory: 
     - ``📄 app-config.php`` - Basic project settings
     - ``📄 app-config.inc.php`` - Project settings that shouldn't be in a git repository
     - ``📄 app-routes.php`` - Routes initialization
 
-5. Now, you can add new scripts inside of the ``📁 project/`` directory.
+6. Now, you can add new scripts inside of the ``📁 project/`` directory.
 
 ## How to use
 This section provides quick tutorials about how to use the framework and it's features.
@@ -149,7 +157,7 @@ In the following example you can see how the logger should be used:
 
 To create a new page for the website, create a new PHP file that should get executed when the user visits the page. The file should be located in the ``📁 project/htdocs/`` directory. There are no limitations what you can do in the script, but it's not recommended to output HTML code or other content directly (exception: you want to send JSON responses, please take a look at the corresponding tutorial or the <a href="docs/comm.md">``Comm`` class documentation</a>). 
 
-Instead, to output content, create a PHP template file in the ``📁 project/htdocs/templates/`` directory. A template file is a normal PHP File that is specialized for outputting content. This separation not only takes care of a better overview, it also separates the logic from the view. For further information about template files, please take a look at the <a href="docs/template.md">template documentation</a>.
+Instead, to output content, create a PHP template file in the ``📁 project/htdocs/templates/`` directory. A template file is a normal PHP File that is specialized for outputting content. This separation not only takes care of a better overview, it also separates the logic from the view. For further information about template files, please take a look at the <a href="docs/template.md">template documentation</a> or the <a href="https://github.com/JensOstertag/php-templify">Templify documentation</a>.
 
 Have a look at the following example:
 
@@ -157,27 +165,33 @@ Have a look at the following example:
 ```php
 <?php
 
+use jensostertag\Templify\Templify;
+
 // Assign a variable
 $variable = "Hello World!";
 
 // Load the template
-Template::display("example.php", array("variable" => $variable));
+Templify::display("example.php", array("variable" => $variable));
 ```
 This file is the script that gets executed when the user visits the page. In this example, a variable is assigned and the template ``example.php`` is loaded.
 
 ``📄 project/htdocs/frontend/example.php``:
 ```php
 <?php
+    use jensostertag\Templify\Templify;
+
     // Set the website title and include the header template
-    Template::setWebsiteTitle("Title");
-    Template::include("header.php");
+    Templify::setConfig("WEBSITE_TITLE", "Title");
+    Templify::include("header.php");
 ?>
 
 <?php output($variable); ?>
 
 <?php
+    use jensostertag\Templify\Templify;
+
     // Include the footer template
-    Template::include("footer.php");
+    Templify::include("footer.php");
 ?>
 ```
 This is the template file. It sets a website title and includes the header and footer template files located in the ``📁 project/htdocs/frontend/includes/`` directory. The variable that was assigned in the script is then outputted. The ``output`` function is a helper function that is used to output content. It takes care of escaping HTML characters. If there is a need to output unescaped content, the default ``echo`` function can be used instead.

@@ -1,14 +1,18 @@
 <?php
 
+// Vendor Autoloader
+require_once(__DIR__ . "/../project/src/lib/vendor/autoload.php");
+
+// Setup Composer Libraries
+use jensostertag\Templify\Templify;
+Templify::setConfig("TEMPLATE_BASE_DIR", __DIR__ . "/../project/htdocs/frontend/");
+
 // Class Loader
 require_once(__DIR__ . "/src/ClassLoader.class.php");
 $classLoader = ClassLoader::getInstance();
 
 // Load Logger
 $classLoader->loadClass(__DIR__ . "/src/Logger.class.php");
-
-// Load Util
-$classLoader->loadClass(__DIR__ . "/src/Util.class.php");
 
 // Load Comm
 $classLoader->loadClass(__DIR__ . "/src/Comm.class.php");

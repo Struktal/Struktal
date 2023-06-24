@@ -1,6 +1,7 @@
 <?php
-Template::setWebsiteTitle("404");
-Template::include("header.php");
+use jensostertag\Templify\Templify;
+Templify::setConfig("WEBSITE_TITLE", "404");
+Templify::include("header.php");
 ?>
 
 <h1>404</h1>
@@ -9,5 +10,5 @@ Template::include("header.php");
 </p>
 
 <?php
-Template::include("footer.php");
+Templify::include("footer.php");
 ?>

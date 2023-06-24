@@ -1,4 +1,6 @@
 <?php
 
+use jensostertag\Templify\Templify;
+
 http_response_code(404);
-Template::display("404.php");
+Templify::display("404.php");

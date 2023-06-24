@@ -1,0 +1,66 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "a8ab980505bcca28e2515c51d6e8c422",
+    "packages": [
+        {
+            "name": "jensostertag/php-templify",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:JensOstertag/php-templify.git",
+                "reference": "d2392b836bf87552fbec4aecc7d1f5d0d1dcb6e4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/JensOstertag/php-templify/zipball/d2392b836bf87552fbec4aecc7d1f5d0d1dcb6e4",
+                "reference": "d2392b836bf87552fbec4aecc7d1f5d0d1dcb6e4",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.0.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "jensostertag\\Templify\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jens Ostertag",
+                    "email": "development@jens-ostertag.de",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A simple PHP Templating Engine",
+            "keywords": [
+                "engine",
+                "template"
+            ],
+            "support": {
+                "source": "https://github.com/JensOstertag/php-templify/tree/main",
+                "issues": "https://github.com/JensOstertag/php-templify/issues"
+            },
+            "time": "2023-06-24T09:25:31+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "jensostertag/php-templify": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "plugin-api-version": "2.3.0"
+}

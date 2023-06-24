@@ -1,3 +1,7 @@
+<?php
+    use jensostertag\Templify\Templify;
+?>
+
 <html>
     <head>
         <?php // Encoding ?>
@@ -6,7 +10,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <?php // Browser Tab ?>
-        <title><?php output(Template::getWebsiteTitle()); ?></title>
+        <title><?php
+            output(
+                (
+                        Templify::getConfig("WEBSITE_TITLE") !== null ?
+                            Templify::getConfig("WEBSITE_TITLE") . " - "
+                        :
+                            ""
+                ) . Config::$PROJECT_SETTINGS["WEBSITE_TITLE"]
+            );
+        ?></title>
         <link rel="icon" href="<?php output(Config::$PROJECT_SETTINGS["PROJECT_FAVICON"]); ?>" type="image/x-icon">
 
         <?php // Basic SEO ?>
@@ -15,7 +28,16 @@
         <meta name="author" content="<?php output(Config::$PROJECT_SETTINGS["PROJECT_AUTHOR"]); ?>">
 
         <?php // OpenGraph SEO ?>
-        <meta property="og:title" content="<?php output(Template::getWebsiteTitle()); ?>">
+        <meta property="og:title" content="<?php
+            output(
+                (
+                    Templify::getConfig("WEBSITE_TITLE") !== null ?
+                        Templify::getConfig("WEBSITE_TITLE") . " - "
+                    :
+                        ""
+                ) . Config::$PROJECT_SETTINGS["WEBSITE_TITLE"]
+            );
+        ?>">
         <meta property="og:description" content="<?php output(SEO::getDescription()); ?>">
         <meta property="og:image" content="<?php output(Config::$SEO_SETTINGS["SEO_IMAGE_PREVIEW"]); ?>">
         <meta property="og:url" content="<?php output(Router::getCalledURL()); ?>">
@@ -26,7 +48,16 @@
 
         <?php // Twitter SEO ?>
         <meta name="twitter:card" content="summary">
-        <meta name="twitter:title" content="<?php output(Template::getWebsiteTitle()); ?>">
+        <meta name="twitter:title" content="<?php
+            output(
+                (
+                    Templify::getConfig("WEBSITE_TITLE") !== null ?
+                        Templify::getConfig("WEBSITE_TITLE") . " - "
+                    :
+                        ""
+                ) . Config::$PROJECT_SETTINGS["WEBSITE_TITLE"]
+            );
+        ?>">
         <meta name="twitter:description" content="<?php output(SEO::getDescription()); ?>">
         <meta name="twitter:image" content="<?php output(Config::$SEO_SETTINGS["SEO_IMAGE_PREVIEW"]); ?>">
         <meta name="twitter:url" content="<?php output(Router::getCalledURL()); ?>">
@@ -102,5 +133,5 @@
 
         <main>
             <?php
-                Template::include("infomessages.php");
+                Templify::include("infomessages.php");
             ?>

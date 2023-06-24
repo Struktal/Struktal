@@ -1,0 +1,14 @@
+{
+  "repositories": [
+    {
+        "type": "vcs",
+        "url": "https://github.com/JensOstertag/php-templify"
+    }
+  ],
+  "require": {
+    "jensostertag/php-templify": "dev-main"
+  },
+  "config": {
+    "vendor-dir": "project/src/lib/vendor"
+  }
+}

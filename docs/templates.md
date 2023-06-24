@@ -1,43 +1,11 @@
 # Documentation
 ## Template files
-Template files are, in this framework, PHP files that are used to generate the HTML content of the website (you could also add a templating engine such as Twig or Smarty to achieve that). They are located in the ``📁 project/htdocs/frontend/`` directory and are included by the scripts in the ``📁 project/htdocs/`` directory.
+This framework uses template files to separate view and logic, which ensures maintainability of the project. Specifically, it uses the [Templify library](https://github.com/JensOstertag/php-templify), which considers template files to be normal PHP files that contain the static HTML and dynamic PHP content of the website. The files are located in the ``📁 project/htdocs/frontend/`` directory and are included by the scripts in the ``📁 project/htdocs/`` directory.
 
-To simply include a template file from a script, use
-```php
-Template::display("TEMPLATE_FILE");
-```
-with ``TEMPLATE_FILE`` being the template file's name within the ``📁 project/htdocs/frontend/`` directory.
+To learn about how to use the templating engine, please refer to the [Templify documentation](https://github.com/JensOstertag/php-templify).
 
-If you want to use variables that are defined in the script in the template file, you have to pass them as an associative array to the ``display()`` method. For example, if you want to use the variable ``$title`` in the template file, you would use
+Because the Templify config is an array, it allows to set custom values which comes in handy when you want to set different website titles for different pages whilst still reusing the same header template. To set the website's title, use
 ```php
-Template::display("TEMPLATE_FILE", array("title" => $title));
+Templify::setConfig("WEBSITE_TITLE", "Title");
 ```
-and in the template file, you would use
-```php
-<?php output($title); ?>
-```
-The keys of the array are the variable names that you want to use in the template file and the values are the values that are assigned to the variables.
-
-To reduce code duplication and make it easier to maintain the project, you can include another template file within a template file. This comes in handy if you want to include the same header and footer on each page of the website.
-
-To do that, use
-```php
-Template::include("TEMPLATE_FILE");
-```
-with ``TEMPLATE_FILE`` being the template file's name within the ``📁 project/htdocs/frontend/includes/`` directory.
-
-Because in that case, the website's title would be the same on every page, you can set it individually by using either
-```php
-Template::setWebsiteTitle("TITLE");
-```
-which will append the Value defined in the project config under ``WEBSITE_TITLE`` to the passed ``TITLE`` or
-```php
-Template::overrideWebsiteTitle("TITLE");
-```
-which will set the website's title only to the passed ``TITLE``.
-
-If you want to get the HTML content after a template file would've been included, use
-```php
-Template::fetch("TEMPLATE_FILE");
-```
-with ``TEMPLATE_FILE`` being the template file's name within the ``📁 project/htdocs/frontend/`` directory. This method is useful if you want to send an email with a template file as the email's content or if you want to load contents with AJAX calls and display them with JavaScript.
+where ``Title`` is the title that should be displayed in the browsers tab. This value will be prepended to the default website title specified in the project config.

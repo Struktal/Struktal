@@ -1,6 +1,7 @@
 <?php
-Template::setWebsiteTitle("400");
-Template::include("header.php");
+use jensostertag\Templify\Templify;
+Templify::setConfig("WEBSITE_TITLE", "400");
+Templify::include("header.php");
 ?>
 
 <h1>400</h1>
@@ -9,5 +10,5 @@ Template::include("header.php");
 </p>
 
 <?php
-Template::include("footer.php");
+Templify::include("footer.php");
 ?>
