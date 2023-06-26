@@ -1,30 +1,5 @@
 # Documentation
 ## Curl
-You can use the ``Curl`` class to send HTTP GET or POST requests to other servers. To do that, use
-```php
-// GET request to a HTML page
-$curl = new Curl();
-$curl->setUrl("URL");
-$curl->setMethod(Curl::$METHOD_GET);
-$curl->addHeader(array(
-    "accept" => "text/html, application/xhtml+xml"
-));
-$response = $curl->execute();
-$responseCode = $curl->getHttpCode();
-$curl->close();
+You can use the [PHP-Curl](https://github.com/JensOstertag/php-curl) librarys ``Curl`` class to send HTTP GET or POST requests to other servers. The library is a wrapper for PHPs cURL methods.
 
-// POST request to a JSON API 
-$curl = new Curl();
-$curl->setUrl("URL");
-$curl->setMethod(Curl::$METHOD_POST);
-$curl->addHeader(array(
-    "accept" => "application/json"
-));
-$curl->addPostData(array(
-    "key" => "value"
-));
-$response = $curl->execute();
-$responseCode = $curl->getHttpCode();
-$curl->close();
-```
-with ``URL`` being the URL of the server that you want to send the request to.
+To learn about how to do that, please refer to the [PHP-Curl documentation](https://github.com/JensOstertag/php-curl) as the documentation always reflects the latest version of the library.

@@ -4,8 +4,101 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a8ab980505bcca28e2515c51d6e8c422",
+    "content-hash": "d3356d7e4eff593975234042782a9ad7",
     "packages": [
+        {
+            "name": "jensostertag/php-curl",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:JensOstertag/php-curl.git",
+                "reference": "7e2531147797b3880070e08cd41858980ebb3495"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/JensOstertag/php-curl/zipball/7e2531147797b3880070e08cd41858980ebb3495",
+                "reference": "7e2531147797b3880070e08cd41858980ebb3495",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "php": ">=8.0.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "jensostertag\\Curl\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jens Ostertag",
+                    "email": "development@jens-ostertag.de",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A PHP Curl Wrapper Library",
+            "keywords": [
+                "curl",
+                "wrapper"
+            ],
+            "support": {
+                "source": "https://github.com/JensOstertag/php-curl/tree/main",
+                "issues": "https://github.com/JensOstertag/php-curl/issues"
+            },
+            "time": "2023-06-24T11:47:35+00:00"
+        },
+        {
+            "name": "jensostertag/php-geocoding",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:JensOstertag/php-geocoding.git",
+                "reference": "bd6db2bd01f4ddf271d725205e1f339446781aec"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/JensOstertag/php-geocoding/zipball/bd6db2bd01f4ddf271d725205e1f339446781aec",
+                "reference": "bd6db2bd01f4ddf271d725205e1f339446781aec",
+                "shasum": ""
+            },
+            "require": {
+                "jensostertag/php-curl": "dev-main",
+                "php": ">=8.0.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "jensostertag\\Geocoding\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jens Ostertag",
+                    "email": "development@jens-ostertag.de",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A simple PHP Library for Nominatim Geocoding API",
+            "keywords": [
+                "geocode",
+                "nominatim"
+            ],
+            "support": {
+                "source": "https://github.com/JensOstertag/php-geocoding/tree/main",
+                "issues": "https://github.com/JensOstertag/php-geocoding/issues"
+            },
+            "time": "2023-06-24T13:30:00+00:00"
+        },
         {
             "name": "jensostertag/php-templify",
             "version": "dev-main",
@@ -56,7 +149,9 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "jensostertag/php-templify": 20
+        "jensostertag/php-templify": 20,
+        "jensostertag/php-curl": 20,
+        "jensostertag/php-geocoding": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

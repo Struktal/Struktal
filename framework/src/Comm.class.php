@@ -28,7 +28,7 @@ class Comm {
      * @param array $data
      * @return void
      */
-    public static function apiSendJSON(array $response, array $data): void {
+    public static function apiSendJson(array $response, array $data): void {
         header("Content-Type: application/json");
         echo json_encode(array(
             "code" => $response["code"],

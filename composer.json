@@ -1,12 +1,22 @@
 {
   "repositories": [
     {
-        "type": "vcs",
-        "url": "https://github.com/JensOstertag/php-templify"
+      "type": "vcs",
+      "url": "https://github.com/JensOstertag/php-templify"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/JensOstertag/php-curl"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/JensOstertag/php-geocoding"
     }
   ],
   "require": {
-    "jensostertag/php-templify": "dev-main"
+    "jensostertag/php-templify": "dev-main",
+    "jensostertag/php-curl": "dev-main",
+    "jensostertag/php-geocoding": "dev-main"
   },
   "config": {
     "vendor-dir": "project/src/lib/vendor"
