@@ -101,7 +101,7 @@ Instead of creating a new object, you can also <a href="#loading-objects-from-th
 To load objects from the database, you can use the DAO's ``getObject`` or ``getObjects`` methods:
 ```php
 // Get the object with the ID 1
-$myObject = MyObject::dao()->getObject(array("id" => 1));
+$myObject = MyObject::dao()->getObject(["id" => 1]);
 
 // Get all objects
 $myObjects = MyObject::dao()->getObjects();
@@ -117,6 +117,6 @@ For both methods you can set the following parameters:
 To delete an object from the database, call the DAO's ``delete`` method:
 ```php
 // Delete the object with the ID 1
-$myObject = MyObject::dao()->getObject(array("id" => 1));
+$myObject = MyObject::dao()->getObject(["id" => 1]);
 MyObject::dao()->delete($myObject);
 ```

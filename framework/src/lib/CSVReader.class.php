@@ -4,7 +4,7 @@ class CSVReader {
     private $file = null;
     private ?int $maxLength = null;
     private string $delimiter = ",";
-    private array $data = array();
+    private array $data = [];
 
     /**
      * Set the CSV File that should be read
@@ -42,7 +42,7 @@ class CSVReader {
      */
     public function detectDelimiter(): CSVReader {
         if($this->file !== null) {
-            $delimiters = array("," => 0, ";" => 0, "\t" => 0, "|" => 0);
+            $delimiters = ["," => 0, ";" => 0, "\t" => 0, "|" => 0];
 
             $handle = fopen($this->file, "r");
             $firstLine = fgets($handle);

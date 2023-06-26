@@ -53,8 +53,8 @@ addRoute("GET|POST", "/user/{s:username}/edit", "edit-user.php", "edit-user");
 You can get the complete URI with
 ```php
 # Returns "/user/<username>/edit"
-Router::generate("edit-user", array(
+Router::generate("edit-user", [
     "username" => "<username>"
-));
+]);
 ```
 and add it to an ``<a>`` tag in the users profile.

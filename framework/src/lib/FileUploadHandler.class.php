@@ -3,11 +3,11 @@
 class FileUploadHandler {
     private string $inputName = "file";
     private bool $multiple = false;
-    private array $allowedMimeTypes = array();
+    private array $allowedMimeTypes = [];
     private ?int $maxSize = null;
-    private array $files = array();
+    private array $files = [];
     private bool $uploadSuccessful = false;
-    private array $uploadErrors = array();
+    private array $uploadErrors = [];
 
     /**
      * Set the Input Name of the File Input
@@ -81,17 +81,17 @@ class FileUploadHandler {
         if(isset($_FILES[$this->inputName])) {
             $this->uploadSuccessful = true;
 
-            $files = array();
+            $files = [];
             if($this->multiple) {
                 if(is_array($_FILES[$this->inputName]["name"])) {
                     for($i = 0; $i < sizeof($_FILES[$this->inputName]["name"]); $i++) {
-                        $file = array(
+                        $file = [
                             "name" => $_FILES[$this->inputName]["name"][$i],
                             "type" => $_FILES[$this->inputName]["type"][$i],
                             "tmp_name" => $_FILES[$this->inputName]["tmp_name"][$i],
                             "error" => $_FILES[$this->inputName]["error"][$i],
                             "size" => $_FILES[$this->inputName]["size"][$i]
-                        );
+                        ];
 
                         if(!($this->checkFile($file))) {
                             $this->uploadSuccessful = false;

@@ -6,7 +6,7 @@ class Database {
 
     private function __construct() {
         if(Config::$DB_SETTINGS["DB_USE"]) {
-            $this->connection = new PDO("mysql:host=" . Config::$DB_SETTINGS["DB_HOST"] . ";dbname=" . Config::$DB_SETTINGS["DB_NAME"], Config::$DB_SETTINGS["DB_USER"], Config::$DB_SETTINGS["DB_PASS"], array(PDO::MYSQL_ATTR_FOUND_ROWS => true));
+            $this->connection = new PDO("mysql:host=" . Config::$DB_SETTINGS["DB_HOST"] . ";dbname=" . Config::$DB_SETTINGS["DB_NAME"], Config::$DB_SETTINGS["DB_USER"], Config::$DB_SETTINGS["DB_PASS"], [PDO::MYSQL_ATTR_FOUND_ROWS => true]);
         }
     }
     

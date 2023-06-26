@@ -171,7 +171,7 @@ use jensostertag\Templify\Templify;
 $variable = "Hello World!";
 
 // Load the template
-Templify::display("example.php", array("variable" => $variable));
+Templify::display("example.php", ["variable" => $variable]);
 ```
 This file is the script that gets executed when the user visits the page. In this example, a variable is assigned and the template ``example.php`` is loaded.
 
@@ -265,9 +265,9 @@ Assumed you've already created a page and a route with the route name ``example`
     // Config settings...
     
     // Add a sidebar menu item for the example page
-    $MENU_SETTINGS["MENU_SIDEBAR"]["Example"] = array(
+    $MENU_SETTINGS["MENU_SIDEBAR"]["Example"] = [
         "route" => Router::generate("example")
-    );
+    ];
 
     // Config settings...
 ```
@@ -551,19 +551,24 @@ For more information about the ``InfoMessage`` class, take a look at the <a href
 </details>
 
 <details>
-<summary><b>Using the CURL helper class</b></summary>
+<summary><b>Sending cURL requests</b></summary>
 
-You can use the ``Curl`` class to send HTTP GET or POST requests to other servers. The following example code shows how to send a GET request to read an HTML page:
+You can use the [PHP-Curl](https://github.com/JensOstertag/php-curl) librarys ``Curl`` class to send HTTP GET or POST requests to other servers. The library is a wrapper for PHPs cURL methods. 
+
+The following example code shows how to send a GET request to read an HTML page:
 ```php
 <?php
+
+    use jensostertag\Curl\Curl;
+
     $curl = new Curl();
     
     // Define the request and headers
     $curl->setUrl("URL");
     $curl->setMethod(Curl::$METHOD_GET);
-    $curl->addHeader(array(
+    $curl->addHeader([
         "accept" => "text/html, application/xhtml+xml"
-    ));
+    ]);
     
     // Get the response
     $response = $curl->execute();
@@ -575,19 +580,22 @@ with ``URL`` being the URL of the server that you want to send the request to.
 As a more complex example, let's assume you want to send a POST request to a server that requires a data body. You can do that as follows:
 ```php
 <?php
+
+    use jensostertag\Curl\Curl;
+
     $curl = new Curl();
     
     // Define the request and headers
     $curl->setUrl("URL");
     $curl->setMethod(Curl::$METHOD_POST);
-    $curl->addHeader(array(
+    $curl->addHeader([
         "accept" => "application/json"
-    ));
+    ]);
     
     // Add data to the request
-    $curl->addPostData(array(
+    $curl->addPostData([
         "key" => "value"
-    ));
+    ]);
     
     // Get the response
     $response = $curl->execute();

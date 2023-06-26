@@ -49,7 +49,7 @@ class ClassLoader {
      * @param array  $exceptions
      * @return void
      */
-    public function loadClasses(string $absolutePath, array $exceptions = array()): void {
+    public function loadClasses(string $absolutePath, array $exceptions = []): void {
         if(is_dir($absolutePath)) {
             $files = scandir($absolutePath);
 
@@ -88,7 +88,7 @@ class ClassLoader {
      * @param array  $exceptions
      * @return void
      */
-    public function loadEnums(string $absolutePath, array $exceptions = array()): void {
+    public function loadEnums(string $absolutePath, array $exceptions = []): void {
         if(is_dir($absolutePath)) {
             $files = scandir($absolutePath);
 

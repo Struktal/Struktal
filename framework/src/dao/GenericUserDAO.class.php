@@ -13,15 +13,15 @@ class GenericUserDAO extends GenericObjectDAO {
     public function login(string $login, bool $loginWithEmail, string $password): GenericUser|int {
         if($loginWithEmail) {
             $login = strtolower($login);
-            $user = $this->getObject(array(
+            $user = $this->getObject([
                 "email" => $login,
                 "emailVerified" => true
-            ));
+            ]);
         } else {
-            $user = $this->getObject(array(
+            $user = $this->getObject([
                 "username" => $login,
                 "emailVerified" => true
-            ));
+            ]);
         }
 
         if($user instanceof GenericUser) {
@@ -68,7 +68,7 @@ class GenericUserDAO extends GenericObjectDAO {
         }
 
         // Check whether the generated One-Time-Password already exists
-        if(sizeof($this->getObjects(array("oneTimePassword" => $oneTimePassword))) > 0) {
+        if(sizeof($this->getObjects(["oneTimePassword" => $oneTimePassword])) > 0) {
             $oneTimePassword = $this->generateOneTimePassword();
         }
 

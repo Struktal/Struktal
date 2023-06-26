@@ -174,7 +174,7 @@ class GenericObjectDAO {
      * @param int    $offset
      * @return array
      */
-    public function getObjects(array $filter = array(), string $orderBy = "id", bool $orderAsc = true, int $limit = -1, int $offset = 0): array {
+    public function getObjects(array $filter = [], string $orderBy = "id", bool $orderAsc = true, int $limit = -1, int $offset = 0): array {
         if($this->tableExists($this->CLASS_INSTANCE)) {
             $sql = "SELECT * FROM `" . $this->CLASS_INSTANCE . "`";
 
@@ -200,7 +200,7 @@ class GenericObjectDAO {
             }
             $stmt->execute();
 
-            $objects = array();
+            $objects = [];
             while($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 $object = new $this->CLASS_INSTANCE();
                 $object->fromArray($result);
@@ -212,7 +212,7 @@ class GenericObjectDAO {
             Logger::getLogger("GenericObjectDAO")->error("Critical: Trying to get " . $this->CLASS_INSTANCE . " but table does not exist");
         }
 
-        return array();
+        return [];
     }
 
     /**

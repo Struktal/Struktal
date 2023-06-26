@@ -14,7 +14,7 @@ class Login {
             return null;
         }
 
-        $user = User::dao()->getObject(array("id" => $userId, "emailVerified" => true));
+        $user = User::dao()->getObject(["id" => $userId, "emailVerified" => true]);
 
         if($user instanceof User) {
             if($user->getPermissionLevel() >= $requiredPermissionLevel) {
@@ -36,7 +36,7 @@ class Login {
             return null;
         }
 
-        $user = User::dao()->getObject(array("id" => $userId, "emailVerified" => true));
+        $user = User::dao()->getObject(["id" => $userId, "emailVerified" => true]);
 
         if($user instanceof User) {
             return $user;

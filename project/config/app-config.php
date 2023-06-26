@@ -10,11 +10,11 @@ Config::$PROJECT_SETTINGS["PROJECT_VERSION"] = "1.0.0";
 Config::$PROJECT_SETTINGS["PRODUCTION"] = false;
 
 // Menu Settings
-Config::$MENU_SETTINGS["MENU_SIDEBAR"] = array(
-    "Home" => array(
+Config::$MENU_SETTINGS["MENU_SIDEBAR"] = [
+    "Home" => [
         "route" => Router::generate("index")
-    )
-);
+    ]
+];
 
 // Time Format Settings
 Config::$DATETIME_SETTINGS["DATE_TECHNICAL"] = "Y-m-d";
@@ -54,12 +54,12 @@ Config::$CLASS_LOADER_SETTINGS["CLASS_LOADER_IMPORT_PATHS"][] = __DIR__ . "/../s
 
 // SEO Settings
 Config::$SEO_SETTINGS["SEO_DEFAULT_DESCRIPTION"] = "Default Description";
-Config::$SEO_SETTINGS["SEO_KEYWORDS"] = array();
+Config::$SEO_SETTINGS["SEO_KEYWORDS"] = [];
 Config::$SEO_SETTINGS["SEO_IMAGE_PREVIEW"] = Router::staticFilePath("img/seo/preview.png");
 Config::$SEO_SETTINGS["SEO_OPENGRAPH"]["OPENGRAPH_SITE_NAME"] = null;
 Config::$SEO_SETTINGS["SEO_TWITTER"]["TWITTER_SITE"] = null;
 Config::$SEO_SETTINGS["SEO_TWITTER"]["TWITTER_CREATOR"] = null;
-Config::$SEO_SETTINGS["SEO_ROBOTS"] = array("index", "follow");
+Config::$SEO_SETTINGS["SEO_ROBOTS"] = ["index", "follow"];
 Config::$SEO_SETTINGS["SEO_REVISIT"] = "1 days";
 
 // Other Settings that shouldn't be published

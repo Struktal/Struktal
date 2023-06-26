@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d3356d7e4eff593975234042782a9ad7",
+    "content-hash": "358c59c686e04becbfb690a3b347e6d5",
     "packages": [
         {
             "name": "jensostertag/php-curl",
@@ -104,7 +104,7 @@
             "version": "dev-main",
             "source": {
                 "type": "git",
-                "url": "git@github.com:JensOstertag/php-templify.git",
+                "url": "https://github.com/JensOstertag/php-templify.git",
                 "reference": "d2392b836bf87552fbec4aecc7d1f5d0d1dcb6e4"
             },
             "dist": {
@@ -155,7 +155,11 @@
     },
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "ext-pdo": "*",
+        "ext-curl": "*",
+        "ext-json": "*"
+    },
     "platform-dev": [],
     "plugin-api-version": "2.3.0"
 }

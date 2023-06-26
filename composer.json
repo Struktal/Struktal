@@ -16,7 +16,10 @@
   "require": {
     "jensostertag/php-templify": "dev-main",
     "jensostertag/php-curl": "dev-main",
-    "jensostertag/php-geocoding": "dev-main"
+    "jensostertag/php-geocoding": "dev-main",
+    "ext-pdo": "*",
+    "ext-curl": "*",
+    "ext-json": "*"
   },
   "config": {
     "vendor-dir": "project/src/lib/vendor"

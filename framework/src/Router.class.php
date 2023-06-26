@@ -1,7 +1,7 @@
 <?php
 
 class Router {
-    private static array $routes = array();
+    private static array $routes = [];
 
     /**
      * Register a Route
@@ -17,7 +17,7 @@ class Router {
      */
     public static function addRoute(string $method = "GET|POST", string $route, string $routeTo, string $name) {
         // Retrieve Parameters from the Route
-        $params = array();
+        $params = [];
         preg_match_all("/\{([bdfis]:[a-zA-Z0-9]+)\}/", $route, $matches);
         foreach($matches[1] as $match) {
             $paramType = explode(":", $match)[0];
@@ -28,12 +28,12 @@ class Router {
         // Save the Route in the Routes Array
         $methods = explode("|", $method);
         foreach($methods as $method) {
-            self::$routes[$method][$route] = array(
+            self::$routes[$method][$route] = [
                 "route" => $route,
                 "routeTo" => $routeTo,
                 "name" => $name,
                 "params" => $params
-            );
+            ];
         }
     }
 
@@ -43,7 +43,7 @@ class Router {
      * @param array $params GET Parameters that should be added to the URI
      * @return string Route
      */
-    public static function generate(string $name, array $params = array()): string {
+    public static function generate(string $name, array $params = []): string {
         foreach(self::$routes as $method => $routes) {
             foreach($routes as $route => $routeData) {
                 if($routeData["name"] == $name) {
@@ -54,26 +54,26 @@ class Router {
                             if($routeData["params"][$paramName] == "b" && is_bool($paramValue)) {
                                 $paramValue = $paramValue ? "true" : "false";
                                 $route = str_replace("{" . $routeData["params"][$paramName] . ":" . $paramName . "}", $paramValue, $route);
-                                $requiredParams = array_diff($requiredParams, array($paramName));
+                                $requiredParams = array_diff($requiredParams, [$paramName]);
                             } else if($routeData["params"][$paramName] == "d" && (DateTime::createFromFormat(Config::$DATETIME_SETTINGS["DATE_TECHNICAL"], $paramValue) !== false || $paramValue instanceof DateTime)) {
                                 if($paramValue instanceof DateTime) {
                                     $paramValue = DateFormatter::technicalDate($paramValue);
                                 }
 
                                 $route = str_replace("{" . $routeData["params"][$paramName] . ":" . $paramName . "}", $paramValue, $route);
-                                $requiredParams = array_diff($requiredParams, array($paramName));
+                                $requiredParams = array_diff($requiredParams, [$paramName]);
                             } else if($routeData["params"][$paramName] == "f" && is_float($paramValue)) {
                                 $paramValue = floatval($paramValue);
                                 $route = str_replace("{" . $routeData["params"][$paramName] . ":" . $paramName . "}", $paramValue, $route);
-                                $requiredParams = array_diff($requiredParams, array($paramName));
+                                $requiredParams = array_diff($requiredParams, [$paramName]);
                             } else if($routeData["params"][$paramName] == "i" && is_int($paramValue)) {
                                 $paramValue = intval($paramValue);
                                 $route = str_replace("{" . $routeData["params"][$paramName] . ":" . $paramName . "}", $paramValue, $route);
-                                $requiredParams = array_diff($requiredParams, array($paramName));
+                                $requiredParams = array_diff($requiredParams, [$paramName]);
                             } else if($routeData["params"][$paramName] == "s" && is_string($paramValue)) {
                                 $paramValue = strval($paramValue);
                                 $route = str_replace("{" . $routeData["params"][$paramName] . ":" . $paramName . "}", $paramValue, $route);
-                                $requiredParams = array_diff($requiredParams, array($paramName));
+                                $requiredParams = array_diff($requiredParams, [$paramName]);
                             }
                         }
                     }
@@ -110,7 +110,7 @@ class Router {
         // Remove leading and trailing Slashes
         $uri = trim($uri, "/");
 
-        $foundRoute = array();
+        $foundRoute = [];
         $routeFound = false;
         foreach(self::$routes[$method] as $routeData) {
             $route = $routeData["route"];
@@ -271,7 +271,7 @@ class Router {
      * @return void
      */
     private function sendContentTypeHeader(string $file): void {
-        $extensions = array(
+        $extensions = [
             "html" => "text/html",
             "css" => "text/css",
             "js" => "text/javascript",
@@ -312,7 +312,7 @@ class Router {
             "xlsx" => "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
             "ppt" => "application/vnd.ms-powerpoint",
             "pptx" => "application/vnd.openxmlformats-officedocument.presentationml.presentation"
-        );
+        ];
 
         foreach($extensions as $extension => $contentType) {
             if(str_ends_with($file, "." . $extension)) {

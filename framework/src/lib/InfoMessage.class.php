@@ -11,7 +11,7 @@ class InfoMessage {
         if(array_key_exists("infoMessages", $_SESSION)) {
             $_SESSION["infoMessages"][] = $this;
         } else {
-            $_SESSION["infoMessages"] = array($this);
+            $_SESSION["infoMessages"] = [$this];
         }
     }
 
@@ -34,13 +34,13 @@ class InfoMessage {
     public static function getMessages(): array {
         if(array_key_exists("infoMessages", $_SESSION)) {
             $infoMessages = $_SESSION["infoMessages"];
-            usort($infoMessages, array("InfoMessage", "compare"));
+            usort($infoMessages, ["InfoMessage", "compare"]);
             unset($_SESSION["infoMessages"]);
 
             return $infoMessages;
         }
 
-        return array();
+        return [];
     }
 
     /**

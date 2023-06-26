@@ -1,7 +1,7 @@
 <?php
 
 class GenericObject {
-    private static array $dao = array();
+    private static array $dao = [];
     
     public ?int $id;
     public DateTime $created;
@@ -56,7 +56,7 @@ class GenericObject {
      */
     public function toArray(): array {
         $classProperties = get_object_vars($this);
-        $data = array();
+        $data = [];
         foreach($classProperties as $property => $value) {
             $data[$property] = $this->$property;
         }
