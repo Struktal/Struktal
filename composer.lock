@@ -4,14 +4,59 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "358c59c686e04becbfb690a3b347e6d5",
+    "content-hash": "5c109d5ca57883c4a6b0c444fa004eff",
     "packages": [
+        {
+            "name": "jensostertag/php-csvreader",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:JensOstertag/php-csvreader.git",
+                "reference": "b6ef5bf39b03f21793f1578980bd5782a0a89205"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/JensOstertag/php-csvreader/zipball/b6ef5bf39b03f21793f1578980bd5782a0a89205",
+                "reference": "b6ef5bf39b03f21793f1578980bd5782a0a89205",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.0.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "jensostertag\\CSVReader\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jens Ostertag",
+                    "email": "development@jens-ostertag.de",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A PHP CSV Reader Lobrary",
+            "keywords": [
+                "curl",
+                "wrapper"
+            ],
+            "support": {
+                "source": "https://github.com/JensOstertag/php-csvreader/tree/main",
+                "issues": "https://github.com/JensOstertag/php-csvreader/issues"
+            },
+            "time": "2023-07-02T13:28:45+00:00"
+        },
         {
             "name": "jensostertag/php-curl",
             "version": "dev-main",
             "source": {
                 "type": "git",
-                "url": "git@github.com:JensOstertag/php-curl.git",
+                "url": "https://github.com/JensOstertag/php-curl.git",
                 "reference": "7e2531147797b3880070e08cd41858980ebb3495"
             },
             "dist": {
@@ -58,7 +103,7 @@
             "version": "dev-main",
             "source": {
                 "type": "git",
-                "url": "git@github.com:JensOstertag/php-geocoding.git",
+                "url": "https://github.com/JensOstertag/php-geocoding.git",
                 "reference": "bd6db2bd01f4ddf271d725205e1f339446781aec"
             },
             "dist": {
@@ -143,6 +188,51 @@
                 "issues": "https://github.com/JensOstertag/php-templify/issues"
             },
             "time": "2023-06-24T09:25:31+00:00"
+        },
+        {
+            "name": "jensostertag/php-uploadhelper",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:JensOstertag/php-uploadhelper.git",
+                "reference": "54c421a7fe32548c2b10ecda359950900dea164b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/JensOstertag/php-uploadhelper/zipball/54c421a7fe32548c2b10ecda359950900dea164b",
+                "reference": "54c421a7fe32548c2b10ecda359950900dea164b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "jensostertag\\UploadHelper\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jens Ostertag",
+                    "email": "development@jens-ostertag.de",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A PHP library to process uploaded files",
+            "keywords": [
+                "files",
+                "upload"
+            ],
+            "support": {
+                "source": "https://github.com/JensOstertag/php-uploadhelper/tree/main",
+                "issues": "https://github.com/JensOstertag/php-uploadhelper/issues"
+            },
+            "time": "2023-07-02T10:39:31+00:00"
         }
     ],
     "packages-dev": [],
@@ -151,7 +241,9 @@
     "stability-flags": {
         "jensostertag/php-templify": 20,
         "jensostertag/php-curl": 20,
-        "jensostertag/php-geocoding": 20
+        "jensostertag/php-geocoding": 20,
+        "jensostertag/php-uploadhelper": 20,
+        "jensostertag/php-csvreader": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

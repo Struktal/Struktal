@@ -11,12 +11,22 @@
     {
       "type": "vcs",
       "url": "https://github.com/JensOstertag/php-geocoding"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/JensOstertag/php-uploadhelper"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/JensOstertag/php-csvreader"
     }
   ],
   "require": {
     "jensostertag/php-templify": "dev-main",
     "jensostertag/php-curl": "dev-main",
     "jensostertag/php-geocoding": "dev-main",
+    "jensostertag/php-uploadhelper": "dev-main",
+    "jensostertag/php-csvreader": "dev-main",
     "ext-pdo": "*",
     "ext-curl": "*",
     "ext-json": "*"

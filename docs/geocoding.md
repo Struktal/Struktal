@@ -4,4 +4,4 @@
 
 You can use the [PHP-Geocoding](https://github.com/JensOstertag/php-geocoding) librarys ``Geocoding`` class to convert an address to coordinates or coordinates to an address. The library uses the [Nominatim](https://nominatim.org/) API to do that.
 
-To learn about how to do that, please refer to the [PHP-Geocoding documentation](https://github.com/JensOstertag/php-geocoding) as the documentation always reflects the latest version of the library.
+To learn about how to do that, please refer to the [PHP-Geocoding documentation](https://github.com/JensOstertag/php-geocoding) as it always reflects the latest version of the library.
