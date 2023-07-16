@@ -2,31 +2,31 @@
   "repositories": [
     {
       "type": "vcs",
-      "url": "https://github.com/JensOstertag/php-templify"
+      "url": "https://github.com/JensOstertag/templify"
     },
     {
       "type": "vcs",
-      "url": "https://github.com/JensOstertag/php-curl"
+      "url": "https://github.com/JensOstertag/curl-adapter"
     },
     {
       "type": "vcs",
-      "url": "https://github.com/JensOstertag/php-geocoding"
+      "url": "https://github.com/JensOstertag/geocoding-util"
     },
     {
       "type": "vcs",
-      "url": "https://github.com/JensOstertag/php-uploadhelper"
+      "url": "https://github.com/JensOstertag/uploadhelper"
     },
     {
       "type": "vcs",
-      "url": "https://github.com/JensOstertag/php-csvreader"
+      "url": "https://github.com/JensOstertag/csvreader"
     }
   ],
   "require": {
-    "jensostertag/php-templify": "dev-main",
-    "jensostertag/php-curl": "dev-main",
-    "jensostertag/php-geocoding": "dev-main",
-    "jensostertag/php-uploadhelper": "dev-main",
-    "jensostertag/php-csvreader": "dev-main",
+    "jensostertag/templify": "1.0.0",
+    "jensostertag/curl-adapter": "1.0.0",
+    "jensostertag/geocoding-util": "1.0.0",
+    "jensostertag/uploadhelper": "1.0.0",
+    "jensostertag/csvreader": "1.0.0",
     "ext-pdo": "*",
     "ext-curl": "*",
     "ext-json": "*"

@@ -4,26 +4,25 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5c109d5ca57883c4a6b0c444fa004eff",
+    "content-hash": "4760168632a567fb865c9de6be4cb68f",
     "packages": [
         {
-            "name": "jensostertag/php-csvreader",
-            "version": "dev-main",
+            "name": "jensostertag/csvreader",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
-                "url": "git@github.com:JensOstertag/php-csvreader.git",
-                "reference": "b6ef5bf39b03f21793f1578980bd5782a0a89205"
+                "url": "https://github.com/JensOstertag/csvreader.git",
+                "reference": "e8797cfc5eb9303d7f715f69a304e1a48e8889ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JensOstertag/php-csvreader/zipball/b6ef5bf39b03f21793f1578980bd5782a0a89205",
-                "reference": "b6ef5bf39b03f21793f1578980bd5782a0a89205",
+                "url": "https://api.github.com/repos/JensOstertag/csvreader/zipball/e8797cfc5eb9303d7f715f69a304e1a48e8889ab",
+                "reference": "e8797cfc5eb9303d7f715f69a304e1a48e8889ab",
                 "shasum": ""
             },
             "require": {
                 "php": ">=8.0.0"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -40,29 +39,29 @@
                     "role": "Developer"
                 }
             ],
-            "description": "A PHP CSV Reader Lobrary",
+            "description": "A CSV Reader Library for PHP",
             "keywords": [
                 "curl",
                 "wrapper"
             ],
             "support": {
-                "source": "https://github.com/JensOstertag/php-csvreader/tree/main",
-                "issues": "https://github.com/JensOstertag/php-csvreader/issues"
+                "source": "https://github.com/JensOstertag/csvreader/tree/1.0.0",
+                "issues": "https://github.com/JensOstertag/csvreader/issues"
             },
-            "time": "2023-07-02T13:28:45+00:00"
+            "time": "2023-07-15T15:39:30+00:00"
         },
         {
-            "name": "jensostertag/php-curl",
-            "version": "dev-main",
+            "name": "jensostertag/curl-adapter",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/JensOstertag/php-curl.git",
-                "reference": "7e2531147797b3880070e08cd41858980ebb3495"
+                "url": "https://github.com/JensOstertag/curl-adapter.git",
+                "reference": "4468a3887ef61cdbce7736a6c55cfc1e632fe4d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JensOstertag/php-curl/zipball/7e2531147797b3880070e08cd41858980ebb3495",
-                "reference": "7e2531147797b3880070e08cd41858980ebb3495",
+                "url": "https://api.github.com/repos/JensOstertag/curl-adapter/zipball/4468a3887ef61cdbce7736a6c55cfc1e632fe4d1",
+                "reference": "4468a3887ef61cdbce7736a6c55cfc1e632fe4d1",
                 "shasum": ""
             },
             "require": {
@@ -70,7 +69,6 @@
                 "ext-json": "*",
                 "php": ">=8.0.0"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -87,36 +85,35 @@
                     "role": "Developer"
                 }
             ],
-            "description": "A PHP Curl Wrapper Library",
+            "description": "A Curl Wrapper Library for PHP",
             "keywords": [
                 "curl",
                 "wrapper"
             ],
             "support": {
-                "source": "https://github.com/JensOstertag/php-curl/tree/main",
-                "issues": "https://github.com/JensOstertag/php-curl/issues"
+                "source": "https://github.com/JensOstertag/curl-adapter/tree/1.0.0",
+                "issues": "https://github.com/JensOstertag/curl-adapter/issues"
             },
-            "time": "2023-06-24T11:47:35+00:00"
+            "time": "2023-07-14T05:11:41+00:00"
         },
         {
-            "name": "jensostertag/php-geocoding",
-            "version": "dev-main",
+            "name": "jensostertag/geocoding-util",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/JensOstertag/php-geocoding.git",
-                "reference": "bd6db2bd01f4ddf271d725205e1f339446781aec"
+                "url": "https://github.com/JensOstertag/geocoding-util.git",
+                "reference": "831cfdae1d1cd0baf123bf5c0a39516aac1f1efb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JensOstertag/php-geocoding/zipball/bd6db2bd01f4ddf271d725205e1f339446781aec",
-                "reference": "bd6db2bd01f4ddf271d725205e1f339446781aec",
+                "url": "https://api.github.com/repos/JensOstertag/geocoding-util/zipball/831cfdae1d1cd0baf123bf5c0a39516aac1f1efb",
+                "reference": "831cfdae1d1cd0baf123bf5c0a39516aac1f1efb",
                 "shasum": ""
             },
             "require": {
-                "jensostertag/php-curl": "dev-main",
+                "jensostertag/curl-adapter": "1.0.0",
                 "php": ">=8.0.0"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -124,7 +121,7 @@
                 }
             },
             "license": [
-                "MIT"
+                "GPL-2.0-only"
             ],
             "authors": [
                 {
@@ -133,35 +130,34 @@
                     "role": "Developer"
                 }
             ],
-            "description": "A simple PHP Library for Nominatim Geocoding API",
+            "description": "A simple PHP Library for the Nominatim Geocoding API",
             "keywords": [
                 "geocode",
                 "nominatim"
             ],
             "support": {
-                "source": "https://github.com/JensOstertag/php-geocoding/tree/main",
-                "issues": "https://github.com/JensOstertag/php-geocoding/issues"
+                "source": "https://github.com/JensOstertag/geocoding-util/tree/1.0.0",
+                "issues": "https://github.com/JensOstertag/geocoding-util/issues"
             },
-            "time": "2023-06-24T13:30:00+00:00"
+            "time": "2023-07-14T05:20:36+00:00"
         },
         {
-            "name": "jensostertag/php-templify",
-            "version": "dev-main",
+            "name": "jensostertag/templify",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/JensOstertag/php-templify.git",
-                "reference": "d2392b836bf87552fbec4aecc7d1f5d0d1dcb6e4"
+                "url": "https://github.com/JensOstertag/templify.git",
+                "reference": "9e0d03494f8d7b21d3fae8639b7f75b7724b456e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JensOstertag/php-templify/zipball/d2392b836bf87552fbec4aecc7d1f5d0d1dcb6e4",
-                "reference": "d2392b836bf87552fbec4aecc7d1f5d0d1dcb6e4",
+                "url": "https://api.github.com/repos/JensOstertag/templify/zipball/9e0d03494f8d7b21d3fae8639b7f75b7724b456e",
+                "reference": "9e0d03494f8d7b21d3fae8639b7f75b7724b456e",
                 "shasum": ""
             },
             "require": {
                 "php": ">=8.0.0"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -178,35 +174,34 @@
                     "role": "Developer"
                 }
             ],
-            "description": "A simple PHP Templating Engine",
+            "description": "A simple Templating Engine for PHP",
             "keywords": [
                 "engine",
                 "template"
             ],
             "support": {
-                "source": "https://github.com/JensOstertag/php-templify/tree/main",
-                "issues": "https://github.com/JensOstertag/php-templify/issues"
+                "source": "https://github.com/JensOstertag/templify/tree/1.0.0",
+                "issues": "https://github.com/JensOstertag/templify/issues"
             },
-            "time": "2023-06-24T09:25:31+00:00"
+            "time": "2023-07-15T15:43:53+00:00"
         },
         {
-            "name": "jensostertag/php-uploadhelper",
-            "version": "dev-main",
+            "name": "jensostertag/uploadhelper",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
-                "url": "git@github.com:JensOstertag/php-uploadhelper.git",
-                "reference": "54c421a7fe32548c2b10ecda359950900dea164b"
+                "url": "https://github.com/JensOstertag/uploadhelper.git",
+                "reference": "26e832dee17a7822a1de3132b344c3043a4689d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JensOstertag/php-uploadhelper/zipball/54c421a7fe32548c2b10ecda359950900dea164b",
-                "reference": "54c421a7fe32548c2b10ecda359950900dea164b",
+                "url": "https://api.github.com/repos/JensOstertag/uploadhelper/zipball/26e832dee17a7822a1de3132b344c3043a4689d3",
+                "reference": "26e832dee17a7822a1de3132b344c3043a4689d3",
                 "shasum": ""
             },
             "require": {
                 "php": ">=8.1.0"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -229,22 +224,16 @@
                 "upload"
             ],
             "support": {
-                "source": "https://github.com/JensOstertag/php-uploadhelper/tree/main",
-                "issues": "https://github.com/JensOstertag/php-uploadhelper/issues"
+                "source": "https://github.com/JensOstertag/uploadhelper/tree/1.0.0",
+                "issues": "https://github.com/JensOstertag/uploadhelper/issues"
             },
-            "time": "2023-07-02T10:39:31+00:00"
+            "time": "2023-07-14T05:08:42+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "jensostertag/php-templify": 20,
-        "jensostertag/php-curl": 20,
-        "jensostertag/php-geocoding": 20,
-        "jensostertag/php-uploadhelper": 20,
-        "jensostertag/php-csvreader": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
