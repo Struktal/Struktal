@@ -2,6 +2,7 @@
     use jensostertag\Templify\Templify;
 ?>
 
+<!DOCTYPE html>
 <html>
     <head>
         <?php // Encoding ?>
