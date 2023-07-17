@@ -133,7 +133,7 @@ class GenericObjectDAO {
                 $sql .= " WHERE ";
                 foreach($filter as $key => $value) {
                     if($value === null) {
-                        $sql .= "`{$key}` IS :{$key} AND ";
+                        $sql .= "`{$key}` IS NULL AND ";
                     } else {
                         $sql .= "`{$key}` = :{$key} AND ";
                     }
@@ -145,7 +145,9 @@ class GenericObjectDAO {
 
             $stmt = Database::getConnection()->prepare($sql);
             foreach($filter as $key => $value) {
-                $stmt->bindValue(":{$key}", $value);
+                if($value !== null) {
+                    $stmt->bindValue(":{$key}", $value);
+                }
             }
             $stmt->execute();
 
@@ -182,7 +184,7 @@ class GenericObjectDAO {
                 $sql .= " WHERE ";
                 foreach($filter as $key => $value) {
                     if($value === null) {
-                        $sql .= "`{$key}` IS :{$key} AND ";
+                        $sql .= "`{$key}` IS NULL AND ";
                     } else {
                         $sql .= "`{$key}` = :{$key} AND ";
                     }
@@ -196,7 +198,9 @@ class GenericObjectDAO {
 
             $stmt = Database::getConnection()->prepare($sql);
             foreach($filter as $key => $value) {
-                $stmt->bindValue(":{$key}", $value);
+                if($value !== null) {
+                    $stmt->bindValue(":{$key}", $value);
+                }
             }
             $stmt->execute();
 
