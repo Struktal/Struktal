@@ -10,6 +10,46 @@ function getTimestamp(): string {
     return $dateTime->format("Y/m/d  H-i-s");
 }
 
+function ipInRange($ipAddress, $addressRange): bool {
+    $subnet = explode("/", $addressRange)[0];
+    $mask = intval(explode("/", $addressRange)[1]);
+    $isIpV6 = str_contains($ipAddress, ":");
+
+    if($isIpV6 !== str_contains($subnet, ":")) {
+        return false;
+    }
+
+    if($isIpV6) {
+        $ipAddress = inet_pton($ipAddress);
+        $subnet = inet_pton($subnet);
+
+        $maskBinary = str_repeat("f", $mask / 4);
+        switch($mask % 4) {
+            case 1:
+                $maskBinary .= "8";
+                break;
+            case 2:
+                $maskBinary .= "c";
+                break;
+            case 3:
+                $maskBinary .= "e";
+                break;
+        }
+
+        $maskBinary = str_pad($maskBinary, 32, "0");
+        $maskBinary = pack("H*", $maskBinary);
+        return ($ipAddress & $maskBinary) === $subnet;
+    } else {
+        if($mask <= 0) {
+            return false;
+        }
+
+        $ipAddressBinary = sprintf("%032b", ip2long($ipAddress));
+        $subnetBinary = sprintf("%032b", ip2long($subnet));
+        return (substr_compare($ipAddressBinary, $subnetBinary, 0, $mask) === 0);
+    }
+}
+
 echo "##################################################" . PHP_EOL;
 echo "#                   DEPLOYMENT                   #" . PHP_EOL;
 echo "#              " . getTimestamp() . "              #" . PHP_EOL;
@@ -19,21 +59,35 @@ echo PHP_EOL;
 // Check allowed IP Addresses
 echo "Checking access permission" . PHP_EOL;
 
-$allowedIps = [
-    "207.97.227.", "50.57.128.", "108.171.174.", "50.57.231.", "204.232.175.", "192.30.252." // GitHub IPs
-];
+// Retrieve allowed IPs from the GitHub API
+$curl = curl_init();
+curl_setopt($curl, CURLOPT_URL, "https://api.github.com/meta");
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($curl, CURLOPT_USERAGENT, "PHP Deployment Script");
+$response = curl_exec($curl);
+curl_close($curl);
+
+if($response === false) {
+    http_response_code(500);
+    echo "Failed to retrieve allowed IPs from GitHub API" . PHP_EOL;
+    exit;
+}
+
+$jsonResponse = json_decode($response, true);
+$allowedIps = $jsonResponse["actions"];
 
 $allowed = false;
 $ip = $_SERVER["REMOTE_ADDR"];
 
 foreach($allowedIps as $allowedIp) {
-    if(str_starts_with($ip, $allowedIp)) {
+    if(ipInRange($ip, $allowedIp)) {
         $allowed = true;
         break;
     }
 }
 
 if(!$allowed) {
+    http_response_code(403);
     echo "You are not allowed to access this file" . PHP_EOL;
     exit;
 }
