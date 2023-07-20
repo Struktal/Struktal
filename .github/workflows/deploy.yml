@@ -7,6 +7,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: AutoDeploy
-      - run: |
+        run: |
           echo "Calling ${{secrets.AUTODEPLOY_BASE_URL}}/deploy"
           curl --user ${{secrets.AUTODEPLOY_AUTH_USERNAME}}:${{secrets.AUTODEPLOY_AUTH_PASSWORD}} ${{secrets.AUTODEPLOY_BASE_URL}}/deploy
