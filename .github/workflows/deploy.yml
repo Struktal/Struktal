@@ -8,5 +8,5 @@ jobs:
     steps:
       - name: AutoDeploy
         run: |
-          echo "Calling ${{secrets.AUTODEPLOY_BASE_URL}}/deploy"
-          curl --user ${{secrets.AUTODEPLOY_AUTH_USERNAME}}:${{secrets.AUTODEPLOY_AUTH_PASSWORD}} ${{secrets.AUTODEPLOY_BASE_URL}}/deploy
+          echo "Calling ${{vars.AUTODEPLOY_BASE_URL}}/deploy"
+          curl --user ${{secrets.AUTODEPLOY_AUTH_USERNAME}}:${{secrets.AUTODEPLOY_AUTH_PASSWORD}} ${{vars.AUTODEPLOY_BASE_URL}}/deploy
