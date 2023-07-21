@@ -8,7 +8,7 @@ jobs:
     steps:
       - name: AutoDeploy
         run: |
-          if [ "$vars.AUTODEPLOY_ACTIVATED" != "true" ]; then
+          if [ "${{vars.AUTODEPLOY_ACTIVATED}}" != "true" ]; then
             echo "Cancelled deployment because ${{vars.AUTODEPLOY_ACTIVATED}} is not set or not true"
             exit 0
           fi
