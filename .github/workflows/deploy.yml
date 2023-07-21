@@ -9,4 +9,9 @@ jobs:
       - name: AutoDeploy
         run: |
           echo "Calling ${{vars.AUTODEPLOY_BASE_URL}}/deploy"
-          curl --user ${{secrets.AUTODEPLOY_AUTH_USERNAME}}:${{secrets.AUTODEPLOY_AUTH_PASSWORD}} ${{vars.AUTODEPLOY_BASE_URL}}/deploy
+          statusCode=$(curl -w '%{http_code}' -u ${{secrets.AUTODEPLOY_AUTH_USERNAME}}:${{secrets.AUTODEPLOY_AUTH_PASSWORD}} ${{vars.AUTODEPLOY_BASE_URL}}/deploy)
+          echo "Called ${{vars.AUTODEPLOY_BASE_URL}}/deploy returned status code ${statusCode}"
+          
+          if [ $statusCode -ne 200 ]; then
+            exit 1
+          fi
