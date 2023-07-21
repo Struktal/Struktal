@@ -21,6 +21,7 @@ jobs:
           HTTP_BODY=$(echo "${RESPONSE}" | head -n -1)
           echo "${HTTP_BODY}"
           
-          if [[ "$HTTP_CODE" == "200" ]]; then
+          if [ "$HTTP_CODE" != "200" ]; then
+            echo "${HTTP_CODE}"
             exit 1
           fi
