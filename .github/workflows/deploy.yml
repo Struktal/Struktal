@@ -8,9 +8,12 @@ jobs:
     steps:
       - name: AutoDeploy
         run: |
+          if [ "$vars.AUTODEPLOY_ACTIVATED != "true" ]; then
+            echo "Cancelled deployment because ${{vars.AUTODEPLOY_ACTIVATED}} is not set or not true"
+            exit 0
+          fi
           echo "Calling ${{vars.AUTODEPLOY_BASE_URL}}/deploy"
           STATUS_CODE=$(curl -w '%{http_code}' -u ${{secrets.AUTODEPLOY_AUTH_USERNAME}}:${{secrets.AUTODEPLOY_AUTH_PASSWORD}} ${{vars.AUTODEPLOY_BASE_URL}}/deploy)
-          
           if [[ "$STATUS_CODE" == "200" ]]; then
             echo "Called ${{vars.AUTODEPLOY_BASE_URL}}/deploy returned error code ${statusCode}"
             exit 1
