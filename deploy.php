@@ -115,6 +115,11 @@ foreach($commands as $command) {
         echo $line . PHP_EOL;
     }
     echo "Finished with result code " . $resultCode . PHP_EOL;
+    if($resultCode !== 1) {
+        http_response_code(500);
+        echo "Deployment failed";
+        exit;
+    }
     echo PHP_EOL;
 }
 
