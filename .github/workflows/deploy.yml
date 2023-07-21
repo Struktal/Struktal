@@ -11,7 +11,7 @@ jobs:
           echo "Calling ${{vars.AUTODEPLOY_BASE_URL}}/deploy"
           STATUS_CODE=$(curl -w '%{http_code}' -u ${{secrets.AUTODEPLOY_AUTH_USERNAME}}:${{secrets.AUTODEPLOY_AUTH_PASSWORD}} ${{vars.AUTODEPLOY_BASE_URL}}/deploy)
           
-          if [ "$STATUS_CODE" -ne 200 ]; then
+          if [[ "$STATUS_CODE" == "200" ]]; then
             echo "Called ${{vars.AUTODEPLOY_BASE_URL}}/deploy returned error code ${statusCode}"
             exit 1
           fi
