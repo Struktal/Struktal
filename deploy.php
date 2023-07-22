@@ -50,16 +50,42 @@ function ipInRange($ipAddress, $addressRange): bool {
     }
 }
 
-echo "##################################################" . PHP_EOL;
-echo "#                   DEPLOYMENT                   #" . PHP_EOL;
-echo "#              " . getTimestamp() . "              #" . PHP_EOL;
-echo "##################################################" . PHP_EOL;
-echo PHP_EOL;
+$shortLog = "";
+$detailedLog = "";
+
+function sendLog(string $shortLog, string $detailedLog, bool $successful): void {
+    $shortLog .= PHP_EOL . "Deployment " . ($successful ? "finished" : "failed") . " at " . getTimestamp() . PHP_EOL;
+    $detailedLog .= PHP_EOL . "Deployment " . ($successful ? "finished" : "failed") . " at " . getTimestamp() . PHP_EOL;
+
+    // Send Mails
+    foreach(SUCCESS_MAIL as $mail) {
+        $subject = ($successful ? "[SUCCESS] " : "[FAILURE] ") . " Deployment of " . PROJECT_NAME;
+        mail($mail, $subject, $detailedLog);
+    }
+
+    // Print Log
+    echo $shortLog;
+
+    exit;
+}
+
+$header = "";
+$header .= "##################################################" . PHP_EOL;
+$header .= "#                   DEPLOYMENT                   #" . PHP_EOL;
+$header .= "#              " . getTimestamp() . "              #" . PHP_EOL;
+$header .= "##################################################" . PHP_EOL;
+$header .= PHP_EOL;
+
+$shortLog .= $header;
+$detailedLog .= $header;
 
 // Check allowed IP Addresses
-echo "Checking access permission" . PHP_EOL;
+$shortLog .= "Checking access permission" . PHP_EOL;
+$detailedLog .= "Checking access permission" . PHP_EOL;
 
 // Retrieve allowed IPs from the GitHub API
+$detailedLog .= "Retrieving allowed IPs from GitHub API (https://api.github.com/meta)" . PHP_EOL;
+
 $curl = curl_init();
 curl_setopt($curl, CURLOPT_URL, "https://api.github.com/meta");
 curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -69,16 +95,18 @@ curl_close($curl);
 
 if($response === false) {
     http_response_code(500);
-    echo "Failed to retrieve allowed IPs from GitHub API" . PHP_EOL;
-    exit;
+    $shortLog = "Failed to retrieve allowed IPs from GitHub API" . PHP_EOL;
+    $detailedLog .= "Failed to retrieve allowed IPs from GitHub API" . PHP_EOL;
+    sendLog($shortLog, $detailedLog, false);
 }
 
 $jsonResponse = json_decode($response, true);
 $allowedIps = $jsonResponse["actions"];
 
-$allowed = false;
 $ip = $_SERVER["REMOTE_ADDR"];
+$detailedLog .= "Accessed from IP " . $ip . PHP_EOL;
 
+$allowed = false;
 foreach($allowedIps as $allowedIp) {
     if(ipInRange($ip, $allowedIp)) {
         $allowed = true;
@@ -88,12 +116,15 @@ foreach($allowedIps as $allowedIp) {
 
 if(!$allowed) {
     http_response_code(403);
-    echo "You are not allowed to access this file" . PHP_EOL;
-    exit;
+    $shortLog .= "You are not allowed to access this file" . PHP_EOL;
+    $detailedLog .= "IP " . $ip . " is not allowed to access the deployment script" . PHP_EOL;
+    sendLog($shortLog, $detailedLog, false);
 }
 
-echo "Access granted" . PHP_EOL;
-echo PHP_EOL;
+$shortLog .= "Access granted" . PHP_EOL;
+$shortLog .= PHP_EOL;
+$detailedLog .= "Access granted" . PHP_EOL;
+$detailedLog .= PHP_EOL;
 
 // Commands
 $commands = [
@@ -105,29 +136,33 @@ if(isset($_GET["install-composer"])) {
     $commands[] = "composer install";
 }
 
+$detailedLog .= "Running commands " . json_encode($commands) . PHP_EOL;
+$detailedLog .= PHP_EOL;
+
 // Run Commands with exec
 foreach($commands as $command) {
-    echo "Running command: " . $command . PHP_EOL;
+    $shortLog .= "Running command: " . $command . PHP_EOL;
+    $detailedLog .= "Running command: " . $command . PHP_EOL;
+
     $output = [];
     $resultCode = 0;
     exec($command, $output, $resultCode);
     foreach($output as $line) {
-        echo $line . PHP_EOL;
+        $detailedLog .= $line . PHP_EOL;
     }
-    echo "Finished with result code " . $resultCode . PHP_EOL;
-    if($resultCode !== 1) {
+
+    $shortLog .= "Finished with exit code " . $resultCode . PHP_EOL;
+    $detailedLog .= "Finished with exit code " . $resultCode . PHP_EOL;
+
+    if($resultCode !== 0) {
         http_response_code(500);
-        echo "Deployment failed";
-        exit;
+        $shortLog .= "Deployment failed at command " . $command . PHP_EOL;
+        $detailedLog .= "Deployment failed at command " . $command . PHP_EOL;
+        sendLog($shortLog, $detailedLog, false);
     }
-    echo PHP_EOL;
+
+    $shortLog .= PHP_EOL;
+    $detailedLog .= PHP_EOL;
 }
 
-// Send Mails
-foreach(SUCCESS_MAIL as $mail) {
-    $subject = "Deployment of " . PROJECT_NAME;
-    $body = "The deployment of " . PROJECT_NAME . " finished successfully at " . getTimestamp();
-    mail($mail, $subject, $body);
-}
-
-echo "Deployment finished at " . getTimestamp();
+sendLog($shortLog, $detailedLog, true);
