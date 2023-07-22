@@ -132,12 +132,9 @@ $detailedLog .= PHP_EOL;
 // Commands
 $commands = [
     "whoami",
-    "git pull"
+    "git pull",
+    "composer install"
 ];
-
-if(isset($_GET["install-composer"])) {
-    $commands[] = "composer install";
-}
 
 $detailedLog .= "Running commands " . json_encode($commands) . PHP_EOL;
 $detailedLog .= PHP_EOL;
