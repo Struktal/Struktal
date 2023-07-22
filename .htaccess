@@ -5,8 +5,8 @@ RewriteBase /
 RewriteRule ^static/(.*)$ project/htdocs/static/$1 [L]
 RewriteRule ^project/htdocs/static/.*$ - [L]
 
-# Rewrite all Requests from deploy to deploy.php
-RewriteRule deploy deploy.php [L]
+# Rewrite all Requests from deploy to deployment/deploy.php
+RewriteRule deploy deployment/deploy.php [L]
 
 # Rewrite all Requests to routes-handler.php
 RewriteRule ^.*$ routes-handler.php [L]

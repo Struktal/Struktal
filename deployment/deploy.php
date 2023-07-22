@@ -1,7 +1,10 @@
 <?php
 
-const PROJECT_NAME = "PHP-Framework";
-const SUCCESS_MAIL = [];
+// Read deploy-config.json file
+$config = json_decode(file_get_contents("deploy-config.json"), true);
+
+define("PROJECT_NAME", $config["projectName"]);
+define("MAIL_LOGS_TO", $config["mailLogsTo"]);
 
 header("Content-Type: text/plain");
 
@@ -58,7 +61,7 @@ function sendLog(string $shortLog, string $detailedLog, bool $successful): void 
     $detailedLog .= PHP_EOL . "Deployment " . ($successful ? "finished" : "failed") . " at " . getTimestamp() . PHP_EOL;
 
     // Send Mails
-    foreach(SUCCESS_MAIL as $mail) {
+    foreach(MAIL_LOGS_TO as $mail) {
         $subject = ($successful ? "[SUCCESS] " : "[FAILURE] ") . " Deployment of " . PROJECT_NAME;
         mail($mail, $subject, $detailedLog);
     }
