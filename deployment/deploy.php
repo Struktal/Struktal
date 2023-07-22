@@ -133,7 +133,7 @@ $detailedLog .= PHP_EOL;
 $commands = [
     "whoami",
     "git pull",
-    "composer install"
+    "cd .. && composer install"
 ];
 
 $detailedLog .= "Running commands " . json_encode($commands) . PHP_EOL;
@@ -146,7 +146,7 @@ foreach($commands as $command) {
 
     $output = [];
     $resultCode = 0;
-    exec($command, $output, $resultCode);
+    exec($command . " 2>&1", $output, $resultCode);
     foreach($output as $line) {
         $detailedLog .= $line . PHP_EOL;
     }
