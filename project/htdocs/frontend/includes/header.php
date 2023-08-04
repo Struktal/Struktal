@@ -100,7 +100,7 @@
     <body>
         <nav>
             <div class="header-logo">
-                <a href="#">
+                <a href="<?php output(Router::generate(Config::$PROJECT_SETTINGS["PROJECT_URL"])); ?>">
                     <img src="<?php output(Router::staticFilePath("img/logo.svg")); ?>" alt="Logo">
                     <span>
                         <?php output(Config::$PROJECT_SETTINGS["PROJECT_NAME"]); ?>
