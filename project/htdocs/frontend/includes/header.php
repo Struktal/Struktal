@@ -74,28 +74,20 @@
         <meta name="revisit-after" content="<?php output(Config::$SEO_SETTINGS["SEO_REVISIT"]); ?>">
 
         <?php // CSS ?>
-        <?php if (Config::$PROJECT_SETTINGS["PRODUCTION"]): ?>
-            <link rel="stylesheet" href="<?php output(Router::staticFilePath("css/style.min.css")); ?>">
-        <?php else: ?>
-            <link rel="stylesheet" href="<?php output(Router::staticFilePath("css/base.css")); ?>">
-            <link rel="stylesheet" href="<?php output(Router::staticFilePath("css/fonts.css")); ?>">
+        <link rel="stylesheet" href="<?php output(Router::staticFilePath("css/base.css")); ?>">
+        <link rel="stylesheet" href="<?php output(Router::staticFilePath("css/fonts.css")); ?>">
 
-            <link rel="stylesheet" href="<?php output(Router::staticFilePath("css/header.css")); ?>">
-            <link rel="stylesheet" href="<?php output(Router::staticFilePath("css/footer.css")); ?>">
-            <link rel="stylesheet" href="<?php output(Router::staticFilePath("css/infomessages.css")); ?>">
+        <link rel="stylesheet" href="<?php output(Router::staticFilePath("css/header.css")); ?>">
+        <link rel="stylesheet" href="<?php output(Router::staticFilePath("css/footer.css")); ?>">
+        <link rel="stylesheet" href="<?php output(Router::staticFilePath("css/infomessages.css")); ?>">
 
-            <link rel="stylesheet" href="<?php output(Router::staticFilePath("css/project.css")); ?>">
-        <?php endif; ?>
+        <link rel="stylesheet" href="<?php output(Router::staticFilePath("css/project.css")); ?>">
 
         <script src="<?php output(Router::staticFilePath("js/lib/jquery.min.js")); ?>"></script>
 
         <?php // JavaScript ?>
-        <?php if (Config::$PROJECT_SETTINGS["PRODUCTION"]): ?>
-            <script src="<?php output(Router::staticFilePath("js/script.min.js")); ?>"></script>
-        <?php else: ?>
-            <script src="<?php output(Router::staticFilePath("js/sidebar.js")); ?>"></script>
-            <script src="<?php output(Router::staticFilePath("js/infomessage.js")); ?>"></script>
-        <?php endif; ?>
+        <script src="<?php output(Router::staticFilePath("js/sidebar.js")); ?>"></script>
+        <script src="<?php output(Router::staticFilePath("js/infomessage.js")); ?>"></script>
     </head>
     <body>
         <nav>

@@ -19,50 +19,36 @@ These instructions will help you to get the framework up and running.
 
 ### Prerequisites
 - PHP 8.2 or higher
-- A web server such as Apache or Nginx
+- A web server, preferably Apache
+  - You can also get it to work with other web servers, but you have to set up the rewrites from the ``.htaccess`` file
 - A database system such as MySQL or MariaDB
 
 ### Installing
-1. Clone this repository into any directory of the web server (ideally the root directory):
-```sh
-git clone https://github.com/JensOstertag/PHP-Framework.git .
-```
+1. Use this repository as a template for your project by clicking on the green button ``Use this template`` on the top of this page. This will create a new repository with the same files as this one.
 
-2. If you didn't clone the repository into the root directory but in any other directory (e.g. ``📁 your/directory/``), you have to modify the ``.htaccess`` file as follows:<br>
-   - Change the value after ``RewriteBase`` from the default value ``/`` (that stands for your server's root directory) to the directory you cloned the repository into (e.g. ``/your/directory/``).
+2. Clone that repository into the websites root directory. This has to be done by the web server user, or you have to transfer ownership of the files to the web server user. Otherwise, you won't be able to use the auto deployment feature because the server can't override files when pulling from the repository. 
+ It's also possible to clone it into subdirectories, but you have to modify the ``RewriteBase`` in the ``📄 .htaccess`` file accordingly. Also note that possible side effects are not properly tested.
 
-   This is required because all (*) requests withing ``📁 your/directory/`` should be rewritten to ``📄 your/directory/routes-handler.php``.
-
-   <sub>* Not all requests within that directory will be rewritten. There's a directory called ``📁 static/`` where direct requests are allowed. It's described in the <a href="docs/file-structure.md">file structure documentation</a> as to why that is.</sub>
-
-3. In case you want to use git versioning for your project, remove the current remote and add a new one:
-   ```sh
-   git remote remove REMOTE
-   git remote add REMOTE URL
-   ```
-   with ``REMOTE`` being the remote's name (much likely ``origin``) and ``URL`` being the URL of the new remote.
-
-   It's recommended to use the following ``.gitignore``-template:
-   ```console
-   # Ignore Files that contain sensible Information such as Passwords or secret Keys
-   *.inc.php
-   
-   # Ignore Composer Vendor Folder
-   vendor/
-   ```
-   It's up to you to decide whether or not you want to ignore the framework's files within the ``📁 framework/`` directory.
+3. Create the file ``📄 project/config/app-config.inc.php``. This file is ignored by the ``.gitignore`` file and therefore not included in the repository.
 
 4. Install the required dependencies using Composer:
    ```sh
    composer install
    ```
 
-5. Update the following configuration files in the ``📁 project/config/`` directory: 
-    - ``📄 app-config.php`` - Basic project settings
-    - ``📄 app-config.inc.php`` - Project settings that shouldn't be in a git repository
-    - ``📄 app-routes.php`` - Routes initialization
+5. Create Variables and Secrets for GitHub Actions:
 
-6. Now, you can add new scripts inside of the ``📁 project/`` directory.
+| Variable Name            | Description                                                    |
+|--------------------------|----------------------------------------------------------------|
+| ``AUTODEPLOY_ACTIVATED`` | Whether or not the auto deployment feature should be activated |
+| ``AUTODEPLOY_BASE_URL``  | The base URL of the website                                    |
+
+| Secret Name                  | Description                                                                                          |
+|------------------------------|------------------------------------------------------------------------------------------------------|
+| ``AUTODEPLOY_AUTH_USERNAME`` | The username that is used to authenticate when calling the website (if not required, leave it empty) |
+| ``AUTODEPLOY_AUTH_PASSWORD`` | The password that is used to authenticate when calling the website (if not required, leave it empty) |
+
+
 
 ## How to use
 This section provides quick tutorials about how to use the framework and it's features.
@@ -81,7 +67,6 @@ There are the following settings:
   - ``PROJECT_URL`` - The URL of your project
   - ``PROJECT_AUTHOR`` - Your name or the name of your company / team that is displayed in the website's footer by default
   - ``PROJECT_VERSION`` - The current version of the project that is displayed in the website's footer by default
-  - ``PRODUCTION`` - Boolean value that indicates whether the project is in production mode or not (the production mode will load the minified CSS and JS files)
 - ``MENU_SETTINGS``
   - ``MENU_ITEMS`` - An array with the following structure of all menu items that should be displayed in the sidebar<br>
     ```php
@@ -695,24 +680,26 @@ For an overview of all available methods, please have a look at the <a href="doc
 <details>
 <summary><b>Deploying the application</b></summary>
 
-Before deploying the application, make sure you have enabled the production mode in the ``📄 project/config/app-config.php`` or ``📄 project/config/app-config.inc.php`` file. This will load the minified CSS and JS files. You might also want to change other settings to hide PHP errors and warnings or increase the log level.
+Before deploying the application, make sure that you have changed all settings for the production version such as changing the minimum required log level. You might also want to minify the CSS and JS files.
 
-Next, minify the CSS and JS files. To do that, execute the following command in the project's root directory:
-```bash
-./minify.sh
-```
-> <b>Note:</b> You will need a working installation of a gcc compiler.
+Now, there are two separate ways to deploy the application:
 
-> <b>Note:</b> As the minification scripts are selfmade, there might be some problems with the minification process. If you encounter any issues, please open an issue in [this GitHub repository](https://github.com/JensOstertag/MinificationScripts).
-> 
-> If there are problems, you can either try to find a workaround, minify the files manually (the minified files should be named ``📄 project/htdocs/static/css/style.min.css`` and ``📄 project/htdocs/static/js/script.min.js``) or use the unminified files by disabling the production mode in the ``📄 project/config/app-config.php`` or ``📄 project/config/app-config.inc.php`` file.
+<details>
+<summary>Use the frameworks auto deployment tool</summary>
 
-Finally, you can upload the project to your web server. The following files and directories should be uploaded:
+If you have followed all steps in the <a href="#installation">installation</a> section, you can simply commit and push your changes to the repositories ``main`` branch. A GitHub Action will then call the ``/deploy`` route which will pull all changes from the repository and install the dependencies.
+</details>
+
+<details>
+<summary>Upload files via FTP</summary>
+
+If you want to upload the files via FTP, make sure that all files and directories listed below are uploaded:
 - ``📁 framework/``
 - ``📁 project/``
 - ``📄 .htaccess``
 - ``📄 .user.ini`` or ``📄 php.ini``
 - ``📄 routes-handler.php``
+</details>
 </details>
 
 ## Documentation

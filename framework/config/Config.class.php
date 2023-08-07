@@ -36,8 +36,7 @@ class Config {
             "PROJECT_URL" => "https://domain.com",
             "PROJECT_FAVICON" => Router::staticFilePath("img/favicon.png"),
             "PROJECT_AUTHOR" => "Author",
-            "PROJECT_VERSION" => "1.0.0",
-            "PRODUCTION" => false
+            "PROJECT_VERSION" => "1.0.0"
         ];
 
         self::$MENU_SETTINGS = [
