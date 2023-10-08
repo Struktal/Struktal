@@ -132,10 +132,20 @@ class GenericObjectDAO {
             if(count($filter) > 0) {
                 $sql .= " WHERE ";
                 foreach($filter as $key => $value) {
-                    if($value === null) {
-                        $sql .= "`{$key}` IS NULL AND ";
+                    if(is_array($value)) {
+                        $field = $value["field"];
+                        $filterType = $value["filterType"];
+                        $filterValue = $value["filterValue"];
+
+                        if($filterType instanceof DAOFilterType) {
+                            $sql .= $filterType->generateSqlTerm($key, $field, $filterValue) . " AND ";
+                        }
                     } else {
-                        $sql .= "`{$key}` = :{$key} AND ";
+                        if($value === null) {
+                            $sql .= "`{$key}` IS NULL AND ";
+                        } else {
+                            $sql .= "`{$key}` = :{$key} AND ";
+                        }
                     }
                 }
                 $sql = substr($sql, 0, -5);
@@ -145,8 +155,18 @@ class GenericObjectDAO {
 
             $stmt = Database::getConnection()->prepare($sql);
             foreach($filter as $key => $value) {
-                if($value !== null) {
-                    $stmt->bindValue(":{$key}", $value);
+                if(is_array($value)) {
+                    $field = $value["field"];
+                    $filterType = $value["filterType"];
+                    $filterValue = $value["filterValue"];
+
+                    if($filterType instanceof DAOFilterType) {
+                        $filterType->bindQueryParameters($stmt, $key, $field, $filterValue);
+                    }
+                } else {
+                    if($value !== null) {
+                        $stmt->bindValue(":{$key}", $value);
+                    }
                 }
             }
             $stmt->execute();
@@ -183,10 +203,20 @@ class GenericObjectDAO {
             if(count($filter) > 0) {
                 $sql .= " WHERE ";
                 foreach($filter as $key => $value) {
-                    if($value === null) {
-                        $sql .= "`{$key}` IS NULL AND ";
+                    if(is_array($value)) {
+                        $field = $value["field"];
+                        $filterType = $value["filterType"];
+                        $filterValue = $value["filterValue"];
+
+                        if($filterType instanceof DAOFilterType) {
+                            $sql .= $filterType->generateSqlTerm($key, $field, $filterValue) . " AND ";
+                        }
                     } else {
-                        $sql .= "`{$key}` = :{$key} AND ";
+                        if($value === null) {
+                            $sql .= "`{$key}` IS NULL AND ";
+                        } else {
+                            $sql .= "`{$key}` = :{$key} AND ";
+                        }
                     }
                 }
                 $sql = substr($sql, 0, -5);
@@ -198,8 +228,18 @@ class GenericObjectDAO {
 
             $stmt = Database::getConnection()->prepare($sql);
             foreach($filter as $key => $value) {
-                if($value !== null) {
-                    $stmt->bindValue(":{$key}", $value);
+                if(is_array($value)) {
+                    $field = $value["field"];
+                    $filterType = $value["filterType"];
+                    $filterValue = $value["filterValue"];
+
+                    if($filterType instanceof DAOFilterType) {
+                        $filterType->bindQueryParameters($stmt, $key, $field, $filterValue);
+                    }
+                } else {
+                    if($value !== null) {
+                        $stmt->bindValue(":{$key}", $value);
+                    }
                 }
             }
             $stmt->execute();
