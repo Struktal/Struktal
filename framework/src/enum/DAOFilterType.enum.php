@@ -29,19 +29,19 @@ enum DAOFilterType {
                 }
                 break;
             case self::GREATER_THAN:
-                $sqlTerm = "{$field} > :{$key}";
+                $sql = "{$field} > :{$key}";
                 break;
             case self::LESS_THAN:
-                $sqlTerm = "{$field} < :{$key}";
+                $sql = "{$field} < :{$key}";
                 break;
             case self::GREATER_THAN_EQUALS:
-                $sqlTerm = "{$field} >= :{$key}";
+                $sql = "{$field} >= :{$key}";
                 break;
             case self::LESS_THAN_EQUALS:
-                $sqlTerm = "{$field} <= :{$key}";
+                $sql = "{$field} <= :{$key}";
                 break;
             case self::LIKE:
-                $sqlTerm = "{$field} LIKE :{$key}";
+                $sql = "{$field} LIKE :{$key}";
                 break;
             case self::IN:
                 if(is_array($filterValue)) {
