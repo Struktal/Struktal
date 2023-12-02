@@ -16,7 +16,7 @@ class InfoMessage {
     }
 
     /**
-     * Check whether there are Messages to display
+     * Checks whether there are messages to display
      * @return bool
      */
     public static function hasMessages(): bool {
@@ -28,7 +28,7 @@ class InfoMessage {
     }
 
     /**
-     * Get all Messages and remove them from the Session
+     * Returns all messages and removes them from the session
      * @return array
      */
     public static function getMessages(): array {
@@ -44,7 +44,7 @@ class InfoMessage {
     }
 
     /**
-     * Get the Message
+     * Returns the message
      * @return string
      */
     public function getMessage(): string {
@@ -52,7 +52,7 @@ class InfoMessage {
     }
 
     /**
-     * Get the Info Message Type
+     * Returns the infomessage type
      * @return InfoMessageType
      */
     public function getType(): InfoMessageType {
@@ -60,7 +60,7 @@ class InfoMessage {
     }
 
     /**
-     * Compare the Importance of two Info Messages
+     * Compares the importance of two infomessages
      * @param $a
      * @param $b
      * @return mixed

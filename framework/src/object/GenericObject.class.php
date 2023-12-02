@@ -2,7 +2,7 @@
 
 class GenericObject {
     private static array $dao = [];
-    
+
     public ?int $id;
     public DateTime $created;
     public DateTime $updated;
@@ -12,9 +12,9 @@ class GenericObject {
         $this->created = new DateTime();
         $this->updated = new DateTime();
     }
-    
+
     /**
-     * Get the Data Access Object for this Class
+     * Returns the data access object for this class
      * @return GenericObjectDAO
      */
     public static function dao(): GenericObjectDAO {
@@ -26,12 +26,12 @@ class GenericObject {
                 Logger::getLogger("GenericObject")->error("DAO for Class " . get_called_class() . " requested but not found");
             }
         }
-        
+
         return self::$dao[get_called_class()];
     }
 
     /**
-     * Import Data from an Array to the Object
+     * Imports data from an array to the object
      * @param array $data
      * @return void
      */
@@ -51,7 +51,7 @@ class GenericObject {
     }
 
     /**
-     * Export the Object's Data to an Array
+     * Exports the object's data to an array
      * @return array
      */
     public function toArray(): array {
@@ -63,49 +63,49 @@ class GenericObject {
 
         return $data;
     }
-    
+
     /**
-     * Get the Object's ID
+     * Returns the object's ID
      * @return int|null
      */
     public function getId(): ?int {
         return $this->id;
     }
-    
+
     /**
-     * Set the Object's ID
+     * Sets the object's ID
      * @param int $id
      */
     private function setId(int $id): void {
         $this->id = $id;
     }
-    
+
     /**
-     * Get the Object's Creation Date
+     * Returns the object's creation date
      * @return DateTime
      */
     public function getCreated(): DateTime {
         return $this->created;
     }
-    
+
     /**
-     * Set the Object's Creation Date
+     * Sets the object's creation date
      * @param DateTime $created
      */
     public function setCreated(DateTime $created): void {
         $this->created = $created;
     }
-    
+
     /**
-     * Get the Object's Last Update Date
+     * Returns the object's last update date
      * @return DateTime
      */
     public function getUpdated(): DateTime {
         return $this->updated;
     }
-    
+
     /**
-     * Set the Object's Last Update Date
+     * Sets the object's last update date
      * @param DateTime $updated
      */
     public function setUpdated(DateTime $updated): void {

@@ -1,35 +1,44 @@
 <?php
 
 class Config {
-    // Project Settings
-    public static array $PROJECT_SETTINGS;
+    private static ?array $secretConfig = null;
 
-    // Menu Settings
+    // Router settings
+    public static array $ROUTER_SETTINGS;
+
+    // Project settings
+    public static array $PROJECT_SETTINGS = [];
+
+    // Menu settings
     public static array $MENU_SETTINGS;
 
-    // DateTime Format Settings
+    // DateTime format settings
     public static array $DATETIME_SETTINGS;
 
-    // Log Settings
+    // Log settings
     public static array $LOG_SETTINGS;
 
-    // Database Settings
+    // Database settings
     public static array $DB_SETTINGS;
 
-    // Mail Settings
+    // Mail settings
     public static array $MAIL_SETTINGS;
 
-    // Class Loader Settings
+    // ClassLoader settings
     public static array $CLASS_LOADER_SETTINGS;
 
-    // SEO Settings
+    // SEO settings
     public static array $SEO_SETTINGS;
 
     /**
-     * Stores some Placeholder Config Values
-     * They are overridden by root/project/config/app-config.php
+     * Stores some placeholder config values
+     * They are overridden by project/config/app-config.php
      */
     public static function init(): void {
+        self::$ROUTER_SETTINGS = [
+            "ROUTER_BASE_URI" => "/"
+        ];
+
         self::$PROJECT_SETTINGS = [
             "PROJECT_NAME" => "Project",
             "WEBSITE_TITLE" => "Project",
@@ -81,7 +90,7 @@ class Config {
         ];
 
         self::$SEO_SETTINGS = [
-            "SEO_DEFAULT_DESCRIPTION" => "Default Description",
+            "SEO_DEFAULT_DESCRIPTION" => "Description",
             "SEO_KEYWORDS" => [],
             "SEO_IMAGE_PREVIEW" => Router::staticFilePath("img/seo/preview.png"),
             "SEO_OPENGRAPH" => [
@@ -98,6 +107,23 @@ class Config {
         ];
     }
 
-    private function __construct() {
+    /**
+     * Loads the secrets config
+     * @return array
+     */
+    public static function configSecret(): array {
+        if(self::$secretConfig !== null) {
+            return self::$secretConfig;
+        }
+
+        if(file_exists(__APP_DIR__ . "/secrets/config.secret.json")) {
+            self::$secretConfig = json_decode(file_get_contents(__APP_DIR__ . "/secrets/config.secret.json"), true) ?? [];
+        } else {
+            self::$secretConfig = [];
+        }
+
+        return self::$secretConfig;
     }
+
+    private function __construct() {}
 }

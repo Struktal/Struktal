@@ -1,11 +1,12 @@
-# Ignore Files such as php.ini or .user.ini
+# Ignore .ini files
 *.ini
 
-# Ignore Files that contain sensible Information such as Passwords or secret Keys
+# Ignore files that contain sensible information such as passwords or secret keys
 *.inc.php
+/secrets/*.secret.json
 
-# Ignore PHPStorm Files
-/.idea
+# Ignore PhpStorm files
+.idea/
 
-# Ignore Composer Vendor Folder
+# Ignore composer files
 vendor/

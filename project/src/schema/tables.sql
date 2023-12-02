@@ -1,4 +1,4 @@
-# User Table
+# User table
 CREATE TABLE IF NOT EXISTS `User` (
     `id` int(11) NOT NULL AUTO_INCREMENT,
     `username` VARCHAR(255) NOT NULL,

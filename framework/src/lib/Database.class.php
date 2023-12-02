@@ -9,9 +9,9 @@ class Database {
             $this->connection = new PDO("mysql:host=" . Config::$DB_SETTINGS["DB_HOST"] . ";dbname=" . Config::$DB_SETTINGS["DB_NAME"], Config::$DB_SETTINGS["DB_USER"], Config::$DB_SETTINGS["DB_PASS"], [PDO::MYSQL_ATTR_FOUND_ROWS => true]);
         }
     }
-    
+
     /**
-     * Gets the Database Instance
+     * Returns the database instance
      * @return Database
      */
     public static function getInstance(): Database {
@@ -21,9 +21,9 @@ class Database {
 
         return self::$instance;
     }
-    
+
     /**
-     * Gets the PDO Database Connection
+     * Returns the PDO database connection
      * @return PDO|null
      */
     public static function getConnection(): ?PDO {

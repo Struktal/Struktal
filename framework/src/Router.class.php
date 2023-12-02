@@ -4,18 +4,18 @@ class Router {
     private static array $routes = [];
 
     /**
-     * Register a Route
-     * @param string $method HTTP Method
-     *                       Multiple Methods can be separated with a Pipe (|) Character, without Spaces or other Symbols
-     * @param string $route Route that is expected to get called
-     *                      GET Parameters can be added to the Route by using the following Syntax: {type:name}
-     *                      Supported Types are b (Boolean), d (Date (without Time)), f (Float), i (Integer) and s (String)
-     *                      Names are used to identify the Parameter within the $_GET Array
-     * @param string $routeTo File that should be opened when the Route is called
-     * @param string $name Name of the Route
+     * Registers a route
+     * @param string $method HTTP method
+     *                       Multiple methods can be separated with a pipe (|) character, without spaces or other symbols
+     * @param string $route Route that should get called
+     *                      GET parameters can be added to the route by using the following syntax: {type:name}
+     *                      Supported types are b (boolean), d (date (without time)), f (float), i (integer) and s (string)
+     *                      Names are used to identify the parameter within the $_GET array
+     * @param string $routeTo File that should be executed when the route is called
+     * @param string $name Name of the route
      * @return void
      */
-    public static function addRoute(string $method = "GET|POST", string $route, string $routeTo, string $name) {
+    public static function addRoute(string $method, string $route, string $routeTo, string $name): void {
         // Retrieve Parameters from the Route
         $params = [];
         preg_match_all("/\{([bdfis]:[a-zA-Z0-9]+)\}/", $route, $matches);
@@ -30,7 +30,7 @@ class Router {
         foreach($methods as $method) {
             self::$routes[$method][$route] = [
                 "route" => $route,
-                "routeTo" => $routeTo,
+                "routeTo" => __APP_DIR__ . "/project/htdocs/" . $routeTo,
                 "name" => $name,
                 "params" => $params
             ];
@@ -38,9 +38,9 @@ class Router {
     }
 
     /**
-     * Generate the URI for a Route
-     * @param string $name Name of the Route
-     * @param array $params GET Parameters that should be added to the URI
+     * Returns the URI for a route
+     * @param string $name Name of the route
+     * @param array $params GET parameters that should be added to the URI
      * @return string Route
      */
     public static function generate(string $name, array $params = []): string {
@@ -79,35 +79,35 @@ class Router {
                     }
 
                     if(sizeof($requiredParams) == 0) {
-                        return __SERVER_DIR__ . ltrim($route, "/");
+                        return Config::$ROUTER_SETTINGS["ROUTER_BASE_URI"] . ltrim($route, "/");
                     }
                 }
             }
         }
 
-        return __SERVER_DIR__;
+        return Config::$ROUTER_SETTINGS["ROUTER_BASE_URI"];
     }
 
     /**
-     * Redirect to the File that is registered for the requested Route
-     * This Method also sets Values in the $_GET Array
-     * If no Route is found or the File does not exist, the 404 Page will be opened
-     * If the required Parameters are not valid, the 400 Page will be opened
+     * Redirects to the file that is registered for the requested route
+     * This method also sets values in the $_GET Array
+     * If no route is found or the file does not exist, the 404 page will be opened
+     * If the required parameters are not valid, the 400 page will be opened
      * @return void
      */
     public function startRouter(): void {
         $method = $_SERVER["REQUEST_METHOD"];
         $uri = $_SERVER["REQUEST_URI"];
 
-        // Remove GET Parameters after a Question Mark
-        // GET Parameters are set differently
+        // Remove GET parameters after a question mark
+        // GET parameters are set differently
         $uri = explode("?", $uri)[0];
-        // Remove the Root Directory from the URI
-        // This is required if the Project is not located in the Server's Root Directory
-        if(str_starts_with($uri, __SERVER_DIR__)) {
-            $uri = substr($uri, strlen(__SERVER_DIR__));
+        // Remove the root directory from the URI
+        // This is required if the project is not located in the server's root directory
+        if(str_starts_with($uri, Config::$ROUTER_SETTINGS["ROUTER_BASE_URI"])) {
+            $uri = substr($uri, strlen(Config::$ROUTER_SETTINGS["ROUTER_BASE_URI"]));
         }
-        // Remove leading and trailing Slashes
+        // Remove leading and trailing slashes
         $uri = trim($uri, "/");
 
         $foundRoute = [];
@@ -117,11 +117,11 @@ class Router {
             $route = trim($route, "/");
             $regex = "";
             $routeParts = explode("/", $route);
-            // Loop over all Parts of the Route and create a Regex
+            // Loop over all parts of the route and create a regex
             foreach($routeParts as $part) {
                 if(preg_match("/\{([bdfis]:[a-zA-Z0-9]+)\}/", $part)) {
-                    // The current Route Part is a Parameter
-                    // Add Regex for the corresponding Parameter Type
+                    // The current route part is a parameter
+                    // Add regex for the corresponding parameter type
                     $part = trim($part, "{}");
                     $paramType = explode(":", $part)[0];
                     switch($paramType) {
@@ -142,8 +142,8 @@ class Router {
                             break;
                     }
                 } else {
-                    // The current Route Part is no Parameter
-                    // Simply add the Part to the Regex
+                    // The current route part is no parameter
+                    // Simply add the part to the regex
                     $regex .= $part . "\/";
                 }
             }
@@ -152,7 +152,7 @@ class Router {
             }
 
             if(preg_match("#^" . $regex . "$#i", $uri)) {
-                // The current Route matches the Request
+                // The current route matches the request
                 $foundRoute = $routeData;
                 $routeFound = true;
             }
@@ -168,12 +168,12 @@ class Router {
         $route = trim($route, "/");
         $routeTo = $foundRoute["routeTo"];
 
-        // Set the GET Parameters
-        // Loop over all Parts of the Route
+        // Set the GET parameters
+        // Loop over all parts of the route
         foreach(explode("/", $route) as $key => $part) {
             if(preg_match("/\{([bdfis]:[a-zA-Z0-9]+)\}/", $part)) {
-                // The current Route Part is a Parameter
-                // Retrieve the Parameter Type and Name from the Route Part and the Value from the URI
+                // The current route part is a parameter
+                // Retrieve the parameter type and name from the route part and the value from the URI
                 $part = trim($part, "{}");
                 $paramType = explode(":", $part)[0];
                 $paramName = str_replace($paramType . ":", "", $part);
@@ -191,14 +191,14 @@ class Router {
             }
         }
 
-        // Redirect to the File that is registered for the Route
+        // Redirect to the file that is registered for the route
         if(str_ends_with($routeTo, ".php")) {
             if(file_exists($routeTo)) {
                 include_once($routeTo);
             } else {
                 Comm::redirect(self::generate("404"));
                 http_response_code(404);
-                Logger::getLogger("Router")->error("Could not find File \"{$routeTo}\" for Route \"{$route}\"");
+                Logger::getLogger("Router")->error("Could not find file \"{$routeTo}\" for route \"{$route}\"");
             }
         } else {
             if(file_exists($routeTo)) {
@@ -208,33 +208,33 @@ class Router {
             } else {
                 Comm::redirect(self::generate("404"));
                 http_response_code(404);
-                Logger::getLogger("Router")->error("Could not find File \"{$routeTo}\" for Route \"{$route}\"");
+                Logger::getLogger("Router")->error("Could not find file \"{$routeTo}\" for route \"{$route}\"");
             }
         }
     }
 
     /**
-     * Get the URL that was called
+     * Returns the URL that was called
      * @return string
      */
     public static function getCalledURL(): string {
         return rtrim(Config::$PROJECT_SETTINGS["PROJECT_URL"], "/") . "/" . ltrim($_SERVER["REQUEST_URI"], "/");
     }
-    
+
     /**
-     * Generate the Import Path for a File within the Static Directory
+     * Returns the import path for a file within the static directory
      * @param string $path File Path
      * @return string
      */
     public static function staticFilePath(string $path): string {
-        return __SERVER_DIR__ . "static/" . trim($path, "/");
+        return Config::$ROUTER_SETTINGS["ROUTER_BASE_URI"] . "static/" . trim($path, "/");
     }
 
     /**
-     * If Parsing is possible, get the Parameter of the corresponding Type from a String
+     * If parsing is possible, returns the parameter of the corresponding type from a string
      * @param mixed $value Value that should be parsed
-     * @param string $parameter Type of the Parameter (b, d, f, i, s)
-     * @return mixed|null Parsed Parameter or null if Parsing is not possible
+     * @param string $parameter Type of the parameter (b, d, f, i, s)
+     * @return mixed|null Parsed parameter or null if parsing is not possible
      */
     private static function getParameterFromString(mixed $value, string $parameter): mixed {
         switch($parameter) {
@@ -266,8 +266,8 @@ class Router {
     }
 
     /**
-     * Send the correct Content-Type Header for a given File
-     * @param string $file File Name or Path
+     * Sends the correct Content-Type header for a given file
+     * @param string $file File name or path
      * @return void
      */
     private function sendContentTypeHeader(string $file): void {

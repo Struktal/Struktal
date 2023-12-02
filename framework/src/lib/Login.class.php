@@ -2,11 +2,11 @@
 
 class Login {
     /**
-     * Enforce the User to be logged in
+     * Enforces the user to be logged in
      * @param mixed $userId User ID
-     * @param int $requiredPermissionLevel Minimum required Permission Level
-     * @param string $redirect Redirect URL if the User is not logged in
-     * @return GenericUser|null User Object or null if the User is not logged in
+     * @param int $requiredPermissionLevel Minimum required permission level
+     * @param string $redirect Redirect URL if the user is not logged in
+     * @return GenericUser|null User object or null if the user is not logged in
      */
     public static function requireLogin(mixed $userId, int $requiredPermissionLevel, string $redirect): ?GenericUser {
         if(empty($userId) || !(is_int($userId))) {
@@ -27,9 +27,9 @@ class Login {
     }
 
     /**
-     * Check whether the Page was called by a logged in User
+     * Checks whether the page was called by a logged in user
      * @param mixed $userId User ID
-     * @return GenericUser|null User Object or null if no User is logged in
+     * @return GenericUser|null User object or null if no user is logged in
      */
     public static function optionalLogin(mixed $userId): ?GenericUser {
         if(empty($userId) || !(is_int($userId))) {

@@ -2,11 +2,11 @@
 
 class GenericUserDAO extends GenericObjectDAO {
     /**
-     * Authentification of a Login
+     * Authentication of a login
      * @param string $login Username or E-Mail
-     * @param bool $loginWithEmail Login performed with E-Mail instead of Username
-     * @param string $password Provided Password
-     * @return GenericUser|int User or Error Code if Login failed
+     * @param bool $loginWithEmail Login performed with E-Mail instead of username
+     * @param string $password Provided password
+     * @return GenericUser|int User or error code if login failed
      *                         0: Login not found
      *                         1: Password incorrect
      */
@@ -36,12 +36,12 @@ class GenericUserDAO extends GenericObjectDAO {
     }
 
     /**
-     * Register a new User
+     * Registers a new user
      * @param string $username Username
      * @param string $password Password
      * @param string $email E-Mail
-     * @param int $permissionLevel Permission Level
-     * @param string $oneTimePassword One-Time-Password for E-Mail Verification
+     * @param int $permissionLevel Permission level
+     * @param string $oneTimePassword One-time-password for E-Mail verification
      * @return void
      */
     public function register(string $username, string $password, string $email, int $permissionLevel, string $oneTimePassword): void {
@@ -57,8 +57,8 @@ class GenericUserDAO extends GenericObjectDAO {
     }
 
     /**
-     * Generate a unique One-Time-Password
-     * @return string One-Time-Password
+     * Returns a unique one-time-password
+     * @return string
      */
     public function generateOneTimePassword(): string {
         $chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -67,7 +67,7 @@ class GenericUserDAO extends GenericObjectDAO {
             $oneTimePassword .= $chars[rand(0, strlen($chars) - 1)];
         }
 
-        // Check whether the generated One-Time-Password already exists
+        // Check whether the generated one-time-password already exists
         if(sizeof($this->getObjects(["oneTimePassword" => $oneTimePassword])) > 0) {
             $oneTimePassword = $this->generateOneTimePassword();
         }

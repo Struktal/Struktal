@@ -1,12 +1,12 @@
 class Sidebar {
     /**
-     * Sidebar Constructor
-     * @param sidebarSelector Selector String for the Sidebar Menu
-     * @param burgerSelector Selector String for the Burger div
-     * @param darkBackgroundSelector Selector String for the dark Background
+     * Sidebar constructor
+     * @param sidebarSelector Selector string for the sidebar menu
+     * @param burgerSelector Selector string for the burger div
+     * @param darkBackgroundSelector Selector string for the dark background
      */
     constructor(sidebarSelector, burgerSelector, darkBackgroundSelector) {
-        // Save the Sidebar Element
+        // Save the sidebar element
         this.sidebarElement = $(sidebarSelector);
         this.burgerElement = $(burgerSelector);
         this.darkBackgroundElement = $(darkBackgroundSelector);
@@ -17,31 +17,31 @@ class Sidebar {
     }
 
     /**
-     * Initialize the Sidebar
+     * Initialize the sidebar
      */
     init() {
-        // Bind the Toggle Event
+        // Bind the toggle event
         this.burgerElement.click((event) => {
             this.toggleSidebar();
         });
     }
 
     /**
-     * Toggle the Sidebar and dark Background
+     * Toggle the sidebar and dark background
      */
     toggleSidebar() {
-        // Toggle Navigator
+        // Toggle navigator
         this.sidebarElement.toggleClass("header-navigator-default");
         this.sidebarElement.toggleClass("header-navigator-active");
 
-        // Toggle dark Background
+        // Toggle dark background
         this.darkBackgroundElement.toggleClass("header-dark-background-default");
         this.darkBackgroundElement.toggleClass("header-dark-background-active");
 
-        // Change Burger
+        // Change burger
         this.burgerElement.toggleClass("close");
 
-        // Toggle Scrolling
+        // Toggle scrolling
         if(this.shown) {
             document.body.style.overflow = null;
             document.body.style.position = null;

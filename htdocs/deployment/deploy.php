@@ -139,7 +139,7 @@ $commands = [
 $detailedLog .= "Running commands " . json_encode($commands) . PHP_EOL;
 $detailedLog .= PHP_EOL;
 
-// Run Commands with exec
+// Run commands with exec
 foreach($commands as $command) {
     $shortLog .= "Running command: " . $command . PHP_EOL;
     $detailedLog .= "Running command: " . $command . PHP_EOL;

@@ -3,11 +3,10 @@
 class ClassLoader {
     private static ?ClassLoader $instance = null;
 
-    private function __construct() {
-    }
+    private function __construct() {}
 
     /**
-     * Returns the Instance of the ClassLoader
+     * Returns the instance of the ClassLoader
      * @return ClassLoader
      */
     public static function getInstance(): ClassLoader {
@@ -19,7 +18,7 @@ class ClassLoader {
     }
 
     /**
-     * Loads a single given File
+     * Loads a single given file
      * @param string $absolutePath
      * @return void
      */
@@ -28,8 +27,8 @@ class ClassLoader {
     }
 
     /**
-     * Loads a single given Class
-     * Note that only Classes in Files with the Ending ".class.php" will be loaded
+     * Loads a single given class
+     * Note that only class in files with the ending ".class.php" will be loaded
      * @param string $absolutePath
      * @return bool
      */
@@ -43,8 +42,8 @@ class ClassLoader {
     }
 
     /**
-     * Loads all Classes in a given Directory and it's Subdirectories (recursively) except those specified in $exceptions
-     * Note that only Classes in Files with the Ending ".class.php" will be loaded
+     * Loads all classes in a given directory and it's subdirectories (recursively) except those specified in $exceptions
+     * Note that only classes in files with the ending ".class.php" will be loaded
      * @param string $absolutePath
      * @param array  $exceptions
      * @return void
@@ -68,7 +67,8 @@ class ClassLoader {
     }
 
     /**
-     * Loads a single given Enum
+     * Loads a single given enum
+     * Note that only enums in files with the ending ".enum.php" will be loaded
      * @param string $absolutePath
      * @return bool
      */
@@ -82,8 +82,8 @@ class ClassLoader {
     }
 
     /**
-     * Loads all Enums in a given Directory and it's Subdirectories (recursively) except those specified in $exceptions
-     * Note that only Enums in Files with the Ending ".enum.php" will be loaded
+     * Loads all enums in a given directory and it's subdirectories (recursively) except those specified in $exceptions
+     * Note that only enums in files with the ending ".enum.php" will be loaded
      * @param string $absolutePath
      * @param array  $exceptions
      * @return void

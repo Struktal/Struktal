@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Output Data on a Website
+ * Outputs data on the website
  * @param $data mixed Data that should be displayed
  * @return void
  */

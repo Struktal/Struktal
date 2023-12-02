@@ -8,7 +8,7 @@ class GenericObjectDAO {
     }
 
     /**
-     * Save an Object with its current Attributes to the Database
+     * Saves an object with its current attributes to the database
      * @param GenericObject $object
      * @return bool
      */
@@ -90,7 +90,7 @@ class GenericObjectDAO {
     }
 
     /**
-     * Delete an Object from the Database
+     * Deletes an object from the database
      * @param GenericObject $object
      * @return bool
      */
@@ -116,8 +116,8 @@ class GenericObjectDAO {
     }
 
     /**
-     * Get an Object from the Database
-     * The Object will be returned as an Instance of the corresponding Class
+     * Returns an object from the database
+     * The object will be returned as an instance of the corresponding class
      * @param array  $filter
      * @param string $orderBy
      * @param bool   $orderAsc
@@ -187,8 +187,8 @@ class GenericObjectDAO {
     }
 
     /**
-     * Get multiple Objects from the Database at once
-     * The Objects will be returned as an Array of Instances of the corresponding Class
+     * Returns multiple objects from the database at once
+     * The objects will be returned as an array of instances of the corresponding class
      * @param array  $filter
      * @param string $orderBy
      * @param bool   $orderAsc
@@ -260,11 +260,11 @@ class GenericObjectDAO {
     }
 
     /**
-     * Check whether the Table for the specified Class exists
+     * Checks whether the table for the specified class exists
      * @param string $tableName
      * @return bool
      */
-    public function tableExists(string $tableName) {
+    public function tableExists(string $tableName): bool {
         $stmt = Database::getConnection()->prepare("SHOW TABLES LIKE :tableName");
         $stmt->bindValue(":tableName", $tableName);
         $stmt->execute();

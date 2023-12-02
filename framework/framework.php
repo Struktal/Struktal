@@ -1,45 +1,47 @@
 <?php
 
-// Vendor Autoloader
-require_once(__DIR__ . "/../project/src/lib/vendor/autoload.php");
+// Autoload Composer libraries
+require_once(__APP_DIR__ . "/project/src/lib/vendor/autoload.php");
 
-// Setup Composer Libraries
+// Setup Composer libraries
 use jensostertag\Templify\Templify;
-Templify::setConfig("TEMPLATE_BASE_DIR", __DIR__ . "/../project/htdocs/frontend/");
+Templify::setConfig("TEMPLATE_BASE_DIR", __APP_DIR__ . "/project/frontend");
 
-// Class Loader
-require_once(__DIR__ . "/src/ClassLoader.class.php");
+// ClassLoader
+require_once(__APP_DIR__ . "/framework/src/ClassLoader.class.php");
 $classLoader = ClassLoader::getInstance();
 
 // Load Logger
-$classLoader->loadClass(__DIR__ . "/src/Logger.class.php");
+$classLoader->loadClass(__APP_DIR__ . "/framework/src/Logger.class.php");
 
 // Load Comm
-$classLoader->loadClass(__DIR__ . "/src/Comm.class.php");
+$classLoader->loadClass(__APP_DIR__ . "/framework/src/Comm.class.php");
 
-// Load Router and initialize Routes
-$classLoader->loadClass(__DIR__ . "/src/Router.class.php");
-require_once(__DIR__ . "/../project/config/app-routes.php");
+// Load Router
+$classLoader->loadClass(__APP_DIR__ . "/framework/src/Router.class.php");
 
-// Configuration Files
-require_once(__DIR__ . "/config/Config.class.php");
+// Configuration files
+require_once(__APP_DIR__ . "/framework/config/Config.class.php");
 Config::init();
-require_once(__DIR__ . "/../project/config/app-config.php");
+require_once(__APP_DIR__ . "/project/config/app-config.php");
 
-// Load Enums
-$classLoader->loadEnums(__DIR__ . "/src/enum/");
+// Initialize routes
+require_once(__APP_DIR__ . "/project/config/app-routes.php");
 
-// Load Libraries
-$classLoader->loadClasses(__DIR__ . "/src/lib/");
-$classLoader->load(__DIR__ . "/src/lib/methods.php");
+// Load enums
+$classLoader->loadEnums(__APP_DIR__ . "/framework/src/enum/");
 
-// Load Objects
-$classLoader->loadClasses(__DIR__ . "/src/object/");
+// Load libraries
+$classLoader->loadClasses(__APP_DIR__ . "/framework/src/lib/");
+$classLoader->load(__APP_DIR__ . "/framework/src/lib/methods.php");
+
+// Load objects
+$classLoader->loadClasses(__APP_DIR__ . "/framework/src/object/");
 
 // Load DAOs
-$classLoader->loadClasses(__DIR__ . "/src/dao/");
+$classLoader->loadClasses(__APP_DIR__ . "/framework/src/dao/");
 
-// Load Extra Classes
+// Load extra enums and classes
 foreach(Config::$CLASS_LOADER_SETTINGS["CLASS_LOADER_IMPORT_PATHS"] as $path) {
     $classLoader->loadEnums($path);
     $classLoader->loadClasses($path);

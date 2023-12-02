@@ -2,7 +2,7 @@
 
 class DateFormatter {
     /**
-     * Creates a regular Expression to the given DateTime Format
+     * Returns a regular expression to the given DateTime format
      * @param string $format
      * @return string
      */
@@ -17,7 +17,7 @@ class DateFormatter {
     }
 
     /**
-     * Formats the given DateTime to the Technical Date Format
+     * Formats the given DateTime to the technical date format
      * @param DateTime $dateTime
      * @return string
      */
@@ -26,7 +26,7 @@ class DateFormatter {
     }
 
     /**
-     * Returns the regular Expression for the Technical Date Format
+     * Returns the regular expression for the technical date format
      * @return string
      */
     public static function technicalDateRegex(): string {
@@ -34,7 +34,7 @@ class DateFormatter {
     }
 
     /**
-     * Formats the given DateTime to the Technical Time Format
+     * Formats the given DateTime to the technical time format
      * @param DateTime $dateTime
      * @return string
      */
@@ -43,7 +43,7 @@ class DateFormatter {
     }
 
     /**
-     * Formats the given DateTime to the Technical DateTime Format
+     * Formats the given DateTime to the technical DateTime format
      * @param DateTime $dateTime
      * @return string
      */
@@ -52,7 +52,7 @@ class DateFormatter {
     }
 
     /**
-     * Parses the given Technical DateTime String to a DateTime
+     * Parses the given technical DateTime string to a DateTime
      * @param string $dateTime
      * @return DateTime
      */
@@ -61,7 +61,7 @@ class DateFormatter {
     }
 
     /**
-     * Formats the given DateTime to the Visual Date Format
+     * Formats the given DateTime to the visual date format
      * @param DateTime $dateTime
      * @return string
      */
@@ -70,7 +70,7 @@ class DateFormatter {
     }
 
     /**
-     * Formats the given DateTime to the Visual Time Format
+     * Formats the given DateTime to the visual time format
      * @param DateTime $dateTime
      * @return string
      */
@@ -79,7 +79,7 @@ class DateFormatter {
     }
 
     /**
-     * Formats the given DateTime to the Visual DateTime Format
+     * Formats the given DateTime to the visual DateTime format
      * @param DateTime $dateTime
      * @return string
      */
@@ -88,7 +88,7 @@ class DateFormatter {
     }
 
     /**
-     * Parses the given Visual DateTime String to a DateTime
+     * Parses the given visual DateTime string to a DateTime
      * @param string $dateTime
      * @return DateTime
      */

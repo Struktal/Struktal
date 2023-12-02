@@ -5,7 +5,7 @@ class SEO {
     private static bool $unlisted = false;
 
     /**
-     * Set the Website Description
+     * Sets the website description
      * @param string $description
      * @return void
      */
@@ -14,7 +14,7 @@ class SEO {
     }
 
     /**
-     * Get the Website Description
+     * Returns the website description
      * @return string
      */
     public static function getDescription(): string {
@@ -26,7 +26,7 @@ class SEO {
     }
 
     /**
-     * Hide the Page from Search Engines
+     * Hides the page from search engines
      * @return void
      */
     public static function setUnlisted(): void {
@@ -34,7 +34,7 @@ class SEO {
     }
 
     /**
-     * Get the Values for the Robots Meta Tag
+     * Returns the values for the robots meta tag
      * @return array
      */
     public static function getRobots(): array {

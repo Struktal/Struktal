@@ -7,7 +7,7 @@ enum InfoMessageType {
     case SUCCESS;
 
     /**
-     * Get the Info Message Code
+     * Returns the infomessage code
      * @return int
      */
     function getCode(): int {
@@ -20,7 +20,7 @@ enum InfoMessageType {
     }
 
     /**
-     * Get the formatted Info Message Type
+     * Returns the formatted infomessage type
      * @return string
      */
     function getFormatted(): string {
