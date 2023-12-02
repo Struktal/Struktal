@@ -10,3 +10,6 @@
 
 # Ignore composer files
 vendor/
+
+# Ignore log files
+/logs/

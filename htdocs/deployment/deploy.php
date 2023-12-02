@@ -60,13 +60,13 @@ function sendLog(string $shortLog, string $detailedLog, bool $successful): void 
     $shortLog .= PHP_EOL . "Deployment " . ($successful ? "finished" : "failed") . " at " . getTimestamp() . PHP_EOL;
     $detailedLog .= PHP_EOL . "Deployment " . ($successful ? "finished" : "failed") . " at " . getTimestamp() . PHP_EOL;
 
-    // Send Mails
+    // Send mails
     foreach(MAIL_LOGS_TO as $mail) {
         $subject = ($successful ? "[SUCCESS] " : "[FAILURE] ") . " Deployment of " . PROJECT_NAME;
         mail($mail, $subject, $detailedLog);
     }
 
-    // Print Log
+    // Print log
     echo $shortLog;
 
     exit;
@@ -82,7 +82,7 @@ $header .= PHP_EOL;
 $shortLog .= $header;
 $detailedLog .= $header;
 
-// Check allowed IP Addresses
+// Check allowed IP addresses
 $shortLog .= "Checking access permission" . PHP_EOL;
 $detailedLog .= "Checking access permission" . PHP_EOL;
 
@@ -133,7 +133,7 @@ $detailedLog .= PHP_EOL;
 $commands = [
     "whoami",
     "git pull",
-    "cd .. && composer install"
+    "cd ../.. && composer install"
 ];
 
 $detailedLog .= "Running commands " . json_encode($commands) . PHP_EOL;
