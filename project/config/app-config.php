@@ -27,7 +27,7 @@ Config::$DATETIME_SETTINGS["TIME_VISUAL"] = "H:i";
 Config::$DATETIME_SETTINGS["DATETIME_VISUAL"] = "d.m.Y H:i";
 
 // Log settings
-Config::$LOG_SETTINGS["LOG_DIRECTORY"] = __DIR__ . "/../../logs/";
+Config::$LOG_SETTINGS["LOG_DIRECTORY"] = __APP_DIR__ . "/logs/";
 Config::$LOG_SETTINGS["LOG_FILENAME"] = "log-%date%.log";
 Config::$LOG_SETTINGS["LOG_LEVEL"] = Logger::$LOG_INFO;
 

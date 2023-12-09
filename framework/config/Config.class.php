@@ -62,7 +62,7 @@ class Config {
         ];
 
         self::$LOG_SETTINGS = [
-            "LOG_DIRECTORY" => __DIR__ . "/../../logs/",
+            "LOG_DIRECTORY" => __APP_DIR__ . "/logs/",
             "LOG_FILENAME" => "log-%date%.log",
             "LOG_LEVEL" => Logger::$LOG_INFO
         ];
