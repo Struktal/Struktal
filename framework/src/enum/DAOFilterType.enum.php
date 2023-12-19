@@ -102,7 +102,16 @@ enum DAOFilterType {
             case self::LESS_THAN_EQUALS:
             case self::LIKE:
                 if($filterValue !== null) {
-                    $stmt->bindValue(":{$key}", $filterValue);
+                    if($filterValue instanceof DateTime) {
+                        $date = $filterValue->format("Y-m-d H:i:s");
+                        $stmt->bindValue(":{$key}", $date, PDO::PARAM_STR);
+                    } else if(is_bool($filterValue)) {
+                        $stmt->bindValue(":{$key}", $filterValue, PDO::PARAM_BOOL);
+                    } else if(is_int($filterValue)) {
+                        $stmt->bindValue(":{$key}", $filterValue, PDO::PARAM_INT);
+                    } else {
+                        $stmt->bindValue(":{$key}", $filterValue, PDO::PARAM_STR);
+                    }
                 }
                 break;
             case self::IN:
@@ -110,11 +119,29 @@ enum DAOFilterType {
                 if(is_array($filterValue)) {
                     foreach($filterValue as $filterValueKey => $filterValueValue) {
                         if($filterValueValue !== null) {
-                            $stmt->bindValue(":{$key}_{$filterValueKey}", $filterValueValue);
+                            if($filterValueValue instanceof DateTime) {
+                                $date = $filterValueValue->format("Y-m-d H:i:s");
+                                $stmt->bindValue(":{$key}_{$filterValueKey}", $date, PDO::PARAM_STR);
+                            } else if(is_bool($filterValueValue)) {
+                                $stmt->bindValue(":{$key}_{$filterValueKey}", $filterValueValue, PDO::PARAM_BOOL);
+                            } else if(is_int($filterValueValue)) {
+                                $stmt->bindValue(":{$key}_{$filterValueKey}", $filterValueValue, PDO::PARAM_INT);
+                            } else {
+                                $stmt->bindValue(":{$key}_{$filterValueKey}", $filterValueValue, PDO::PARAM_STR);
+                            }
                         }
                     }
                 } else {
-                    $stmt->bindValue(":{$key}", $filterValue);
+                    if($filterValue instanceof DateTime) {
+                        $date = $filterValue->format("Y-m-d H:i:s");
+                        $stmt->bindValue(":{$key}", $date, PDO::PARAM_STR);
+                    } else if(is_bool($filterValue)) {
+                        $stmt->bindValue(":{$key}", $filterValue, PDO::PARAM_BOOL);
+                    } else if(is_int($filterValue)) {
+                        $stmt->bindValue(":{$key}", $filterValue, PDO::PARAM_INT);
+                    } else {
+                        $stmt->bindValue(":{$key}", $filterValue, PDO::PARAM_STR);
+                    }
                 }
                 break;
         }
