@@ -1,59 +1,83 @@
+<div align="center">
+
+<!--![Header](docs/img/header.jpg)-->
+
 # PHP-Framework
-A powerful and feature-rich PHP framework designed to simplify web development. With built-in support for data access and manipulation, routing and various utilities, this framework makes it easier to handle common web development tasks.
 
-## Contents
-1. <a href="#features">Features</a>
-2. <a href="#getting-started">Getting started</a>
-3. <a href="#how-to-use">How to use</a>
-4. <a href="#internal-classes">Internal classes</a>
-5. <a href="#contributing">Contributing</a>
-5. <a href="#license">License</a>
+### Powerful and feature-rich PHP framework designed to simplify web development
 
-## Features
-- Data access object pattern to simplify database access
-- Routing system to redirect requests
-- Utility classes for sending CURL requests to e.g. external APIs, 
+Built-in support for data access and manipulation, routing and various other utilities make it easier to handle common web development tasks.
 
-## Getting started
-These instructions will help you to get the framework up and running.
+[Introduction](#introduction) • [Project setup](#project-setup) • [Documentation](#documentation) • [License](#license)
+
+</div>
+
+<hr>
+
+## Introduction
+
+This framework is designed to simplify web development by providing a scalable architecture and a set of useful features that are often needed when developing web applications. The most notable features are:
+- **Automatic deployment** by using GitHub Actions
+- The **router** which allows to define specific routes for the website
+- **Template files** to strictly separate logic from view - as intended by the MVC pattern
+- The **data access object pattern** allows to easily access and manipulate data in the database by using objects (and inheritance)
+- A **safe** and **ready-to-use** user management (and login) system which can also handle multiple account types
+- Methods which help to **design RESTful APIs**
+- **Info messages** that provide a simple way to display info, warning, error and success messages to the user from PHP and JavaScript
+- Accessible **SEO settings** which define how the website should be displayed by search engines and social media platforms
+
+### Deployment options
+Applications build with this framework can be deployed either on an Apache web server or in form of a Docker container which runs a nginx web server.
 
 ### Prerequisites
+When deploying the application on an Apache web server, the following prerequisites have to be met:
 - PHP 8.2 or higher
-- A web server, preferably Apache
-  - You can also get it to work with other web servers, but you have to set up the rewrites from the ``.htaccess`` file
-- A database system such as MySQL or MariaDB
+- MySQL or MariaDB database (or no database if it's not required by the application)
 
-### Installing
-1. Use this repository as a template for your project by clicking on the green button ``Use this template`` on the top of this page. This will create a new repository with the same files as this one.
+If you want to deploy it as a Docker container instead, the following requirements hold:
+- Docker and Docker Compose need to be installed
+- The container has to be accessible from outside (e.g. by using a reverse proxy)
+- Other limitations that depend on the server infrastructure may occur (e.g. sending emails by the default `mail` method is currently not possible) and have to be fixed manually (please share your learnings about these problems and your fixes)
 
-2. Clone that repository into the websites root directory. This has to be done by the web server user, or you have to transfer ownership of the files to the web server user. Otherwise, you won't be able to use the auto deployment feature because the server can't override files when pulling from the repository. 
- It's also possible to clone it into subdirectories, but you have to modify the ``RewriteBase`` in the ``📄 .htaccess`` file accordingly. Also note that possible side effects are not properly tested.
+## Project setup
 
-3. Create the file ``📄 project/config/app-config.inc.php``. This file is ignored by the ``.gitignore`` file and therefore not included in the repository.
+### Repository setup
+- Use this repository as a template for your project by clicking on the green button `Use this template` on the top of this page. This will create a new repository with the same files as this one.
+- Create repository variables and secrets for GitHub Actions:
 
-4. Install the required dependencies using Composer:
-   ```sh
-   composer install
-   ```
+  | Variable name          | Description                                                         |
+  |------------------------|---------------------------------------------------------------------|
+  | `AUTODEPLOY_ACTIVATED` | Whether or not the automatic deployment feature should be activated |
+  | `AUTODEPLOY_BASE_URL`  | The base URL of the website                                         |
 
-5. Create Variables and Secrets for GitHub Actions:
+  | Secret name                | Description                                                                                          |
+  |----------------------------|------------------------------------------------------------------------------------------------------|
+  | `AUTODEPLOY_AUTH_USERNAME` | The username that is used to authenticate when calling the website (if not required, leave it empty) |
+  | `AUTODEPLOY_AUTH_PASSWORD` | The password that is used to authenticate when calling the website (if not required, leave it empty) |
 
-| Variable Name            | Description                                                    |
-|--------------------------|----------------------------------------------------------------|
-| ``AUTODEPLOY_ACTIVATED`` | Whether or not the auto deployment feature should be activated |
-| ``AUTODEPLOY_BASE_URL``  | The base URL of the website                                    |
+### Local setup
+- Clone the newly created repository onto your local machine.
+- Configure `📄 secrets/config.secret.json.example` according to your needs, except for actual secrets such as database credentials. These are treated in the next step.
+- Copy `📄 secrets/config.secret.json.example` to `📄 secrets/config.secret.json` and configure it according to your needs. This file is ignored by the `.gitignore` file and therefore not included in the repository. Also store secrets such as database credentials in this file.
+- Commit and push the changes to the repository.
 
-| Secret Name                  | Description                                                                                          |
-|------------------------------|------------------------------------------------------------------------------------------------------|
-| ``AUTODEPLOY_AUTH_USERNAME`` | The username that is used to authenticate when calling the website (if not required, leave it empty) |
-| ``AUTODEPLOY_AUTH_PASSWORD`` | The password that is used to authenticate when calling the website (if not required, leave it empty) |
+### Deployment setup - Apache web server
+- Clone the newly created repository onto the web server. This should be done as the web server user, or the files' ownership has to be transferred to that user. Otherwise, the automatic deployment feature won't work, as the server will execute `git pull` as the web server user and then won't be able to override the files.
+- Run `composer install` within the repository directory to install the required dependencies.
+- Set up the virtual host for the website. The `DocumentRoot` should point to the directory where you've cloned the repository to, and then `📁 htdocs/` <sub>Not `📁 project/htdocs/`!</sub>.
 
+### Deployment setup - Docker container
+- Clone the newly created repository onto the server that should run the Docker container.
+- Configure `📄 docker-compose.yml` according to the used reverse proxy.
+- Run `docker build` to build the Docker image.
+- Run `docker compose up -d` to start the container.
 
+## Documentation
 
-## How to use
 This section provides quick tutorials about how to use the framework and it's features.
 
-If you haven't used the framework before, it's recommended to take a look at the documentation of the <a href="docs/file-structure.md">file structure</a>, <a href="docs/config.md">config</a> and the <a href="docs/logger.md">logger</a> first. It's important to know the file structure to understand the following information and it's helpful to work with the logger to understand what's going on.
+### First time using the framework?
+Please take a look at the documentation of the [file structure](docs/file-structure.md), the [config](docs/config.md) and the [logger](docs/logger.md) first.
 
 <details>
 <summary><b>Change basic project settings (name, website title, URL, ...)</b></summary>
@@ -702,26 +726,7 @@ If you want to upload the files via FTP, make sure that all files and directorie
 </details>
 </details>
 
-## Documentation
-Learn more about the framework and it's features in the documentation:
-- <a href="docs/file-structure.md">File structure</a>
-- <a href="docs/config.md">Config</a>
-- <a href="docs/logger.md">Logger</a>
-- <a href="docs/dao-pattern.md">Data access object pattern</a>
-- <a href="docs/router.md">Router</a>
-- <a href="docs/comm.md">``Comm`` class</a>
-- <a href="docs/templates.md">Template files</a>
-- <a href="docs/info-messages.md">Info messages</a>
-- <a href="docs/curl.md">Curl</a>
-- <a href="docs/mail.md">Mail</a>
-- <a href="docs/geocoding.md">Geocoding</a>
-- <a href="docs/date-formatter.md">Date formatter</a>
-
-There's also a documentation for classes that are used internally by the framework:
-- <a href="docs/internal/class-loader.md">Class loader</a>
-
-<!--## Contributing-->
-<!--TODO-->
+Further information about the framework and its features are available in [the documentation](/docs).
 
 ## License
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
