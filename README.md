@@ -78,103 +78,41 @@ If you want to deploy it as a Docker container instead, the following requiremen
 
 ## Documentation
 
-This section provides quick tutorials about how to use the framework and it's features.
-
 ### First time using the framework?
 Please take a look at the documentation of the [file structure](docs/file-structure.md), the [config](docs/config.md) and the [logger](docs/logger.md) first.
 
-<details>
-<summary><b>Change basic project settings (name, website title, URL, ...)</b></summary>
-
-You can (and should) change project settings for fresh projects in the ``📄 project/config/app-config.php`` and the `📄 project/config/app-config.inc.php` file. The difference between them is that the ``📄 app-config.inc.php`` file can be ignored by a ``.gitignore``. This makes it possible to store information such as database credentials or other settings that might have been used for testing purposes.
-
-There are the following settings:
-- ``PROJECT_SETTINGS``
-  - ``PROJECT_NAME`` - The name of your project that is displayed in the header and footer of your website by default
-  - ``PROJECT_TITLE`` - The title of your project that is displayed in the browser tab
-  - ``PROJECT_URL`` - The URL of your project
-  - ``PROJECT_AUTHOR`` - Your name or the name of your company / team that is displayed in the website's footer by default
-  - ``PROJECT_VERSION`` - The current version of the project that is displayed in the website's footer by default
-- ``MENU_SETTINGS``
-  - ``MENU_ITEMS`` - An array with the following structure of all menu items that should be displayed in the sidebar<br>
-    ```php
-    [
-        "DISPLAY_NAME" => [
-            "route" => "ROUTE"
-        ],
-        // ...
-    ]
-    ```
-- ``DATETIME_SETTINGS``
-  - ``DATE_TECHNICAL`` - The format of a date that is used for technical purposes (e.g. in the router)
-  - ``TIME_TECHNICAL`` - The format of a time that is used for technical purposes
-  - ``DATETIME_TECHNICAL`` - The format of a datetime that is used for technical purposes
-  - ``DATE_VISUAL`` - The format of a date that is displayed in the frontend
-  - ``TIME_VISUAL`` - The format of a time that is displayed in the frontend
-  - ``DATETIME_VISUAL`` - The format of a datetime that is displayed in the frontend
-- ``LOG_SETTINGS``
-  - ``LOG_DIRECTORY`` - The directory where logfiles are stored
-  - ``LOG_FILENAME`` - The filename format of a logfile with ``%date%`` replacing the date
-  - ``LOG_LEVEL`` - The minimum log level that is required for a message to be written in the logfile
-- ``DATABASE_SETTINGS`` (These settings should be changed in the ``📄 app-config.inc.php`` file)
-  - ``DB_HOST`` - The host of the database
-  - ``DB_USER`` - The username of the database user
-  - ``DB_PASS`` - The password of the database user
-  - ``DB_NAME`` - The name of the database
-  - ``DB_USE`` - Whether or not the database should is used
-- ``MAIL_SETTINGS``
-  - ``MAIL_DEFAULT_SENDER_EMAIL`` - The default sender email address
-  - ``MAIL_DEFAULT_SENDER_NAME`` - The default sender name
-  - ``MAIL_DEFAULT_REPLY_TO`` - The default reply-to email address
-  - ``MAIL_DEFAULT_SUBJECT`` - The default subject of an email
-  - ``MAIL_REDIRECT_ALL_MAILS`` - Whether or not all mails should be redirected to a specific email address
-  - ``MAIL_REDIRECT_ALL_MAILS_TO`` - The email address to which all mails should be redirected
-- ``CLASS_LOADER_SETTINGS``
-  - ``CLASS_LOADER_IGNORE_FILES`` - An array of files that should be ignored by the class loader
-  - ``CLASS_LOADER_IMPORT_PATHS`` - An array of paths that should be included additionally to the default paths
-- ``SEO_SETTINGS``
-    - ``SEO_DEFAULT_DESCRIPTION`` - The default description of the website
-    - ``SEO_KEYWORDS`` - The keywords of the website
-    - ``SEO_IMAGE_PREVIEW`` - The image that is shown when the website is shared on social media platforms. The setting is used by OpenGraph and Twitter meta tags.
-    - ``SEO_OPENGRAPH``
-      - ``OPENGRAPH_SITE_NAME`` - The value that should be used for the ``og:site_name`` meta tag
-    - ``SEO_TWITTER``
-      - ``TWITTER_SITE`` - The value that should be used for the ``twitter:site`` meta tag
-      - ``TWITTER_CREATOR`` - The value that should be used for the ``twitter:creator`` meta tag
-    - ``SEO_ROBOTS`` - An array of settings for the ``robots`` meta tag
-    - ``SEO_REVISIT`` - The value that should be used for the ``revisit-after`` meta tag
-</details>
+### Tutorials
+This section provides quick tutorials about how to use the framework and its features.
 
 <details>
-<summary><b>Using the logger correctly</b></summary>
+<summary><b>Using the logger</b></summary>
 
 It's helpful to use the logger to understand what's going on, whilst developing the project as well as in production. The logger is used to log messages with different log levels. The log levels are the following:
-- ``DEBUG``
-- ``INFO``
-- ``ERROR``
+- `DEBUG`
+- `INFO`
+- `ERROR`
 
-You can set the minimum required log level for a message to be written in the logfile in the ``📄 project/config/app-config.php`` file. The default value is ``INFO``. You can also change the directory where logfiles should be saved in as well as their filename format there. By default, there is one logfile per day.
+You can set the minimum required log level for a message to be written in the logfile in the `📄 project/config/config.php` file. The default value is `INFO`. You can also change the directory where logfiles should be saved in as well as their filename format there. By default, there is one logfile per day.
 
 In the following example you can see how the logger should be used:
 ```php
 <?php
-    Logger::getLogger("TAG")->debug("MESSAGE");
-    Logger::getLogger("TAG")->info("MESSAGE");
-    Logger::getLogger("TAG")->error("MESSAGE");
-?>
+Logger::getLogger("TAG")->debug("MESSAGE");
+Logger::getLogger("TAG")->info("MESSAGE");
+Logger::getLogger("TAG")->error("MESSAGE");
 ```
 </details>
 
 <details>
 <summary><b>Create a new website page</b></summary>
 
-To create a new page for the website, create a new PHP file that should get executed when the user visits the page. The file should be located in the ``📁 project/htdocs/`` directory. There are no limitations what you can do in the script, but it's not recommended to output HTML code or other content directly (exception: you want to send JSON responses, please take a look at the corresponding tutorial or the <a href="docs/comm.md">``Comm`` class documentation</a>). 
+To create a new page for the website, create a new PHP file that should get executed when the user visits the page. The file should be located in the `📁 project/htdocs/` directory. There are no limitations what you can do in the script, but it's not recommended to output HTML code or other content directly (exception: you want to send JSON responses, please take a look at the corresponding tutorial or the [``Comm`` class documentation](/docs/comm.md)). 
 
-Instead, to output content, create a PHP template file in the ``📁 project/htdocs/templates/`` directory. A template file is a normal PHP File that is specialized for outputting content. This separation not only takes care of a better overview, it also separates the logic from the view. For further information about template files, please take a look at the <a href="docs/template.md">template documentation</a> or the <a href="https://github.com/JensOstertag/php-templify">Templify documentation</a>.
+Instead, to output content, create a PHP template file in the `📁 project/frontend/` directory. A template file is a normal PHP File that is specialized for outputting content. This separation not only takes care of a better overview, it also separates the logic from the view. For further information about template files, please take a look at the [template documentation](/docs/template.md) or the <a href="https://github.com/JensOstertag/php-templify">Templify documentation</a>.
 
 Have a look at the following example:
 
-``📄 project/htdocs/example.php``:
+`📄 project/htdocs/example.php`:
 ```php
 <?php
 
@@ -186,28 +124,28 @@ $variable = "Hello World!";
 // Load the template
 Templify::display("example.php", ["variable" => $variable]);
 ```
-This file is the script that gets executed when the user visits the page. In this example, a variable is assigned and the template ``example.php`` is loaded.
+This file is the script that gets executed when the user visits the page. In this example, a variable is assigned and the template `example.php` is loaded.
 
-``📄 project/htdocs/frontend/example.php``:
+`📄 project/frontend/example.php`:
 ```php
 <?php
-    use jensostertag\Templify\Templify;
+use jensostertag\Templify\Templify;
 
-    // Set the website title and include the header template
-    Templify::setConfig("WEBSITE_TITLE", "Title");
-    Templify::include("header.php");
+// Set the website title and include the header template
+Templify::setConfig("WEBSITE_TITLE", "Title");
+Templify::include("header.php");
 ?>
 
 <?php output($variable); ?>
 
 <?php
-    use jensostertag\Templify\Templify;
+use jensostertag\Templify\Templify;
 
-    // Include the footer template
-    Templify::include("footer.php");
+// Include the footer template
+Templify::include("footer.php");
 ?>
 ```
-This is the template file. It sets a website title and includes the header and footer template files located in the ``📁 project/htdocs/frontend/includes/`` directory. The variable that was assigned in the script is then outputted. The ``output`` function is a helper function that is used to output content. It takes care of escaping HTML characters. If there is a need to output unescaped content, the default ``echo`` function can be used instead.
+This is the template file. It sets a website title and includes the header and footer template files located in the `📁 project/htdocs/frontend/includes/` directory. The variable that was assigned in the script is then outputted. The `output` function is a helper function that is used to output content. It takes care of escaping HTML characters. If there is a need to output unescaped content, the default `echo` function can be used instead.
 
 > <b>Note:</b> You could also use [PHP short tags](https://www.php.net/manual/en/language.basic-syntax.phptags.php) within the template file, but make sure that they are enabled in your PHP configuration before doing so.
 

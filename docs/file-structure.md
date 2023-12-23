@@ -43,6 +43,8 @@ There are the following files and subdirectories:
   - `app-config.php` - Basic project settings
   - `app-routes.php` - Routes initialization
 - `📁 frontend/` - PHP template files that are used to display the frontend
+  - `📁 email/` - PHP template files for emails
+  - `📁 includes/` - PHP template files that are included in other template files
 - `📁 htdocs/` - PHP script files that are accessible via routes defined in `📁 project/config/app-routes.php`
 - `📁 src/` - Source code for your project that can be used in the `📁 project/htdocs/` directory
     - `📁 dao/` - DAO classes that are used in your project
