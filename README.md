@@ -207,27 +207,27 @@ Config::$MENU_SETTINGS["MENU_SIDEBAR"]["Example"] = [
 
 Creating and modifying entries in the database is done automatically by the implemented data-access-object (DAO) pattern. 
 
-There are so-called "model objects" that represent the data that's being stored in the database, and for each table there is an own model object. They are located in the ``📁 project/src/object/`` directory. 
+There are so-called "model objects" that represent the data that's being stored in the database, and for each table there is an own model object. They are located in the `📁 project/src/object/` directory. 
 
-There's also a data access object interface that defines the standard operations that can be performed on the model objects, such as creating, reading and updating entries. For every model object, there is an own belonging data access object that's located in the ``📁 project/src/dao/`` directory.
+There's also a data access object interface that defines the standard operations that can be performed on the model objects, such as creating, reading and updating entries. For every model object, there is an own belonging data access object that's located in the `📁 project/src/dao/` directory.
 
-To prevent you from having to write the same code over and over again, there are classes called ``GenericObject`` (model object) and ``GenericObjectDAO`` (data access object interface) that every custom object should extend from. The ``GenericObject`` class already implements the table columns
-- ``id`` (integer) - The unique identifier of the object
-- ``created`` (datetime) - The date and time when the object was created
-- ``updated`` (datetime) - The date and time when the object was last updated
+To prevent you from having to write the same code over and over again, there are classes called `GenericObject` (model object) and `GenericObjectDAO` (data access object interface) that every custom object should extend from. The `GenericObject` class already implements the table columns
+- `id` (integer) - The unique identifier of the object
+- `created` (datetime) - The date and time when the object was created
+- `updated` (datetime) - The date and time when the object was last updated
 
-and the ``GenericObjectDAO`` the standard operations
-- ``GenericObjectDAO::save(GenericObject $object)`` to create or update an object's database entry
-- ``GenericObjectDAO::getObject(array $filter, string $orderBy, bool $orderAsc, int $limit, int $offset)`` to get a single object from the database
-- ``GenericObjectDAO::getObjects(array $filter, string $orderBy, bool $orderAsc, int $limit, int $offset)`` to get multiple objects from the database
+and the `GenericObjectDAO` the standard operations
+- `GenericObjectDAO::save(GenericObject $object)` to create or update an object's database entry
+- `GenericObjectDAO::getObject(array $filter, string $orderBy, bool $orderAsc, int $limit, int $offset)` to get a single object from the database
+- `GenericObjectDAO::getObjects(array $filter, string $orderBy, bool $orderAsc, int $limit, int $offset)` to get multiple objects from the database
 
-Assumed, you want to create a new database table called ``Example`` with the following columns:
+Assumed you want to create a new database table called `Example` with the following columns:
 
-| <i>``id``</i> | ``myAttribute`` | <i>``created``</i> | <i>``updated``</i> |
-|---------------|-----------------|--------------------|--------------------|
-| integer       | varchar         | datetime           | datetime           |
+| <i>`id`</i> | `myAttribute` | <i>`created`</i> | <i>`updated`</i> |
+|-------------|---------------|------------------|------------------|
+| integer     | varchar       | datetime         | datetime         |
 
-> <b>Note:</b> The columns ``id``, ``created`` and ``updated`` are already implemented in the ``GenericObject`` class and don't need to be defined in the custom object, but are required for the database table.
+> <b>Note:</b> The columns `id`, `created` and `updated` are already implemented in the `GenericObject` class and don't need to be defined in the custom object, but are required for the database table.
 
 At first, you need to create the table manually as this is not done automatically:
 ```sql
@@ -239,120 +239,117 @@ CREATE TABLE IF NOT EXISTS `Example` (
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 ```
-> There is a file ``📄 project/src/schema/tables.sql`` where you can document the SQL statements that are required for your project. This allows you or other persons to easily recreate tables in case you want to set up another instance of your project in the future.
+> There is a file `📄 project/src/schema/tables.sql` where you can document the SQL statements that are required for your project. This allows you or other persons to easily recreate tables in case you want to set up another instance of your project in the future.
 
-Next, you have to create a class called ``Example`` that extends the ``GenericObject`` class for the model object in the ``📁 project/src/object/`` directory with public attributes named after the exact column names and getter and setter methods to manipulate the data. It's also important to name the class the same as your database table.
+Next, you have to create a class called `Example` that extends the `GenericObject` class for the model object in the `📁 project/src/object/` directory with public attributes named after the exact column names and getter and setter methods to manipulate the data. It's also important to name the class the same as your database table.
 
-``📄 project/src/object/Example.class.php``
+`📄 project/src/object/Example.class.php`
 ```php
 <?php
-    class Example extends GenericObject {
-        public string $myAttribute;
-        
-        public function getMyAttribute(): string {
-            return $this->myAttribute;
-        }
-        
-        public function setMyAttribute(string $myAttribute): void {
-            $this->myAttribute = $myAttribute
-        }
+class Example extends GenericObject {
+    public string $myAttribute;
+
+    public function getMyAttribute(): string {
+        return $this->myAttribute;
     }
+
+    public function setMyAttribute(string $myAttribute): void {
+        $this->myAttribute = $myAttribute
+    }
+}
 ```
 
-Finally, you have to add the class ``ExampleDAO`` that extends the ``GenericObjectDAO`` class in the ``📁 project/src/dao/`` directory. Here, it's also important to name the class the same as your database table concatenated with ``DAO``. 
+Finally, you have to add the class `ExampleDAO` that extends the `GenericObjectDAO` class in the `📁 project/src/dao/` directory. Here, it's also important to name the class the same as your database table concatenated with `DAO`. 
 
-``📄 project/src/dao/ExampleDAO.class.php``
+`📄 project/src/dao/ExampleDAO.class.php`
 ```php
 <?php
-    class ExampleDAO extends GenericObjectDAO {
-    
-    }
+class ExampleDAO extends GenericObjectDAO {
+
+}
 ```
 
-For the plain usage of the DAO pattern you don't need to add custom methods as they are already implemented by the ``GenericObjectDAO``. However, if you need methods with custom SQL queries or statements, you should add them in this DAO class.
+For the plain usage of the DAO pattern you don't need to add custom methods as they are already implemented by the `GenericObjectDAO`. However, if you need methods with custom SQL queries or statements, you should add them in this DAO class.
 </details>
 
 <details>
 <summary><b>Using data access objects</b></summary>
 
-To create a new database entry for an object, you have to create an instance of the model object, set it's attributes (except for the ``id`` attribute) and save it with the corresponding DAO's ``GenericObjectDAO::save(GenericObject $object)`` method. The ``id`` attribute will be set automatically by the database.
+To create a new database entry for an object, you have to create an instance of the model object, set its attributes (except for the `id` attribute) and save it with the corresponding DAO's `GenericObjectDAO::save(GenericObject $object)` method. The `id` attribute will be set automatically by the database.
 
-The following example shows how to save a new ``Example`` object that was described in the previous tutorial:
+The following example shows how to save a new `Example` object that was described in the previous tutorial:
 ```php
-<?php
-    // Create a new instance of the Example object
-    $example = new Example();
-    
-    // Set the attributes
-    $example->setMyAttribute("Hello World!");
-    
-    // Save the object to the database
-    Example::dao()->save($example);
+// Create a new instance of the Example object
+$example = new Example();
+
+// Set the attributes
+$example->setMyAttribute("Hello World!");
+
+// Save the object to the database
+Example::dao()->save($example);
 ```
 
-To retrieve objects from the database, you can use the belonging DAO's ``GenericObjectDAO::getObject(array $filter, string $orderBy, bool $orderAsc, int $limit, int $offset)`` or ``GenericObjectDAO::getObjects(array $filter, string $orderBy, bool $orderAsc, int $limit, int $offset)`` method. The difference between both is that the first onne returns a single object and the second one returns an array of found objects. The parameters are the same for both methods:
-- ``filters``: An associative array that contains requirements for the objects that should be returned with the column name as key and the value that the column should have as value
-- ``orderBy``: A column name that the returned objects should be ordered by
-- ``orderAsc``: Whether the returned objects should be ordered ascending or descending
-- ``limit``: The maximum amount of objects that should be returned (-1 for no limit)
-- ``offset``: The offset from which the objects should be returned
+To retrieve objects from the database, you can use the belonging DAO's `GenericObjectDAO::getObject(array $filter, string $orderBy, bool $orderAsc, int $limit, int $offset)` or `GenericObjectDAO::getObjects(array $filter, string $orderBy, bool $orderAsc, int $limit, int $offset)` method. The difference between both is that the first onne returns a single object and the second one returns an array of found objects. The parameters are the same for both methods:
+- `filters`: An array which contains requirements that the returned objects should meet
+- `orderBy`: A column name that the returned objects should be ordered by
+- `orderAsc`: Whether the returned objects should be ordered ascending or descending
+- `limit`: The maximum amount of objects that should be returned (-1 for no limit)
+- `offset`: The offset from which the objects should be returned
 
 Have a look at the following code examples:
 ```php
-<?php
-    // Get all objects
-    $examples = Example::dao()->getObjects();
+// Get all objects
+$examples = Example::dao()->getObjects();
+
+// Get the first object that has the attribute "myAttribute" set to "Hello World!"
+$example = Example::dao()->getObject([
+    "myAttribute" => "Hello World!"
+]);
+
+// Get the object with the id 42
+$example = Example::dao()->getObject([
+    "id" => 42
+]);
+
+// Get the first 10 objects that have the attribute "myAttribute" set to "Hello World!"
+$examples = Example::dao()->getObjects([
+    "myAttribute" => "Hello World!"
+], "id", true, 10, 0);
     
-    // Get the first object that has the attribute "myAttribute" set to "Hello World!"
-    $example = Example::dao()->getObject([
-        "myAttribute" => "Hello World!"
-    ]);
-    
-    // Get the object with the id 42
-    $example = Example::dao()->getObject([
-        "id" => 42
-    ]);
-    
-    // Get the first 10 objects that have the attribute "myAttribute" set to "Hello World!"
-    $examples = Example::dao()->getObjects([
-        "myAttribute" => "Hello World!"
-    ], "id", true, 10, 0);
-    
-    // Get the first 10 objects that have the attribute "myAttribute" set to "Hello World!" in descending order by the attribute "myAttribute"
-    $examples = Example::dao()->getObjects([
-        "myAttribute" => "Hello World!"
-    ], "myAttribute", false, 10, 0);
+// Get the first 10 objects that have the attribute "myAttribute" set to "Hello World!" in descending order by the attribute "myAttribute"
+$examples = Example::dao()->getObjects([
+    "myAttribute" => "Hello World!"
+], "myAttribute", false, 10, 0);
 ```
 
-To update an object, you have to retrieve it from the database first and then update it's attributes with the setter methods. After that, you can save the object again with the ``GenericObjectDAO::save(GenericObject $object)`` method. As it is the same object with a set value for the ``id`` attribute, the DAO will update the existing entry instead of creating a new one.
+To update an object, you have to retrieve it from the database first and then update its attributes with the setter methods. After that, you can save the object again with the `GenericObjectDAO::save(GenericObject $object)` method. As it is the same object with a set value for the `id` attribute, the DAO will update the existing entry instead of creating a new one.
+```php
+// Get the object with the id 42
+$example = Example::dao()->getObject([
+    "id" => 42
+]);
+
+// Update the attribute
+$example->setMyAttribute("Another value");
+
+// Save the object to the database
+Example::dao()->save($example);
+```
+> <b>Note:</b> The `updated` attribute is not changed automatically.
+
+To delete an object, you have to retrieve it from the database first and then call the `GenericObjectDAO::delete(GenericObject $object)` method which will physically delete the entry from the database.
 ```php
 <?php
-    // Get the object with the id 42
-    $example = Example::dao()->getObject([
-        "id" => 42
-    ]);
-    
-    // Update the attribute
-    $example->setMyAttribute("Hello World!");
-    
-    // Save the object to the database
-    Example::dao()->save($example);
-```
-> <b>Note:</b> The ``updated`` attribute is not changed automatically.
+// Get the object with the id 42
+$example = Example::dao()->getObject([
+    "id" => 42
+]);
 
-To delete an object, you have to retrieve it from the database first and then call the ``GenericObjectDAO::delete(GenericObject $object)`` method which will physically delete the entry from the database.
-```php
-<?php
-    // Get the object with the id 42
-    $example = Example::dao()->getObject([
-        "id" => 42
-    ]);
-    
-    // Delete the object
-    Example::dao()->delete($example);
+// Delete the object
+Example::dao()->delete($example);
 ```
 
-For more information about the DAO pattern, make sure to read the <a href="docs/dao-pattern.md">DAO documentation</a>.
+For more information about the DAO pattern, make sure to read the [DAO documentation](docs/dao-pattern.md).
 </details>
 
 <details>
