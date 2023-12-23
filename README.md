@@ -106,7 +106,7 @@ Logger::getLogger("TAG")->error("MESSAGE");
 <details>
 <summary><b>Create a new website page</b></summary>
 
-To create a new page for the website, create a new PHP file that should get executed when the user visits the page. The file should be located in the `📁 project/htdocs/` directory. There are no limitations what you can do in the script, but it's not recommended to output HTML code or other content directly (exception: you want to send JSON responses, please take a look at the corresponding tutorial or the [``Comm`` class documentation](/docs/comm.md)). 
+To create a new page for the website, create a new PHP file that should get executed when the user visits the page. The file should be located in the `📁 project/htdocs/` directory. There are no limitations what you can do in the script, but it's not recommended to output HTML code or other content directly (exception: you want to send JSON responses, please take a look at the corresponding tutorial or the [`Comm` class documentation](/docs/comm.md)). 
 
 Instead, to output content, create a PHP template file in the `📁 project/frontend/` directory. A template file is a normal PHP File that is specialized for outputting content. This separation not only takes care of a better overview, it also separates the logic from the view. For further information about template files, please take a look at the [template documentation](/docs/template.md) or the <a href="https://github.com/JensOstertag/php-templify">Templify documentation</a>.
 
@@ -355,21 +355,17 @@ For more information about the DAO pattern, make sure to read the [DAO documenta
 <details>
 <summary><b>Redirect to other pages or websites</b></summary>
 
-To redirect the user to another page or website, you can use the ``Comm`` class' ``Comm::redirect(String $path)`` method. It sets the ``Location`` header to the given path and stops the execution of the script.
+To redirect the user to another page or website, you can use the `Comm` class' `Comm::redirect(String $path)` method. It sets the `Location` header to the given path and stops the execution of the script.
 
 The following example shows how to redirect to another page of your website:
 ```php
-<?php
-    Comm::redirect(Router::generate("ROUTE"));
-?>
+Comm::redirect(Router::generate("ROUTE"));
 ```
-It uses the ``Router::generate(String $route)`` method to generate the path to the given route automatically. Have a look at the <a href="docs/router.md">router documentation</a> for more information.
+It uses the `Router::generate(String $route)` method to generate the path to the given route automatically. Have a look at the [router documentation](docs/router.md) for more information.
 
 To redirect to another website, you can use the following code example:
 ```php
-<?php
-    Comm::redirect("https://www.example.com");
-?>
+Comm::redirect("https://www.example.com");
 ```
 
 </details>
@@ -381,20 +377,20 @@ You can send the user an individual JSON response by using
 ```php
 Comm::sendJson(DATA);
 ```
-with ``DATA`` being an array that should be JSON-encoded.
+with `DATA` being an array that should be JSON-encoded.
 
 If you're developing an API, you might want to send a status code and message along with the result. This can be achieved easily by using
 ```php
 Comm::apiSendJson(RESPONSE, DATA);
 ```
-Both ``RESPONSE`` AND ``DATA`` are arrays. ``DATA`` holds the main content that should be returned. ``RESPONSE`` holds the status code and message and should be formatted as shown in the following scheme:
-```json
-{
-    "code": STATUS_CODE,
-    "message": "STATUS_MESSAGE"
-}
+Both `RESPONSE` AND `DATA` are arrays. `DATA` holds the main content that should be returned. `RESPONSE` holds the status code and message and should be formatted as shown in the following scheme:
+```php
+[
+    "code" => STATUS_CODE,
+    "message" => "STATUS_MESSAGE"
+]
 ```
-There are predefined response arrays located in the ``HTTPResponses`` class. It contains the most relevant HTTP responses (``200``, ``201``, ``204``, ``400``, ``401``, ``403``, ``404``, ``405``, ``500``, ``501``, ``503``) that are also common to occur in API usage.
+There are predefined response arrays located in the `HTTPResponses` class. It contains the most relevant HTTP responses (`200`, `201`, `204`, `400`, `401`, `403`, `404`, `405`, `500`, `501`, `503`) that are also common to occur in API usage.
 
 The returned JSON response will look like this:
 ```json
@@ -404,14 +400,14 @@ The returned JSON response will look like this:
     "data": DATA
 }
 ```
-> <b>Note:</b> The ``data`` field is a JSON object if the passed ``DATA`` array is an associative array and a JSON array if it is a sequential array.
+> <b>Note:</b> The `data` field is a JSON object if the passed `DATA` array is an associative array and a JSON array if it is a sequential array.
 
-You can use those responses with ``apiSendJson`` like shown in the following example:
+You can use those responses with `apiSendJson` like shown in the following example:
 ```php
 $userDAO = User::dao();
 Comm::apiSendJson(HTTPResponses::$RESPONSE_OK, $userDAO->getObjects());
 ```
-This will return roughly the following response (``data`` will hold the information about all users of course):
+This will return roughly the following response (`data` will hold the information about all users of course):
 ```json
 {
     "code": 200,
@@ -421,37 +417,36 @@ This will return roughly the following response (``data`` will hold the informat
     ]
 }
 ```
-Because ``$userDAO->getObjects()`` returns a sequential array, the ``data`` field in the JSON response is a JSON array.<br>
+Because `$userDAO->getObjects()` returns a sequential array, the `data` field in the JSON response is a JSON array.<br>
 <sub>
 > <b>Note:</b> You wouldn't want this to be a real API call since it will return <b>ALL</b> information about <b>EVERY</b> user from the database such as real names, password hashes, ...
 </sub>
 
-For more information, have a look at the <a href="docs/comm.md">``Comm`` class documentation</a>. 
+For more information, have a look at the [`Comm` class documentation](docs/comm.md). 
 </details>
 
 <details>
 <summary><b>Display info, warning, error or success messages</b></summary>
 
-To display info, warning, error or success messages, you can use the ``InfoMessage`` class. It's constructor takes a parameter for the message itself and the message type. The message type is an integer that is defined as static values of the ``InfoMessage`` class.
+To display info, warning, error or success messages, you can use the `InfoMessage` class. It's constructor takes a parameter for the message itself and the message type. The message type is an integer that is defined as static values of the `InfoMessage` class.
 
 This is how you can display an info message:
 ```php
-<?php
-    // Info message
-    new InfoMessage("This is an info message", InfoMessageType::INFO);
+// Info message
+new InfoMessage("This is an info message", InfoMessageType::INFO);
 
-    // Warning message
-    new InfoMessage("This is a warning message", InfoMessageType::WARNING);
+// Warning message
+new InfoMessage("This is a warning message", InfoMessageType::WARNING);
 
-    // Error message
-    new InfoMessage("This is an error message", InfoMessageType::ERROR);
+// Error message
+new InfoMessage("This is an error message", InfoMessageType::ERROR);
 
-    // Success message
-    new InfoMessage("This is a success message", InfoMessageType::SUCCESS);
+// Success message
+new InfoMessage("This is a success message", InfoMessageType::SUCCESS);
 ```
-To prevent unwanted side effects, it's recommended to only send info messages from an executed website script. If you want to send info messages from other scripts.
+To prevent unwanted side effects, it's recommended to only send info messages from an executed website script.
 
-You might also want to display info messages within JavaScript code. This can be done with the JavaScript ``InfoMessage`` class. It's usage is almost the same as the one in PHP:
+You might also want to display info messages within JavaScript code. This can be done with the JavaScript `InfoMessage` class. Its usage is almost the same as the one in PHP:
 ```javascript
 // Info message
 new InfoMessage("This is an info message", InfoMessage.INFO);
@@ -473,68 +468,64 @@ $(document).ready(() => {
 });
 ```
 
-For more information about the ``InfoMessage`` class, take a look at the <a href="docs/info-messages.md">info message documentation</a>.
+For more information about the `InfoMessage` class, take a look at the [info message documentation](docs/info-messages.md).
 </details>
 
 <details>
 <summary><b>Sending cURL requests</b></summary>
 
-You can use the [PHP-Curl](https://github.com/JensOstertag/php-curl) librarys ``Curl`` class to send HTTP GET or POST requests to other servers. The library is a wrapper for PHPs cURL methods. 
+You can use the [PHP-Curl](https://github.com/JensOstertag/php-curl) libraries `Curl` class to send HTTP GET or POST requests to other servers. The library is a wrapper for PHPs cURL methods. 
 
 The following example code shows how to send a GET request to read an HTML page:
 ```php
-<?php
+use jensostertag\Curl\Curl;
 
-    use jensostertag\Curl\Curl;
+$curl = new Curl();
 
-    $curl = new Curl();
-    
-    // Define the request and headers
-    $curl->setUrl("URL");
-    $curl->setMethod(Curl::$METHOD_GET);
-    $curl->addHeader([
-        "accept" => "text/html, application/xhtml+xml"
-    ]);
-    
-    // Get the response
-    $response = $curl->execute();
-    $responseCode = $curl->getHttpCode();
-    $curl->close();
+// Define the request and headers
+$curl->setUrl("URL");
+$curl->setMethod(Curl::$METHOD_GET);
+$curl->addHeader([
+    "accept" => "text/html, application/xhtml+xml"
+]);
+
+// Get the response
+$response = $curl->execute();
+$responseCode = $curl->getHttpCode();
+$curl->close();
 ```
-with ``URL`` being the URL of the server that you want to send the request to.
+with `URL` being the URL of the server that you want to send the request to.
 
 As a more complex example, let's assume you want to send a POST request to a server that requires a data body. You can do that as follows:
 ```php
-<?php
+use jensostertag\Curl\Curl;
 
-    use jensostertag\Curl\Curl;
+$curl = new Curl();
 
-    $curl = new Curl();
-    
-    // Define the request and headers
-    $curl->setUrl("URL");
-    $curl->setMethod(Curl::$METHOD_POST);
-    $curl->addHeader([
-        "accept" => "application/json"
-    ]);
-    
-    // Add data to the request
-    $curl->addPostData([
-        "key" => "value"
-    ]);
-    
-    // Get the response
-    $response = $curl->execute();
-    $responseCode = $curl->getHttpCode();
-    $curl->close();
+// Define the request and headers
+$curl->setUrl("URL");
+$curl->setMethod(Curl::$METHOD_POST);
+$curl->addHeader([
+    "accept" => "application/json"
+]);
+
+// Add data to the request
+$curl->addPostData([
+    "key" => "value"
+]);
+
+// Get the response
+$response = $curl->execute();
+$responseCode = $curl->getHttpCode();
+$curl->close();
 ```
-Here, the ``URL`` is also replaced by the URL of the server that you want to send the request to. 
+Here, the `URL` is also replaced by the URL of the server that you want to send the request to. 
 </details>
 
 <details>
 <summary><b>Using the mail helper class</b></summary>
 
-You can use the ``Mail`` class to send emails. To do that, use
+You can use the `Mail` class to send emails. To do that, use
 ```php
 // Initialize the mail object
 $mail = new Mail();
@@ -548,9 +539,9 @@ $mail->setMessage("MESSAGE");
 $mail->sendTextMail("RECIPIENT_EMAIL");
 $mail->sendHTMLMail("RECIPIENT_EMAIL");
 ```
-with ``SENDER_EMAIL`` being the displayed sender email address, ``SENDER_NAME`` the displayed sender name, ``REPLY_TO`` the email address that should be used as reply-to address, ``SUBJECT`` the mail's subject, ``MESSAGE`` it's body and ``RECIPIENT_EMAIL`` the email address the mail should be sent to.
+with `SENDER_EMAIL` being the displayed sender email address, `SENDER_NAME` the displayed sender name, `REPLY_TO` the email address that should be used as reply-to address, `SUBJECT` the mail's subject, `MESSAGE` it's body and `RECIPIENT_EMAIL` the email address the mail should be sent to.
 
-The mail's body can be formatted as plain text or as HTML. To send it as plain text, use the ``sendTextMail`` method, if you want to send an HTML mail, use the ``sendHTMLMail`` method. The difference between both methods is that the ``sendHTMLMail`` method will add the ``Content-Type: text/html`` header to the mail.
+The mail's body can be formatted as plain text or as HTML. To send it as plain text, use the `sendTextMail` method, if you want to send an HTML mail, use the `sendHTMLMail` method. The difference between both methods is that the `sendHTMLMail` method will add the `Content-Type: text/html` header to the mail.
 </details>
 
 <details>
