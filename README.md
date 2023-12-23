@@ -155,51 +155,35 @@ To learn how to set up a route for your newly created page, take a look at the n
 <details>
 <summary><b>Create a route for a page</b></summary>
 
-To create a route for a page, you have to add a new entry to the ``📄 project/config/app-routes.php`` file. In that file you can already see some examples and a helper function called ``addRoute`` that registers a new route. The function takes the following parameters:
-- ``$method`` - The HTTP method(s) that should be allowed to access the route<br>
-  Multiple methods can be specified by separating them with a pipe (``|``) character. For example: ``GET|POST``
-- ``$route`` - The URI that should be used to access the route<br>
-  GET parameters can be added to the route by using the following syntax: ``{type:name}``<br>
-  Supported types are ``b`` (boolean), ``d`` (date (without time)), ``f`` (float), ``i`` (integer) and ``s`` (string).<br>
-  The name of the parameter is used to identify the parameter within the ``$_GET`` array.
+To create a route for a page, you have to add a new entry to the `📄 project/config/app-routes.php` file. In that file you can already see some examples that use the `Router::addRoute` method to register a new route. The function takes the following parameters:
+- `$method` - The HTTP method(s) that should be allowed to access the route<br>
+  Multiple methods can be specified by separating them with a pipe (`|`) character. For example: `GET|POST`
+- `$route` - The URI that should be used to access the route<br>
+  GET parameters can be added to the route by using the following syntax: `{type:name}`<br>
+  Supported types are `b` (boolean), `d` (date (without time)), `f` (float), `i` (integer), and `s` (string).<br>
+  The name of the parameter is used to identify the parameter within the `$_GET` array.
 
-Assumed you already have a script called ``📄 example.php`` in the ``📁 project/htdocs/`` directory (as described in the previous tutorial about setting up a new page), you can use the following code example to add a route for that page:
+Assumed you already have a script called `📄 example.php` in the `📁 project/htdocs/` directory (as described in the previous tutorial about setting up a new page), you can use the following code example to add a route for that page:
 ```php
-<?php
-    function addRoute(string $method, string $route, string $routeTo, string $name): void {
-        Router::addRoute($method, $route, __DIR__ . "/../htdocs/" . $routeTo, $name);
-    }
-
-    // Add the route for the page
-    addRoute("GET|POST", "/example", "example.php", "example");
+Router::addRoute("GET|POST", "/example", "example.php", "example");
 ```
-This will allow you to access the page with the URI ``/example`` with either the ``GET`` or ``POST`` method.
+This will allow you to access the page with the URI `/example` with either the `GET` or `POST` method.
 
-Note that the ``addRoute`` function doesn't need to be copied as it is already defined in the ``📄 project/config/app-routes.php`` file. It's just shown here for better understanding.
-
-Let's have a look at a more complex example: Assumed you've had a script (``api.php``) that represents an API call that requires passing a ``GET`` parameter called ``id`` of the integer type. You can add a route for this script as shown in the following code:
+Let's have a look at a more complex example: Assumed you've had a script (`api.php`) that represents an API call that requires passing a `GET` parameter called `id` of the integer type. You can add a route for this script as shown in the following code:
 ```php
-<?php
-    function addRoute(string $method, string $route, string $routeTo, string $name): void {
-        Router::addRoute($method, $route, __DIR__ . "/../htdocs/" . $routeTo, $name);
-    }
-
-    // Add the route for the page
-    addRoute("GET", "/api/{i:id}", "api.php", "api");
+Router::addRoute("GET", "/api/{i:id}", "api.php", "api");
 ```
-This will allow you to access the page by the URI ``/api/ID`` with ``ID`` being the integer value of the ``id`` parameter with the ``GET`` method. The ``id`` parameter can then be accessed within the ``📄 api.php`` script by using the ``$_GET`` array like this:
+This will allow you to access the page by the URI `/api/ID` with `ID` being the integer value of the `id` parameter of the `GET` method. The `id` parameter can then be accessed within the `📄 api.php` script by using the `$_GET` array like this:
 ```php
-<?php
-    $id = $_GET["id"];
-    // ...
+$id = $_GET["id"];
 ```
-For more information about the ``Router`` class, take a look at the <a href="docs/router.md">router documentation</a>.
+For more information about the `Router` class, take a look at the [router documentation](docs/router.md).
 </details>
 
 <details>
 <summary><b>Create a sidebar menu item for a page</b></summary>
 
-The items in the sidebar menu are defined in the ``📄 project/config/app-config.php`` file in the ``$MENU_SETTINGS["MENU_SIDEBAR"]`` array with the following structure:
+The items in the sidebar menu are defined in the `📄 project/config/app-config.php` file in the `$MENU_SETTINGS["MENU_SIDEBAR"]` array with the following structure:
 ```php
 [
     "DISPLAY_NAME" => [
@@ -208,19 +192,13 @@ The items in the sidebar menu are defined in the ``📄 project/config/app-confi
     // ...
 ]
 ```
-The ``DISPLAY_NAME`` is the name that is displayed in the sidebar menu. The ``ROUTE`` is the URI that is used to access the page. It's recommended to use the ``Router::generate(String $route)`` method to generate the URI automatically. Have a look at the <a href="docs/router.md">router documentation</a> for more information.
+The `DISPLAY_NAME` is the name that is displayed in the sidebar menu. The `ROUTE` is the URI that is used to access the page. It's recommended to use the `Router::generate` method to generate the URI automatically. Have a look at the [router documentation](docs/router.md) for more information.
 
-Assumed you've already created a page and a route with the route name ``example`` to that page (as it was described in the corresponding tutorial), you can add a sidebar menu item as follows:
+Assumed you've already created a page and a route with the route name `example` to that page (as it was described in the previous tutorial), you can add a sidebar menu item as follows:
 ```php
-<?php
-    // Config settings...
-    
-    // Add a sidebar menu item for the example page
-    $MENU_SETTINGS["MENU_SIDEBAR"]["Example"] = [
-        "route" => Router::generate("example")
-    ];
-
-    // Config settings...
+Config::$MENU_SETTINGS["MENU_SIDEBAR"]["Example"] = [
+    "route" => Router::generate("example")
+];
 ```
 </details>
 
