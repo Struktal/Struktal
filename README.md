@@ -59,17 +59,19 @@ If you want to deploy it as a Docker container instead, the following requiremen
 - Clone the newly created repository onto your local machine.
 - Configure `📄 project/config/app-config.php` according to your needs, except for secrets such as database credentials. These are treated in separate configuration files.
 - Configure `📄 secrets/config.secret.json.example` with the same values as in the previous step, except for actual secrets such as database credentials.
-- Copy `📄 secrets/config.secret.json.example` to `📄 secrets/config.secret.json` and configure it according to your needs. This file is ignored by the `.gitignore` file and therefore not included in the repository. Also store secrets such as database credentials in this file.
+- Copy `📄 secrets/config.secret.json.example` to `📄 secrets/config.secret.json` and configure it according to your needs. This file is ignored by the `.gitignore` file and therefore not included in the repository. Also store secrets such as database credentials in this file. It's recommended to remove all fields that are already defined in `📄 project/config/app-config.php` from this file.
 - Configure `📄 htdocs/deployment/deploy-config.json` according to your needs.
 - Commit and push the changes to the repository.
 
 ### Deployment setup - Apache web server
 - Clone the newly created repository onto the web server. This should be done as the web server user, or the files' ownership has to be transferred to that user. Otherwise, the automatic deployment feature won't work, as the server will execute `git pull` as the web server user and then won't be able to override the files.
+- Copy `📄 secrets/config.secret.json` from your local setup to the `📁 secrets/` directory on the server.
 - Run `composer install` within the repository directory to install the required dependencies.
 - Set up the virtual host for the website. The `DocumentRoot` should point to the directory where you've cloned the repository to, and then `📁 htdocs/` <sub>Not `📁 project/htdocs/`!</sub>.
 
 ### Deployment setup - Docker container
 - Clone the newly created repository onto the server that should run the Docker container.
+- Copy `📄 secrets/config.secret.json` from your local setup to the `📁 secrets/` directory on the server.
 - Configure `📄 docker-compose.yml` according to the used reverse proxy.
 - Run `docker build` to build the Docker image.
 - Run `docker compose up -d` to start the container.
