@@ -322,6 +322,43 @@ $examples = Example::dao()->getObjects([
 ], "myAttribute", false, 10, 0);
 ```
 
+Filters can also be more complex by combining multiple requirements (the combination of multiple requirements is always to be seen as a logical AND), or by using other operators than the equality check:
+```php
+$lastWeek = (new DateTime())->modify("-7 day");
+
+// Get all objects that have the attribute "myAttribute" set to "Hello World!" and that were created in the last week
+$examples = Example::dao()->getObjects([
+    "myAttribute" => "Hello World!",
+    [
+        "field" => "created",
+        "filterType" => DAOFilterType::GREATER_THAN_EQUALS,
+        "filterValue" => $lastWeek
+    ]
+]);
+```
+
+This shows well that the key-value pairs that we have used previously are short terms for
+```php
+[
+    "field" => "myAttribute",
+    "filterType" => DAOFilterType::EQUALS,
+    "filterValue" => "Hello World!"
+]
+```
+
+There are the following filter types:
+- `DAOFilterType::EQUALS` - The fields value should be equal to the filter value
+- `DAOFilterType::NOT_EQUALS` - The fields value should not be equal to the filter value
+- `DAOFilterType::GREATER_THAN` - The fields value should be greater than the filter value
+- `DAOFilterType::GREATER_THAN_EQUALS` - The fields value should be greater than or equal to the filter value
+- `DAOFilterType::LESS_THAN` - The fields value should be less than the filter value
+- `DAOFilterType::LESS_THAN_EQUALS` - The fields value should be less than or equal to the filter value
+- `DAOFilterType::LIKE` - The fields value should be like the filter value
+- `DAOFilterType::IN` - The fields value should be in an array of values
+- `DAOFilterType::NOT_IN` - The fields value should not be in an array of values
+
+so also non-trivial SQL queries can be expressed with the DAO pattern.
+
 To update an object, you have to retrieve it from the database first and then update its attributes with the setter methods. After that, you can save the object again with the `GenericObjectDAO::save(GenericObject $object)` method. As it is the same object with a set value for the `id` attribute, the DAO will update the existing entry instead of creating a new one.
 ```php
 // Get the object with the id 42
