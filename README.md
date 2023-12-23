@@ -57,8 +57,10 @@ If you want to deploy it as a Docker container instead, the following requiremen
 
 ### Local setup
 - Clone the newly created repository onto your local machine.
-- Configure `📄 secrets/config.secret.json.example` according to your needs, except for actual secrets such as database credentials. These are treated in the next step.
+- Configure `📄 project/config/app-config.php` according to your needs, except for secrets such as database credentials. These are treated in separate configuration files.
+- Configure `📄 secrets/config.secret.json.example` with the same values as in the previous step, except for actual secrets such as database credentials.
 - Copy `📄 secrets/config.secret.json.example` to `📄 secrets/config.secret.json` and configure it according to your needs. This file is ignored by the `.gitignore` file and therefore not included in the repository. Also store secrets such as database credentials in this file.
+- Configure `📄 htdocs/deployment/deploy-config.json` according to your needs.
 - Commit and push the changes to the repository.
 
 ### Deployment setup - Apache web server
