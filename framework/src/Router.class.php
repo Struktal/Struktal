@@ -159,9 +159,8 @@ class Router {
         }
 
         if(!($routeFound)) {
-            Comm::redirect(Router::generate("404"));
             http_response_code(404);
-            return;
+            Comm::redirect(Router::generate("404"));
         }
 
         $route = $foundRoute["route"];
@@ -182,9 +181,8 @@ class Router {
                 if(self::getParameterFromString($paramValue, $paramType) !== null) {
                     $paramValue = self::getParameterFromString($paramValue, $paramType);
                 } else {
-                    Comm::redirect(Router::generate("400"));
                     http_response_code(400);
-                    return;
+                    Comm::redirect(Router::generate("400"));
                 }
 
                 $_GET[$paramName] = urldecode($paramValue);
@@ -196,9 +194,9 @@ class Router {
             if(file_exists($routeTo)) {
                 include_once($routeTo);
             } else {
-                Comm::redirect(self::generate("404"));
-                http_response_code(404);
                 Logger::getLogger("Router")->error("Could not find file \"{$routeTo}\" for route \"{$route}\"");
+                http_response_code(404);
+                Comm::redirect(self::generate("404"));
             }
         } else {
             if(file_exists($routeTo)) {
@@ -206,9 +204,9 @@ class Router {
                 readfile($routeTo);
                 exit;
             } else {
-                Comm::redirect(self::generate("404"));
-                http_response_code(404);
                 Logger::getLogger("Router")->error("Could not find file \"{$routeTo}\" for route \"{$route}\"");
+                http_response_code(404);
+                Comm::redirect(self::generate("404"));
             }
         }
     }
