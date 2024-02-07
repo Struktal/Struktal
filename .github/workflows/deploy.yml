@@ -1,3 +1,5 @@
+name: AutoDeploy
+
 on:
   push:
     branches:

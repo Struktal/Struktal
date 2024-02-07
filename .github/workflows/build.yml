@@ -1,0 +1,31 @@
+name: Build and deploy image to GHCR
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Get lowercase repository details
+        id: lowercase-repo-details
+        shell: push
+        run: |
+          "::set-output name=owner::$($env:GITHUB_REPOSITORY_OWNER.ToLowerInvariant())"
+          "::set-output name=repo::$($env:GITHUB_REPOSITORY_NAME.ToLowerInvariant())"
+
+      - name: Build and deploy image
+        run: |
+          docker build -t ghcr.io/${{ steps.lowercase-repo-details.outputs.owner }}/${{ steps.lowercase-repo-details.outputs.repo }}:latest .
+          docker push ghcr.io/${{ steps.lowercase-repo-details.outputs.owner }}/${{ steps.lowercase-repo-details.outputs.repo }}:latest
