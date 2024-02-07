@@ -22,10 +22,9 @@ jobs:
         id: lowercase-repo-details
         shell: pwsh
         run: |
-          "::set-output name=owner::$($env:GITHUB_REPOSITORY_OWNER.ToLowerInvariant())"
-          "::set-output name=repo::$($env:GITHUB_REPOSITORY_NAME.ToLowerInvariant())"
+          "::set-output name=repo::$($env:GITHUB_REPOSITORY.ToLowerInvariant())"
 
       - name: Build and deploy image
         run: |
-          docker build -t ghcr.io/${{ steps.lowercase-repo-details.outputs.owner }}/${{ steps.lowercase-repo-details.outputs.repo }}:latest .
-          docker push ghcr.io/${{ steps.lowercase-repo-details.outputs.owner }}/${{ steps.lowercase-repo-details.outputs.repo }}:latest
+          docker build -t ghcr.io/${{ steps.lowercase-repo-details.outputs.repo }}:latest .
+          docker push ghcr.io/${{ steps.lowercase-repo-details.outputs.repo }}:latest
