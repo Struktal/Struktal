@@ -1,37 +1,22 @@
 {
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "https://github.com/JensOstertag/templify"
-    },
-    {
-      "type": "vcs",
-      "url": "https://github.com/JensOstertag/curl-adapter"
-    },
-    {
-      "type": "vcs",
-      "url": "https://github.com/JensOstertag/geocoding-util"
-    },
-    {
-      "type": "vcs",
-      "url": "https://github.com/JensOstertag/uploadhelper"
-    },
-    {
-      "type": "vcs",
-      "url": "https://github.com/JensOstertag/csvreader"
-    }
-  ],
   "require": {
-    "jensostertag/templify": "1.0.0",
-    "jensostertag/curl-adapter": "1.0.0",
-    "jensostertag/geocoding-util": "1.0.0",
-    "jensostertag/uploadhelper": "1.0.0",
-    "jensostertag/csvreader": "1.0.0",
+    "jensostertag/templify": "~1.0.0",
+    "jensostertag/curl-adapter": "~1.0.0",
+    "jensostertag/geocoding-util": "~1.0.0",
+    "jensostertag/uploadhelper": "~1.0.0",
+    "jensostertag/csvreader": "~1.0.0",
     "ext-pdo": "*",
     "ext-curl": "*",
     "ext-json": "*"
   },
+  "require-dev": {
+    "pestphp/pest": "~2.33.4"
+  },
   "config": {
     "vendor-dir": "project/src/lib/vendor"
+    "vendor-dir": "project/src/lib/vendor",
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
   }
 }
