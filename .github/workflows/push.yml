@@ -38,9 +38,26 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Validate composer.json and composer.lock
+        run: |
+          composer validate --strict
+
+      - name: Cache composer packages
+        id: composer-cache
+        uses: actions/cache@v3
+        with:
+          path: project/src/lib/vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
+      - name: Install composer packages
+        run: |
+          composer install --no-interaction
+
       - name: Run tests
         run: |
-          echo "Running tests..."
+          composer run-script test
 
   deploy:
     runs-on: ubuntu-latest
