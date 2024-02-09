@@ -3,6 +3,7 @@
   "description": "Powerful and feature-rich PHP framework designed to simplify web development",
   "license": "MIT",
   "require": {
+    "php": ">=8.2",
     "jensostertag/templify": "~1.0.0",
     "jensostertag/curl-adapter": "~1.0.0",
     "jensostertag/geocoding-util": "~1.0.0",
