@@ -31,7 +31,7 @@ COPY ./docker/nginx-config /etc/nginx
 COPY ./docker/startup.sh /app
 RUN chmod +x /app/startup.sh
 
-RUN cd /app && composer install
+RUN cd /app && composer install --no-dev --no-interaction
 
 EXPOSE 80
 ENTRYPOINT ["/app/startup.sh"]
