@@ -17,6 +17,9 @@
     "pestphp/pest": "~2.33.4"
   },
   "config": {
+    "platform": {
+      "php": "8.2"
+    },
     "vendor-dir": "project/src/lib/vendor",
     "allow-plugins": {
       "pestphp/pest-plugin": true
