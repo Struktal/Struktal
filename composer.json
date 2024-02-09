@@ -13,10 +13,12 @@
     "pestphp/pest": "~2.33.4"
   },
   "config": {
-    "vendor-dir": "project/src/lib/vendor"
     "vendor-dir": "project/src/lib/vendor",
     "allow-plugins": {
       "pestphp/pest-plugin": true
     }
+  },
+  "scripts": {
+    "test": "project/src/lib/vendor/bin/pest tests"
   }
 }
