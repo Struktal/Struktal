@@ -1,5 +1,5 @@
 # Documentation
 ## Curl
-You can use the [PHP-Curl](https://github.com/JensOstertag/php-curl) librarys ``Curl`` class to send HTTP GET or POST requests to other servers. The library is a wrapper for PHPs cURL methods.
+You can use the [Curl-Adapter](https://github.com/JensOstertag/curl-adapter) librarys `Curl` class to send HTTP GET or POST requests to other servers. The library is a wrapper for PHPs cURL methods.
 
-To learn about how to do that, please refer to the [PHP-Curl documentation](https://github.com/JensOstertag/php-curl) as it always reflects the latest version of the library.
+To learn about how to do that, please refer to the [Curl-Adapter documentation](https://github.com/JensOstertag/curl-adapter) as it always reflects the latest version of the library.
