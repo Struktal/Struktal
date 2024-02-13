@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c225014675eafa45fee3cfc5e813489a",
+    "content-hash": "913bdc6249864f3d01e6cbe727379b5f",
     "packages": [
         {
             "name": "jensostertag/csvreader",
@@ -3769,5 +3769,8 @@
         "ext-json": "*"
     },
     "platform-dev": [],
+    "platform-overrides": {
+        "php": "8.2"
+    },
     "plugin-api-version": "2.3.0"
 }
