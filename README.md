@@ -8,7 +8,7 @@
 
 Built-in support for data access and manipulation, routing and various other utilities make it easier to handle common web development tasks.
 
-[Introduction](#introduction) • [Project setup](#project-setup) • [Documentation](#documentation) • [License](#license)
+[Introduction](#introduction) • [Project setup](#project-setup) • [Documentation](#documentation) • [Dependencies](#dependencies) • [License](#license)
 
 </div>
 
@@ -17,7 +17,7 @@ Built-in support for data access and manipulation, routing and various other uti
 ## Introduction
 
 This framework is designed to simplify web development by providing a scalable architecture and a set of useful features that are often needed when developing web applications. The most notable features are:
-- **Automatic deployment** by using GitHub Actions
+- **GitHub Actions pipeline** to automatically build, test and deploy the application
 - The **router** which allows to define specific routes for the website
 - **Template files** to strictly separate logic from view - as intended by the MVC pattern
 - The **data access object pattern** allows to easily access and manipulate data in the database by using objects (and inheritance)
@@ -43,6 +43,7 @@ If you want to deploy it as a Docker container instead, the following requiremen
 
 ### Repository setup
 - Use this repository as a template for your project by clicking on the green button `Use this template` on the top of this page. This will create a new repository with the same files as this one.
+- Under the repository's `Settings` > `Actions` > `General`, change the workflow permissions from "Read repository contents and packages permissions" to "Read and write permissions" to allow the pipeline to add the newly built package to the GitHub Container Registry.
 - Create repository variables and secrets for GitHub Actions:
 
   | Variable name          | Description                                                         |
@@ -672,6 +673,15 @@ If you want to upload the files via FTP, make sure that all files and directorie
 </details>
 
 Further information about the framework and its features are available in [the documentation](/docs).
+
+## Dependencies
+This framework contains the following dependencies:
+- **pest** - GitHub: [pestphp/pest](https://github.com/pestphp/pest), licensed under [MIT license](https://github.com/pestphp/pest/blob/2.x/LICENSE.md)
+- **Templify** - GitHub: [JensOstertag/templify](https://github.com/JensOstertag/templify), licensed under [MIT license](https://github.com/JensOstertag/templify/blob/main/LICENSE)
+- **Curl-Adapter** - GitHub: [JensOstertag/curl-adapter](https://github.com/JensOstertag/curl-adapter), licensed under [MIT license](https://github.com/JensOstertag/curl-adapter/blob/main/LICENSE-MIT) 
+- **GeocodingUtil** - GitHub: [JensOstertag/geocoding-util](https://github.com/JensOstertag/geocoding-util), licensed under [GPL-2.0 license](https://github.com/JensOstertag/geocoding-util/blob/main/LICENSE-GPL2)
+- **UploadHelper** - GitHub: [JensOstertag/uploadhelper](https://github.com/JensOstertag/uploadhelper), licensed under [MIT license](https://github.com/JensOstertag/uploadhelper/blob/main/LICENSE-MIT)
+- **CSVReader** - GitHub: [JensOstertag/csvreader](https://github.com/JensOstertag/csvreader), licensed under [MIT license](https://github.com/JensOstertag/csvreader/blob/main/LICENSE)
 
 ## License
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
