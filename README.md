@@ -585,66 +585,59 @@ The mail's body can be formatted as plain text or as HTML. To send it as plain t
 <details>
 <summary><b>Using the geocoding helper class</b></summary>
 
-> <b>Legal Note:</b> The geocoding library uses the [Nominatim](https://nominatim.org/) API. Please read the [Terms of Use](https://operations.osmfoundation.org/policies/nominatim/) before using it and comply with them.
+> <b>Legal Note:</b> This library uses the [Nominatim](https://nominatim.org/) API. Please read the [Terms of Use](https://operations.osmfoundation.org/policies/nominatim/) before using it and comply with them.
 
-You can use the ``Geocoding`` class to get an address' coordinates or coordinates' address:
+You can use the [PHP-Geocoding](https://github.com/JensOstertag/php-geocoding) library's `Geocoding` class to convert an address to coordinates or coordinates to an address. The library uses the [Nominatim](https://nominatim.org/) API to do that.
 ```php
-<?php
-    // Get coordinates of an address
-    $geocoding = new Geocoding();
-    $geocoding->setStreet("Street");
-    $geocoding->setHouseNumber("House number");
-    $geocoding->setCity("City");
-    $geocoding->setZipCode("ZIP code");
-    $geocoding->setCountry("Country");
-    $coordinates = $geocoding->getCoordinates();
-    $lat = $coordinates["latitude"];
-    $lng = $coordinates["longitude"];
-    
-    // Get address of coordinates
-    $geocoding = new Geocoding();
-    $geocoding->setCoordinates(12.345678, 12.345678);
-    $address = $geocoding->getAddress();
-    $street = $address["street"];
-    $houseNumber = $address["houseNumber"];
-    $city = $address["city"];
-    $zipCode = $address["zipCode"];
-    $country = $address["country"];
-    $formattedAddress = $geocoding->getFormattedAddress();
+// Get coordinates of an address
+$geocoding = new Geocoding();
+$geocoding->setStreet("Street");
+$geocoding->setHouseNumber("House number");
+$geocoding->setCity("City");
+$geocoding->setZipCode("ZIP code");
+$geocoding->setCountry("Country");
+$coordinates = $geocoding->getCoordinates();
+$lat = $coordinates["latitude"];
+$lng = $coordinates["longitude"];
+
+// Get address of coordinates
+$geocoding = new Geocoding();
+$geocoding->setCoordinates(12.345678, 12.345678);
+$address = $geocoding->getAddress();
+$street = $address["street"];
+$houseNumber = $address["houseNumber"];
+$city = $address["city"];
+$zipCode = $address["zipCode"];
+$country = $address["country"];
+$formattedAddress = $geocoding->getFormattedAddress();
 ```
 </details>
 
 <details>
 <summary><b>Format and parse datetimes</b></summary>
 
-To ensure uniformity, there is a class called ``DateTimeFormatter`` that can be used to format and parse datetimes. The used format can be changed in the ``📄 project/config/app-config.php`` file.
+To ensure uniformity, there is a class called `DateTimeFormatter` that can be used to format and parse datetimes. The used format can be changed in the `📄 project/config/app-config.php` file.
 
 To format a datetime to display the current date and time in the frontend, you can use the following code:
 ```php
-<?php
-    $datetime = new DateTime();
-    $formattedDate = DateFormatter::visualDateTime($datetime);
-?>
+$datetime = new DateTime();
+$formattedDate = DateFormatter::visualDateTime($datetime);
 ```
 
 In case you want to format a datetime to a date that should be passed to other components of your project (e.g. a JavaScript file), use the following code:
 ```php
-<?php
-    $datetime = new DateTime();
-    $formattedDate = DateFormatter::technicalDate($datetime);
-?>
+$datetime = new DateTime();
+$formattedDate = DateFormatter::technicalDate($datetime);
 ```
 
 You can also parse a datetime string to a datetime object:
 ```php
-<?php
-    $datetime = new DateTime();
-    $formattedDate = DateFormatter::visualDateTime($datetime);
-    $newDatetime = DateFormatter::parseVisualDateTime($formattedDate);
-?>
+$datetime = new DateTime();
+$formattedDate = DateFormatter::visualDateTime($datetime);
+$newDatetime = DateFormatter::parseVisualDateTime($formattedDate);
 ```
 
-For an overview of all available methods, please have a look at the <a href="docs/date-formatter.md">documentation</a>.
+For an overview of all available methods, please have a look at the [documentation](docs/date-formatter.md).
 </details>
 
 <details>
@@ -655,20 +648,9 @@ Before deploying the application, make sure that you have changed all settings f
 Now, there are two separate ways to deploy the application:
 
 <details>
-<summary>Use the frameworks auto deployment tool</summary>
+<summary>Use the framework's auto deployment tool</summary>
 
-If you have followed all steps in the <a href="#installation">installation</a> section, you can simply commit and push your changes to the repositories ``main`` branch. A GitHub Action will then call the ``/deploy`` route which will pull all changes from the repository and install the dependencies.
-</details>
-
-<details>
-<summary>Upload files via FTP</summary>
-
-If you want to upload the files via FTP, make sure that all files and directories listed below are uploaded:
-- ``📁 framework/``
-- ``📁 project/``
-- ``📄 .htaccess``
-- ``📄 .user.ini`` or ``📄 php.ini``
-- ``📄 routes-handler.php``
+If you have followed all steps in the [installation](#installation) section, you can simply commit and push your changes to the repository's `main` branch. A GitHub Action will then call the `/deploy` route which will pull all changes from the repository and install the dependencies.
 </details>
 </details>
 
