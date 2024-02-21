@@ -55,7 +55,7 @@ class Router {
                                 $paramValue = $paramValue ? "true" : "false";
                                 $route = str_replace("{" . $routeData["params"][$paramName] . ":" . $paramName . "}", $paramValue, $route);
                                 $requiredParams = array_diff($requiredParams, [$paramName]);
-                            } else if($routeData["params"][$paramName] == "d" && (DateTime::createFromFormat(Config::$DATETIME_SETTINGS["DATE_TECHNICAL"], $paramValue) !== false || $paramValue instanceof DateTime)) {
+                            } else if($routeData["params"][$paramName] == "d" && ($paramValue instanceof DateTime || DateTime::createFromFormat(Config::$DATETIME_SETTINGS["DATE_TECHNICAL"], $paramValue) !== false)) {
                                 if($paramValue instanceof DateTime) {
                                     $paramValue = DateFormatter::technicalDate($paramValue);
                                 }
@@ -71,7 +71,7 @@ class Router {
                                 $route = str_replace("{" . $routeData["params"][$paramName] . ":" . $paramName . "}", $paramValue, $route);
                                 $requiredParams = array_diff($requiredParams, [$paramName]);
                             } else if($routeData["params"][$paramName] == "s" && is_string($paramValue)) {
-                                $paramValue = strval($paramValue);
+                                $paramValue = urlencode(strval($paramValue));
                                 $route = str_replace("{" . $routeData["params"][$paramName] . ":" . $paramName . "}", $paramValue, $route);
                                 $requiredParams = array_diff($requiredParams, [$paramName]);
                             }
@@ -257,7 +257,7 @@ class Router {
                 }
                 break;
             case "s":
-                return strval($value);
+                return urldecode(strval($value));
         }
 
         return null;

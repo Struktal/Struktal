@@ -10,7 +10,7 @@ class TestObjectDAO extends GenericObjectDAO {
 
 }
 
-test("DAO return types", function () {
+test("DAO return types", function() {
     $genericObjectDAO1 = GenericObject::dao();
     expect($genericObjectDAO1)->toBeInstanceOf(GenericObjectDAO::class);
 
