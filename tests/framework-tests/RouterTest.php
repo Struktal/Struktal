@@ -20,5 +20,5 @@ test("Add and generate routes", function() {
         ->and(Router::generate("dateTest", ["date" => $now]))->toBe("/test/" . DateFormatter::technicalDate($now))
         ->and(Router::generate("floatTest", ["float" => 3.14]))->toBe("/test/3.14")
         ->and(Router::generate("intTest", ["int" => 42]))->toBe("/test/42")
-        ->and(Router::generate("stringTest", ["string" => "Hello, World!"]))->toBe("/test/Hello, World!");
+        ->and(Router::generate("stringTest", ["string" => "Hello, World!"]))->toBe("/test/" . urlencode("Hello, World!"));
 });
