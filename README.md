@@ -58,6 +58,7 @@ If you want to deploy it as a Docker container instead, the following requiremen
 
 ### Local setup
 - Clone the newly created repository onto your local machine.
+- Configure the `📄 composer.json` file according to your needs: Change the project's name, description and license, and add required dependencies.
 - Configure `📄 project/config/app-config.php` according to your needs, except for secrets such as database credentials. These are treated in separate configuration files.
 - Configure `📄 secrets/config.secret.json.example` with the same values as in the previous step, except for actual secrets such as database credentials.
 - Copy `📄 secrets/config.secret.json.example` to `📄 secrets/config.secret.json` and configure it according to your needs. This file is ignored by the `.gitignore` file and therefore not included in the repository. Also store secrets such as database credentials in this file. It's recommended to remove all fields that are already defined in `📄 project/config/app-config.php` from this file.
@@ -641,7 +642,17 @@ For an overview of all available methods, please have a look at the [documentati
 </details>
 
 <details>
-<summary><b>Deploying the application</b></summary>
+<summary><b>Write unit tests</b></summary>
+
+The framework uses the [Pest](https://pestphp.com/) framework to perform unit tests. The tests are located in the `📁 tests/` directory. They can be executed by running
+```sh
+composer run test
+```
+or are automatically executed by the GitHub Action pipeline on every push to the `main` branch.
+</details>
+
+<details>
+<summary><b>Deploy the application</b></summary>
 
 Before deploying the application, make sure that you have changed all settings for the production version such as changing the minimum required log level. You might also want to minify the CSS and JS files.
 
