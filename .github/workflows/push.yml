@@ -26,6 +26,14 @@ jobs:
         run: |
           "::set-output name=repo::$($env:GITHUB_REPOSITORY.ToLowerInvariant())"
 
+      - name: Cache docker layers
+        uses: actions/cache@v3
+        with:
+          path: /var/lib/docker
+          key: ${{ runner.os }}-docker-${{ hashFiles('**/Dockerfile') }}
+          restore-keys: |
+            ${{ runner.os }}-docker-
+
       - name: Build and deploy image
         run: |
           docker build -t ghcr.io/${{ steps.lowercase-repo-details.outputs.repo }}:latest .
