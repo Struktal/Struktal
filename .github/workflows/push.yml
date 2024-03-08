@@ -42,7 +42,8 @@ jobs:
           docker buildx build \
             -t ghcr.io/${{ steps.lowercase-repo-details.outputs.repo }}:latest . \
             --cache-from type=local,dest=~/.buildx-cache \
-            --cache-to type=local,dest=~/.buildx-cache
+            --cache-to type=local,dest=~/.buildx-cache \
+            --load
           docker push ghcr.io/${{ steps.lowercase-repo-details.outputs.repo }}:latest
 
   test:
