@@ -26,17 +26,23 @@ jobs:
         run: |
           "::set-output name=repo::$($env:GITHUB_REPOSITORY.ToLowerInvariant())"
 
-      - name: Cache docker layers
+      - name: Cache Docker build cache
         uses: actions/cache@v3
         with:
-          path: /tmp/.buildx-cache
+          path: ~/.buildx-cache
           key: ${{ runner.os }}-docker-${{ hashFiles('**/Dockerfile') }}
           restore-keys: |
             ${{ runner.os }}-docker-
 
+      - name: Docker Buildx setup
+        uses: docker/setup-buildx-action@v3
+
       - name: Build and deploy image
         run: |
-          docker build -t ghcr.io/${{ steps.lowercase-repo-details.outputs.repo }}:latest .
+          docker buildx build \
+            -t ghcr.io/${{ steps.lowercase-repo-details.outputs.repo }}:latest . \
+            --cache-from type=local,dest=~/.buildx-cache \
+            --cache-to type=local,dest=~/.buildx-cache
           docker push ghcr.io/${{ steps.lowercase-repo-details.outputs.repo }}:latest
 
   test:
