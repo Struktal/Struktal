@@ -29,7 +29,7 @@ jobs:
       - name: Cache Docker build cache
         uses: actions/cache@v3
         with:
-          path: ~/.buildx-cache
+          path: /buildx-cache
           key: ${{ runner.os }}-docker-${{ hashFiles('**/Dockerfile') }}
           restore-keys: |
             ${{ runner.os }}-docker-
@@ -37,14 +37,19 @@ jobs:
       - name: Docker Buildx setup
         uses: docker/setup-buildx-action@v3
 
-      - name: Build and deploy image
+      - name: Build and push image
         run: |
           docker buildx build \
             -t ghcr.io/${{ steps.lowercase-repo-details.outputs.repo }}:latest . \
-            --cache-from type=local,src=~/.buildx-cache \
-            --cache-to type=local,dest=~/.buildx-cache \
+            --cache-from type=local,src=/buildx-cache \
+            --cache-to type=local,dest=/buildx-cache \
             --load
           docker push ghcr.io/${{ steps.lowercase-repo-details.outputs.repo }}:latest
+
+      - name: List files
+        run: |
+          cd / && ls -la
+          cd /buildx-cache && ls -la
 
   test:
     runs-on: ubuntu-latest
