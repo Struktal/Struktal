@@ -14,7 +14,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Login to GitHub Container Registry
-        uses: docker/login-action@v1
+        uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
@@ -24,7 +24,7 @@ jobs:
         id: lowercase-repo-details
         shell: pwsh
         run: |
-          "::set-output name=repo::$($env:GITHUB_REPOSITORY.ToLowerInvariant())"
+          echo "REPOSITORY=$($env:GITHUB_REPOSITORY.ToLowerInvariant())" >> "$GITHUB_OUTPUT"
 
       - name: Docker Buildx setup
         uses: docker/setup-buildx-action@v3
@@ -34,7 +34,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/${{ steps.lowercase-repo-details.outputs.repo }}:latest
+          tags: ghcr.io/${{ steps.lowercase-repo-details.outputs.REPOSITORY }}:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
