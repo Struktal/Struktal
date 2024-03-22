@@ -27,6 +27,7 @@ RUN apt install -y composer
 
 # Copy files to image
 COPY . /app
+RUN chown -R www-data:www-data /app
 COPY ./docker/nginx-config /etc/nginx
 COPY ./docker/startup.sh /app
 RUN chmod +x /app/startup.sh
