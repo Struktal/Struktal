@@ -29,10 +29,10 @@ RUN apt install -y composer
 COPY . /app
 RUN chown -R www-data:www-data /app
 COPY ./docker/nginx-config /etc/nginx
-COPY ./docker/startup.sh /app
-RUN chmod +x /app/startup.sh
+COPY ./docker/entrypoint.sh /app
+RUN chmod +x /app/entrypoint.sh
 
 RUN cd /app && composer install --no-dev --no-interaction
 
 EXPOSE 80
-ENTRYPOINT ["/app/startup.sh"]
+ENTRYPOINT ["/app/entrypoint.sh"]
