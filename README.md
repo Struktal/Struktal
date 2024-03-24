@@ -66,17 +66,17 @@ If you want to deploy it as a Docker container instead, the following requiremen
 - Commit and push the changes to the repository.
 
 ### Deployment setup - Apache web server
-- Clone the newly created repository onto the web server. This should be done as the web server user, or the files' ownership has to be transferred to that user. Otherwise, the automatic deployment feature won't work, as the server will execute `git pull` as the web server user and then won't be able to override the files.
+The application can be deployed on an Apache web server, which allows you to use the automatic deployment feature. When pushing your changes to the `main` branch, the GitHub Actions pipeline will call the `/deploy` route. This wil execute a `git pull` command to pull your new changes, and install the required dependencies through Composer. To use this feature, follow these steps:
+- Clone the newly created repository onto the web server, e.g. to `/var/www/your-project-name`. This should be done as the web server user: When the `/deploy` route is called, the `git pull` command will always be executed by the web server user, and in order to override the files, he needs read, write and delete permissions. Alternatively, you can set the files' owner afterwards through `chown` command.
 - Copy `📄 secrets/config.secret.json` from your local setup to the `📁 secrets/` directory on the server.
-- Run `composer install` within the repository directory to install the required dependencies.
-- Set up the virtual host for the website. The `DocumentRoot` should point to the directory where you've cloned the repository to, and then `📁 htdocs/` <sub>Not `📁 project/htdocs/`!</sub>.
+- Run `composer install` within the repository directory to install the required dependencies. When deploying the application through the pipeline, this step will be executed automatically.
+- Set up the virtual host for the website. The `DocumentRoot` should point to the directory where you've cloned the repository to, and then `📁 htdocs/` <sub>Not `📁 project/htdocs/`!</sub>. If you've used the example path from above, the `DocumentRoot` should be set to `/var/www/your-project-name/htdocs`.
 
 ### Deployment setup - Docker container
-- Clone the newly created repository onto the server that should run the Docker container.
-- Copy `📄 secrets/config.secret.json` from your local setup to the `📁 secrets/` directory on the server.
-- Configure `📄 docker-compose.yml` according to the used reverse proxy.
-- Run `docker build` to build the Docker image.
-- Run `docker compose up -d` to start the container.
+- Create and configure the `📄 docker-compose.yml` file according to your requirements. The easiest way to do this is by simply cloning the newly created repository onto the server that the Docker container should run on, and then configuring it.
+  - Change the `image` name
+- Copy `📄 secrets/config.secret.json` from your local setup to the `📁 secrets/` directory on the server, or configure the file directly on the server, depending on your needs.
+- Run `docker-compose up -d` to start the container. This will pull the image from the GitHub Container Registry and start the container.
 
 ## Documentation
 
@@ -659,9 +659,15 @@ Before deploying the application, make sure that you have changed all settings f
 Now, there are two separate ways to deploy the application:
 
 <details>
-<summary>Use the framework's auto deployment tool</summary>
+<summary>Apache webserver and the framework's auto deployment tool</summary>
 
 If you have followed all steps in the [installation](#installation) section, you can simply commit and push your changes to the repository's `main` branch. A GitHub Action will then call the `/deploy` route which will pull all changes from the repository and install the dependencies.
+</details>
+
+<details>
+<summary>Docker</summary>
+
+Unfortunately, the Docker deployment option doesn't work with the automatic deployment feature (yet). You have to re-pull and restart the container manually.
 </details>
 </details>
 

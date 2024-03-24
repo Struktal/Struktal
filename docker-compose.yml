@@ -2,10 +2,9 @@ version: "3"
 
 services:
   web:
-    build: .
+    image: ghcr.io/jensostertag/bugy-projekttage:latest
     restart: always
     volumes:
       - ./secrets:/app/secrets
-      - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - "80:80"
