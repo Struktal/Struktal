@@ -9,23 +9,26 @@ class GenericUserDAO extends GenericObjectDAO {
      * @return GenericUser|int User or error code if login failed
      *                         0: Login not found
      *                         1: Password incorrect
+     *                         2: E-Mail not verified
      */
     public function login(string $login, bool $loginWithEmail, string $password): GenericUser|int {
         if($loginWithEmail) {
             $login = strtolower($login);
             $user = $this->getObject([
-                "email" => $login,
-                "emailVerified" => true
+                "email" => $login
             ]);
         } else {
             $user = $this->getObject([
-                "username" => $login,
-                "emailVerified" => true
+                "username" => $login
             ]);
         }
 
         if($user instanceof GenericUser) {
             if(password_verify($password, $user->getPassword())) {
+                if(!$user->getEmailVerified()) {
+                    return 2;
+                }
+
                 return $user;
             }
         } else {
