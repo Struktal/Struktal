@@ -2,31 +2,31 @@ version: "3"
 
 volumes:
     database:
-        driver: local
+        driver: "local"
 
 networks:
     app:
 
 services:
     database:
-        image: mysql:8.2
-        restart: always
+        image: "mysql:8.2"
+        restart: "always"
         environment:
-            MYSQL_ROOT_PASSWORD: root # ADJUST
-            MYSQL_DATABASE: framework-app # ADJUST
-            MYSQL_USER: framework-app # ADJUST
-            MYSQL_PASSWORD: framework-app # ADJUST
+            MYSQL_ROOT_PASSWORD: "root" # ADJUST
+            MYSQL_DATABASE: "framework-app" # ADJUST
+            MYSQL_USER: "framework-app" # ADJUST
+            MYSQL_PASSWORD: "framework-app" # ADJUST
         volumes:
-            - database:/var/lib/mysql
+            - "database:/var/lib/mysql"
         networks:
-            - app
+            - "app"
 
     web:
-        image: ghcr.io/jensostertag/bugy-projekttage:latest # ADJUST
-        restart: always
+        image: "ghcr.io/jensostertag/php-framework:latest" # ADJUST
+        restart: "always"
         volumes:
-            - ./secrets:/app/secrets
+            - "./secrets:/app/secrets"
         ports:
             - "80:80"
         networks:
-            - app
+            - "app"
