@@ -21,7 +21,7 @@ services:
         networks:
             - "app"
 
-    web:
+    app:
         image: "ghcr.io/jensostertag/php-framework:latest" # ADJUST
         restart: "always"
         volumes:

@@ -24,7 +24,7 @@ There are the following files and subdirectories:
   - `📁 dao/` - Predefined DAO classes for predefined objects
   - `📁 lib/` - Libraries of the framework that aren't used often in the frameworks code
   - `📁 object/` - Predefined objects that can be used with the data access object pattern
-- `framework.php` - The primary framework file that imports all necessary files
+- `📄 framework.php` - The primary framework file that imports all necessary files
 
 ### htdocs directory
 The `📁 htdocs/` directory contains all files that are directly accessible via the web server.
@@ -42,6 +42,7 @@ There are the following files and subdirectories:
 - `📁 config/`
   - `app-config.php` - Basic project settings
   - `app-routes.php` - Routes initialization
+- `📁 cronjobs/` - Regularly executed (PHP) scripts
 - `📁 frontend/` - PHP template files that are used to display the frontend
   - `📁 email/` - PHP template files for emails
   - `📁 includes/` - PHP template files that are included in other template files

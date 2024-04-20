@@ -33,6 +33,7 @@ Applications build with this framework can be deployed either on an Apache web s
 When deploying the application on an Apache web server, the following prerequisites have to be met:
 - PHP 8.2 or higher
 - MySQL or MariaDB database (or no database if it's not required by the application)
+  - When deploying the application with Docker, the database is already configured in the Docker Compose infrastructure
 
 If you want to deploy it as a Docker container instead, the following requirements hold:
 - Docker and Docker Compose need to be installed
@@ -74,8 +75,10 @@ The application can be deployed on an Apache web server, which allows you to use
 
 ### Deployment setup - Docker container
 - Create and configure the `📄 docker-compose.yml` file according to your requirements. The easiest way to do this is by simply cloning the newly created repository onto the server that the Docker container should run on, and then configuring it.
-  - Change the `image` name
+  - Change the `image` name / link
+  - Change the access credentials for the database
 - Copy `📄 secrets/config.secret.json` from your local setup to the `📁 secrets/` directory on the server, or configure the file directly on the server, depending on your needs.
+  - Change the database access credentials, as configured in the `📄 docker-compose.yml` file
 - Run `docker-compose up -d` to start the container. This will pull the image from the GitHub Container Registry and start the container.
 
 ## Documentation
@@ -649,6 +652,23 @@ The framework uses the [Pest](https://pestphp.com/) framework to perform unit te
 composer run test
 ```
 or are automatically executed by the GitHub Action pipeline on every push to the `main` branch.
+</details>
+
+<details>
+<summary><b>Create and register cronjobs</b></summary>
+
+To create a new cronjob, create a new (PHP) file in the `📁 project/cronjobs/` directory. The file should contain the code that should be executed when the cronjob is called. If you're writing a PHP script, make sure to include the `📄 project/cronjobs/.cronjob-setup.php` file at the beginning of the script, which allows you to use the framework's features.
+
+Automatically registering cronjobs is only possible when deploying the application in form of a Docker container. To register the cronjob, add a new entry to the `📄 project/cronjobs/app-cronjobs.php` file with the crontab syntax:
+```
+┌───────────── minute (0 - 59)
+│ ┌─────────── hour (0 - 23)
+│ │ ┌───────── day of the month (1 - 31)
+│ │ │ ┌─────── month (1 - 12)
+│ │ │ │ ┌───── day of the week (0 - 6) (Sunday to Saturday)
+│ │ │ │ │
+* * * * * command to be executed
+```
 </details>
 
 <details>
