@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 
+dpkg-reconfigure --frontend noninteractive tzdata
+
 echo "$(hostname -i)\t$(hostname) $(hostname).localhost" >> /etc/hosts
 service sendmail start
 

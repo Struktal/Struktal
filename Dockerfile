@@ -5,7 +5,7 @@ ENV DEBCONF_NONINTERACTIVE_SEEN true
 
 # Install required packages
 RUN apt update -y && apt upgrade -y && \
-    apt install -y nginx cron software-properties-common
+    apt install -y tzdata nginx cron software-properties-common
 
 # Install PHP packages
 RUN add-apt-repository ppa:ondrej/php && \
@@ -21,7 +21,8 @@ COPY ./docker/nginx-config /etc/nginx
 COPY ./docker/entrypoint.sh /app
 
 # Complete application setup
-RUN chown -R www-data:www-data /app && \
+RUN mkdir -p /app/logs && \
+    chown -R www-data:www-data /app && \
     chmod +x /app/entrypoint.sh && \
     crontab -u www-data /app/project/cronjobs/.crontab && \
     cd /app && composer install --no-dev --no-interaction

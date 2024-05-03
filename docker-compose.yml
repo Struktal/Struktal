@@ -12,6 +12,7 @@ services:
         image: "mysql:8.2"
         restart: "always"
         environment:
+            TZ: "Europe/Berlin" # ADJUST
             MYSQL_ROOT_PASSWORD: "root" # ADJUST
             MYSQL_DATABASE: "framework-app" # ADJUST
             MYSQL_USER: "framework-app" # ADJUST
@@ -24,8 +25,11 @@ services:
     app:
         image: "ghcr.io/jensostertag/php-framework:latest" # ADJUST
         restart: "always"
+        environment:
+            TZ: "Europe/Berlin" # ADJUST
         volumes:
             - "./secrets:/app/secrets"
+            - "./app-logs:/app/logs"
         ports:
             - "80:80"
         networks:
