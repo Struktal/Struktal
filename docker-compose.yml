@@ -34,3 +34,15 @@ services:
             - "80:80"
         networks:
             - "app"
+
+    backup:
+        image: "ghcr.io/jensostertag/mysql-backup:latest"
+        restart: "always"
+        environment:
+            TZ: "Europe/Berlin" # ADJUST
+            DB_HOST: "database"
+            DB_USER: "framework-app" # ADJUST
+            DB_PASS: "framework-app" # ADJUST
+            DB_DATABASE: "framework-app" # ADJUST
+        volumes:
+            - "./database-backup:/backup"

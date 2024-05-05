@@ -27,7 +27,9 @@ This framework is designed to simplify web development by providing a scalable a
 - Accessible **SEO settings** which define how the website should be displayed by search engines and social media platforms
 
 ### Deployment options
-Applications build with this framework can be deployed either on an Apache web server or in form of a Docker container which runs a nginx web server.
+Applications build with this framework can be deployed either on an Apache web server or in form of a Docker container which runs a nginx web server. 
+
+The `📄 docker-compose.yml` file provides a Docker Compose infrastructure, which includes the application itself, a MySQL database and a backup service that creates a backup of the database every four hours, by using the `mysqldump` command.
 
 ### Prerequisites
 When deploying the application on an Apache web server, the following prerequisites have to be met:
