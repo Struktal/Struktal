@@ -1,12 +1,9 @@
-#!/usr/bin/env sh
+#!/bin/sh
 
-dpkg-reconfigure --frontend noninteractive tzdata
+env > /etc/environment
 
-echo "$(hostname -i)\t$(hostname) $(hostname).localhost" >> /etc/hosts
-service sendmail start
-
-service php8.2-fpm start
-service nginx start
-service cron start
+php-fpm82
+nginx
+crond
 
 tail -f /dev/null
