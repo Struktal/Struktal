@@ -1,9 +1,9 @@
 <?php
-    use jensostertag\Templify\Templify;
+use jensostertag\Templify\Templify;
 ?>
 
-<!DOCTYPE html>
-<html>
+    <!DOCTYPE html>
+    <html>
     <head>
         <?php // Encoding ?>
         <meta charset="utf-8">
@@ -14,13 +14,13 @@
         <title><?php
             output(
                 (
-                        Templify::getConfig("WEBSITE_TITLE") !== null ?
-                            Templify::getConfig("WEBSITE_TITLE") . " - "
-                        :
-                            ""
+                Templify::getConfig("WEBSITE_TITLE") !== null ?
+                    Templify::getConfig("WEBSITE_TITLE") . " - "
+                    :
+                    ""
                 ) . Config::$PROJECT_SETTINGS["WEBSITE_TITLE"]
             );
-        ?></title>
+            ?></title>
         <link rel="icon" href="<?php output(Config::$PROJECT_SETTINGS["PROJECT_FAVICON"]); ?>" type="image/x-icon">
 
         <?php // Basic SEO ?>
@@ -30,14 +30,14 @@
 
         <?php // OpenGraph SEO ?>
         <meta property="og:title" content="<?php
-            output(
-                (
-                    Templify::getConfig("WEBSITE_TITLE") !== null ?
-                        Templify::getConfig("WEBSITE_TITLE") . " - "
-                    :
-                        ""
-                ) . Config::$PROJECT_SETTINGS["WEBSITE_TITLE"]
-            );
+        output(
+            (
+            Templify::getConfig("WEBSITE_TITLE") !== null ?
+                Templify::getConfig("WEBSITE_TITLE") . " - "
+                :
+                ""
+            ) . Config::$PROJECT_SETTINGS["WEBSITE_TITLE"]
+        );
         ?>">
         <meta property="og:description" content="<?php output(SEO::getDescription()); ?>">
         <meta property="og:image" content="<?php output(Config::$SEO_SETTINGS["SEO_IMAGE_PREVIEW"]); ?>">
@@ -50,14 +50,14 @@
         <?php // Twitter SEO ?>
         <meta name="twitter:card" content="summary">
         <meta name="twitter:title" content="<?php
-            output(
-                (
-                    Templify::getConfig("WEBSITE_TITLE") !== null ?
-                        Templify::getConfig("WEBSITE_TITLE") . " - "
-                    :
-                        ""
-                ) . Config::$PROJECT_SETTINGS["WEBSITE_TITLE"]
-            );
+        output(
+            (
+            Templify::getConfig("WEBSITE_TITLE") !== null ?
+                Templify::getConfig("WEBSITE_TITLE") . " - "
+                :
+                ""
+            ) . Config::$PROJECT_SETTINGS["WEBSITE_TITLE"]
+        );
         ?>">
         <meta name="twitter:description" content="<?php output(SEO::getDescription()); ?>">
         <meta name="twitter:image" content="<?php output(Config::$SEO_SETTINGS["SEO_IMAGE_PREVIEW"]); ?>">
@@ -74,57 +74,80 @@
         <meta name="revisit-after" content="<?php output(Config::$SEO_SETTINGS["SEO_REVISIT"]); ?>">
 
         <?php // CSS ?>
-        <link rel="stylesheet" href="<?php output(Router::staticFilePath("css/base.css")); ?>">
-        <link rel="stylesheet" href="<?php output(Router::staticFilePath("css/fonts.css")); ?>">
-
-        <link rel="stylesheet" href="<?php output(Router::staticFilePath("css/header.css")); ?>">
-        <link rel="stylesheet" href="<?php output(Router::staticFilePath("css/footer.css")); ?>">
-        <link rel="stylesheet" href="<?php output(Router::staticFilePath("css/infomessages.css")); ?>">
-
-        <link rel="stylesheet" href="<?php output(Router::staticFilePath("css/project.css")); ?>">
-
-        <script src="<?php output(Router::staticFilePath("js/lib/jquery.min.js")); ?>"></script>
+        <link rel="stylesheet" href="<?php output(Router::staticFilePath("css/style.css")); ?>">
 
         <?php // JavaScript ?>
+        <script src="<?php output(Router::staticFilePath("js/lib/jquery.min.js")); ?>"></script>
         <script src="<?php output(Router::staticFilePath("js/infomessage.js")); ?>"></script>
     </head>
-    <body>
-        <nav>
-            <div class="header-logo">
-                <a href="<?php output(Router::generate(Config::$PROJECT_SETTINGS["PROJECT_URL"])); ?>">
-                    <img src="<?php output(Router::staticFilePath("img/logo.svg")); ?>" alt="Logo">
-                    <span>
+    <body class="bg-background overflow-x-hidden">
+        <header class="flex justify-between items-center min-h-24 px-content-padding-sm md:px-content-padding-md lg:px-content-padding-lg bg-background-header text-font-header">
+            <?php // Logo ?>
+            <div class="whitespace-nowrap">
+                <a href="<?php output(Router::generate(Config::$PROJECT_SETTINGS["PROJECT_URL"])); ?>"
+                   class="flex justify-start items-center uppercase"
+                >
+                    <img src="<?php output(Router::staticFilePath("img/logo.svg")); ?>"
+                         alt="Logo"
+                         class="h-16 w-auto rounded"
+                    >
+                    <span class="hidden sm:block ml-2 font-bold">
                         <?php output(Config::$PROJECT_SETTINGS["PROJECT_NAME"]); ?>
                     </span>
                 </a>
             </div>
 
-            <ul class="header-navigator header-navigator-default">
-                <?php foreach (Config::$MENU_SETTINGS["MENU_SIDEBAR"] as $displayName => $settings): ?>
-                    <li>
-                        <a href="<?php output($settings["route"]); ?>">
-                            <span><?php output($displayName); ?></span>
-                        </a>
-                    </li>
-                    <hr>
-                <?php endforeach; ?>
-            </ul>
+            <?php // Sidebar open button ?>
+            <button id="header-sidebar-open" class="btn">
+                <svg class="w-6 h-6 stroke-current"
+                     viewBox="0 0 24 24"
+                     xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path d="M3 12h18M3 6h18M3 18h18"></path>
+                </svg>
+            </button>
 
-            <div class="header-burger">
-                <div class="l1"></div>
-                <div class="l2"></div>
-                <div class="l3"></div>
+            <?php // Sidebar popup ?>
+            <div class="header-sidebar-popup absolute top-0 right-0 z-200 w-header-sidebar-width-sm sm:w-header-sidebar-width-md md:w-header-sidebar-width-lg h-full p-header-sidebar-padding bg-background-header border-l border-gray translate-x-full transition-all">
+                <div class="flex">
+                    <?php // Sidebar close button ?>
+                    <button class="ml-auto mr-0" id="header-sidebar-close">
+                        <svg class="w-6 h-6 stroke-current"
+                             viewBox="0 0 24 24"
+                             xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path d="M6 18L18 6M6 6l12 12">
+                        </svg>
+                    </button>
+                </div>
+
+                <?php // Sidebar navigation list ?>
+                <nav>
+                    <ul>
+                        <?php foreach (Config::$MENU_SETTINGS["MENU_SIDEBAR"] as $displayName => $settings): ?>
+                            <li class="my-2 text-right">
+                                <a href="<?php output($settings["route"]); ?>">
+                                <span class="hover:border-b-4 transition-all">
+                                    <?php output($displayName); ?>
+                                </span>
+                                </a>
+                            </li>
+                            <hr class="w-full h-px">
+                        <?php endforeach; ?>
+                    </ul>
+                </nav>
             </div>
 
-            <div class="header-dark-background header-dark-background-default"></div>
+            <?php // Sidebar background layer ?>
+            <div class="header-sidebar-background hidden absolute left-0 top-0 w-full h-full z-100 backdrop-blur"></div>
 
             <script type="module">
                 import Sidebar from "<?php output(Router::staticFilePath("js/Sidebar.js")); ?>";
-                Sidebar.init(".header-navigator", ".header-burger", ".header-dark-background");
+                Sidebar.init();
             </script>
-        </nav>
+        </header>
 
-        <main>
+        <main class="px-content-padding-sm mt-4 md:px-content-padding-md lg:px-content-padding-lg min-h-[90vh]">
             <?php
-                Templify::include("infomessages.php");
+            Templify::include("infomessages.php");
             ?>

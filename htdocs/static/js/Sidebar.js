@@ -8,17 +8,8 @@ export const Sidebar = {
 
     /**
      * Initialize the sidebar
-     * @param sidebarSelector Selector string for the sidebar menu
-     * @param burgerSelector Selector string for the burger div
-     * @param darkBackgroundSelector Selector string for the dark background
      */
-    init: (sidebarSelector, burgerSelector, darkBackgroundSelector) => {
-        // Save the sidebar elements
-        Sidebar.elements.sidebar = $(sidebarSelector);
-        Sidebar.elements.burger = $(burgerSelector);
-        Sidebar.elements.darkBackground = $(darkBackgroundSelector);
-        Sidebar.shown = false;
-
+    init: () => {
         Sidebar.setupListeners();
     },
 
@@ -26,9 +17,45 @@ export const Sidebar = {
      * Set up the event listeners for the sidebar
      */
     setupListeners: () => {
-        Sidebar.elements.burger.click((event) => {
-            Sidebar.toggleSidebar();
+        // Click on burger button
+        $("#header-sidebar-open").on("click", () => {
+            Sidebar.openSidebar();
         });
+
+        // Click on close button
+        $("#header-sidebar-close").on("click", () => {
+            Sidebar.closeSidebar();
+        });
+
+        // Click on sidebar backgrund
+        $(".header-sidebar-background").on("click", () => {
+            Sidebar.closeSidebar();
+        });
+    },
+
+    openSidebar: () => {
+        // Show sidebar
+        $(".header-sidebar-popup").removeClass("translate-x-full");
+        $(".header-sidebar-background").removeClass("hidden");
+
+        // Disable scrolling
+        document.querySelector('html').scrollTop = window.scrollY;
+        document.body.style.overflow = 'hidden';
+        document.body.style.position = 'relative';
+        document.querySelector('html').style.overflow = 'hidden';
+        document.querySelector('html').style.position = 'relative';
+    },
+
+    closeSidebar: () => {
+        // Hide sidebar
+        $(".header-sidebar-popup").addClass("translate-x-full");
+        $(".header-sidebar-background").addClass("hidden");
+
+        // Enable scrolling
+        document.body.style.overflow = null;
+        document.body.style.position = null;
+        document.querySelector('html').style.overflow = null;
+        document.querySelector('html').style.position = null;
     },
 
     /**
@@ -38,6 +65,8 @@ export const Sidebar = {
         // Toggle navigator
         Sidebar.elements.sidebar.toggleClass("header-navigator-default");
         Sidebar.elements.sidebar.toggleClass("header-navigator-active");
+
+        //
 
         // Toggle dark background
         Sidebar.elements.darkBackground.toggleClass("header-dark-background-default");
