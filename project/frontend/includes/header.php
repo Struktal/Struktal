@@ -86,7 +86,6 @@
         <script src="<?php output(Router::staticFilePath("js/lib/jquery.min.js")); ?>"></script>
 
         <?php // JavaScript ?>
-        <script src="<?php output(Router::staticFilePath("js/sidebar.js")); ?>"></script>
         <script src="<?php output(Router::staticFilePath("js/infomessage.js")); ?>"></script>
     </head>
     <body>
@@ -119,8 +118,9 @@
 
             <div class="header-dark-background header-dark-background-default"></div>
 
-            <script>
-                let sidebar = new Sidebar(".header-navigator", ".header-burger", ".header-dark-background");
+            <script type="module">
+                import Sidebar from "<?php output(Router::staticFilePath("js/Sidebar.js")); ?>";
+                Sidebar.init(".header-navigator", ".header-burger", ".header-dark-background");
             </script>
         </nav>
 
