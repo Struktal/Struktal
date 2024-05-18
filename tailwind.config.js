@@ -22,7 +22,9 @@ module.exports = {
             "gray": {
                 DEFAULT: "#aaaaaa",
                 "light": "#dddddd",
-                "dark": "#666666"
+                "dark": "#666666",
+                "effect": "#666666",
+                "font": "#ffffff"
             },
             "primary": {
                 DEFAULT: "#2f7cff",
@@ -90,6 +92,12 @@ module.exports = {
     safelist: [
         {
             pattern: /^(bg|border)-infomessage-(info|warning|error|success)-(border|background)$/
+        },
+        {
+            pattern: /^([wh])-full$/
+        },
+        {
+            pattern: /^(bg|border)-(primary|secondary|gray)-(DEFAULT|effect|font)$/
         }
     ]
 }
