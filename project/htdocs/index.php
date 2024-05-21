@@ -1,5 +1,5 @@
 <?php
 
-use jensostertag\Templify\Templify;
+new InfoMessage("Hello World", InfoMessageType::SUCCESS);
 
-Templify::display("index.php");
+echo Blade->run("index");

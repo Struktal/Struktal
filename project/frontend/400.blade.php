@@ -1,0 +1,8 @@
+@component("components.common.appshell")
+    <h1>
+        400
+    </h1>
+    <p>
+        There was an error with your request.
+    </p>
+@endcomponent

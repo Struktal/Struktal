@@ -4,8 +4,8 @@
 require_once(__APP_DIR__ . "/project/src/lib/vendor/autoload.php");
 
 // Setup Composer libraries
-use jensostertag\Templify\Templify;
-Templify::setConfig("TEMPLATE_BASE_DIR", __APP_DIR__ . "/project/frontend");
+use eftec\bladeone\BladeOne;
+const Blade = new BladeOne(__APP_DIR__ . "/project/frontend", __APP_DIR__ . "/project/template-cache", BladeOne::MODE_DEBUG);
 
 // ClassLoader
 require_once(__APP_DIR__ . "/framework/src/ClassLoader.class.php");
