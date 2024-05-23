@@ -33,7 +33,6 @@ $classLoader->loadEnums(__APP_DIR__ . "/framework/src/enum/");
 
 // Load libraries
 $classLoader->loadClasses(__APP_DIR__ . "/framework/src/lib/");
-$classLoader->load(__APP_DIR__ . "/framework/src/lib/methods.php");
 
 // Load objects
 $classLoader->loadClasses(__APP_DIR__ . "/framework/src/object/");

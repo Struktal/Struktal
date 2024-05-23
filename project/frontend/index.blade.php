@@ -1,4 +1,4 @@
-@component("components.common.appshell")
+@component("components.layout.appshell")
     <h1>
         Home
     </h1>

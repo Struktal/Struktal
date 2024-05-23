@@ -7,52 +7,47 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         {{-- Browser tab --}}
-        <title>
-            {{-- TODO --}}
-        </title>
-        <link rel="icon" href="<?php output(Config::$PROJECT_SETTINGS["PROJECT_FAVICON"]); ?>" type="image/x-icon">
+        <title>@if(!empty($title)){{ $title }} - @endif{{ Config::$PROJECT_SETTINGS["PROJECT_NAME"] }}</title>
+        <link rel="icon" href="{{ Config::$PROJECT_SETTINGS["PROJECT_FAVICON"] }}" type="image/x-icon">
 
         {{-- Basic SEO --}}
-        <meta name="description" content="<?php output(SEO::getDescription()); ?>">
-        <meta name="keywords" content="<?php output(implode(", ", Config::$SEO_SETTINGS["SEO_KEYWORDS"])); ?>">
-        <meta name="author" content="<?php output(Config::$PROJECT_SETTINGS["PROJECT_AUTHOR"]); ?>">
+        <meta name="description" content="{{ SEO::getDescription() }}">
+        <meta name="keywords" content="{{ SEO::getKeywords() }}">
+        <meta name="author" content="{{ Config::$PROJECT_SETTINGS["PROJECT_AUTHOR"] }}">
 
         {{-- OpenGraph SEO --}}
-
-        <meta property="og:title" content="{{-- TODO --}}">
-        <meta property="og:description" content="{{-- TODO --}}">
-        <meta property="og:image" content="{{-- TODO --}}">
-        <meta property="og:url" content="{{-- TODO --}}">
-        {{-- TODO --}}
-        <?php if (Config::$SEO_SETTINGS["SEO_OPENGRAPH"]["OPENGRAPH_SITE_NAME"] !== null): ?>
-        <meta property="og:site_name" content="<?php output(Config::$SEO_SETTINGS["SEO_OPENGRAPH"]["OPENGRAPH_SITE_NAME"]); ?>">
-        <?php endif; ?>
+        <meta property="og:title" content="@if(!empty($title)){{ $title }} - @endif{{ Config::$PROJECT_SETTINGS["PROJECT_NAME"] }}">
+        <meta property="og:description" content="{{ SEO::getDescription() }}">
+        <meta property="og:image" content="{{ SEO::getImagePreview() }}">
+        <meta property="og:url" content="{{ Router::getCalledURL() }}">
+        @if(!empty(SEO::getOgSiteName()))
+            <meta property="og:site_name" content="{{ SEO::getOgSiteName() }}">
+        @endif
         <meta property="og:type" content="website">
 
         {{-- Twitter SEO --}}
         <meta name="twitter:card" content="summary">
-        <meta name="twitter:title" content="{{-- TODO --}}">
-        <meta name="twitter:description" content="{{-- TODO --}}">
-        <meta name="twitter:image" content="{{-- TODO --}}">
-        <meta name="twitter:url" content="{{-- TODO --}}">
-        {{-- TODO --}}
-        <?php if (Config::$SEO_SETTINGS["SEO_TWITTER"]["TWITTER_SITE"] !== null): ?>
-        <meta name="twitter:site" content="<?php output(Config::$SEO_SETTINGS["SEO_TWITTER"]["TWITTER_SITE"]); ?>">
-        <?php endif; ?>
-        <?php if (Config::$SEO_SETTINGS["SEO_TWITTER"]["TWITTER_CREATOR"] !== null): ?>
-        <meta name="twitter:creator" content="{{-- TODO --}}">
-        <?php endif; ?>
+        <meta name="twitter:title" content="@if(!empty($title)){{ $title }} - @endif{{ Config::$PROJECT_SETTINGS["PROJECT_NAME"] }}">
+        <meta name="twitter:description" content="{{ SEO::getDescription() }}">
+        <meta name="twitter:image" content="{{ SEO::getImagePreview() }}">
+        <meta name="twitter:url" content="{{ Router::getCalledURL() }}">
+        @if(!empty(SEO::getTwitterSite()))
+            <meta name="twitter:site" content="{{ SEO::getTwitterSite() }}">
+        @endif
+        @if(!empty(SEO::getTwitterCreator()))
+            <meta name="twitter:creator" content="{{ SEO::getTwitterCreator() }}">
+        @endif
 
         {{-- Indexing --}}
-        <meta name="robots" content="<?php output(implode(", ", SEO::getRobots())); ?>">
-        <meta name="revisit-after" content="<?php output(Config::$SEO_SETTINGS["SEO_REVISIT"]); ?>">
+        <meta name="robots" content="{{ SEO::getRobots() }}">
+        <meta name="revisit-after" content="{{ SEO::getRevisitAfter() }}">
 
         {{-- CSS --}}
-        <link rel="stylesheet" href="<?php output(Router::staticFilePath("css/style.css")); ?>">
+        <link rel="stylesheet" href="{{ Router::staticFilePath("css/style.css") }}">
 
         {{-- JavaScript --}}
-        <script src="<?php output(Router::staticFilePath("js/lib/jquery.min.js")); ?>"></script>
-        <script src="<?php output(Router::staticFilePath("js/infomessage.js")); ?>"></script>
+        <script src="{{ Router::staticFilePath("js/lib/jquery.min.js") }}"></script>
+        <script src="{{ Router::staticFilePath("js/infomessage.js") }}"></script>
     </head>
     <body class="bg-background overflow-x-hidden">
         <header class="flex justify-between items-center min-h-24 px-content-padding-sm md:px-content-padding-md lg:px-content-padding-lg bg-background-header text-font-header">
@@ -97,8 +92,7 @@
 
                 {{-- Sidebar navigation list --}}
                 <nav>
-                    @include("components.common.sidebar")
-                    {{-- TODO --}}
+                    @include("components.layout.sidebar")
                 </nav>
             </div>
 
@@ -112,7 +106,7 @@
         </header>
 
         <main class="px-content-padding-sm mt-4 md:px-content-padding-md lg:px-content-padding-lg min-h-[90vh]">
-            @include("components.common.infomessagelist")
+            @include("components.layout.infomessagelist")
 
             {!! $slot !!}
         </main>
@@ -135,7 +129,7 @@
                         &copy;&nbsp;2020&nbsp;-&nbsp;{{ (new DateTime())->format("Y") }}
                     </span>
                     <span>
-                        <?php output(Config::$PROJECT_SETTINGS["PROJECT_AUTHOR"]); ?>
+                        {{ Config::$PROJECT_SETTINGS["PROJECT_AUTHOR"] }}
                     </span>
                 </div>
 

@@ -1,5 +1,5 @@
 <ul>
-    @component("components.common.sidebarlistitem", [
+    @component("components.layout.sidebarlistitem", [
         "href" => Router::generate("index"),
     ])
         Home

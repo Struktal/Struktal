@@ -26,22 +26,70 @@ class SEO {
     }
 
     /**
+     * Returns the website's keywords
+     * @return string
+     */
+    public static function getKeywords(): string {
+        return implode(", ", Config::$SEO_SETTINGS["SEO_KEYWORDS"]);
+    }
+
+    /**
+     * Returns the link to the preview image
+     * @return string
+     */
+    public static function getImagePreview(): string {
+        return Config::$SEO_SETTINGS["SEO_IMAGE_PREVIEW"];
+    }
+
+    /**
+     * Returns the OpenGraph site name
+     * @return string|null
+     */
+    public static function getOgSiteName(): ?string {
+        return Config::$SEO_SETTINGS["SEO_OPENGRAPH"]["OPENGRAPH_SITE_NAME"];
+    }
+
+    /**
+     * Returns the Twitter site name
+     * @return string|null
+     */
+    public static function getTwitterSite(): ?string {
+        return Config::$SEO_SETTINGS["SEO_TWITTER"]["TWITTER_SITE"];
+    }
+
+    /**
+     * Returns the Twitter creator
+     * @return string|null
+     */
+    public static function getTwitterCreator(): ?string {
+        return Config::$SEO_SETTINGS["SEO_TWITTER"]["TWITTER_CREATOR"];
+    }
+
+    /**
+     * Returns the value for the robots meta tag
+     * @return string
+     */
+    public static function getRobots(): string {
+        if(self::$unlisted) {
+            return implode(", ", ["noindex, nofollow"]);
+        } else {
+            return implode(", ", Config::$SEO_SETTINGS["SEO_ROBOTS"]);
+        }
+    }
+
+    /**
+     * Returns the value for the revisit-after meta tag
+     * @return string
+     */
+    public static function getRevisitAfter(): string {
+        return Config::$SEO_SETTINGS["SEO_REVISIT"];
+    }
+
+    /**
      * Hides the page from search engines
      * @return void
      */
     public static function setUnlisted(): void {
         self::$unlisted = true;
-    }
-
-    /**
-     * Returns the values for the robots meta tag
-     * @return array
-     */
-    public static function getRobots(): array {
-        if(self::$unlisted) {
-            return ["noindex", "nofollow"];
-        } else {
-            return Config::$SEO_SETTINGS["SEO_ROBOTS"];
-        }
     }
 }
