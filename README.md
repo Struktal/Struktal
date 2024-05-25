@@ -115,7 +115,7 @@ Logger::getLogger("TAG")->error("MESSAGE");
 
 To create a new page for the website, create a new PHP file that should get executed when the user visits the page. The file should be located in the `📁 project/htdocs/` directory. There are no limitations what you can do in the script, but it's not recommended to output HTML code or other content directly (exception: you want to send JSON responses, please take a look at the corresponding tutorial or the [`Comm` class documentation](/docs/comm.md)). 
 
-Instead, to output content, create a PHP template file in the `📁 project/frontend/` directory. A template file is a normal PHP File that is specialized for outputting content. This separation not only takes care of a better overview, it also separates the logic from the view. For further information about template files, please take a look at the [template documentation](/docs/template.md) or the <a href="https://github.com/JensOstertag/php-templify">Templify documentation</a>.
+Instead, to output content, create a PHP template file in the `📁 project/frontend/` directory. A template file contains the rendering instructions for a page. This separation not only takes care of a better overview, it also separates the logic from the view. For further information about template files, please take a look at the [template documentation](/docs/template.md) or the <a href="https://github.com/EFTEC/BladeOne">BladeOne documentation</a>.
 
 Have a look at the following example:
 
@@ -123,38 +123,21 @@ Have a look at the following example:
 ```php
 <?php
 
-use jensostertag\Templify\Templify;
-
 // Assign a variable
 $variable = "Hello World!";
 
 // Load the template
-Templify::display("example.php", ["variable" => $variable]);
+Blade->run("example", ["variable" => $variable]);
 ```
-This file is the script that gets executed when the user visits the page. In this example, a variable is assigned and the template `example.php` is loaded.
+This file is the script that gets executed when the user visits the page. In this example, a variable is assigned and the template `example.blade.php` is loaded.
 
-`📄 project/frontend/example.php`:
-```php
-<?php
-use jensostertag\Templify\Templify;
-
-// Set the website title and include the header template
-Templify::setConfig("WEBSITE_TITLE", "Title");
-Templify::include("header.php");
-?>
-
-<?php output($variable); ?>
-
-<?php
-use jensostertag\Templify\Templify;
-
-// Include the footer template
-Templify::include("footer.php");
-?>
+`📄 project/frontend/example.blade.php`:
+```blade
+@component("components.layout.appshell", ["title" => "Example"])
+    {{ $variable }}
+@endcomponent
 ```
-This is the template file. It sets a website title and includes the header and footer template files located in the `📁 project/htdocs/frontend/includes/` directory. The variable that was assigned in the script is then outputted. The `output` function is a helper function that is used to output content. It takes care of escaping HTML characters. If there is a need to output unescaped content, the default `echo` function can be used instead.
-
-> <b>Note:</b> You could also use [PHP short tags](https://www.php.net/manual/en/language.basic-syntax.phptags.php) within the template file, but make sure that they are enabled in your PHP configuration before doing so.
+This is the template file. It sets a website title and includes the app shell component which contains the HTML head contents, and a generic body with header and footer. The variable that was assigned in the script is then outputted.
 
 To learn how to set up a route for your newly created page, take a look at the next tutorial.
 </details>
@@ -697,8 +680,8 @@ Further information about the framework and its features are available in [the d
 
 ## Dependencies
 This framework contains the following dependencies:
+- **BladeOne** - GitHub: [EFTEC/BladeOne](https://github.com/EFTEC/BladeOne), licensed under [MIT license](https://github.com/EFTEC/BladeOne/blob/master/LICENSE)
 - **pest** - GitHub: [pestphp/pest](https://github.com/pestphp/pest), licensed under [MIT license](https://github.com/pestphp/pest/blob/2.x/LICENSE.md)
-- **Templify** - GitHub: [JensOstertag/templify](https://github.com/JensOstertag/templify), licensed under [MIT license](https://github.com/JensOstertag/templify/blob/main/LICENSE)
 - **Curl-Adapter** - GitHub: [JensOstertag/curl-adapter](https://github.com/JensOstertag/curl-adapter), licensed under [MIT license](https://github.com/JensOstertag/curl-adapter/blob/main/LICENSE-MIT) 
 - **GeocodingUtil** - GitHub: [JensOstertag/geocoding-util](https://github.com/JensOstertag/geocoding-util), licensed under [GPL-2.0 license](https://github.com/JensOstertag/geocoding-util/blob/main/LICENSE-GPL2)
 - **UploadHelper** - GitHub: [JensOstertag/uploadhelper](https://github.com/JensOstertag/uploadhelper), licensed under [MIT license](https://github.com/JensOstertag/uploadhelper/blob/main/LICENSE-MIT)
