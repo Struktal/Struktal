@@ -40,6 +40,9 @@ $classLoader->loadClasses(__APP_DIR__ . "/framework/src/object/");
 // Load DAOs
 $classLoader->loadClasses(__APP_DIR__ . "/framework/src/dao/");
 
+// Load utils
+$classLoader->loadClasses(__APP_DIR__ . "/framework/src/util/");
+
 // Load extra enums and classes
 foreach(Config::$CLASS_LOADER_SETTINGS["CLASS_LOADER_IMPORT_PATHS"] as $path) {
     $classLoader->loadEnums($path);
