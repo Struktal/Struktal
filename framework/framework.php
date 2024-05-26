@@ -4,8 +4,8 @@
 require_once(__APP_DIR__ . "/project/src/lib/vendor/autoload.php");
 
 // Setup Composer libraries
-use jensostertag\Templify\Templify;
-Templify::setConfig("TEMPLATE_BASE_DIR", __APP_DIR__ . "/project/frontend");
+use eftec\bladeone\BladeOne;
+const Blade = new BladeOne(__APP_DIR__ . "/project/frontend", __APP_DIR__ . "/project/template-cache", BladeOne::MODE_DEBUG);
 
 // ClassLoader
 require_once(__APP_DIR__ . "/framework/src/ClassLoader.class.php");
@@ -33,13 +33,15 @@ $classLoader->loadEnums(__APP_DIR__ . "/framework/src/enum/");
 
 // Load libraries
 $classLoader->loadClasses(__APP_DIR__ . "/framework/src/lib/");
-$classLoader->load(__APP_DIR__ . "/framework/src/lib/methods.php");
 
 // Load objects
 $classLoader->loadClasses(__APP_DIR__ . "/framework/src/object/");
 
 // Load DAOs
 $classLoader->loadClasses(__APP_DIR__ . "/framework/src/dao/");
+
+// Load utils
+$classLoader->loadClasses(__APP_DIR__ . "/framework/src/util/");
 
 // Load extra enums and classes
 foreach(Config::$CLASS_LOADER_SETTINGS["CLASS_LOADER_IMPORT_PATHS"] as $path) {

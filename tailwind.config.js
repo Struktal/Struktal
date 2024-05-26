@@ -90,14 +90,19 @@ module.exports = {
     },
     plugins: [],
     safelist: [
+        "w-full", "h-full",
+        "flex", "items-center", "gap-1",
+        "text-sm", "font-bold", "data-[required]:after:content-['*'] data-[required]:after:text-primary",
+        "px-2", "py-1", "px-4", "py-2",
+        "border", "outline-primary", "rounded", "placeholder:text-font-light",
         {
             pattern: /^(bg|border)-infomessage-(info|warning|error|success)-(border|background)$/
         },
         {
-            pattern: /^([wh])-full$/
+            pattern: /^(bg|border|text)-(primary|secondary|gray)$/
         },
         {
-            pattern: /^(bg|border)-(primary|secondary|gray)-(DEFAULT|effect|font)$/
+            pattern: /^(bg|border|text)-(primary|secondary|gray)-(DEFAULT|effect|font)$/
         }
     ]
 }

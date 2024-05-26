@@ -17,3 +17,6 @@ vendor/
 
 # Ignore backup files
 /database-backup/
+
+# Ignore template cache files
+/project/template-cache/

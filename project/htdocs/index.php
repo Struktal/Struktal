@@ -1,5 +1,3 @@
 <?php
 
-use jensostertag\Templify\Templify;
-
-Templify::display("index.php");
+echo Blade->run("index");
