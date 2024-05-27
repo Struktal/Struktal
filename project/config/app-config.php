@@ -40,6 +40,12 @@ Config::$DB_SETTINGS["DB_NAME"] = Config::configSecret()["DATABASE_SETTINGS"]["D
 Config::$DB_SETTINGS["DB_USE"] = Config::configSecret()["DATABASE_SETTINGS"]["DB_USE"] ?? true;
 
 // Mail settings
+Config::$MAIL_SETTINGS["MAIL_SMTP_HOST"] = Config::configSecret()["MAIL_SETTINGS"]["MAIL_SMTP_HOST"] ?? "localhost";
+Config::$MAIL_SETTINGS["MAIL_SMTP_PORT"] = Config::configSecret()["MAIL_SETTINGS"]["MAIL_SMTP_PORT"] ?? 25;
+Config::$MAIL_SETTINGS["MAIL_SMTP_USER"] = Config::configSecret()["MAIL_SETTINGS"]["MAIL_SMTP_USER"] ?? "username";
+Config::$MAIL_SETTINGS["MAIL_SMTP_PASS"] = Config::configSecret()["MAIL_SETTINGS"]["MAIL_SMTP_PASS"] ?? "password";
+Config::$MAIL_SETTINGS["MAIL_SMTP_SECURE"] = Config::configSecret()["MAIL_SETTINGS"]["MAIL_SMTP_SECURE"] ?? "tls";
+Config::$MAIL_SETTINGS["MAIL_SMTP_AUTH"] = Config::configSecret()["MAIL_SETTINGS"]["MAIL_SMTP_AUTH"] ?? true;
 Config::$MAIL_SETTINGS["MAIL_DEFAULT_SENDER_EMAIL"] = Config::configSecret()["MAIL_SETTINGS"]["MAIL_DEFAULT_SENDER_EMAIL"] ?? "mail@framework";
 Config::$MAIL_SETTINGS["MAIL_DEFAULT_SENDER_NAME"] = Config::configSecret()["MAIL_SETTINGS"]["MAIL_DEFAULT_SENDER_NAME"] ?? "Framework";
 Config::$MAIL_SETTINGS["MAIL_DEFAULT_REPLY_TO"] = Config::configSecret()["MAIL_SETTINGS"]["MAIL_DEFAULT_REPLY_TO"] ?? "mail@framework";
