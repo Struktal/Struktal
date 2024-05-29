@@ -40,7 +40,6 @@ When deploying the application on an Apache web server, the following prerequisi
 If you want to deploy it as a Docker container instead, the following requirements hold:
 - Docker and Docker Compose need to be installed
 - The container has to be accessible from outside (e.g. by using a reverse proxy)
-- Other limitations that depend on the server infrastructure may occur (e.g. sending emails by the default `mail` method is currently not possible) and have to be fixed manually (please share your learnings about these problems and your fixes)
 
 ## Project setup
 
@@ -550,25 +549,28 @@ Here, the `URL` is also replaced by the URL of the server that you want to send 
 </details>
 
 <details>
-<summary><b>Using the mail helper class</b></summary>
+<summary><b>Using the mail wrapper class</b></summary>
 
-You can use the `Mail` class to send emails. To do that, use
+You can use the `Mail` class, which is a wrapper for the [PHPMailer](https://github.com/PHPMailer/PHPMailer) library, to send emails. To do that, use
 ```php
 // Initialize the mail object
 $mail = new Mail();
-$mail->setSenderEmail("SENDER_EMAIL");
-$mail->setSenderName("SENDER_NAME");
-$mail->setReplyTo("REPLY_TO");
-$mail->setSubject("SUBJECT");
-$mail->setMessage("MESSAGE");
-
-// Send the mail either as plain text or as HTML
-$mail->sendTextMail("RECIPIENT_EMAIL");
-$mail->sendHTMLMail("RECIPIENT_EMAIL");
+$mail->addRecipient("RECIPIENT_EMAIL")
+    ->setSubject("SUBJECT")
+    ->setTextBody("MESSAGE"),
+    ->send();
 ```
-with `SENDER_EMAIL` being the displayed sender email address, `SENDER_NAME` the displayed sender name, `REPLY_TO` the email address that should be used as reply-to address, `SUBJECT` the mail's subject, `MESSAGE` it's body and `RECIPIENT_EMAIL` the email address the mail should be sent to.
-
-The mail's body can be formatted as plain text or as HTML. To send it as plain text, use the `sendTextMail` method, if you want to send an HTML mail, use the `sendHTMLMail` method. The difference between both methods is that the `sendHTMLMail` method will add the `Content-Type: text/html` header to the mail.
+with `RECIPIENT_EMAIL` being the email address the mail should be sent to, `SUBJECT` the mail's subject and `MESSAGE` it's body. The `send` method sends the mail. In this case, a plain-text email is sent, because the HTML body wasn't set. This can be done by calling `setHtmlBody`.
+There are other methods that can be used in the initialization of the mail object:
+- `setSender("SENDER_EMAIL", "SENDER_NAME")`: Overrides the default (config) values for the sender details
+- `setReplyTo("REPLTYTO_EMAIL", "REPLYTO_NAME")`: Overrides the default (config) values for the reply-to details
+- `addRecipient("EMAIL", "NAME")`: Adds a recipient
+- `addCcRecipient("EMAIL", "NAME")`: Adds a recipient to CC
+- `addBccRecipient("EMAIL", "NAME")`: Adds a recipient to BCC
+- `setSubject("SUBJECT")`: Sets the subject of the sent email
+- `setHtmlBody("MESSAGE")`: Sets the HTML body of the email and indicates that an HTML email should be sent
+- `setTextBody("MESSAGE")`: Sets the plain-text body of the email
+- `addAttachment("FILE_PATH", "FILE_NAME")`: Adds a file attachment to the email
 </details>
 
 <details>
@@ -682,6 +684,7 @@ Further information about the framework and its features are available in [the d
 This framework contains the following dependencies:
 - **BladeOne** - GitHub: [EFTEC/BladeOne](https://github.com/EFTEC/BladeOne), licensed under [MIT license](https://github.com/EFTEC/BladeOne/blob/master/LICENSE)
 - **pest** - GitHub: [pestphp/pest](https://github.com/pestphp/pest), licensed under [MIT license](https://github.com/pestphp/pest/blob/2.x/LICENSE.md)
+- **PHPMailer** - GitHub: [PHPMailer/PHPMailer](https://github.com/PHPMailer/PHPMailer), licensed under [LGPL-2.1 license](https://github.com/PHPMailer/PHPMailer/blob/master/LICENSE)
 - **Curl-Adapter** - GitHub: [JensOstertag/curl-adapter](https://github.com/JensOstertag/curl-adapter), licensed under [MIT license](https://github.com/JensOstertag/curl-adapter/blob/main/LICENSE-MIT) 
 - **GeocodingUtil** - GitHub: [JensOstertag/geocoding-util](https://github.com/JensOstertag/geocoding-util), licensed under [GPL-2.0 license](https://github.com/JensOstertag/geocoding-util/blob/main/LICENSE-GPL2)
 - **UploadHelper** - GitHub: [JensOstertag/uploadhelper](https://github.com/JensOstertag/uploadhelper), licensed under [MIT license](https://github.com/JensOstertag/uploadhelper/blob/main/LICENSE-MIT)
