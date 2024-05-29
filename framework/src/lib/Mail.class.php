@@ -12,8 +12,8 @@ class Mail {
     private array $bccRecipients;
 
     private string $subject;
-    private string $body;
-    private string $altBody;
+    private string $htmlBody;
+    private string $textBody;
     private array $attachments;
 
     public function __construct() {
@@ -39,8 +39,8 @@ class Mail {
         ];
 
         $this->subject = Config::$MAIL_SETTINGS["MAIL_DEFAULT_SUBJECT"];
-        $this->body = "";
-        $this->altBody = "";
+        $this->htmlBody = "";
+        $this->textBody = "";
         $this->attachments = [];
     }
 
@@ -84,13 +84,13 @@ class Mail {
         return $this;
     }
 
-    public function setBody(string $body): Mail {
-        $this->body = $body;
+    public function setHtmlBody(string $htmlBody): Mail {
+        $this->htmlBody = $htmlBody;
         return $this;
     }
 
-    public function setAltBody(string $altBody): Mail {
-        $this->altBody = $altBody;
+    public function setTextBody(string $textBody): Mail {
+        $this->textBody = $textBody;
         return $this;
     }
 
@@ -101,7 +101,7 @@ class Mail {
         return $this;
     }
 
-    public function send(bool $isHtml): void {
+    public function send(): void {
         $this->mail->setFrom($this->sender[0], $this->sender[1]);
         $this->mail->addReplyTo($this->replyTo[0], $this->replyTo[1] ?? "");
 
@@ -129,10 +129,14 @@ class Mail {
             $this->mail->addAddress($redirect);
         }
 
-        $this->mail->isHTML($isHtml);
+        $this->mail->isHTML(!empty($this->htmlBody));
         $this->mail->Subject = $this->subject;
-        $this->mail->Body = $this->body;
-        $this->mail->AltBody = $this->altBody;
+        if(!empty($this->htmlBody)) {
+            $this->mail->Body = $this->htmlBody;
+            $this->mail->AltBody = $this->textBody;
+        } else {
+            $this->mail->Body = $this->textBody;
+        }
 
         foreach($this->attachments as $attachment) {
             $filePath = $attachment[0];
