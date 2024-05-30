@@ -5,7 +5,7 @@ RUN apk update && apk upgrade
 RUN apk --no-cache add tzdata
 
 # Install nginx and PHP
-RUN apk --no-cache add nginx php php-fpm composer
+RUN apk --no-cache add nginx php php-fpm composer git
 
 # Install PHP packages
 RUN apk --no-cache add php-session php-tokenizer php-mysqli php-pdo php-pdo_mysql php-curl php-gd php-intl php-mbstring php-xml

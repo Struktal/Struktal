@@ -3,15 +3,6 @@
 // Autoload Composer libraries
 require_once(__APP_DIR__ . "/project/src/lib/vendor/autoload.php");
 
-// Setup Composer libraries
-use eftec\bladeone\BladeOne;
-const Blade = new BladeOne(__APP_DIR__ . "/project/frontend", __APP_DIR__ . "/project/template-cache", BladeOne::MODE_DEBUG);
-$loggedInUser = Auth::getLoggedInUser();
-if($loggedInUser instanceof User) {
-    Blade->setAuth($loggedInUser->getUsername(), $loggedInUser->getPermissionLevel());
-}
-unset($loggedInUser);
-
 // ClassLoader
 require_once(__APP_DIR__ . "/framework/src/ClassLoader.class.php");
 $classLoader = ClassLoader::getInstance();
@@ -52,6 +43,15 @@ foreach(Config::$CLASS_LOADER_SETTINGS["CLASS_LOADER_IMPORT_PATHS"] as $path) {
 }
 
 unset($classLoader);
+
+// Setup Composer libraries
+use eftec\bladeone\BladeOne;
+const Blade = new BladeOne(__APP_DIR__ . "/project/frontend", __APP_DIR__ . "/project/template-cache", BladeOne::MODE_DEBUG);
+$loggedInUser = Auth::getLoggedInUser();
+if($loggedInUser instanceof User) {
+    Blade->setAuth($loggedInUser->getUsername(), $loggedInUser->getPermissionLevel());
+}
+unset($loggedInUser);
 
 // Setup timezone
 date_default_timezone_set(Config::$PROJECT_SETTINGS["TIMEZONE"]);
