@@ -1,72 +1,149 @@
 <?php
 
+use \PHPMailer\PHPMailer\PHPMailer;
+
 class Mail {
-    private string $senderEmail;
-    private string $senderName;
-    private string $replyTo;
+    private PHPMailer $mail;
+
+    private array $sender;
+    private array $replyTo;
+    private array $recipients;
+    private array $ccRecipients;
+    private array $bccRecipients;
+
     private string $subject;
-    private string $message;
+    private string $htmlBody;
+    private string $textBody;
+    private array $attachments;
 
     public function __construct() {
-        $this->senderEmail = Config::$MAIL_SETTINGS["MAIL_DEFAULT_SENDER_EMAIL"];
-        $this->senderName = Config::$MAIL_SETTINGS["MAIL_DEFAULT_SENDER_NAME"];
-        $this->replyTo = Config::$MAIL_SETTINGS["MAIL_DEFAULT_REPLY_TO"];
+        $this->mail = new PHPMailer();
+        $this->mail->isSMTP();
+        $this->mail->Host = Config::$MAIL_SETTINGS["MAIL_SMTP_HOST"];
+        $this->mail->Port = Config::$MAIL_SETTINGS["MAIL_SMTP_PORT"];
+        $this->mail->SMTPAuth = Config::$MAIL_SETTINGS["MAIL_SMTP_AUTH"];
+        $this->mail->Username = Config::$MAIL_SETTINGS["MAIL_SMTP_USER"];
+        $this->mail->Password = Config::$MAIL_SETTINGS["MAIL_SMTP_PASS"];
+        $this->mail->SMTPSecure = Config::$MAIL_SETTINGS["MAIL_SMTP_SECURE"];
+
+        $this->recipients = [];
+        $this->ccRecipients = [];
+        $this->bccRecipients = [];
+        $this->sender = [
+            Config::$MAIL_SETTINGS["MAIL_DEFAULT_SENDER_EMAIL"],
+            Config::$MAIL_SETTINGS["MAIL_DEFAULT_SENDER_NAME"]
+        ];
+        $this->replyTo = [
+            Config::$MAIL_SETTINGS["MAIL_DEFAULT_REPLY_TO"],
+            null
+        ];
+
         $this->subject = Config::$MAIL_SETTINGS["MAIL_DEFAULT_SUBJECT"];
-        $this->message = "";
+        $this->htmlBody = "";
+        $this->textBody = "";
+        $this->attachments = [];
     }
 
-    public function setSenderEmail($senderEmail): Mail {
-        $this->senderEmail = $senderEmail;
+    public function setSender(string $email, ?string $name = null): Mail {
+        $this->sender = [
+            $email, $name
+        ];
         return $this;
     }
 
-    public function setSenderName($senderName): Mail {
-        $this->senderName = $senderName;
+    public function setReplyTo(string $email, ?string $name = null): Mail {
+        $this->replyTo = [
+            $email, $name
+        ];
         return $this;
     }
 
-    public function setReplyTo($replyTo): Mail {
-        $this->replyTo = $replyTo;
+    public function addRecipient(string $email, ?string $name = null): Mail {
+        $this->recipients[] = [
+            $email, $name
+        ];
         return $this;
     }
 
-    public function setSubject($subject): Mail {
+    public function addCcRecipient(string $email, ?string $name = null): Mail {
+        $this->ccRecipients[] = [
+            $email, $name
+        ];
+        return $this;
+    }
+
+    public function addBccRecipients(string $email, ?string $name = null): Mail {
+        $this->bccRecipients[] = [
+            $email, $name
+        ];
+        return $this;
+    }
+
+    public function setSubject(string $subject): Mail {
         $this->subject = $subject;
         return $this;
     }
 
-    public function setMessage($message): Mail {
-        $this->message = $message;
+    public function setHtmlBody(string $htmlBody): Mail {
+        $this->htmlBody = $htmlBody;
         return $this;
     }
 
-    public function sendHTMLMail($recipient): void {
-        $header = "MIME-Version: 1.0" . PHP_EOL;
-        $header .= "Content-type: text/html; charset=utf-8" . PHP_EOL;
-        $header .= "From: " . $this->senderName . " <" . $this->senderEmail . ">" . PHP_EOL;
-        $header .= "Reply-To: " . $this->replyTo . PHP_EOL;
-        $header .= "X-Mailer: PHP/" . phpversion();
-
-        if(Config::$MAIL_SETTINGS["MAIL_REDIRECT_ALL_MAILS"]) {
-            $recipient = Config::$MAIL_SETTINGS["MAIL_REDIRECT_ALL_MAILS_TO"];
-            Logger::getLogger("MAIL")->info("Redirecting mail to " . $recipient);
-        }
-
-        mail($recipient, $this->subject, $this->message, $header);
+    public function setTextBody(string $textBody): Mail {
+        $this->textBody = $textBody;
+        return $this;
     }
 
-    public function sendTextMail($recipient): void {
-        $header = "MIME-Version: 1.0" . PHP_EOL;
-        $header .= "Content-type: text/plain; charset=utf-8" . PHP_EOL;
-        $header .= "From: " . $this->senderName . " <" . $this->senderEmail . ">" . PHP_EOL;
-        $header .= "Reply-To: " . $this->replyTo . PHP_EOL;
-        $header .= "X-Mailer: PHP/" . phpversion();
+    public function addAttachment(string $filePath, ?string $fileName = null): Mail {
+        $this->attachments[] = [
+            $filePath, $fileName
+        ];
+        return $this;
+    }
 
-        if(Config::$MAIL_SETTINGS["MAIL_REDIRECT_ALL_MAILS"]) {
-            $recipient = Config::$MAIL_SETTINGS["MAIL_REDIRECT_ALL_MAILS_TO"];
-            Logger::getLogger("MAIL")->info("Redirecting mail to " . $recipient);
+    public function send(): void {
+        $this->mail->setFrom($this->sender[0], $this->sender[1]);
+        $this->mail->addReplyTo($this->replyTo[0], $this->replyTo[1] ?? "");
+
+        if(!Config::$MAIL_SETTINGS["MAIL_REDIRECT_ALL_MAILS"]) {
+            foreach($this->recipients as $recipient) {
+                $email = $recipient[0];
+                $name = $recipient[1];
+                $this->mail->addAddress($email, $name ?? "");
+            }
+
+            foreach($this->ccRecipients as $recipient) {
+                $email = $recipient[0];
+                $name = $recipient[1];
+                $this->mail->addCC($email, $name ?? "");
+            }
+
+            foreach($this->bccRecipients as $recipient) {
+                $email = $recipient[0];
+                $name = $recipient[1];
+                $this->mail->addBCC($email, $name ?? "");
+            }
+        } else {
+            $redirect = Config::$MAIL_SETTINGS["MAIL_REDIRECT_ALL_MAILS_TO"];
+            Logger::getLogger("MAIL")->info("Redirecting mail to " . $redirect);
+            $this->mail->addAddress($redirect);
         }
 
-        mail($recipient, $this->subject, $this->message, $header);
+        $this->mail->isHTML(!empty($this->htmlBody));
+        $this->mail->Subject = $this->subject;
+        if(!empty($this->htmlBody)) {
+            $this->mail->Body = $this->htmlBody;
+            $this->mail->AltBody = $this->textBody;
+        } else {
+            $this->mail->Body = $this->textBody;
+        }
+
+        foreach($this->attachments as $attachment) {
+            $filePath = $attachment[0];
+            $fileName = $attachment[1];
+            $this->mail->addAttachment($filePath, $fileName);
+        }
+
+        $this->mail->send();
     }
 }

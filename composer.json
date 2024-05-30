@@ -5,6 +5,7 @@
     "require": {
         "php": ">=8.2",
         "eftec/bladeone": "4.13.*",
+        "phpmailer/phpmailer": "~v6.9.1",
         "jensostertag/curl-adapter": "~1.0.0",
         "jensostertag/geocoding-util": "~1.0.0",
         "jensostertag/uploadhelper": "~1.0.0",
