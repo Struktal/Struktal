@@ -77,7 +77,7 @@
             </button>
 
             {{-- Sidebar popup --}}
-            <div class="header-sidebar-popup absolute top-0 right-0 z-200 w-header-sidebar-width-sm sm:w-header-sidebar-width-md md:w-header-sidebar-width-lg h-full p-header-sidebar-padding bg-background-header border-l border-gray translate-x-full transition-all">
+            <div class="header-sidebar-popup absolute top-0 right-0 z-200 w-header-sidebar-width-sm sm:w-header-sidebar-width-md md:w-header-sidebar-width-lg h-full px-header-sidebar-padding py-8 bg-background-header border-l border-gray translate-x-full transition-all">
                 <div class="flex">
                     {{-- Close sidebar button --}}
                     <button class="ml-auto mr-0" id="header-sidebar-close">

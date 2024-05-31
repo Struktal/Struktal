@@ -70,7 +70,7 @@ module.exports = {
                 "content-padding-md": "10%",
                 "content-padding-lg": "15%",
                 "header-logo-height": "5vh",
-                "header-sidebar-width-sm": "90%",
+                "header-sidebar-width-sm": "80%",
                 "header-sidebar-width-md": "55%",
                 "header-sidebar-width-lg": "35%",
                 "header-sidebar-padding": "2.5%",

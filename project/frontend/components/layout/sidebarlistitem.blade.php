@@ -6,4 +6,4 @@
     </a>
 </li>
 
-<hr class="w-full h-px">
+<hr class="w-full h-px bg-gray border-none">
