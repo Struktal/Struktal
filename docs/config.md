@@ -14,8 +14,7 @@ You can modify the following settings:
     - `PROJECT_FAVICON` - URL to the projects favicon
     - `PROJECT_AUTHOR` - The author of the project that is displayed in the footer
     - `PROJECT_VERSION` - The version of the project that is displayed in the footer
-- Menu settings
-    - `MENU_SIDEBAR` - The items shown in the sidebar navigator
+    - `TIMEZONE` - The timezone that should be used by the project
 - Time format settings
     - `DATE_TECHNICAL` - The format of a date that is used by the backend
     - `TIME_TECHNICAL` - The format of a time that is used by the backend
@@ -27,6 +26,7 @@ You can modify the following settings:
     - `LOG_DIRECTORY` - The directory where the logfiles should be stored
     - `LOG_FILENAME` - The filename format of a logfile
     - `LOG_LEVEL` - The minimum importance that is required for a message to get written into a logfile
+    - `LOG_ERROR_REPORT` - The email addresses that should receive an email when an error occurs
 - Database settings
     - `DB_HOST` - Database hostname
     - `DB_USER` - Database username
@@ -34,6 +34,12 @@ You can modify the following settings:
     - `DB_NAME` - Database name
     - `DB_USE` - Whether the database connection should be established upon app start
 - Mail settings
+    - `MAIL_SMTP_HOST` - The hostname of the SMTP server
+    - `MAIL_SMTP_PORT` - The port of the SMTP server
+    - `MAIL_SMTP_USER` - The username of the SMTP server
+    - `MAIL_SMTP_PASS` - The password of the SMTP server
+    - `MAIL_SMTP_SECURE` - The security protocol that should be used for the SMTP connection
+    - `MAIL_SMTP_AUTH` - Whether the SMTP server requires authentication
     - `MAIL_DEFAULT_SENDER_EMAIL` - The default sender email address
     - `MAIL_DEFAULT_SENDER_NAME` - The default sender name
     - `MAIL_DEFAULT_REPLY_TO` - The default reply-to email address

@@ -53,5 +53,38 @@ if($loggedInUser instanceof User) {
 }
 unset($loggedInUser);
 
+// Setup logger
+$sendEmailHandler = function(string $message) {
+    if(empty(Config::$LOG_SETTINGS["LOG_ERROR_REPORT"])) {
+        return;
+    }
+
+    $mail = new Mail();
+    $mail->setSubject("[" . Config::$PROJECT_SETTINGS["PROJECT_NAME"] . "] Error report")
+        ->setTextBody($message);
+    foreach(Config::$LOG_SETTINGS["LOG_ERROR_REPORT"] as $recipient) {
+        $mail->addRecipient($recipient);
+    }
+    $mail->send();
+};
+Logger::addCustomLogHandler(Logger::$LOG_ERROR, $sendEmailHandler);
+Logger::addCustomLogHandler(Logger::$LOG_FATAL, $sendEmailHandler);
+unset($sendEmailHandler);
+
+set_error_handler(function($errno, $errstr, $errfile, $errline) {
+    $message = "Error " . $errno . ": ";
+    $message .= "\"" . $errstr . "\"";
+    $message .= " in " . $errfile . " on line " . $errline;
+    Logger::getLogger("PHP")->error($message);
+});
+
+set_exception_handler(function(Exception $exception) {
+    $message = "Uncaught " . get_class($exception) . ": ";
+    $message .= "\"" . $exception->getMessage() . "\"";
+    $message .= " in " . $exception->getFile() . " on line " . $exception->getLine();
+    $message .= PHP_EOL . $exception->getTraceAsString();
+    Logger::getLogger("PHP")->fatal($message);
+});
+
 // Setup timezone
 date_default_timezone_set(Config::$PROJECT_SETTINGS["TIMEZONE"]);

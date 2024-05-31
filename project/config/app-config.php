@@ -28,9 +28,10 @@ Config::$DATETIME_SETTINGS["TIME_VISUAL"] = "H:i";
 Config::$DATETIME_SETTINGS["DATETIME_VISUAL"] = "d.m.Y H:i";
 
 // Log settings
-Config::$LOG_SETTINGS["LOG_DIRECTORY"] = __APP_DIR__ . "/logs/";
-Config::$LOG_SETTINGS["LOG_FILENAME"] = "log-%date%.log";
-Config::$LOG_SETTINGS["LOG_LEVEL"] = Logger::$LOG_DEBUG;
+Config::$LOG_SETTINGS["LOG_DIRECTORY"] = Config::configSecret()["LOG_SETTINGS"]["LOG_DIRECTORY"] ?? __APP_DIR__ . "/logs/";
+Config::$LOG_SETTINGS["LOG_FILENAME"] = Config::configSecret()["LOG_SETTINGS"]["LOG_FILENAME"] ?? "log-%date%.log";
+Config::$LOG_SETTINGS["LOG_LEVEL"] = Config::configSecret()["LOG_SETTINGS"]["LOG_TRACE"] ?? Logger::$LOG_TRACE;
+Config::$LOG_SETTINGS["LOG_ERROR_REPORT"] = Config::configSecret()["LOG_SETTINGS"]["LOG_ERROR_REPORT"] ?? [];
 
 // Database settings
 Config::$DB_SETTINGS["DB_HOST"] = Config::configSecret()["DATABASE_SETTINGS"]["DB_HOST"] ?? "localhost";
