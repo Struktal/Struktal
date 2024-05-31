@@ -12,13 +12,13 @@ class TailwindUtil {
         return $class;
     }
     public static string $inputLabel = "text-sm font-bold data-[required]:after:content-['*'] data-[required]:after:text-primary";
-    public static string $input = "w-full px-2 py-1 border border-gray outline-primary rounded placeholder:text-font-light";
-    public static string $checkbox = "px-2 py-1 border border-gray outline-primary rounded placeholder:text-font-light";
-    public static string $radio = "px-2 py-1 border border-gray outline-primary rounded placeholder:text-font-light";
-    public static string $textarea = "w-full px-2 py-1 border border-gray outline-primary rounded placeholder:text-font-light";
-    public static string $select = "w-full px-2 py-1 border border-gray outline-primary rounded placeholder:text-font-light";
+    public static string $input = "w-full px-2 py-1 bg-background border border-gray outline-primary rounded placeholder:text-font-light";
+    public static string $checkbox = "px-2 py-1 bg-background border border-gray outline-primary rounded placeholder:text-font-light";
+    public static string $radio = "px-2 py-1 bg-background border border-gray outline-primary rounded placeholder:text-font-light";
+    public static string $textarea = "w-full px-2 py-1 bg-background border border-gray outline-primary rounded placeholder:text-font-light";
+    public static string $select = "w-full px-2 py-1 bg-background border border-gray outline-primary rounded placeholder:text-font-light";
     public static function button(bool $flat = false, string $theme = "primary"): string {
-        $class = "border rounded transition-all ";
+        $class = "inline-flex justify-around border rounded transition-all ";
         if($flat) {
             $class .= "px-2 py-1 ";
         } else {

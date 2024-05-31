@@ -8,6 +8,12 @@ require_once(__APP_DIR__ . "/framework/framework.php");
 
 session_start();
 
+$loggedInUser = Auth::getLoggedInUser();
+if($loggedInUser instanceof User) {
+    Blade->setAuth($loggedInUser->getUsername(), $loggedInUser->getPermissionLevel());
+}
+unset($loggedInUser);
+
 // Start the Router
 $router = new Router();
 $router->startRouter();

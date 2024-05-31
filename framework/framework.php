@@ -47,11 +47,6 @@ unset($classLoader);
 // Setup Composer libraries
 use eftec\bladeone\BladeOne;
 const Blade = new BladeOne(__APP_DIR__ . "/project/frontend", __APP_DIR__ . "/project/template-cache", BladeOne::MODE_DEBUG);
-$loggedInUser = Auth::getLoggedInUser();
-if($loggedInUser instanceof User) {
-    Blade->setAuth($loggedInUser->getUsername(), $loggedInUser->getPermissionLevel());
-}
-unset($loggedInUser);
 
 // Setup logger
 $sendEmailHandler = function(string $message) {
