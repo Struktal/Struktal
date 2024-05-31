@@ -4,6 +4,8 @@
     @elseif($type === InfoMessageType::WARNING) bg-infomessage-warning-background border-infomessage-warning-border
     @elseif($type === InfoMessageType::INFO) bg-infomessage-info-background border-infomessage-info-border
     @else bg-infomessage-none-background border-infomessage-none-border
-    @endif">
+    @endif"
+     data-message-type="{{ $type->getFormatted() }}"
+>
     {{ $slot }}
 </div>
