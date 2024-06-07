@@ -683,6 +683,7 @@ Further information about the framework and its features are available in [the d
 ## Dependencies
 This framework contains the following dependencies:
 - **BladeOne** - GitHub: [EFTEC/BladeOne](https://github.com/EFTEC/BladeOne), licensed under [MIT license](https://github.com/EFTEC/BladeOne/blob/master/LICENSE)
+- **TailwindCSS** - GitHub: [tailwindlabs/tailwindcss](https://github.com/tailwindlabs/tailwindcss), licensed under [MIT license](https://github.com/tailwindlabs/tailwindcss/blob/next/LICENSE)
 - **pest** - GitHub: [pestphp/pest](https://github.com/pestphp/pest), licensed under [MIT license](https://github.com/pestphp/pest/blob/2.x/LICENSE.md)
 - **PHPMailer** - GitHub: [PHPMailer/PHPMailer](https://github.com/PHPMailer/PHPMailer), licensed under [LGPL-2.1 license](https://github.com/PHPMailer/PHPMailer/blob/master/LICENSE)
 - **Curl-Adapter** - GitHub: [JensOstertag/curl-adapter](https://github.com/JensOstertag/curl-adapter), licensed under [MIT license](https://github.com/JensOstertag/curl-adapter/blob/main/LICENSE-MIT) 
