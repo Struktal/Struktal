@@ -18,7 +18,7 @@ class TailwindUtil {
     public static string $textarea = "w-full px-2 py-1 bg-background border border-gray outline-primary rounded placeholder:text-font-light";
     public static string $select = "w-full px-2 py-1 bg-background border border-gray outline-primary rounded placeholder:text-font-light";
     public static function button(bool $flat = false, string $theme = "primary"): string {
-        $class = "inline-flex justify-around border rounded transition-all ";
+        $class = "inline-flex justify-center items-center gap-1 border rounded transition-all ";
         if($flat) {
             $class .= "px-2 py-1 ";
         } else {
