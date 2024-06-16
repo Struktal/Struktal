@@ -36,6 +36,7 @@ export const Sidebar = {
     openSidebar: () => {
         // Show sidebar
         $(".header-sidebar-popup").removeClass("translate-x-full");
+        $(".header-sidebar-popup").removeClass("hidden");
         $(".header-sidebar-background").removeClass("hidden");
 
         // Disable scrolling
@@ -49,6 +50,9 @@ export const Sidebar = {
     closeSidebar: () => {
         // Hide sidebar
         $(".header-sidebar-popup").addClass("translate-x-full");
+        setTimeout(() => {
+            $(".header-sidebar-popup").addClass("hidden");
+        }, 500);
         $(".header-sidebar-background").addClass("hidden");
 
         // Enable scrolling
@@ -56,42 +60,6 @@ export const Sidebar = {
         document.body.style.position = null;
         document.querySelector('html').style.overflow = null;
         document.querySelector('html').style.position = null;
-    },
-
-    /**
-     * Toggle the sidebar visibility
-     */
-    toggleSidebar: () => {
-        // Toggle navigator
-        Sidebar.elements.sidebar.toggleClass("header-navigator-default");
-        Sidebar.elements.sidebar.toggleClass("header-navigator-active");
-
-        //
-
-        // Toggle dark background
-        Sidebar.elements.darkBackground.toggleClass("header-dark-background-default");
-        Sidebar.elements.darkBackground.toggleClass("header-dark-background-active");
-
-        // Change burger
-        Sidebar.elements.burger.toggleClass("close");
-
-        // Toggle scrolling
-        if(Sidebar.shown) {
-            document.body.style.overflow = null;
-            document.body.style.position = null;
-            document.querySelector('html').style.overflow = null;
-            document.querySelector('html').style.position = null;
-
-            Sidebar.shown = false;
-        } else {
-            document.querySelector('html').scrollTop = window.scrollY;
-            document.body.style.overflow = 'hidden';
-            document.body.style.position = 'relative';
-            document.querySelector('html').style.overflow = 'hidden';
-            document.querySelector('html').style.position = 'relative';
-
-            Sidebar.shown = true;
-        }
     }
 }
 

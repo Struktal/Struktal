@@ -24,13 +24,13 @@ class TailwindUtil {
         } else {
             $class .= "px-4 py-2 ";
         }
-        if($theme === "primary") {
-            $class .= "text-primary-font bg-primary border-primary outline-primary hover:bg-primary-effect hover:border-primary-effect";
-        } else if($theme === "secondary") {
-            $class .= "text-secondary-font bg-secondary border-secondary outline-secondary hover:bg-secondary-effect hover:border-secondary-effect";
-        } else if($theme === "gray") {
-            $class .= "text-gray-font bg-gray border-gray outline-gray hover:bg-gray-effect hover:border-gray-effect";
-        }
+
+        // Apply colors
+        $class .= "text-{$theme}-font bg-{$theme} border-{$theme} outline-{$theme} hover:bg-{$theme}-effect hover:border-{$theme}-effect ";
+
+        // Apply fallback for disabled buttons
+        $class .= "disabled:opacity-75 disabled:hover:bg-{$theme} disabled:hover:border-{$theme} ";
+
         return $class;
     }
 }

@@ -36,6 +36,21 @@ module.exports = {
                 "effect": "#da275f",
                 "font": "#ffffff"
             },
+            "danger": {
+                DEFAULT: "#f45c4a",
+                "effect": "#e14332",
+                "font": "#ffffff"
+            },
+            "warning": {
+                DEFAULT: "#f3c033",
+                "effect": "#d9ac1e",
+                "font": "#ffffff"
+            },
+            "safe": {
+                DEFAULT: "#4dbb5f",
+                "effect": "#13942c",
+                "font": "#ffffff"
+            },
             "infomessage": {
                 "none": {
                     "border": "#444444ff",
@@ -95,14 +110,17 @@ module.exports = {
         "text-sm", "font-bold", "data-[required]:after:content-['*'] data-[required]:after:text-primary",
         "px-2", "py-1", "px-4", "py-2",
         "border", "outline-primary", "rounded", "placeholder:text-font-light",
+        "disabled:opacity-75",
         {
             pattern: /^(bg|border)-infomessage-(info|warning|error|success)-(border|background)$/
         },
         {
-            pattern: /^(bg|border|text)-(primary|secondary|gray|backgorund)$/
+            pattern: /^(bg|border|text|fill)-(primary|secondary|gray|backgorund|danger|warning|safe|current)$/,
+            variants: ["hover", "focus", "disabled", "disabled:hover"]
         },
         {
-            pattern: /^(bg|border|text)-(primary|secondary|gray|background)-(DEFAULT|effect|font)$/
+            pattern: /^(bg|border|text|fill)-(primary|secondary|gray|background|danger|warning|safe)-(DEFAULT|effect|font)$/,
+            variants: ["hover", "focus", "disabled", "disabled:hover"]
         }
     ]
 }
