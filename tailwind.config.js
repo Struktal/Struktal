@@ -10,7 +10,7 @@ module.exports = {
             "background": {
                 DEFAULT: "#ffffff",
                 "header": "#ffffff",
-                "footer": "#000000",
+                "footer": "#ffffff",
             },
             "font": {
                 DEFAULT: "#000000",
