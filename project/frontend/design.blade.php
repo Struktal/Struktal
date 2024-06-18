@@ -1,12 +1,12 @@
 @component("components.layout.appshell")
-    <h1>
+    <h1 class="mb-8">
         Design
     </h1>
 
-    <section>
+    <section class="mb-4">
         <h2>Colors</h2>
 
-        <div>
+        <div class="mb-4">
             <h3>Background</h3>
             <div class="flex flex-wrap gap-4">
                 <div class="flex gap-2 items-center font-mono">
@@ -24,7 +24,7 @@
             </div>
         </div>
 
-        <div>
+        <div class="mb-4">
             <h3>Font</h3>
             <div class="flex flex-wrap gap-4">
                 <div class="flex gap-2 items-center font-mono">
@@ -50,7 +50,7 @@
             </div>
         </div>
 
-        <div>
+        <div class="mb-4">
             <h3>Primary</h3>
             <div class="flex flex-wrap gap-4">
                 <div class="flex gap-2 items-center font-mono">
@@ -68,7 +68,7 @@
             </div>
         </div>
 
-        <div>
+        <div class="mb-4">
             <h3>Secondary</h3>
             <div class="flex flex-wrap gap-4">
                 <div class="flex gap-2 items-center font-mono">
@@ -86,7 +86,7 @@
             </div>
         </div>
 
-        <div>
+        <div class="mb-4">
             <h3>Gray</h3>
             <div class="flex flex-wrap gap-4">
                 <div class="flex gap-2 items-center font-mono">
@@ -112,7 +112,7 @@
             </div>
         </div>
 
-        <div>
+        <div class="mb-4">
             <h3>Danger</h3>
             <div class="flex flex-wrap gap-4">
                 <div class="flex gap-2 items-center font-mono">
@@ -130,7 +130,7 @@
             </div>
         </div>
 
-        <div>
+        <div class="mb-4">
             <h3>Warning</h3>
             <div class="flex flex-wrap gap-4">
                 <div class="flex gap-2 items-center font-mono">
@@ -148,7 +148,7 @@
             </div>
         </div>
 
-        <div>
+        <div class="mb-4">
             <h3>Safe</h3>
             <div class="flex flex-wrap gap-4">
                 <div class="flex gap-2 items-center font-mono">
@@ -166,7 +166,7 @@
             </div>
         </div>
 
-        <div>
+        <div class="mb-4">
             <h3>Info messages</h3>
             <div class="flex flex-wrap gap-4">
                 <div class="flex gap-2 items-center font-mono">
@@ -208,7 +208,7 @@
         </div>
     </section>
 
-    <section>
+    <section class="mb-4">
         <h2>Buttons</h2>
         <div class="flex mb-2 gap-2">
             <button class="{{ TailwindUtil::button() }}">Button</button>
