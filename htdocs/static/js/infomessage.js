@@ -1,8 +1,8 @@
 class InfoMessage {
-    TYPE_INFO = 0;
-    TYPE_WARNING = 1;
-    TYPE_ERROR = 2;
-    TYPE_SUCCESS = 3;
+    static TYPE_INFO = 0;
+    static TYPE_WARNING = 1;
+    static TYPE_ERROR = 2;
+    static TYPE_SUCCESS = 3;
 
     constructor(message, type) {
         let messageElement = document.createElement("div");
@@ -13,25 +13,25 @@ class InfoMessage {
         messageElement.classList.add("border");
         messageElement.classList.add("rounded");
         switch(type) {
-            case this.TYPE_INFO: {
+            case InfoMessage.TYPE_INFO: {
                 messageElement.classList.add("bg-infomessage-info-background");
                 messageElement.classList.add("border-infomessage-info-border");
                 messageElement.setAttribute("message-type", "info");
                 break;
             }
-            case this.TYPE_WARNING: {
+            case InfoMessage.TYPE_WARNING: {
                 messageElement.classList.add("bg-infomessage-warning-background");
                 messageElement.classList.add("border-infomessage-warning-border");
                 messageElement.setAttribute("message-type", "warning");
                 break;
             }
-            case this.TYPE_ERROR: {
+            case InfoMessage.TYPE_ERROR: {
                 messageElement.classList.add("bg-infomessage-error-background");
                 messageElement.classList.add("border-infomessage-error-border");
                 messageElement.setAttribute("message-type", "error");
                 break;
             }
-            case this.TYPE_SUCCESS: {
+            case InfoMessage.TYPE_SUCCESS: {
                 messageElement.classList.add("bg-infomessage-success-background");
                 messageElement.classList.add("border-infomessage-success-border");
                 messageElement.setAttribute("message-type", "success");
