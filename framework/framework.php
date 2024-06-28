@@ -73,7 +73,7 @@ set_error_handler(function($errno, $errstr, $errfile, $errline) {
     Logger::getLogger("PHP")->error($message);
 });
 
-set_exception_handler(function(Exception $exception) {
+set_exception_handler(function($exception) {
     $message = "Uncaught " . get_class($exception) . ": ";
     $message .= "\"" . $exception->getMessage() . "\"";
     $message .= " in " . $exception->getFile() . " on line " . $exception->getLine();
