@@ -172,23 +172,9 @@ For more information about the `Router` class, take a look at the [router docume
 <details>
 <summary><b>Create a sidebar menu item for a page</b></summary>
 
-The items in the sidebar menu are defined in the `📄 project/config/app-config.php` file in the `$MENU_SETTINGS["MENU_SIDEBAR"]` array with the following structure:
-```php
-[
-    "DISPLAY_NAME" => [
-        "route" => "ROUTE"
-    ],
-    // ...
-]
-```
-The `DISPLAY_NAME` is the name that is displayed in the sidebar menu. The `ROUTE` is the URI that is used to access the page. It's recommended to use the `Router::generate` method to generate the URI automatically. Have a look at the [router documentation](docs/router.md) for more information.
+The sidebar menu items can be adjusted to your needs by modifying the `📄 project/config/app-config.php` file. By default, it contains an `<ul>` with an entry for the index page already defined. You can simply copy and paste the existing entry and adjust it to your needs.
 
-Assumed you've already created a page and a route with the route name `example` to that page (as it was described in the previous tutorial), you can add a sidebar menu item as follows:
-```php
-Config::$MENU_SETTINGS["MENU_SIDEBAR"]["Example"] = [
-    "route" => Router::generate("example")
-];
-```
+You can also change the sidebars contents completely by adding your own HTML code.
 </details>
 
 <details>
@@ -629,6 +615,14 @@ $newDatetime = DateFormatter::parseVisualDateTime($formattedDate);
 ```
 
 For an overview of all available methods, please have a look at the [documentation](docs/date-formatter.md).
+</details>
+
+<details>
+<summary><b>Handle user-uploaded content</b></summary>
+
+There are, of course, many possible ways to handle user-uploaded content. In some cases, you might want to store the uploaded files to a storage bucket of a cloud provider. In other cases, you might want to store the files directly on the server. 
+
+When deploying the application with Docker, the `📁 files/` directory is already prepared to store user-uploaded content. It is mounted from the host system (`📁 app-files/`) to the container, so the files are persistent even if the container is restarted. The files are **not** accessible via a route, so you have to write a script that reads the files and sends them to the user.
 </details>
 
 <details>

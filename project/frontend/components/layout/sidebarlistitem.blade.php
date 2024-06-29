@@ -4,6 +4,6 @@
             {!! $slot !!}
         </span>
     </a>
-</li>
 
-<hr class="w-full h-px bg-gray border-none">
+    <hr class="w-full h-px mt-2 bg-gray border-none">
+</li>
