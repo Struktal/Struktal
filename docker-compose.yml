@@ -30,6 +30,7 @@ services:
         volumes:
             - "./secrets:/app/secrets"
             - "./app-logs:/app/logs"
+            - "./app-files:/app/files"
         ports:
             - "80:80"
         networks:

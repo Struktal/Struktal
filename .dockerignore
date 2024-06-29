@@ -1,6 +1,8 @@
 .git/
 /app-logs/
+/app-files/
 /logs/
 /database-backup/
 /project/src/lib/vendor/
+/project/template-cache/
 /secrets/*.secret.json

@@ -2,7 +2,7 @@
 
 env > /etc/environment
 
-php-fpm82
+php-fpm83
 nginx
 crond
 

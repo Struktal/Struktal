@@ -5,10 +5,10 @@ RUN apk update && apk upgrade
 RUN apk --no-cache add tzdata
 
 # Install nginx and PHP
-RUN apk --no-cache add nginx php php-fpm composer git
+RUN apk --no-cache add nginx php83 php83-fpm composer git
 
 # Install PHP packages
-RUN apk --no-cache add php-session php-tokenizer php-mysqli php-pdo php-pdo_mysql php-curl php-gd php-intl php-mbstring php-xml php-ctype
+RUN apk --no-cache add php-session php-tokenizer php-mysqli php-pdo php-pdo_mysql php-curl php-gd php-intl php-mbstring php-xml php-simplexml php-ctype
 
 # Copy application files
 COPY --chown=nginx:nginx . /app
@@ -18,7 +18,14 @@ COPY ./docker/entrypoint.sh /app
 
 # Adjust permissions
 RUN mkdir -p /app/logs && \
+    mkdir -p /app/files && \
+    mkdir -p /app/project/template-cache && \
     chown -R nginx:nginx /app/logs && \
+    chown -R nginx:nginx /app/files && \
+    chown -R nginx:nginx /app/project/template-cache && \
+    chmod 777 /app/logs && \
+    chmod 777 /app/files && \
+    chmod 777 /app/project/template-cache && \
     chmod +x /app/entrypoint.sh
 
 # Setup crontab
