@@ -13,7 +13,7 @@ RUN apk --no-cache add php-session php-tokenizer php-mysqli php-pdo php-pdo_mysq
 # Copy application files
 COPY --chown=nginx:nginx . /app
 COPY ./docker/nginx-config /etc/nginx
-COPY ./docker/php-fpm-config /etc/php82/php-fpm.d
+COPY ./docker/php-fpm-config /etc/php83/php-fpm.d
 COPY ./docker/entrypoint.sh /app
 
 # Adjust permissions
