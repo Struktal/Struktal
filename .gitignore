@@ -16,6 +16,7 @@ vendor/
 /app-logs/
 
 # Ignore user uploads
+/files/
 /app-files/
 
 # Ignore backup files
