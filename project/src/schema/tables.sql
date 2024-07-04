@@ -11,5 +11,6 @@ CREATE TABLE IF NOT EXISTS `User` (
     `created` DATETIME NOT NULL,
     `updated` DATETIME NOT NULL,
     PRIMARY KEY (`id`),
+    UNIQUE KEY (`username`),
     UNIQUE KEY (`oneTimePassword`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
