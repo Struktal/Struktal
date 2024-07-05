@@ -45,9 +45,23 @@ if($_POST["password"] !== $_POST["password-repeat"]) {
 
 // Register user
 $oneTimePassword = User::dao()->generateOneTimePassword();
-User::dao()->register($username, $_POST["password"], $email, 1, $oneTimePassword);
+$user = User::dao()->register($username, $_POST["password"], $email, 1, $oneTimePassword);
 
-// TODO: Send verification email
+// Send verification email
+$rstIdEncoded = urlencode(base64_encode($user->getId()));
+$otpEncoded = urlencode($oneTimePassword);
+$verificationLink = Router::generate("auth-verify-email", [], true) . "?rstid=" . $rstIdEncoded . "&otp=" . $otpEncoded;
+$mail = new Mail();
+$mail->setSubject("Verify your email address")
+     ->setTextBody(
+         "A new " . Config::$PROJECT_SETTINGS["PROJECT_NAME"] . " account has been registered with this email.\r\n"
+         . "To verify your email address and to complete the registration process, please open the following link:\r\n"
+         . $verificationLink . "\r\n"
+         . "\r\n"
+         . "If you haven't registered an account at " . Config::$PROJECT_SETTINGS["PROJECT_NAME"] . ", you can ignore this email."
+     )
+     ->addRecipient($email)
+     ->send();
 
 Logger::getLogger("Register")->info("New user has been registered (\"{$username}\", \"{$email}\")");
 

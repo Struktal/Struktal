@@ -43,7 +43,9 @@ class Router {
      * @param array $params GET parameters that should be added to the URI
      * @return string Route
      */
-    public static function generate(string $name, array $params = []): string {
+    public static function generate(string $name, array $params = [], bool $withHostUrl = false): string {
+        $urlPrefix = $withHostUrl ? rtrim(Config::$PROJECT_SETTINGS["PROJECT_URL"], "/") : "";
+
         foreach(self::$routes as $method => $routes) {
             foreach($routes as $route => $routeData) {
                 if($routeData["name"] == $name) {
@@ -79,13 +81,13 @@ class Router {
                     }
 
                     if(sizeof($requiredParams) == 0) {
-                        return Config::$ROUTER_SETTINGS["ROUTER_BASE_URI"] . ltrim($route, "/");
+                        return $urlPrefix . Config::$ROUTER_SETTINGS["ROUTER_BASE_URI"] . ltrim($route, "/");
                     }
                 }
             }
         }
 
-        return Config::$ROUTER_SETTINGS["ROUTER_BASE_URI"];
+        return $urlPrefix . Config::$ROUTER_SETTINGS["ROUTER_BASE_URI"];
     }
 
     /**
