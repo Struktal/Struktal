@@ -1,5 +1,10 @@
 <?php
 
+// Check whether the user is already logged in
+if(Auth::isLoggedIn()) {
+    Comm::redirect(Router::generate("index"));
+}
+
 // Check whether form fields are given
 if(empty($_POST["email"])) {
     new InfoMessage("Please enter your accounts verified email address.", InfoMessageType::ERROR);
@@ -8,7 +13,10 @@ if(empty($_POST["email"])) {
 
 $email = strtolower($_POST["email"]);
 
-$user = User::dao()->getObject(["email" => $email]);
+$user = User::dao()->getObject([
+    "email" => $email,
+    "emailVerified" => true
+]);
 
 if(!$user instanceof GenericUser) {
     Logger::getLogger("Recovery")->info("Failed to request password recovery for email \"{$_POST["email"]}\"");
@@ -16,7 +24,29 @@ if(!$user instanceof GenericUser) {
     Comm::redirect(Router::generate("auth-recovery-request"));
 }
 
-// TODO: Send password recovery mail
+// Send password recovery mail
+$oneTimePassword = User::dao()->generateOneTimePassword();
+$oneTimePasswordExpiration = DateFormatter::technicalDateTime((new DateTime())->modify("+15 minutes"));
+
+$user->setOneTimePassword($oneTimePassword);
+$user->setOneTimePasswordExpiration($oneTimePasswordExpiration);
+User::dao()->save($user);
+
+$otpIdEncoded = urlencode(base64_encode($user->getId()));
+$otpEncoded = urlencode($oneTimePassword);
+$verificationLink = Router::generate("auth-recovery-reset", [], true) . "?otpid=" . $otpIdEncoded . "&otp=" . $otpEncoded;
+$mail = new Mail();
+$mail->setSubject("Password recovery")
+    ->setTextBody(
+        "You have requested to recover your password for your " . Config::$PROJECT_SETTINGS["PROJECT_NAME"] . " account.\r\n"
+        . "To set a new password, please open the following link:\r\n"
+        . $verificationLink . "\r\n"
+        . "This link is valid for 15 minutes.\r\n"
+        . "\r\n"
+        . "If you haven't requested a password recovery for your " . Config::$PROJECT_SETTINGS["PROJECT_NAME"] . " account, you can ignore this email."
+    )
+    ->addRecipient($email)
+    ->send();
 
 Logger::getLogger("Recovery")->info("Requested password recovery for user with email \"{$_POST["email"]}\" (User ID {$user->getId()})");
 Comm::redirect(Router::generate("auth-recovery-request-complete"));

@@ -1,5 +1,10 @@
 <?php
 
+// Check whether the user is already logged in
+if(Auth::isLoggedIn()) {
+    Comm::redirect(Router::generate("index"));
+}
+
 echo Blade->run("auth.message", [
     "messages" => [
         "Your password has been changed.",

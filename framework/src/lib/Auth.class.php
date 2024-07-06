@@ -55,4 +55,12 @@ class Auth {
     public static function login(User $user): void {
         $_SESSION["userId"] = $user->getId();
     }
+
+    /**
+     * Logs the user out
+     * @return void
+     */
+    public static function logout(): void {
+        unset($_SESSION["userId"]);
+    }
 }

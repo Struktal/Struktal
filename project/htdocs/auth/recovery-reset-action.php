@@ -1,14 +1,24 @@
 <?php
 
+// Check whether the user is already logged in
+if(Auth::isLoggedIn()) {
+    Comm::redirect(Router::generate("index"));
+}
+
 // Check whether a one-time password has been specified
-if(empty($_SESSION["otpid"]) || empty($_SESSION["otp"])) {
+if(empty($_SESSION["authRecoveryOtpId"]) || empty($_SESSION["authRecoveryOtp"])) {
     new InfoMessage("An error has occurred. Please try again later.", InfoMessageType::ERROR);
     Comm::redirect(Router::generate("auth-login"));
 }
 
-$otpId = $_SESSION["otpid"];
-$otp = $_SESSION["otp"];
+$otpId = $_SESSION["authRecoveryOtpId"];
+$otp = $_SESSION["authRecoveryOtp"];
 
+// Clear old session variables
+unset($_SESSION["authRecoveryOtpId"]);
+unset($_SESSION["authRecoveryOtp"]);
+
+// Generate redirect link for error cases
 $otpIdEncoded = urlencode(base64_encode($otpId));
 $otpEncoded = urlencode($otp);
 $resetLink = Router::generate("auth-recovery-reset") . "?otpid=" . $otpIdEncoded . "&otp=" . $otpEncoded;
@@ -16,7 +26,7 @@ $resetLink = Router::generate("auth-recovery-reset") . "?otpid=" . $otpIdEncoded
 // Find the user from the one-time password
 $user = User::dao()->getObject([
     "id" => $otpId,
-    "emailVerified" => false,
+    "emailVerified" => true,
     [
         "field" => "oneTimePassword",
         "filterType" => DAOFilterType::NOT_EQUALS,
@@ -24,8 +34,8 @@ $user = User::dao()->getObject([
     ],
     [
         "field" => "oneTimePasswordExpiration",
-        "filterType" => DAOFilterType::LESS_THAN_EQUALS,
-        "filterValue" => DateFormatter::technicalDate()
+        "filterType" => DAOFilterType::GREATER_THAN_EQUALS,
+        "filterValue" => DateFormatter::technicalDateTime()
     ]
 ]);
 if(!$user instanceof User) {

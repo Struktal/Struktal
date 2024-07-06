@@ -22,7 +22,7 @@
             Send instructions
         </button>
 
-        <a class="text-sm text-gray"
+        <a class="text-sm text-gray hover:text-gray-effect cursor-pointer transition-all"
            href="{{ Router::generate("auth-login") }}">
             Log in instead?
         </a>

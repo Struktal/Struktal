@@ -6,8 +6,9 @@
     @endforeach
 
     @if(isset($showLogin) && $showLogin)
-        <button class="{{ TailwindUtil::button() }}">
+        <a class="{{ TailwindUtil::button() }}"
+           href="{{ Router::generate("auth-login") }}">
             Log in
-        </button>
+        </a>
     @endif
 @endcomponent

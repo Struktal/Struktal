@@ -1,5 +1,10 @@
 <?php
 
+// Check whether the user is already logged in
+if(Auth::isLoggedIn()) {
+    Comm::redirect(Router::generate("index"));
+}
+
 // Check whether a one-time password has been specified
 if(empty($_GET["otpid"]) || empty($_GET["otp"])) {
     new InfoMessage("An error has occurred. Please try again later.", InfoMessageType::ERROR);

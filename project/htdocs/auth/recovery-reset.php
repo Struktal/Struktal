@@ -1,5 +1,10 @@
 <?php
 
+// Check whether the user is already logged in
+if(Auth::isLoggedIn()) {
+    Comm::redirect(Router::generate("index"));
+}
+
 // Clear old session variables
 unset($_SESSION["authRecoveryOtpId"]);
 unset($_SESSION["authRecoveryOtp"]);
@@ -16,7 +21,7 @@ $otp = urldecode($_GET["otp"]);
 // Find the user from the one-time password
 $user = User::dao()->getObject([
     "id" => $otpId,
-    "emailVerified" => false,
+    "emailVerified" => true,
     [
         "field" => "oneTimePassword",
         "filterType" => DAOFilterType::NOT_EQUALS,
@@ -24,8 +29,8 @@ $user = User::dao()->getObject([
     ],
     [
         "field" => "oneTimePasswordExpiration",
-        "filterType" => DAOFilterType::LESS_THAN_EQUALS,
-        "filterValue" => DateFormatter::technicalDate()
+        "filterType" => DAOFilterType::GREATER_THAN_EQUALS,
+        "filterValue" => DateFormatter::technicalDateTime()
     ]
 ]);
 if(!$user instanceof User) {
@@ -45,4 +50,4 @@ $_SESSION["authRecoveryOtp"] = $otp;
 
 Logger::getLogger("Recovery")->info("Starting password recovery for user with email \"{$user->getEmail()}\" (User ID \"{$user->getId()}\")");
 
-Comm::redirect(Router::generate("auth-recovery-reset"));
+echo Blade->run("auth.recoveryreset");

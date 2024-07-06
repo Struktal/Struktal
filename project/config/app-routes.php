@@ -20,3 +20,4 @@ Router::addRoute("GET", "/auth/password-recovery/request/complete", "auth/recove
 Router::addRoute("GET", "/auth/password-recovery/reset", "/auth/recovery-reset.php", "auth-recovery-reset");
 Router::addRoute("POST", "/auth/password-recovery/reset", "/auth/recovery-reset-action.php", "auth-recovery-reset-action");
 Router::addRoute("GET", "/auth/password-recovery/reset/complete", "/auth/recovery-reset-complete.php", "auth-recovery-reset-complete");
+Router::addRoute("GET", "/auth/logout", "auth/logout.php", "auth-logout");
