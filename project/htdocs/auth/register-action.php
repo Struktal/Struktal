@@ -48,9 +48,9 @@ $oneTimePassword = User::dao()->generateOneTimePassword();
 $user = User::dao()->register($username, $_POST["password"], $email, 1, $oneTimePassword);
 
 // Send verification email
-$rstIdEncoded = urlencode(base64_encode($user->getId()));
+$otpIdEncoded = urlencode(base64_encode($user->getId()));
 $otpEncoded = urlencode($oneTimePassword);
-$verificationLink = Router::generate("auth-verify-email", [], true) . "?rstid=" . $rstIdEncoded . "&otp=" . $otpEncoded;
+$verificationLink = Router::generate("auth-verify-email", [], true) . "?otpid=" . $otpIdEncoded . "&otp=" . $otpEncoded;
 $mail = new Mail();
 $mail->setSubject("Verify your email address")
      ->setTextBody(
