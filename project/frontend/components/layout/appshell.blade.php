@@ -90,6 +90,9 @@
                     </button>
                 </div>
 
+                {{-- Account information --}}
+                @include("components.layout.accountinfo")
+
                 {{-- Sidebar navigation list --}}
                 <nav>
                     @include("components.layout.sidebar")
