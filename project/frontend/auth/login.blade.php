@@ -19,6 +19,7 @@
                    name="username"
                    id="username"
                    placeholder="Username"
+                   pattern="(?!.*\.\.)(?!.*\.$)[^\W][\w.]{2,15}"
                    required>
         </div>
 

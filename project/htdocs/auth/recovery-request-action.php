@@ -11,6 +11,12 @@ if(empty($_POST["email"])) {
     Comm::redirect(Router::generate("auth-recovery-request"));
 }
 
+// Check whether the email is valid
+if(!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
+    new InfoMessage("The specified email address is invalid. Please check for spelling errors and try again.", InfoMessageType::ERROR);
+    Comm::redirect(Router::generate("auth-recovery-request"));
+}
+
 $email = strtolower($_POST["email"]);
 
 $user = User::dao()->getObject([

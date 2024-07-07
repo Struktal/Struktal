@@ -20,6 +20,20 @@ if(empty(empty($_POST["username"]) || $_POST["email"]) || empty($_POST["password
     Comm::redirect(Router::generate("auth-register"));
 }
 
+// Check whether username and email are valid
+if(!preg_match("/^(?!.*\.\.)(?!.*\.$)\w[\w.]{2,15}$/", $_POST["username"])) {
+    keepPostField("username");
+    keepPostField("email");
+    new InfoMessage("The specified username is invalid. Please follow the required username scheme.", InfoMessageType::ERROR);
+    Comm::redirect(Router::generate("auth-register"));
+}
+if(!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
+    keepPostField("username");
+    keepPostField("email");
+    new InfoMessage("The specified email address is invalid. Please check for spelling errors and try again.", InfoMessageType::ERROR);
+    Comm::redirect(Router::generate("auth-register"));
+}
+
 // Check for existing users with the specified username or email
 $username = strtolower($_POST["username"]);
 $email = strtolower($_POST["email"]);
@@ -45,6 +59,12 @@ if($_POST["password"] !== $_POST["password-repeat"]) {
     keepPostField("username");
     keepPostField("email");
     new InfoMessage("The specified passwords do not match. Please check for spelling errors and try again.", InfoMessageType::ERROR);
+    Comm::redirect(Router::generate("auth-register"));
+}
+if(!preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d\W]).{8,}$/", $_POST["password"])) {
+    keepPostField("username");
+    keepPostField("email");
+    new InfoMessage("The specified password doesn't fulfill the password requirements. Please choose a safer password.", InfoMessageType::ERROR);
     Comm::redirect(Router::generate("auth-register"));
 }
 

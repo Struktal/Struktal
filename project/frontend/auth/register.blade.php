@@ -35,6 +35,7 @@
                    id="username"
                    placeholder="Username"
                    required
+                   pattern="(?!.*\.\.)(?!.*\.$)[^\W][\w.]{2,15}"
                    @if(isset($username)) value="{{ $username }}" @endif>
         </div>
 
