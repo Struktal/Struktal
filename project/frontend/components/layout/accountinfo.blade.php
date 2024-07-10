@@ -8,7 +8,7 @@
                 </svg>
             </div>
 
-            <div class="flex flex-col break-anywhere">
+            <div class="flex flex-col break-all">
                 <span class="text-gray text-sm">Logged in as</span>
                 {{ Auth::getLoggedInUser()?->getUsername() }}
             </div>
