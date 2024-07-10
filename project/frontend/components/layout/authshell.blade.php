@@ -51,7 +51,7 @@
     </head>
     <body class="flex flex-row h-full overflow-x-hidden bg-gradient-to-br from-primary to-primary-effect text-font">
         <div class="flex flex-col items-center justify-center w-full md:w-1/2 h-full py-16 bg-background float-right">
-            <div class="w-2/3 md:w-1/2 overflow-y-auto">
+            <div class="w-10/12 sm:w-2/3 md:w-1/2 overflow-y-auto">
                 <header class="mb-8">
                     {{-- Logo --}}
                     <a href="{{ Config::$PROJECT_SETTINGS["PROJECT_URL"] }}">

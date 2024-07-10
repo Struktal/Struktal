@@ -44,19 +44,19 @@
             <p>
                 <span class="password-requirement block before:content-['✘'] data-[met='true']:text-safe data-[met='true']:before:content-['✔'] transition-all"
                       id="password-requirement-length" data-regex=".{8,}">
-                    Mindestens 8 Zeichen
+                    At least 8 characters
                 </span>
                 <span class="password-requirement block before:content-['✘'] data-[met='true']:text-safe data-[met='true']:before:content-['✔'] transition-all"
                       id="password-requirement-uppercase" data-regex="[A-Z]">
-                    Großbuchstaben
+                    Uppercase letters
                 </span>
                 <span class="password-requirement block before:content-['✘'] data-[met='true']:text-safe data-[met='true']:before:content-['✔'] transition-alle"
                       id="password-requirement-lowercase" data-regex="[a-z]">
-                    Kleinbuchstaben
+                    Lowercase letters
                 </span>
                 <span class="password-requirement block before:content-['✘'] data-[met='true']:text-safe data-[met='true']:before:content-['✔'] transition-all"
                       id="password-requirement-number" data-regex="[\d\W]">
-                    Zahlen oder Sonderzeichen
+                    Numbers or special characters
                 </span>
             </p>
         </div>
