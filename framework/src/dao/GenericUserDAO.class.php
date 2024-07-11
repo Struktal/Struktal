@@ -45,9 +45,9 @@ class GenericUserDAO extends GenericObjectDAO {
      * @param string $email E-Mail
      * @param int $permissionLevel Permission level
      * @param string $oneTimePassword One-time-password for E-Mail verification
-     * @return void
+     * @return User Newly created user
      */
-    public function register(string $username, string $password, string $email, int $permissionLevel, string $oneTimePassword): void {
+    public function register(string $username, string $password, string $email, int $permissionLevel, string $oneTimePassword): User {
         $user = new User();
         $user->setUsername($username);
         $user->setPassword($password);
@@ -57,6 +57,8 @@ class GenericUserDAO extends GenericObjectDAO {
         $user->setOneTimePassword($oneTimePassword);
         $user->setOneTimePasswordExpiration(null);
         $this->save($user);
+
+        return $user;
     }
 
     /**
