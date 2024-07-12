@@ -12,7 +12,8 @@
         "jensostertag/csvreader": "~1.0.0",
         "ext-pdo": "*",
         "ext-curl": "*",
-        "ext-json": "*"
+        "ext-json": "*",
+        "ext-gettext": "*"
     },
     "require-dev": {
         "pestphp/pest": "~2.33.4"

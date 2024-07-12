@@ -14,6 +14,12 @@ if($loggedInUser instanceof User) {
 }
 unset($loggedInUser);
 
+// Set language
+$defaultLanguage = "en";
+if(isset($_SERVER["HTTP_ACCEPT_LANGUAGE"])) {
+    // TODO: Implement language detection
+}
+
 // Start the Router
 $router = new Router();
 $router->startRouter();
