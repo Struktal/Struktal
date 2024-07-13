@@ -5,4 +5,7 @@
     <p>
         Hello, world!
     </p>
+    <p>
+        {{ _("test") }}
+    </p>
 @endcomponent

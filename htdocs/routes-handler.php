@@ -14,12 +14,18 @@ if($loggedInUser instanceof User) {
 }
 unset($loggedInUser);
 
-// Set language
-$defaultLanguage = "en";
+// Set UI language
+$translationsPath = __APP_DIR__ . "/project/translations";
+$defaultLanguage = "en_US";
 if(isset($_SERVER["HTTP_ACCEPT_LANGUAGE"])) {
+    $acceptedLanguages = explode(",", $_SERVER["HTTP_ACCEPT_LANGUAGE"]);
     // TODO: Implement language detection
 }
 
-// Start the Router
+setlocale(LC_ALL, "en_US");
+bindtextdomain("messages", $translationsPath);
+textdomain("messages");
+
+// Start the router
 $router = new Router();
 $router->startRouter();
