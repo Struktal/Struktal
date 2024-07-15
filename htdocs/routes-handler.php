@@ -15,15 +15,8 @@ if($loggedInUser instanceof User) {
 unset($loggedInUser);
 
 // Set UI language
-$translationsPath = __APP_DIR__ . "/project/translations";
-$defaultLanguage = "en_US";
-if(isset($_SERVER["HTTP_ACCEPT_LANGUAGE"])) {
-    $acceptedLanguages = explode(",", $_SERVER["HTTP_ACCEPT_LANGUAGE"]);
-    // TODO: Implement language detection
-}
-
-setlocale(LC_ALL, "en_US");
-bindtextdomain("messages", $translationsPath);
+setlocale(LC_ALL, TranslationUtil::getPreferredLocale());
+bindtextdomain("messages", TranslationUtil::TRANSLATIONS_PATH);
 textdomain("messages");
 
 // Start the router
