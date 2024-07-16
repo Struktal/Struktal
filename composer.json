@@ -30,6 +30,7 @@
     "scripts": {
         "test": "project/src/lib/vendor/bin/pest tests",
         "tailwindcss": "project/src/lib/tailwindcss/tailwindcss.sh",
-        "tailwindcss-compile": "project/src/lib/tailwindcss/tailwindcss.sh --input htdocs/static/css/base.css --output htdocs/static/css/style.css"
+        "tailwindcss-compile": "project/src/lib/tailwindcss/tailwindcss.sh --input htdocs/static/css/base.css --output htdocs/static/css/style.css",
+        "msgfmt": "project/src/lib/translations/msgfmt.sh"
     }
 }
