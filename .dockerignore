@@ -5,4 +5,5 @@
 /database-backup/
 /project/src/lib/vendor/
 /project/template-cache/
+/project/translations/**/*.mo
 /secrets/*.secret.json
