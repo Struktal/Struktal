@@ -10,26 +10,29 @@ class TranslationUtil {
      * @return string
      */
     public static function getPreferredLocale(): string {
-        $acceptedLanguages = [];
-        if(isset($_SERVER["HTTP_ACCEPT_LANGUAGE"])) {
-            $headerParts = explode(",", $_SERVER["HTTP_ACCEPT_LANGUAGE"]);
-            foreach($headerParts as $part) {
-                $languageParts = explode(";", $part);
-                $weight = 1;
-                if(isset($languageParts[1])) {
-                    $weight = intval(ltrim($languageParts[1], "q="));
-                }
-
-                $acceptedLanguages[$languageParts[0]] = $weight;
-            }
-        }
-
+        $preferredLocales = self::getPreferredLocalesFromHeader();
         $existingLanguages = self::getAvailableLocales();
 
-        arsort($acceptedLanguages);
-        foreach($acceptedLanguages as $language => $weight) {
-            if(in_array($language, $existingLanguages)) {
-                return $language;
+        foreach($preferredLocales as $preferredLocale) {
+            $language = $preferredLocale["language"];
+            $script = $preferredLocale["script"];
+            $region = $preferredLocale["region"];
+            $regex = $language;
+            if($script) {
+                $regex .= "_" . $script;
+            } else {
+                $regex .= "(_[a-zA-Z]+)?";
+            }
+            if($region) {
+                $regex .= "_" . $region;
+            } else {
+                $regex .= "(_[a-zA-Z]{2})?";
+            }
+
+            foreach($existingLanguages as $existingLanguage) {
+                if(preg_match("/^$regex$/", $existingLanguage)) {
+                    return $existingLanguage;
+                }
             }
         }
 
@@ -57,6 +60,7 @@ class TranslationUtil {
 
             $bits = explode(";", $part);
             $localeTag = explode("-", $bits[0]);
+            $hasRegion = count($localeTag) >= 2;
             $hasScript = count($localeTag) === 3;
 
             return [
@@ -64,7 +68,7 @@ class TranslationUtil {
                 "priority" => count($bits) > 1 ? floatval(explode("=", $bits[1])[1]) : 1.0,
                 "language" => $localeTag[0],
                 "script" => $hasScript ? $localeTag[1] : null,
-                "region" => $hasScript ? $localeTag[2] : $localeTag[1]
+                "region" => $hasRegion ? $localeTag[$hasScript ? 2 : 1] : null
             ];
         }, $headerParts);
 
