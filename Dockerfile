@@ -8,7 +8,7 @@ RUN apk --no-cache add tzdata
 RUN apk --no-cache add nginx php83 php83-fpm composer git
 
 # Install PHP packages
-RUN apk --no-cache add php-session php-tokenizer php-mysqli php-pdo php-pdo_mysql php-curl php-gd php-intl php-mbstring php-gettext php-xml php-simplexml php-ctype
+RUN apk --no-cache add php-session php-tokenizer php-mysqli php-pdo php-pdo_mysql php-curl php-gd php-intl php-mbstring php-xml php-simplexml php-ctype
 
 # Copy application files
 COPY --chown=nginx:nginx . /app

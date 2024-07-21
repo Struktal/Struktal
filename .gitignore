@@ -24,6 +24,3 @@ vendor/
 
 # Ignore template cache files
 /project/template-cache/
-
-# Ignore compiled translation files
-/project/translations/**/*.mo
