@@ -1,18 +1,6 @@
-[
-    [
-        "Home",
-        "Startseite"
-    ],
-    [
-        "Hello, world!",
-        "Hallo, Welt!"
-    ],
-    [
-        "Log in",
-        "Anmelden"
-    ],
-    [
-        "Register",
-        "Registrieren"
-    ]
-]
+{
+    "Home": "Startseite",
+    "Hello, world!": "Hallo, Welt!",
+    "Log in": "Anmelden",
+    "Register": "Registrieren"
+}

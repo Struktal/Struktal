@@ -35,12 +35,8 @@ class Translator {
             $translations = fread(self::$translationFile, filesize(self::TRANSLATIONS_PATH . "/" . self::$locale . "/" . self::$domain . ".json"));
             $translations = json_decode($translations, true);
 
-            // Iterate over the translations and search for the translated message
-            foreach($translations as $translation) {
-                if($translation[0] === $message) {
-                    $message = $translation[1];
-                    break;
-                }
+            if(isset($translations[$message])) {
+                $message = $translations[$message];
             }
 
             fseek(self::$translationFile, 0);
