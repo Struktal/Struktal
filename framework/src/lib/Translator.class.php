@@ -31,15 +31,27 @@ class Translator {
     }
 
     public static function translate(string $message, array $variables = []): string {
-        if(self::$translationFile && is_resource(self::$translationFile)) {
-            $translations = fread(self::$translationFile, filesize(self::TRANSLATIONS_PATH . "/" . self::$locale . "/" . self::$domain . ".json"));
-            $translations = json_decode($translations, true);
+        if(!apcu_exists(self::$locale . "-" . self::$domain)) {
+            // Read translations from file
+            if(self::$translationFile && is_resource(self::$translationFile)) {
+                $translations = fread(self::$translationFile, filesize(self::TRANSLATIONS_PATH . "/" . self::$locale . "/" . self::$domain . ".json"));
+                $translations = json_decode($translations, true);
 
+                // Store translations in cache
+                apcu_store(self::$locale . "-" . self::$domain, $translations);
+
+                if(isset($translations[$message])) {
+                    $message = $translations[$message];
+                }
+
+                fseek(self::$translationFile, 0);
+            }
+        } else {
+            // Read translations from cache
+            $translations = apcu_fetch(self::$locale . "-" . self::$domain);
             if(isset($translations[$message])) {
                 $message = $translations[$message];
             }
-
-            fseek(self::$translationFile, 0);
         }
 
         // Replace the variables in the message
