@@ -3,6 +3,6 @@
         400
     </h1>
     <p>
-        There was an error with your request.
+        {{ t("There was an error with your request.") }}
     </p>
 @endcomponent

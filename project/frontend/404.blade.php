@@ -3,6 +3,6 @@
         404
     </h1>
     <p>
-        The requested resource could not be found.
+        {{ t("The requested resource could not be found.") }}
     </p>
 @endcomponent

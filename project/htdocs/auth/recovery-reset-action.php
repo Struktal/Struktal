@@ -7,7 +7,7 @@ if(Auth::isLoggedIn()) {
 
 // Check whether a one-time password has been specified
 if(empty($_SESSION["authRecoveryOtpId"]) || empty($_SESSION["authRecoveryOtp"])) {
-    new InfoMessage("An error has occurred. Please try again later.", InfoMessageType::ERROR);
+    new InfoMessage(t("An error has occurred. Please try again later."), InfoMessageType::ERROR);
     Comm::redirect(Router::generate("auth-login"));
 }
 
@@ -40,24 +40,28 @@ $user = User::dao()->getObject([
 ]);
 if(!$user instanceof User) {
     Logger::getLogger("Recovery")->info("Attempted to recover password, but couldn't find user with otpid \"{$otpId}\"");
-    new InfoMessage("The URL has already been invalidated. Please log in or request a new password recovery email.", InfoMessageType::ERROR);
+    new InfoMessage(t("The URL has already been invalidated. Please log in or request a new password recovery email."), InfoMessageType::ERROR);
     Comm::redirect(Router::generate("auth-login"));
 }
 if(!password_verify($otp, $user->getOneTimePassword())) {
     Logger::getLogger("Recovery")->info("Attempted to recover password, but one-time password does not match");
-    new InfoMessage("The URL has already been invalidated. Please log in or request a new password recovery email.", InfoMessageType::ERROR);
+    new InfoMessage(t("The URL has already been invalidated. Please log in or request a new password recovery email."), InfoMessageType::ERROR);
     Comm::redirect(Router::generate("auth-login"));
 }
 
 // Check whether form fields are given
 if(empty($_POST["password"]) || empty($_POST["password-repeat"])) {
-    new InfoMessage("Please fill out all the required fields.", InfoMessageType::ERROR);
+    new InfoMessage(t("Please fill out all the required fields."), InfoMessageType::ERROR);
     Comm::redirect($resetLink);
 }
 
 // Check passwords
 if($_POST["password"] !== $_POST["password-repeat"]) {
-    new InfoMessage("The specified passwords do not match. Please check for spelling errors and try again.", InfoMessageType::ERROR);
+    new InfoMessage(t("The specified passwords do not match. Please check for spelling errors and try again."), InfoMessageType::ERROR);
+    Comm::redirect($resetLink);
+}
+if(!preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d\W]).{8,}$/", $_POST["password"])) {
+    new InfoMessage(t("The specified password doesn't fulfill the password requirements. Please choose a safer password."), InfoMessageType::ERROR);
     Comm::redirect($resetLink);
 }
 

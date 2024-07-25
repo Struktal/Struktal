@@ -7,13 +7,13 @@ if(Auth::isLoggedIn()) {
 
 // Check whether form fields are given
 if(empty($_POST["email"])) {
-    new InfoMessage("Please enter your accounts verified email address.", InfoMessageType::ERROR);
+    new InfoMessage(t("Please enter your accounts verified email address."), InfoMessageType::ERROR);
     Comm::redirect(Router::generate("auth-recovery-request"));
 }
 
 // Check whether the email is valid
 if(!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
-    new InfoMessage("The specified email address is invalid. Please check for spelling errors and try again.", InfoMessageType::ERROR);
+    new InfoMessage(t("The specified email address is invalid. Please check for spelling errors and try again."), InfoMessageType::ERROR);
     Comm::redirect(Router::generate("auth-recovery-request"));
 }
 
@@ -26,7 +26,7 @@ $user = User::dao()->getObject([
 
 if(!$user instanceof GenericUser) {
     Logger::getLogger("Recovery")->info("Failed to request password recovery for email \"{$_POST["email"]}\"");
-    new InfoMessage("An account with this email could not be found. Please check for spelling errors and try again.", InfoMessageType::ERROR);
+    new InfoMessage(t("An account with this email could not be found. Please check for spelling errors and try again."), InfoMessageType::ERROR);
     Comm::redirect(Router::generate("auth-recovery-request"));
 }
 
@@ -42,14 +42,18 @@ $otpIdEncoded = urlencode(base64_encode($user->getId()));
 $otpEncoded = urlencode($oneTimePassword);
 $verificationLink = Router::generate("auth-recovery-reset", [], true) . "?otpid=" . $otpIdEncoded . "&otp=" . $otpEncoded;
 $mail = new Mail();
-$mail->setSubject("Password recovery")
+$mail->setSubject(t("Password recovery"))
     ->setTextBody(
-        "You have requested to recover your password for your " . Config::$PROJECT_SETTINGS["PROJECT_NAME"] . " account.\r\n"
-        . "To set a new password, please open the following link:\r\n"
+        t("You have requested to recover your password for your \$\$appName\$\$ account.", [
+            "appName" => Config::$PROJECT_SETTINGS["PROJECT_NAME"]
+        ]) . "\r\n"
+        . t("To set a new password, please open the following link:") . "\r\n"
         . $verificationLink . "\r\n"
-        . "This link is valid for 15 minutes.\r\n"
+        . t("This link is valid for 15 minutes.") . "\r\n"
         . "\r\n"
-        . "If you haven't requested a password recovery for your " . Config::$PROJECT_SETTINGS["PROJECT_NAME"] . " account, you can ignore this email."
+        . t("If you haven't requested a password recovery for your \$\$appName\$\$ account, you can ignore this email.", [
+            "appName" => Config::$PROJECT_SETTINGS["PROJECT_NAME"]
+        ])
     )
     ->addRecipient($email)
     ->send();

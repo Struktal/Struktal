@@ -16,7 +16,7 @@ if(empty(empty($_POST["username"]) || $_POST["email"]) || empty($_POST["password
     keepPostField("username");
     keepPostField("email");
 
-    new InfoMessage("Please fill out all the required fields.", InfoMessageType::ERROR);
+    new InfoMessage(t("Please fill out all the required fields."), InfoMessageType::ERROR);
     Comm::redirect(Router::generate("auth-register"));
 }
 
@@ -24,13 +24,13 @@ if(empty(empty($_POST["username"]) || $_POST["email"]) || empty($_POST["password
 if(!preg_match("/^(?!.*\.\.)(?!.*\.$)\w[\w.]{2,15}$/", $_POST["username"])) {
     keepPostField("username");
     keepPostField("email");
-    new InfoMessage("The specified username is invalid. Please follow the required username scheme.", InfoMessageType::ERROR);
+    new InfoMessage(t("The specified username is invalid. Please follow the required username scheme."), InfoMessageType::ERROR);
     Comm::redirect(Router::generate("auth-register"));
 }
 if(!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
     keepPostField("username");
     keepPostField("email");
-    new InfoMessage("The specified email address is invalid. Please check for spelling errors and try again.", InfoMessageType::ERROR);
+    new InfoMessage(t("The specified email address is invalid. Please check for spelling errors and try again."), InfoMessageType::ERROR);
     Comm::redirect(Router::generate("auth-register"));
 }
 
@@ -43,14 +43,14 @@ if(!empty($existingUsername)) {
     if(empty($existingEmail)) {
         keepPostField("email");
     }
-    new InfoMessage("An account with this username already exists. Please choose another one.", InfoMessageType::ERROR);
+    new InfoMessage(t("An account with this username already exists. Please choose another one."), InfoMessageType::ERROR);
     Comm::redirect(Router::generate("auth-register"));
 }
 if(!empty($existingUsername) || !empty($existingEmail)) {
     if(empty($existingUsername)) {
         keepPostField("username");
     }
-    new InfoMessage("An account with this email already exists. If that is your account, please log in instead.", InfoMessageType::ERROR);
+    new InfoMessage(t("An account with this email already exists. If that is your account, please log in instead."), InfoMessageType::ERROR);
     Comm::redirect(Router::generate("auth-register"));
 }
 
@@ -58,13 +58,13 @@ if(!empty($existingUsername) || !empty($existingEmail)) {
 if($_POST["password"] !== $_POST["password-repeat"]) {
     keepPostField("username");
     keepPostField("email");
-    new InfoMessage("The specified passwords do not match. Please check for spelling errors and try again.", InfoMessageType::ERROR);
+    new InfoMessage(t("The specified passwords do not match. Please check for spelling errors and try again."), InfoMessageType::ERROR);
     Comm::redirect(Router::generate("auth-register"));
 }
 if(!preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d\W]).{8,}$/", $_POST["password"])) {
     keepPostField("username");
     keepPostField("email");
-    new InfoMessage("The specified password doesn't fulfill the password requirements. Please choose a safer password.", InfoMessageType::ERROR);
+    new InfoMessage(t("The specified password doesn't fulfill the password requirements. Please choose a safer password."), InfoMessageType::ERROR);
     Comm::redirect(Router::generate("auth-register"));
 }
 
@@ -77,13 +77,17 @@ $otpIdEncoded = urlencode(base64_encode($user->getId()));
 $otpEncoded = urlencode($oneTimePassword);
 $verificationLink = Router::generate("auth-verify-email", [], true) . "?otpid=" . $otpIdEncoded . "&otp=" . $otpEncoded;
 $mail = new Mail();
-$mail->setSubject("Verify your email address")
+$mail->setSubject(t("Verify your email address"))
      ->setTextBody(
-         "A new " . Config::$PROJECT_SETTINGS["PROJECT_NAME"] . " account has been registered with this email.\r\n"
-         . "To verify your email address and to complete the registration process, please open the following link:\r\n"
+         t("A new \$\$appName\$\$ account has been registered with this email address.", [
+             "appName" => Config::$PROJECT_SETTINGS["PROJECT_NAME"]
+         ]) . "\r\n"
+         . t("To verify your email address and to complete the registration process, please open the following link:") . "\r\n"
          . $verificationLink . "\r\n"
          . "\r\n"
-         . "If you haven't registered an account at " . Config::$PROJECT_SETTINGS["PROJECT_NAME"] . ", you can ignore this email."
+         . t("If you haven't registered an account at \$\$appName\$\$, you can ignore this email.", [
+                "appName" => Config::$PROJECT_SETTINGS["PROJECT_NAME"]
+         ])
      )
      ->addRecipient($email)
      ->send();
