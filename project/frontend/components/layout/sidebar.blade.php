@@ -2,6 +2,6 @@
     @component("components.layout.sidebarlistitem", [
         "href" => Router::generate("index"),
     ])
-        Home
+        {{ t("Home") }}
     @endcomponent
 </ul>

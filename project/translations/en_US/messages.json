@@ -3,8 +3,10 @@
     "Hello, world!": "Hello, world!",
     "The requested resource could not be found.": "The requested resource could not be found.",
     "There was an error with your request.": "There was an error with your request.",
+    "Logged in as": "Logged in as",
     "Log in": "Log in",
     "Register": "Register",
+    "Log out": "Log out",
     "Username": "Username",
     "Password": "Password",
     "Password (repeat)": "Password (repeat)",
@@ -55,4 +57,5 @@
     "Your account has been registered.": "Your account has been registered.",
     "Please open the verification link that has been sent to you per email. You can log in to your account once your email address has been verified.": "Please open the verification link that has been sent to you per email. You can log in to your account once your email address has been verified.",
     "Your email address has been verified. You can now log in to your account.": "Your email address has been verified. You can now log in to your account.",
+    "Version:": "Version:"
 }

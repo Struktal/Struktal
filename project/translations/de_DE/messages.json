@@ -3,8 +3,10 @@
     "Hello, world!": "Hallo, Welt!",
     "The requested resource could not be found.": "Die angefragte Ressource konnte nicht gefunden werden.",
     "There was an error with your request.": "Es gab einen Fehler bei Ihrer Anfrage.",
+    "Logged in as": "Angemeldet als",
     "Log in": "Anmelden",
     "Register": "Registrieren",
+    "Log out": "Abmelden",
     "Username": "Benutzername",
     "Password": "Passwort",
     "Password (repeat)": "Passwort (wiederholen)",
@@ -54,5 +56,6 @@
     "If you haven't registered an account at $$appName$$, you can ignore this email.": "Wenn Sie keinen Account bei $$appName$$ registriert haben, können Sie diese E-Mail ignorieren.",
     "Your account has been registered.": "Ihr Account wurde registriert.",
     "Please open the verification link that has been sent to you per email. You can log in to your account once your email address has been verified.": "Bitte öffnen Sie den Bestätigungslink, der Ihnen per E-Mail gesendet wurde. Sie können sich mit Ihrem Account anmelden, sobald Ihre E-Mail-Adresse bestätigt wurde.",
-    "Your email address has been verified. You can now log in to your account.": "Ihre E-Mail-Adresse wurde bestätigt. Sie können sich jetzt mit Ihrem Account anmelden."
+    "Your email address has been verified. You can now log in to your account.": "Ihre E-Mail-Adresse wurde bestätigt. Sie können sich jetzt mit Ihrem Account anmelden.",
+    "Version:": "Version:"
 }

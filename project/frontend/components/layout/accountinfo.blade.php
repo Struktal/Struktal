@@ -9,7 +9,7 @@
             </div>
 
             <div class="flex flex-col break-all">
-                <span class="text-gray text-sm">Logged in as</span>
+                <span class="text-gray text-sm">{{ t("Logged in as") }}</span>
                 {{ Auth::getLoggedInUser()?->getUsername() }}
             </div>
         </div>
@@ -17,7 +17,7 @@
         {{-- Loguot button --}}
         <a class="{{ TailwindUtil::button(true) }} text-nowrap"
            href="{{ Router::generate("auth-logout") }}">
-            Log out
+            {{ t("Log out") }}
         </a>
     </div>
 @endauth
@@ -26,13 +26,13 @@
         {{-- Login button --}}
         <a class="text-primary hover:text-primary-effect cursor-pointer transition-all"
            href="{{ Router::generate("auth-login") }}">
-            Log in
+            {{ t("Log in") }}
         </a>
 
         {{-- Register button --}}
         <a class="{{ TailwindUtil::button(true) }}"
            href="{{ Router::generate("auth-register") }}">
-            Register
+            {{ t("Register") }}
         </a>
     </div>
 @endguest
