@@ -22,6 +22,7 @@ This framework is designed to simplify web development by providing a scalable a
 - **Template files** to strictly separate logic from view - as intended by the MVC pattern
 - The **data access object pattern** allows to easily access and manipulate data in the database by using objects (and inheritance)
 - A **safe** and **ready-to-use** user management (and login) system which can also handle multiple account types
+- A **translator** which helps you to internationalize your web application
 - Methods which help to **design RESTful APIs**
 - **Info messages** that provide a simple way to display info, warning, error and success messages to the user from PHP and JavaScript
 - Accessible **SEO settings** which define how the website should be displayed by search engines and social media platforms
@@ -110,7 +111,7 @@ Logger::getLogger("TAG")->error("MESSAGE");
 </details>
 
 <details>
-<summary><b>Create a new website page</b></summary>
+<summary><b>Create a new web page</b></summary>
 
 To create a new page for the website, create a new PHP file that should get executed when the user visits the page. The file should be located in the `📁 project/htdocs/` directory. There are no limitations what you can do in the script, but it's not recommended to output HTML code or other content directly (exception: you want to send JSON responses, please take a look at the corresponding tutorial or the [`Comm` class documentation](/docs/comm.md)). 
 
@@ -131,7 +132,7 @@ Blade->run("example", ["variable" => $variable]);
 This file is the script that gets executed when the user visits the page. In this example, a variable is assigned and the template `example.blade.php` is loaded.
 
 `📄 project/frontend/example.blade.php`:
-```blade
+```bladehtml
 @component("components.layout.appshell", ["title" => "Example"])
     {{ $variable }}
 @endcomponent
@@ -139,6 +140,58 @@ This file is the script that gets executed when the user visits the page. In thi
 This is the template file. It sets a website title and includes the app shell component which contains the HTML head contents, and a generic body with header and footer. The variable that was assigned in the script is then outputted.
 
 To learn how to set up a route for your newly created page, take a look at the next tutorial.
+</details>
+
+<details>
+<summary><b>Translate strings within your application</b></summary>
+
+You can translate messages within your application by using the `Translator` class - or rather the `t` method.
+For completeness, we will start in the beginning:
+
+The strings that are used in the application should be defined in the `.json` translation files within the `📁 project/translations/` directory. This directory is again separated into subdirectories - one for each locale. When cloning the repository initially, you should have the locales `en_US` and `de_DE`.
+You can create other locales simply by creating a new directory with the locale name, and then creating the `.json` files for the strings.
+
+By default, the locale is automatically detected from the clients `Accept-Language` header. If the locale is not available, the default locale is used.
+This behaviour is customizable by configuring the `TranslationUtil::getPreferredLocale` method. There, you could implement that the locale is detected by the IP address, from a parameter within the URL, by a cookie or by any other method.
+
+Each locale directory can contain multiple translation files, with the filename being the domain. By default, there is only one domain called "messages", so you can see the file `📄 project/translations/en_US/messages.json` for the English messages.
+The domain could be switched by using the `Translator::setDomain` method.
+
+Your translation files should be formatted like this:
+```json
+{
+    "Hello, world!": "Hello, world!",
+    "This is an example.": "This is an example."
+}
+```
+You might also want to include parameters into the strings, by encapsulating the parameter name with two dollar signs (`$$`):
+```json
+{
+    "Hello, $$name$$!": "Hello, $$name$$!",
+    "It is $$weekday$$.": "It is $$weekday$$."
+}
+```
+
+Finally, you can use the translated messages in your template files or backend scripts with the `t` method:
+```bladehtml
+<p>
+    {{ t("Hello, world!") }}
+</p>
+```
+```php
+$aTranslatedString = t("This is an example.");
+```
+Or with parameters:
+```bladehtml
+<p>
+    {{ t("Hello, $$name$$!", [ "name" => $name ]) }}
+</p>
+```
+```php
+$aTranslatedStringWithParameters = t("It is \$\$wekkday\$\$", [
+    "weekday" => $weekday
+]);
+```
 </details>
 
 <details>
