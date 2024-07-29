@@ -192,6 +192,12 @@ $aTranslatedStringWithParameters = t("It is \$\$wekkday\$\$", [
     "weekday" => $weekday
 ]);
 ```
+
+You might also find yourself in the need to translate strings in JavaScript. To achieve this, there is also a JavaScript method, `t`, which has the same syntax as the PHP method, with the difference that it runs asynchronously, thus it requires you to `await` for the response.
+The reason for this asynchronous translation is that the method sends an AJAX request to the server which prompts the server to translate the string and send it back to the client:
+```js
+console.log(await t("Hello, world!"));
+```
 </details>
 
 <details>
