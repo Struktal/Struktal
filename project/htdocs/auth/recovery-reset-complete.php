@@ -7,8 +7,8 @@ if(Auth::isLoggedIn()) {
 
 echo Blade->run("auth.message", [
     "messages" => [
-        "Your password has been changed.",
-        "You can now log in to your account."
+        t("Your password has been changed."),
+        t("You can now log in to your account.")
     ],
     "showLogin" => true
 ]);

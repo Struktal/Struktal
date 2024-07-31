@@ -1,6 +1,6 @@
 @component("components.layout.authshell")
     <p class="mb-2">
-        Please enter your new password.
+        {{ t("Please enter your new password.") }}
     </p>
 
     <form method="post" action="{{ Router::generate("auth-recovery-reset-action") }}">
@@ -8,13 +8,13 @@
             <label class="{{ TailwindUtil::$inputLabel }}"
                    for="password"
                    data-required>
-                Password
+                {{ t("Password") }}
             </label>
             <input class="{{ TailwindUtil::$input }}"
                    type="password"
                    name="password"
                    id="password"
-                   placeholder="Password"
+                   placeholder="{{ t("Password") }}"
                    required
                    pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[\d\W]).{8,}">
         </div>
@@ -23,13 +23,13 @@
             <label class="{{ TailwindUtil::$inputLabel }}"
                    for="password-repeat"
                    data-required>
-                Password (repeat)
+                {{ t("Password (repeat)") }}
             </label>
             <input class="{{ TailwindUtil::$input }}"
                    type="password"
                    name="password-repeat"
                    id="password-repeat"
-                   placeholder="Password (repeat)"
+                   placeholder="{{ t("Password (repeat)") }}"
                    required
                    pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[\d\W]).{8,}">
         </div>
@@ -44,25 +44,25 @@
             <p>
                 <span class="password-requirement block before:content-['✘'] data-[met='true']:text-safe data-[met='true']:before:content-['✔'] transition-all"
                       id="password-requirement-length" data-regex=".{8,}">
-                    At least 8 characters
+                    {{ t("At least 8 characters") }}
                 </span>
                 <span class="password-requirement block before:content-['✘'] data-[met='true']:text-safe data-[met='true']:before:content-['✔'] transition-all"
                       id="password-requirement-uppercase" data-regex="[A-Z]">
-                    Uppercase letters
+                    {{ t("Uppercase letters") }}
                 </span>
                 <span class="password-requirement block before:content-['✘'] data-[met='true']:text-safe data-[met='true']:before:content-['✔'] transition-alle"
                       id="password-requirement-lowercase" data-regex="[a-z]">
-                    Lowercase letters
+                    {{ t("Lowercase letters") }}
                 </span>
                 <span class="password-requirement block before:content-['✘'] data-[met='true']:text-safe data-[met='true']:before:content-['✔'] transition-all"
                       id="password-requirement-number" data-regex="[\d\W]">
-                    Numbers or special characters
+                    {{ t("Numbers or special characters") }}
                 </span>
             </p>
         </div>
 
         <button class="{{ TailwindUtil::button(true) }} w-full">
-            Change password
+            {{ t("Change password") }}
         </button>
     </form>
 

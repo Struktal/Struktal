@@ -1,8 +1,8 @@
 @component("components.layout.appshell")
     <h1>
-        Home
+        {{ t("Home") }}
     </h1>
     <p>
-        Hello, world!
+        {{ t("Hello, world!") }}
     </p>
 @endcomponent

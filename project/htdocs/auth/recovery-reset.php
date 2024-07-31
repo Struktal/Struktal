@@ -11,7 +11,7 @@ unset($_SESSION["authRecoveryOtp"]);
 
 // Check whether a one-time password has been specified
 if(empty($_GET["otpid"]) || empty($_GET["otp"])) {
-    new InfoMessage("An error has occurred. Please try again later.", InfoMessageType::ERROR);
+    new InfoMessage(t("An error has occurred. Please try again later."), InfoMessageType::ERROR);
     Comm::redirect(Router::generate("auth-login"));
 }
 
@@ -35,12 +35,12 @@ $user = User::dao()->getObject([
 ]);
 if(!$user instanceof User) {
     Logger::getLogger("Recovery")->info("Attempted to recover password, but couldn't find user with otpid \"{$otpId}\"");
-    new InfoMessage("The URL has already been invalidated. Please log in or request a new password recovery email.", InfoMessageType::ERROR);
+    new InfoMessage(t("The URL has already been invalidated. Please log in or request a new password recovery email."), InfoMessageType::ERROR);
     Comm::redirect(Router::generate("auth-login"));
 }
 if(!password_verify($otp, $user->getOneTimePassword())) {
     Logger::getLogger("Recovery")->info("Attempted to recover password, but one-time password does not match");
-    new InfoMessage("The URL has already been invalidated. Please log in or request a new password recovery email.", InfoMessageType::ERROR);
+    new InfoMessage(t("The URL has already been invalidated. Please log in or request a new password recovery email."), InfoMessageType::ERROR);
     Comm::redirect(Router::generate("auth-login"));
 }
 

@@ -7,7 +7,7 @@ if(Auth::isLoggedIn()) {
 
 echo Blade->run("auth.message", [
     "messages" => [
-        "Your email address has been verified. You can now log into your account."
+        t("Your email address has been verified. You can now log in to your account.")
     ],
     "showLogin" => true
 ]);
