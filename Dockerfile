@@ -34,5 +34,8 @@ RUN crontab -u nginx /app/project/cronjobs/.crontab
 # Install composer dependencies
 RUN cd /app && composer install --no-dev --no-interaction
 
+# Run composer build
+RUN cd /app && composer build
+
 EXPOSE 80
 ENTRYPOINT ["/app/entrypoint.sh"]
