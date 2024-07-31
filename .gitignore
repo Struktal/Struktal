@@ -1,15 +1,14 @@
 # Ignore .ini files
 *.ini
 
-# Ignore files that contain sensible information such as passwords or secret keys
-*.inc.php
-/secrets/*.secret.json
-
 # Ignore PhpStorm files
 .idea/
 
 # Ignore composer files
 vendor/
+
+# Ignore files that contain sensible information such as passwords or secret keys
+/secrets/*.secret.json
 
 # Ignore log files
 /logs/
@@ -24,3 +23,6 @@ vendor/
 
 # Ignore template cache files
 /project/template-cache/
+
+# Ignore compiled TailwindCSS files
+/htdocs/static/css/style.css
