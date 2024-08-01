@@ -6,4 +6,4 @@ php-fpm83
 nginx
 crond
 
-tail -f /dev/null
+tail -f /var/log/nginx/access.log
