@@ -27,8 +27,20 @@ This framework is designed to simplify web development by providing a scalable a
 - **Info messages** that provide a simple way to display info, warning, error and success messages to the user from PHP and JavaScript
 - Accessible **SEO settings** which define how the website should be displayed by search engines and social media platforms
 
+### Running a development environment
+
+To run a development environment, you can use
+```sh
+composer run dev
+```
+which will build and run a Docker container with the application and a MySQL databse.
+You can then access the website on your browser by visiting `http://localhost`.
+
+> [!IMPORTANT]
+> If you don't have the Docker-Compose plugin (`docker compose`) installed on your system and instead use `docker-compose`, you have to change the syntax of the executed command in the `📄 composer.json` file.
+
 ### Deployment options
-Applications build with this framework can be deployed either on an Apache web server or in form of a Docker container which runs a nginx web server. 
+Applications which where built with this framework can be deployed either on an Apache web server or in form of a Docker container which runs a nginx web server.
 
 The `📄 docker-compose.yml` file provides a Docker Compose infrastructure, which includes the application itself, a MySQL database and a backup service that creates a backup of the database every four hours, by using the `mysqldump` command.
 
@@ -36,7 +48,7 @@ The `📄 docker-compose.yml` file provides a Docker Compose infrastructure, whi
 When deploying the application on an Apache web server, the following prerequisites have to be met:
 - PHP 8.2 or higher
 - MySQL or MariaDB database (or no database if it's not required by the application)
-  - When deploying the application with Docker, the database is already configured in the Docker Compose infrastructure
+    - When deploying the application with Docker, the database is already configured in the Docker Compose infrastructure
 
 If you want to deploy it as a Docker container instead, the following requirements hold:
 - Docker and Docker Compose need to be installed
@@ -50,12 +62,12 @@ If you want to deploy it as a Docker container instead, the following requiremen
 - Create repository variables and secrets for GitHub Actions:
 
   | Variable name          | Description                                                         |
-  |------------------------|---------------------------------------------------------------------|
+    |------------------------|---------------------------------------------------------------------|
   | `AUTODEPLOY_ACTIVATED` | Whether or not the automatic deployment feature should be activated |
   | `AUTODEPLOY_BASE_URL`  | The base URL of the website                                         |
 
   | Secret name                | Description                                                                                          |
-  |----------------------------|------------------------------------------------------------------------------------------------------|
+    |----------------------------|------------------------------------------------------------------------------------------------------|
   | `AUTODEPLOY_AUTH_USERNAME` | The username that is used to authenticate when calling the website (if not required, leave it empty) |
   | `AUTODEPLOY_AUTH_PASSWORD` | The password that is used to authenticate when calling the website (if not required, leave it empty) |
 
@@ -77,10 +89,10 @@ The application can be deployed on an Apache web server, which allows you to use
 
 ### Deployment setup - Docker container
 - Create and configure the `📄 docker-compose.yml` file according to your requirements. The easiest way to do this is by simply cloning the newly created repository onto the server that the Docker container should run on, and then configuring it.
-  - Change the `image` name / link
-  - Change the access credentials for the database
+    - Change the `image` name / link
+    - Change the access credentials for the database
 - Copy `📄 secrets/config.secret.json` from your local setup to the `📁 secrets/` directory on the server, or configure the file directly on the server, depending on your needs.
-  - Change the database access credentials, as configured in the `📄 docker-compose.yml` file
+    - Change the database access credentials, as configured in the `📄 docker-compose.yml` file
 - Run `docker-compose up -d` to start the container. This will pull the image from the GitHub Container Registry and start the container.
 
 ## Documentation
@@ -113,7 +125,7 @@ Logger::getLogger("TAG")->error("MESSAGE");
 <details>
 <summary><b>Create a new web page</b></summary>
 
-To create a new page for the website, create a new PHP file that should get executed when the user visits the page. The file should be located in the `📁 project/htdocs/` directory. There are no limitations what you can do in the script, but it's not recommended to output HTML code or other content directly (exception: you want to send JSON responses, please take a look at the corresponding tutorial or the [`Comm` class documentation](/docs/comm.md)). 
+To create a new page for the website, create a new PHP file that should get executed when the user visits the page. The file should be located in the `📁 project/htdocs/` directory. There are no limitations what you can do in the script, but it's not recommended to output HTML code or other content directly (exception: you want to send JSON responses, please take a look at the corresponding tutorial or the [`Comm` class documentation](/docs/comm.md)).
 
 Instead, to output content, create a PHP template file in the `📁 project/frontend/` directory. A template file contains the rendering instructions for a page. This separation not only takes care of a better overview, it also separates the logic from the view. For further information about template files, please take a look at the [template documentation](/docs/template.md) or the <a href="https://github.com/EFTEC/BladeOne">BladeOne documentation</a>.
 
@@ -239,9 +251,9 @@ You can also change the sidebars contents completely by adding your own HTML cod
 <details>
 <summary><b>Create a new object that can be stored in the database</b></summary>
 
-Creating and modifying entries in the database is done automatically by the implemented data-access-object (DAO) pattern. 
+Creating and modifying entries in the database is done automatically by the implemented data-access-object (DAO) pattern.
 
-There are so-called "model objects" that represent the data that's being stored in the database, and for each table there is an own model object. They are located in the `📁 project/src/object/` directory. 
+There are so-called "model objects" that represent the data that's being stored in the database, and for each table there is an own model object. They are located in the `📁 project/src/object/` directory.
 
 There's also a data access object interface that defines the standard operations that can be performed on the model objects, such as creating, reading and updating entries. For every model object, there is an own belonging data access object that's located in the `📁 project/src/dao/` directory.
 
@@ -266,11 +278,11 @@ Assumed you want to create a new database table called `Example` with the follow
 At first, you need to create the table manually as this is not done automatically:
 ```sql
 CREATE TABLE IF NOT EXISTS `Example` (
-    `id` int(11) NOT NULL AUTO_INCREMENT,
-    `myAttribute` VARCHAR(255) NOT NULL,
-    `created` DATETIME NOT NULL,
-    `updated` DATETIME NOT NULL,
-    PRIMARY KEY (`id`)
+                                         `id` int(11) NOT NULL AUTO_INCREMENT,
+                                         `myAttribute` VARCHAR(255) NOT NULL,
+                                         `created` DATETIME NOT NULL,
+                                         `updated` DATETIME NOT NULL,
+                                         PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 ```
 > There is a file `📄 project/src/schema/tables.sql` where you can document the SQL statements that are required for your project. This allows you or other persons to easily recreate tables in case you want to set up another instance of your project in the future.
@@ -293,7 +305,7 @@ class Example extends GenericObject {
 }
 ```
 
-Finally, you have to add the class `ExampleDAO` that extends the `GenericObjectDAO` class in the `📁 project/src/dao/` directory. Here, it's also important to name the class the same as your database table concatenated with `DAO`. 
+Finally, you have to add the class `ExampleDAO` that extends the `GenericObjectDAO` class in the `📁 project/src/dao/` directory. Here, it's also important to name the class the same as your database table concatenated with `DAO`.
 
 `📄 project/src/dao/ExampleDAO.class.php`
 ```php
@@ -493,7 +505,7 @@ Because `$userDAO->getObjects()` returns a sequential array, the `data` field in
 > <b>Note:</b> You wouldn't want this to be a real API call since it will return <b>ALL</b> information about <b>EVERY</b> user from the database such as real names, password hashes, ...
 </sub>
 
-For more information, have a look at the [`Comm` class documentation](docs/comm.md). 
+For more information, have a look at the [`Comm` class documentation](docs/comm.md).
 </details>
 
 <details>
@@ -545,7 +557,7 @@ For more information about the `InfoMessage` class, take a look at the [info mes
 <details>
 <summary><b>Sending cURL requests</b></summary>
 
-You can use the [PHP-Curl](https://github.com/JensOstertag/php-curl) libraries `Curl` class to send HTTP GET or POST requests to other servers. The library is a wrapper for PHPs cURL methods. 
+You can use the [PHP-Curl](https://github.com/JensOstertag/php-curl) libraries `Curl` class to send HTTP GET or POST requests to other servers. The library is a wrapper for PHPs cURL methods.
 
 The following example code shows how to send a GET request to read an HTML page:
 ```php
@@ -590,7 +602,7 @@ $response = $curl->execute();
 $responseCode = $curl->getHttpCode();
 $curl->close();
 ```
-Here, the `URL` is also replaced by the URL of the server that you want to send the request to. 
+Here, the `URL` is also replaced by the URL of the server that you want to send the request to.
 </details>
 
 <details>
@@ -679,7 +691,7 @@ For an overview of all available methods, please have a look at the [documentati
 <details>
 <summary><b>Handle user-uploaded content</b></summary>
 
-There are, of course, many possible ways to handle user-uploaded content. In some cases, you might want to store the uploaded files to a storage bucket of a cloud provider. In other cases, you might want to store the files directly on the server. 
+There are, of course, many possible ways to handle user-uploaded content. In some cases, you might want to store the uploaded files to a storage bucket of a cloud provider. In other cases, you might want to store the files directly on the server.
 
 When deploying the application with Docker, the `📁 files/` directory is already prepared to store user-uploaded content. It is mounted from the host system (`📁 app-files/`) to the container, so the files are persistent even if the container is restarted. The files are **not** accessible via a route, so you have to write a script that reads the files and sends them to the user.
 </details>
@@ -739,7 +751,7 @@ This framework contains the following dependencies:
 - **TailwindCSS** - GitHub: [tailwindlabs/tailwindcss](https://github.com/tailwindlabs/tailwindcss), licensed under [MIT license](https://github.com/tailwindlabs/tailwindcss/blob/next/LICENSE)
 - **pest** - GitHub: [pestphp/pest](https://github.com/pestphp/pest), licensed under [MIT license](https://github.com/pestphp/pest/blob/2.x/LICENSE.md)
 - **PHPMailer** - GitHub: [PHPMailer/PHPMailer](https://github.com/PHPMailer/PHPMailer), licensed under [LGPL-2.1 license](https://github.com/PHPMailer/PHPMailer/blob/master/LICENSE)
-- **Curl-Adapter** - GitHub: [JensOstertag/curl-adapter](https://github.com/JensOstertag/curl-adapter), licensed under [MIT license](https://github.com/JensOstertag/curl-adapter/blob/main/LICENSE-MIT) 
+- **Curl-Adapter** - GitHub: [JensOstertag/curl-adapter](https://github.com/JensOstertag/curl-adapter), licensed under [MIT license](https://github.com/JensOstertag/curl-adapter/blob/main/LICENSE-MIT)
 - **GeocodingUtil** - GitHub: [JensOstertag/geocoding-util](https://github.com/JensOstertag/geocoding-util), licensed under [GPL-2.0 license](https://github.com/JensOstertag/geocoding-util/blob/main/LICENSE-GPL2)
 - **UploadHelper** - GitHub: [JensOstertag/uploadhelper](https://github.com/JensOstertag/uploadhelper), licensed under [MIT license](https://github.com/JensOstertag/uploadhelper/blob/main/LICENSE-MIT)
 - **CSVReader** - GitHub: [JensOstertag/csvreader](https://github.com/JensOstertag/csvreader), licensed under [MIT license](https://github.com/JensOstertag/csvreader/blob/main/LICENSE)

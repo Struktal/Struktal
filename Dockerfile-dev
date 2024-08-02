@@ -14,7 +14,7 @@ RUN apk --no-cache add php-session php-tokenizer php-mysqli php-pdo php-pdo_mysq
 COPY --chown=nginx:nginx . /app
 COPY ./docker/nginx-config /etc/nginx
 COPY ./docker/php-fpm-config /etc/php83/php-fpm.d
-COPY ./docker/entrypoint.sh /app
+COPY ./docker/entrypoint-dev.sh /app
 
 # Adjust permissions
 RUN mkdir -p /app/logs && \
@@ -26,13 +26,13 @@ RUN mkdir -p /app/logs && \
     chmod 777 /app/logs && \
     chmod 777 /app/files && \
     chmod 777 /app/project/template-cache && \
-    chmod +x /app/entrypoint.sh
+    chmod +x /app/entrypoint-dev.sh
 
 # Setup crontab
 RUN crontab -u nginx /app/project/cronjobs/.crontab
 
-# Run composer build
+# Build the project
 RUN cd /app && composer build
 
 EXPOSE 80
-ENTRYPOINT ["/app/entrypoint.sh"]
+ENTRYPOINT ["/app/entrypoint-dev.sh"]
