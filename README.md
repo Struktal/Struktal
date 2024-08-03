@@ -100,8 +100,7 @@ The deployment to an Apache web server is a bit more complex than the Docker dep
 - Set up a virtual host for the website. The `DocumentRoot` should point to the directory where you've cloned the repository to, and then `📁 htdocs/` <sub>Not `📁 project/htdocs/`!</sub>. If you've used the example path from above, the `DocumentRoot` should be set to `/var/www/your-project-name/htdocs`.
 
 ## Documentation
-
-There are many helpful tutorials and guides available in the `📁 docs/tutorials/` directory. They cover a wide range of topics, from the frameworks basics, setting up a project, using the frameworks features up to deploying the application.
+There are many helpful tutorials and guides available [here](docs/tutorials). They cover a wide range of topics, from the frameworks basics, setting up a project, using the frameworks features up to deploying the application.
 
 ## Dependencies
 This framework contains the following dependencies:
