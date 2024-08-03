@@ -1,5 +1,4 @@
-# Documentation
-## Mail
+# Send emails
 You can use the `Mail` class, which is a wrapper for the [PHPMailer](https://github.com/PHPMailer/PHPMailer) library, to send emails. To do that, use
 ```php
 // Initialize the mail object
@@ -16,7 +15,7 @@ There are other methods that can be used in the initialization of the mail objec
 - `addRecipient("EMAIL", "NAME")`: Adds a recipient
 - `addCcRecipient("EMAIL", "NAME")`: Adds a recipient to CC
 - `addBccRecipient("EMAIL", "NAME")`: Adds a recipient to BCC
-- `setSubject("SUBJECT")`: Sets the subject of the sent email
+- `setSubject("SUBJECT")`: Sets the subject of the email
 - `setHtmlBody("MESSAGE")`: Sets the HTML body of the email and indicates that an HTML email should be sent
 - `setTextBody("MESSAGE")`: Sets the plain-text body of the email
 - `addAttachment("FILE_PATH", "FILE_NAME")`: Adds a file attachment to the email

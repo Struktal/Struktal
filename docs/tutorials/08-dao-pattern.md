@@ -1,5 +1,4 @@
-# Documentation
-## Data access object pattern
+# Data access object (DAO) pattern
 The framework provides a data access object (DAO) pattern that allows you to easily access and manipulate data in a database with objects.
 
 There are so-called "model objects" that represent the data that's being stored in the database, and for each table there is an own model object. They are located in the `📁 project/src/object/` directory.
@@ -17,7 +16,7 @@ and the `GenericObjectDAO` the standard operations
 - `GenericObjectDAO::getObject(array $filter, string $orderBy, bool $orderAsc, int $limit, int $offset)` to get a single object from the database
 - `GenericObjectDAO::getObjects(array $filter, string $orderBy, bool $orderAsc, int $limit, int $offset)` to get multiple objects from the database
 
-### Setting up a new object
+## Setting up a new object
 To set up a new object, you need to create a new class within the `📁 project/src/object/` directory. The class name has to be the same as the table name in the database.
 ```php
 class MyObject extends GenericObject {
@@ -34,13 +33,15 @@ class MyObject extends GenericObject {
 ```
 Next, you'll have to create a new class for the DAO in the `📁 project/src/dao/` directory.
 
-<b>Note:</b> The class name has to be the same as the object class with appended `DAO`.
+> [!IMPORTANT]
+> The class name has to be the same as the object class with appended `DAO`.
+
 ```php
 class MyObjectDAO extends GenericObjectDAO {
     // Basic DAO methods already implemented by GenericObjectDAO
 }
 ```
-If you need to use custom queries or other non-default methods for this specific object, you can implement them in the DAO class.
+If you need to use functions with custom queries or other non-default methods for this specific object, you can implement them in the DAO class.
 
 The above example would allow us to access and manipulate the database table called `MyObject` with the following structure:
 
@@ -58,9 +59,10 @@ CREATE TABLE IF NOT EXISTS `MyObject` (
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 ```
+> [!TIP]
 > There is a file `📄 project/src/schema/tables.sql` where you can document the SQL statements that are required for your project. This allows you or other persons to easily recreate tables in case you want to set up another instance of your project in the future.
 
-### Saving an object to the database
+## Saving an object to the database
 To create a new database entry for an object, you have to create an instance of the object, assign the attributes and save it with the DAO's `save` method:
 ```php
 // Create an instance of the object
@@ -90,7 +92,7 @@ MyObject::dao()->save($myObject);
 ```
 Instead of creating a new object, you can also [load an existing object from the database](#loading-objects-from-the-database) and then modify it.
 
-### Loading objects from the database
+## Loading objects from the database
 To load objects from the database, you can use the DAO's `getObject` or `getObjects` methods:
 ```php
 // Get the object with the ID 1
@@ -106,7 +108,7 @@ For both methods you can set the following parameters:
 - `limit`: The maximum amount of objects that should be returned (-1 for no limit)
 - `offset`: The offset from which the objects should be returned
 
-You can also write more more detailed queries by using complex filters.
+You can also write more detailed queries by using complex filters.
 They allow you to use other operators than the equality check.
 Use it as follows:
 ```php
