@@ -28,7 +28,10 @@
         }
     },
     "scripts": {
-        "dev": "docker compose -f docker-compose-dev.yml up",
+        "dev": [
+            "Composer\\Config::disableProcessTimeout",
+            "docker compose -f docker-compose-dev.yml up"
+        ],
         "test": "project/src/lib/vendor/bin/pest tests",
         "build": "project/src/lib/build/build.sh",
         "tailwindcss": "project/src/lib/tailwindcss/tailwindcss.sh",
