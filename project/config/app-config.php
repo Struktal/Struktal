@@ -6,7 +6,7 @@ Config::$ROUTER_SETTINGS["ROUTER_BASE_URI"] = Config::configSecret()["ROUTER_SET
 // Project settings
 Config::$PROJECT_SETTINGS["PROJECT_NAME"] = Config::configSecret()["PROJECT_SETTINGS"]["PROJECT_NAME"] ?? "Project";
 Config::$PROJECT_SETTINGS["WEBSITE_TITLE"] = Config::configSecret()["PROJECT_SETTINGS"]["WEBSITE_TITLE"] ?? "Project";
-Config::$PROJECT_SETTINGS["PROJECT_URL"] = Config::configSecret()["PROJECT_SETTINGS"]["PROJECT_URL"] ?? "http://localhost";
+Config::$PROJECT_SETTINGS["PROJECT_URL"] = Config::configSecret()["PROJECT_SETTINGS"]["PROJECT_URL"] ?? "http://localhost:3000";
 Config::$PROJECT_SETTINGS["PROJECT_FAVICON"] = Config::configSecret()["PROJECT_SETTINGS"]["PROJECT_FAVICON"] ?? Router::staticFilePath("img/favicon.png");
 Config::$PROJECT_SETTINGS["PROJECT_AUTHOR"] = Config::configSecret()["PROJECT_SETTINGS"]["PROJECT_AUTHOR"] ?? "Author";
 Config::$PROJECT_SETTINGS["PROJECT_VERSION"] = Config::configSecret()["PROJECT_SETTINGS"]["PROJECT_VERSION"] ?? "1.0.0";
