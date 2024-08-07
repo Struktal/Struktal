@@ -14,7 +14,7 @@ Other settings, which might change depending on the deployment, and settings tha
 |-------------------|---------------------------------------------------------------|---------------------------|
 | `PROJECT_NAME`    | The project's name that is displayed in the header and footer | `Project`                 |
 | `WEBSITE_TITLE`   | The title that is displayed for the browser tab               | `Project`                 |
-| `PROJECT_URL`     | The project's URL                                             | `http://localhost`        |
+| `PROJECT_URL`     | The project's URL                                             | `http://localhost:3000`   |
 | `PROJECT_FAVICON` | URL to the projects favicon                                   | `/static/img/favicon.png` |
 | `PROJECT_AUTHOR`  | The author of the project that is displayed in the footer     | `Author`                  |
 | `PROJECT_VERSION` | The version of the project that is displayed in the footer    | `1.0.0`                   |

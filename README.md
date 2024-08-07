@@ -34,7 +34,7 @@ To run a development environment, you can use
 composer run dev
 ```
 which will build and run a Docker container with the application and a MySQL databse.
-You can then access the website on your browser by visiting `http://localhost`.
+You can then access the website on your browser by visiting `http://localhost:3000`.
 
 > [!IMPORTANT]
 > If you don't have the Docker-Compose plugin (`docker compose`) installed on your system and instead use `docker-compose`, you have to change the syntax of the executed command in the `📄 composer.json` file.
