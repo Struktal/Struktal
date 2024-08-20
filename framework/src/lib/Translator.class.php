@@ -1,7 +1,7 @@
 <?php
 
 class Translator {
-    const TRANSLATIONS_PATH = __APP_DIR__ . "/project/translations";
+    const TRANSLATIONS_PATH = __APP_DIR__ . "/src/translations";
 
     private static string $domain = "messages";
     private static string $locale = "en_US";

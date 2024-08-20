@@ -22,7 +22,7 @@ vendor/
 /database-backup/
 
 # Ignore template cache files
-/project/template-cache/
+/src/template-cache/
 
 # Ignore compiled TailwindCSS files
-/htdocs/static/css/style.css
+/public/static/css/style.css

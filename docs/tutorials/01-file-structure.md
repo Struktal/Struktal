@@ -1,5 +1,5 @@
 # File structure
-Before you start working with the framework and developing your project, it's important to understand the file structure. This will help you find the files that you are looking for.
+Before you start working with the framework and developing your application, it's important to understand the file structure. This will help you find the files that you are looking for.
 
 ## Root directory
 The root directory contains the following files and subdirectories:

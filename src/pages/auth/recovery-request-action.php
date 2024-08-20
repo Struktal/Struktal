@@ -45,14 +45,14 @@ $mail = new Mail();
 $mail->setSubject(t("Password recovery"))
     ->setTextBody(
         t("You have requested to recover your password for your \$\$appName\$\$ account.", [
-            "appName" => Config::$PROJECT_SETTINGS["PROJECT_NAME"]
+            "appName" => Config::$APP_SETTINGS["APP_NAME"]
         ]) . "\r\n"
         . t("To set a new password, please open the following link:") . "\r\n"
         . $verificationLink . "\r\n"
         . t("This link is valid for 15 minutes.") . "\r\n"
         . "\r\n"
         . t("If you haven't requested a password recovery for your \$\$appName\$\$ account, you can ignore this email.", [
-            "appName" => Config::$PROJECT_SETTINGS["PROJECT_NAME"]
+            "appName" => Config::$APP_SETTINGS["APP_NAME"]
         ])
     )
     ->addRecipient($email)
