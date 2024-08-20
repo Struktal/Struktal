@@ -1,5 +1,5 @@
 # Logger
-The logger is a helpful tool for developing and maintaining a project with the framework. It allows you to write messages of different importance levels to a logfile. This can be useful for debugging or monitoring the application.
+The logger is a helpful tool for developing and maintaining an application with the framework. It allows you to write messages of different importance levels to a logfile. This can be useful for debugging or monitoring the application.
 
 There are the following log levels:
 - `trace`

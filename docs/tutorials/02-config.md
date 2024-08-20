@@ -1,24 +1,24 @@
 # Config
-The framework provides a configuration file that allows you to configure the functions of the framework and your project.
+The framework provides a configuration file that allows you to configure the functions of the framework and your application.
 
-The (static) configuration file is located in the `📁 project/config/` directory and is named `app-config.php`. It should configure settings which are the same for all environments or deployments (e.g. the project settings, time formats, Class Loader settings, ...). Those settings are typically committed to the repository.
-Other settings, which might change depending on the deployment, and settings that should not be committed to the repository (e.g. database or SMTP server credentials, API keys, SEO settings, ...) can be overwritten in the `📄 secrets/config.secret.json` file. This file is included in the `📄 project/config/app-config.php` file.
+The (static) configuration file is located in the `📁 src/config/` directory and is named `app-config.php`. It should configure settings which are the same for all environments or deployments (e.g. the application settings, time formats, Class Loader settings, ...). Those settings are typically committed to the repository.
+Other settings, which might change depending on the deployment, and settings that should not be committed to the repository (e.g. database or SMTP server credentials, API keys, SEO settings, ...) can be overwritten in the `📄 secrets/config.secret.json` file. This file is included in the `📄 src/config/app-config.php` file.
 
 ## Router settings
-| Field name        | Description                                                                                                                     | Default value |
-|-------------------|---------------------------------------------------------------------------------------------------------------------------------|---------------|
-| `ROUTER_BASE_URI` | The base URI of the project (e.g. if the project is hosted as a subdirectory of a domain, the base URI would be that directory) | `/`           |
+| Field name        | Description                                                                                                                             | Default value |
+|-------------------|-----------------------------------------------------------------------------------------------------------------------------------------|---------------|
+| `ROUTER_BASE_URI` | The base URI of the application (e.g. if the application is hosted as a subdirectory of a domain, the base URI would be that directory) | `/`           |
 
-## Project settings
-| Field name        | Description                                                   | Default value             |
-|-------------------|---------------------------------------------------------------|---------------------------|
-| `PROJECT_NAME`    | The project's name that is displayed in the header and footer | `Project`                 |
-| `WEBSITE_TITLE`   | The title that is displayed for the browser tab               | `Project`                 |
-| `PROJECT_URL`     | The project's URL                                             | `http://localhost:3000`   |
-| `PROJECT_FAVICON` | URL to the projects favicon                                   | `/static/img/favicon.png` |
-| `PROJECT_AUTHOR`  | The author of the project that is displayed in the footer     | `Author`                  |
-| `PROJECT_VERSION` | The version of the project that is displayed in the footer    | `1.0.0`                   |
-| `TIMEZONE`        | The timezone that should be used by the project               | `Europe/Berlin`           |
+## Application settings
+| Field name      | Description                                                       | Default value             |
+|-----------------|-------------------------------------------------------------------|---------------------------|
+| `APP_NAME`      | The applications' name that is displayed in the header and footer | `Application`             |
+| `WEBSITE_TITLE` | The title that is displayed for the browser tab                   | `Application`             |
+| `APP_URL`       | The applications' URL                                             | `http://localhost:3000`   |
+| `APP_FAVICON`   | URL to the applications' favicon                                  | `/static/img/favicon.png` |
+| `APP_AUTHOR`    | The author of the application that is displayed in the footer     | `Author`                  |
+| `APP_VERSION`   | The version of the application that is displayed in the footer    | `1.0.0`                   |
+| `TIMEZONE`      | The timezone that should be used by the application               | `Europe/Berlin`           |
 
 ## Time format settings
 | Field name           | Description                                                 | Default value |
@@ -67,10 +67,10 @@ Other settings, which might change depending on the deployment, and settings tha
 > In Docker deployments, you won't be able to send emails without configuring the mail settings. For Apache web server deployments, you can work around this by configuring another mail service on the machine. Doing this will result in the email wrapper class not working as expected.
 
 ## Class Loader settings
-| Field name                  | Description                                       | Default value                              |
-|-----------------------------|---------------------------------------------------|--------------------------------------------|
-| `CLASS_LOADER_IGNORE_FILES` | Files that should be ignored by the class loader  | Read in `📄 project/config/app-config.php` |
-| `CLASS_LOADER_IMPORT_PATHS` | Paths that should be imported by the class loader | Read in `📄 project/config/app-config.php` |
+| Field name                  | Description                                       | Default value                          |
+|-----------------------------|---------------------------------------------------|----------------------------------------|
+| `CLASS_LOADER_IGNORE_FILES` | Files that should be ignored by the class loader  | Read in `📄 src/config/app-config.php` |
+| `CLASS_LOADER_IMPORT_PATHS` | Paths that should be imported by the class loader | Read in `📄 src/config/app-config.php` |
 
 ## SEO settings
 | Field name                            | Description                                                                  | Default value                 |

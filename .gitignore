@@ -26,3 +26,6 @@ template-cache/
 
 # Ignore compiled TailwindCSS files
 /src/static/css/style.css
+
+# Ignore symlink from src/static to public/static
+/public/static

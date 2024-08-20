@@ -1,9 +1,9 @@
 # Data access object (DAO) pattern
 The framework provides a data access object (DAO) pattern that allows you to easily access and manipulate data in a database with objects.
 
-There are so-called "model objects" that represent the data that's being stored in the database, and for each table there is an own model object. They are located in the `📁 project/src/object/` directory.
+There are so-called "model objects" that represent the data that's being stored in the database, and for each table there is an own model object. They are located in the `📁 src/lib/object/` directory.
 
-There's also a data access object interface that defines the standard operations that can be performed on the model objects, such as creating, reading and updating entries. For every model object, there is an own belonging data access object that's located in the `📁 project/src/dao/` directory.
+There's also a data access object interface that defines the standard operations that can be performed on the model objects, such as creating, reading and updating entries. For every model object, there is an own belonging data access object that's located in the `📁 src/lib/dao/` directory.
 
 To prevent you from having to write the same code over and over again, there are classes called `GenericObject` (model object) and `GenericObjectDAO` (data access object interface) that every custom object should extend from. The `GenericObject` class already implements the table columns
 - `id` (integer) - The unique identifier of the object
@@ -17,7 +17,7 @@ and the `GenericObjectDAO` the standard operations
 - `GenericObjectDAO::getObjects(array $filter, string $orderBy, bool $orderAsc, int $limit, int $offset)` to get multiple objects from the database
 
 ## Setting up a new object
-To set up a new object, you need to create a new class within the `📁 project/src/object/` directory. The class name has to be the same as the table name in the database.
+To set up a new object, you need to create a new class within the `📁 src/lib/object/` directory. The class name has to be the same as the table name in the database.
 ```php
 class MyObject extends GenericObject {
     public string $myAttribute;
@@ -31,7 +31,7 @@ class MyObject extends GenericObject {
     }
 }
 ```
-Next, you'll have to create a new class for the DAO in the `📁 project/src/dao/` directory.
+Next, you'll have to create a new class for the DAO in the `📁 src/lib/dao/` directory.
 
 > [!IMPORTANT]
 > The class name has to be the same as the object class with appended `DAO`.
@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `MyObject` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 ```
 > [!TIP]
-> There is a file `📄 project/src/schema/tables.sql` where you can document the SQL statements that are required for your project. This allows you or other persons to easily recreate tables in case you want to set up another instance of your project in the future.
+> There is a file `📄 src/lib/schema/tables.sql` where you can document the SQL statements that are required for your application. This allows you or other persons to easily recreate tables in case you want to set up another instance of the application in the future.
 
 ## Saving an object to the database
 To create a new database entry for an object, you have to create an instance of the object, assign the attributes and save it with the DAO's `save` method:

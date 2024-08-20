@@ -1,4 +1,5 @@
 # Link src/static to public/static
+rm public/static
 ln -s ../src/static public/static
 
 # Install composer dependencies

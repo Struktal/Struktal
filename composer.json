@@ -30,9 +30,9 @@
     "scripts": {
         "dev": [
             "Composer\\Config::disableProcessTimeout",
-            "docker compose -f docker-compose-dev.yml up"
+            "docker compose -f docker-compose-dev.yml up --build"
         ],
-        "test": "framework/src/vendor/bin/pest tests",
+        "test": "vendor/bin/pest tests",
         "build": "framework/src/lib/build/build.sh",
         "tailwindcss": "framework/src/lib/tailwindcss/tailwindcss.sh",
         "tailwindcss-compile": "framework/src/lib/tailwindcss/tailwindcss.sh --input src/static/css/base.css --output src/static/css/style.css --minify"
