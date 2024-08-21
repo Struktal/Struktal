@@ -2,13 +2,13 @@
 You can translate messages within your application by using the `t` method, wich internally uses the `Translator` class.
 
 ## Translation files
-The strings that are used in the application should be defined in the `.json` translation files within the `📁 project/translations/` directory. This directory is again separated into subdirectories - one for each locale. When cloning the repository initially, you should have the locales `en_US` and `de_DE`.
+The strings that are used in the application should be defined in the `.json` translation files within the `📁 src/translations/` directory. This directory is again separated into subdirectories - one for each locale. When cloning the repository initially, you should have the locales `en_US` and `de_DE`.
 You can create other locales simply by creating a new directory with the locale name, and then creating the `.json` files for the strings.
 
 By default, the locale is automatically detected from the clients `Accept-Language` header. If the locale is not available, the default locale is used.
 This behaviour is customizable by configuring the `TranslationUtil::getPreferredLocale` method. There, you could implement that the locale is detected by the IP address, from a parameter within the URL, by a cookie or by any other method.
 
-Each locale directory can contain multiple translation files, with the filename being the domain. By default, there is only one domain called "messages", so you can see the file `📄 project/translations/en_US/messages.json` for the English messages.
+Each locale directory can contain multiple translation files, with the filename being the domain. By default, there is only one domain called "messages", so you can see the file `📄 src/translations/en_US/messages.json` for the English messages.
 The domain could be switched by using the `Translator::setDomain` method.
 
 Your translation files should be formatted like this:

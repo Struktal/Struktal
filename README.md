@@ -8,7 +8,7 @@
 
 Built-in support for data access and manipulation, routing and various other utilities make it easier to handle common web development tasks.
 
-[Introduction](#introduction) • [Project setup](#project-setup) • [Documentation](#documentation) • [Dependencies](#dependencies) • [License](#license)
+[Introduction](#introduction) • [Application setup](#application-setup) • [Documentation](#documentation) • [Dependencies](#dependencies) • [License](#license)
 
 </div>
 
@@ -58,10 +58,10 @@ For deployments to a web server,
 > [!TIP]
 > It's recommended to use the Docker deployment, as it's much easier to set up and to maintain because everything is already preconfigured. Also, some of the frameworks features such as the automatic crontab setup or the database backup service are exclusive to the Docker deployment option and, if you want to use them on a web server, you'd have to set them up manually.
 
-## Project setup
+## Application setup
 
 ### Repository setup
-- Use this repository as a template for your project by clicking on the green button "Use this template" on the top of this page. This will create a copy of the repository in your account.
+- Use this repository as a template for your application by clicking on the green button "Use this template" on the top of this page. This will create a copy of the repository in your account.
 - Under the repository's `Settings` > `Actions` > `General`, change the workflow permissions from "Read repository contents and packages permissions" to "Read and write permissions" to allow the pipeline to add the newly built package to the GitHub Container Registry.
 - Create repository variables and secrets for GitHub Actions:
 
@@ -77,11 +77,11 @@ For deployments to a web server,
 
 ### Local setup
 - Clone the newly created repository onto your local machine.
-- Configure the `📄 composer.json` file according to your needs: Change the project's name, description and license, and add required dependencies. If you don't have the Docker Compose plugin installed, but instead use `docker-compose`, you have to change the syntax of the `dev` command.
-- Configure `📄 project/config/app-config.php` according to your needs, except for secrets such as database credentials. They are treated in separate, non-tracked configuration files.
+- Configure the `📄 composer.json` file according to your needs: Change the applications' name, description and license, and add required dependencies. If you don't have the Docker Compose plugin installed, but instead use `docker-compose`, you have to change the syntax of the `dev` command.
+- Configure `📄 src/config/app-config.php` according to your needs, except for secrets such as database credentials. They are treated in separate, non-tracked configuration files.
 - Configure `📄 secrets/config.secret.json.example` with the same values as in the previous step, so **don't** include secrets such as database credentials in this file as well. They are treated in the copies of this file, wich won't be tracked by git.
-- Copy `📄 secrets/config.secret.json.example` to `📄 secrets/config.secret.json` and configure it according to your needs. This file is ignored by the `.gitignore` file and therefore not included in the repository. You can also store secrets such as database credentials in this file. It's recommended to remove all fields that are already defined in `📄 project/config/app-config.php` and should not change from this file.
-- Configure `📄 htdocs/deployment/deploy-config.json` according to your needs.
+- Copy `📄 secrets/config.secret.json.example` to `📄 secrets/config.secret.json` and configure it according to your needs. This file is ignored by the `.gitignore` file and therefore not included in the repository. You can also store secrets such as database credentials in this file. It's recommended to remove all fields that are already defined in `📄 src/config/app-config.php` and should not change from this file.
+- Configure `📄 public/deployment/deploy-config.json` according to your needs.
 - Commit and push the changes to the repository.
 
 ### Deployment setup - Docker
@@ -94,13 +94,13 @@ For deployments to a web server,
 
 ### Deployment setup - Apache web server
 The deployment to an Apache web server is a bit more complex than the Docker deployment, as you have to set up the server yourself. However, the following steps will guide you through the process:
-- Clone the newly created repository onto the web server, e.g. to `/var/www/your-project-name`. This should be done as the web server user, or alternatively, you can set the files' owner afterward through `chown` command.
+- Clone the newly created repository onto the web server, e.g. to `/var/www/your-application-name`. This should be done as the web server user, or alternatively, you can set the files' owner afterward through `chown` command.
 - Copy `📄 secrets/config.secret.json` from your local setup to the `📁 secrets/` directory on the server, or copy the `📄 secrets/config.secret.json.example` file to `📄 secrets/config.secret.json` and configure it according to the servers needs.
-- Run `composer install` within the repository directory to install the required dependencies.
-- Set up a virtual host for the website. The `DocumentRoot` should point to the directory where you've cloned the repository to, and then `📁 htdocs/` <sub>Not `📁 project/htdocs/`!</sub>. If you've used the example path from above, the `DocumentRoot` should be set to `/var/www/your-project-name/htdocs`.
+- Run `composer build` within the repository directory to install the required dependencies and generate the required application structure. Make sure to run this command as the web server user, too.
+- Set up a virtual host for the website. The `DocumentRoot` should point to the directory where you've cloned the repository to, and then `📁 public/`. If you've used the example path from above, the `DocumentRoot` should be set to `/var/www/your-application-name/public`.
 
 ## Documentation
-There are many helpful tutorials and guides available [here](docs/tutorials). They cover a wide range of topics, from the frameworks basics, setting up a project, using the frameworks features up to deploying the application.
+There are many helpful tutorials and guides available [here](docs/tutorials). They cover a wide range of topics, from the frameworks basics, setting up an application, using the frameworks features up to deploying the application.
 
 ## Dependencies
 This framework contains the following dependencies:
@@ -114,4 +114,4 @@ This framework contains the following dependencies:
 - **CSVReader** - GitHub: [JensOstertag/csvreader](https://github.com/JensOstertag/csvreader), licensed under [MIT license](https://github.com/JensOstertag/csvreader/blob/main/LICENSE)
 
 ## License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This software is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
