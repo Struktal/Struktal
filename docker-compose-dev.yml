@@ -38,7 +38,7 @@ services:
             - "./secrets:/app/secrets"
             - "./app-logs:/app/logs"
             - "./app-files:/app/files"
-            - "./vendor:/vendor"
+            - "./vendor:/app/vendor"
         ports:
             - "3000:80"
         networks:
