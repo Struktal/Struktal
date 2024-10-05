@@ -114,49 +114,51 @@ class Router {
 
         $foundRoute = [];
         $routeFound = false;
-        foreach(self::$routes[$method] as $routeData) {
-            $route = $routeData["route"];
-            $route = trim($route, "/");
-            $regex = "";
-            $routeParts = explode("/", $route);
-            // Loop over all parts of the route and create a regex
-            foreach($routeParts as $part) {
-                if(preg_match("/\{([bdfis]:[a-zA-Z0-9]+)\}/", $part)) {
-                    // The current route part is a parameter
-                    // Add regex for the corresponding parameter type
-                    $part = trim($part, "{}");
-                    $paramType = explode(":", $part)[0];
-                    switch($paramType) {
-                        case "b":
-                            $regex .= "true|false\/";
-                            break;
-                        case "d":
-                            $regex .= DateFormatter::technicalDateRegex() . "\/";
-                            break;
-                        case "f":
-                            $regex .= "[\d]+(\.[\d]+)?\/";
-                            break;
-                        case "i":
-                            $regex .= "[\d]+\/";
-                            break;
-                        case "s":
-                            $regex .= ".+\/";
-                            break;
+        if(isset(self::$routes[$method])) {
+            foreach(self::$routes[$method] as $routeData) {
+                $route = $routeData["route"];
+                $route = trim($route, "/");
+                $regex = "";
+                $routeParts = explode("/", $route);
+                // Loop over all parts of the route and create a regex
+                foreach($routeParts as $part) {
+                    if(preg_match("/\{([bdfis]:[a-zA-Z0-9]+)\}/", $part)) {
+                        // The current route part is a parameter
+                        // Add regex for the corresponding parameter type
+                        $part = trim($part, "{}");
+                        $paramType = explode(":", $part)[0];
+                        switch($paramType) {
+                            case "b":
+                                $regex .= "true|false\/";
+                                break;
+                            case "d":
+                                $regex .= DateFormatter::technicalDateRegex() . "\/";
+                                break;
+                            case "f":
+                                $regex .= "[\d]+(\.[\d]+)?\/";
+                                break;
+                            case "i":
+                                $regex .= "[\d]+\/";
+                                break;
+                            case "s":
+                                $regex .= ".+\/";
+                                break;
+                        }
+                    } else {
+                        // The current route part is no parameter
+                        // Simply add the part to the regex
+                        $regex .= $part . "\/";
                     }
-                } else {
-                    // The current route part is no parameter
-                    // Simply add the part to the regex
-                    $regex .= $part . "\/";
                 }
-            }
-            if(str_ends_with($regex, "\/")) {
-                $regex = substr($regex, 0, strlen($regex) - 2);
-            }
+                if(str_ends_with($regex, "\/")) {
+                    $regex = substr($regex, 0, strlen($regex) - 2);
+                }
 
-            if(preg_match("#^" . $regex . "$#i", $uri)) {
-                // The current route matches the request
-                $foundRoute = $routeData;
-                $routeFound = true;
+                if(preg_match("#^" . $regex . "$#i", $uri)) {
+                    // The current route matches the request
+                    $foundRoute = $routeData;
+                    $routeFound = true;
+                }
             }
         }
 
