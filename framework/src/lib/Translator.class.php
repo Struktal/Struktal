@@ -18,6 +18,10 @@ class Translator {
         self::openTranslationFile();
     }
 
+    public static function getLocaleForHtmlLang(): string {
+        return str_replace("_", "-", self::$locale);
+    }
+
     private static function openTranslationFile(): void {
         if(self::$translationFile && is_resource(self::$translationFile)) {
             fclose(self::$translationFile);
@@ -42,6 +46,8 @@ class Translator {
 
                 if(isset($translations[$message])) {
                     $message = $translations[$message];
+                } else {
+                    Logger::getLogger("Translator")->warn("Translation not found: \"{$message}\"");
                 }
 
                 fseek(self::$translationFile, 0);
@@ -51,6 +57,8 @@ class Translator {
             $translations = apcu_fetch(self::$locale . "-" . self::$domain);
             if(isset($translations[$message])) {
                 $message = $translations[$message];
+            } else {
+                Logger::getLogger("Translator")->warn("Translation not found: \"{$message}\"");
             }
         }
 
