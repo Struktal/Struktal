@@ -6,13 +6,30 @@ if(Auth::isLoggedIn()) {
 }
 
 // Check whether a one-time password has been specified
-if(empty($_SESSION["authRecoveryOtpId"]) || empty($_SESSION["authRecoveryOtp"])) {
-    new InfoMessage(t("An error has occurred. Please try again later."), InfoMessageType::ERROR);
+$sessionValidation = \validation\Validator::create([
+    \validation\IsRequired::create(),
+    \validation\IsArray::create(),
+    \validation\HasChildren::create([
+        "authRecoveryOtpId" => \validation\Validator::create([
+            \validation\IsRequired::create(),
+            \validation\IsInteger::create()
+        ]),
+        "authRecoveryOtp" => \validation\Validator::create([
+            \validation\IsRequired::create(),
+            \validation\IsString::create(),
+            \validation\MinLength::create(1)
+        ])
+    ], true)
+])->setErrorMessage(t("An error has occurred. Please try again later."));
+try {
+    $session = $sessionValidation->getValidatedValue($_SESSION);
+} catch(validation\ValidationException $e) {
+    new InfoMessage($e->getMessage(), InfoMessageType::ERROR);
     Comm::redirect(Router::generate("auth-login"));
 }
 
-$otpId = $_SESSION["authRecoveryOtpId"];
-$otp = $_SESSION["authRecoveryOtp"];
+$otpId = $session["authRecoveryOtpId"];
+$otp = $session["authRecoveryOtp"];
 
 // Clear old session variables
 unset($_SESSION["authRecoveryOtpId"]);
@@ -50,23 +67,43 @@ if(!password_verify($otp, $user->getOneTimePassword())) {
 }
 
 // Check whether form fields are given
-if(empty($_POST["password"]) || empty($_POST["password-repeat"])) {
-    new InfoMessage(t("Please fill out all the required fields."), InfoMessageType::ERROR);
+$postValidation = \validation\Validator::create([
+    \validation\IsRequired::create(),
+    \validation\IsArray::create(),
+    \validation\HasChildren::create([
+        "password" => \validation\Validator::create([
+            \validation\IsRequired::create(),
+            \validation\IsString::create(),
+            \validation\MinLength::create(8),
+            \validation\MaxLength::create(256),
+        ]),
+        "password-repeat" => \validation\Validator::create([
+            \validation\IsRequired::create(),
+            \validation\IsString::create(),
+            \validation\MinLength::create(8),
+            \validation\MaxLength::create(256),
+        ])
+    ])
+])->setErrorMessage(t("Please fill out all the required fields."));
+try {
+    $post = $postValidation->getValidatedValue($_POST);
+} catch(validation\ValidationException $e) {
+    new InfoMessage($e->getMessage(), InfoMessageType::ERROR);
     Comm::redirect($resetLink);
 }
 
 // Check passwords
-if($_POST["password"] !== $_POST["password-repeat"]) {
+if($post["password"] !== $post["password-repeat"]) {
     new InfoMessage(t("The specified passwords do not match. Please check for spelling errors and try again."), InfoMessageType::ERROR);
     Comm::redirect($resetLink);
 }
-if(!preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d\W]).{8,}$/", $_POST["password"])) {
+if(!preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d\W]).{8,}$/", $post["password"])) {
     new InfoMessage(t("The specified password doesn't fulfill the password requirements. Please choose a safer password."), InfoMessageType::ERROR);
     Comm::redirect($resetLink);
 }
 
 // Change password
-$user->setPassword($_POST["password"]);
+$user->setPassword($post["password"]);
 $user->setOneTimePassword(null);
 $user->setOneTimePasswordExpiration(null);
 User::dao()->save($user);

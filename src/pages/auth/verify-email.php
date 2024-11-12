@@ -6,13 +6,31 @@ if(Auth::isLoggedIn()) {
 }
 
 // Check whether a one-time password has been specified
-if(empty($_GET["otpid"]) || empty($_GET["otp"])) {
-    new InfoMessage(t("An error has occurred. Please try again later."), InfoMessageType::ERROR);
+$validation = \validation\Validator::create([
+    \validation\IsRequired::create(),
+    \validation\IsArray::create(),
+    \validation\HasChildren::create([
+        "otpid" => \validation\Validator::create([
+            \validation\IsRequired::create(),
+            \validation\IsString::create(),
+            \validation\MinLength::create(1)
+        ]),
+        "otp" => \validation\Validator::create([
+            \validation\IsRequired::create(),
+            \validation\IsString::create(),
+            \validation\MinLength::create(1)
+        ])
+    ])
+])->setErrorMessage(t("An error has occurred. Please try again later."));
+try {
+    $get = $validation->getValidatedValue($_GET);
+} catch(validation\ValidationException $e) {
+    new InfoMessage($e->getMessage(), InfoMessageType::ERROR);
     Comm::redirect(Router::generate("auth-login"));
 }
 
-$otpId = base64_decode(urldecode($_GET["otpid"]));
-$otp = urldecode($_GET["otp"]);
+$otpId = base64_decode(urldecode($get["otpid"]));
+$otp = urldecode($get["otp"]);
 
 // Find the user from the one-time password
 $user = User::dao()->getObject([

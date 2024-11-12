@@ -6,26 +6,31 @@ if(Auth::isLoggedIn()) {
 }
 
 // Check whether form fields are given
-if(empty($_POST["email"])) {
-    new InfoMessage(t("Please enter your accounts verified email address."), InfoMessageType::ERROR);
+$validation = \validation\Validator::create([
+    \validation\IsRequired::create(),
+    \validation\IsArray::create(),
+    \validation\HasChildren::create([
+        "email" => \validation\Validator::create([
+            \validation\IsRequired::create(),
+            \validation\IsString::create(),
+            \validation\IsEmail::create()->setErrorMessage(t("The specified email address is invalid. Please check for spelling errors and try again."))
+        ])
+    ])
+])->setErrorMessage(t("Please enter your account's verified email address."));
+try {
+    $post = $validation->getValidatedValue($_POST);
+} catch(validation\ValidationException $e) {
+    new InfoMessage($e->getMessage(), InfoMessageType::ERROR);
     Comm::redirect(Router::generate("auth-recovery-request"));
 }
-
-// Check whether the email is valid
-if(!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
-    new InfoMessage(t("The specified email address is invalid. Please check for spelling errors and try again."), InfoMessageType::ERROR);
-    Comm::redirect(Router::generate("auth-recovery-request"));
-}
-
-$email = strtolower($_POST["email"]);
 
 $user = User::dao()->getObject([
-    "email" => $email,
+    "email" => $post["email"],
     "emailVerified" => true
 ]);
 
 if(!$user instanceof GenericUser) {
-    Logger::getLogger("Recovery")->info("Failed to request password recovery for email \"{$_POST["email"]}\"");
+    Logger::getLogger("Recovery")->info("Failed to request password recovery for email \"{$post["email"]}\"");
     new InfoMessage(t("An account with this email could not be found. Please check for spelling errors and try again."), InfoMessageType::ERROR);
     Comm::redirect(Router::generate("auth-recovery-request"));
 }
@@ -55,8 +60,8 @@ $mail->setSubject(t("Password recovery"))
             "appName" => Config::$APP_SETTINGS["APP_NAME"]
         ])
     )
-    ->addRecipient($email)
+    ->addRecipient($post["email"])
     ->send();
 
-Logger::getLogger("Recovery")->info("Requested password recovery for user with email \"{$_POST["email"]}\" (User ID {$user->getId()})");
+Logger::getLogger("Recovery")->info("Requested password recovery for user with email \"{$post["email"]}\" (User ID \"{$user->getId()}\")");
 Comm::redirect(Router::generate("auth-recovery-request-complete"));
