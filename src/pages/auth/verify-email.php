@@ -58,7 +58,7 @@ if(!password_verify($otp, $user->getOneTimePassword())) {
 $user->setEmailVerified(true);
 $user->setOneTimePassword(null);
 $user->setOneTimePasswordExpiration(null);
-$user->setUpdated(new DateTime());
+$user->setUpdated(new DateTimeImmutable());
 User::dao()->save($user);
 
 Logger::getLogger("Email-Verification")->info("The email address \"{$user->getEmail()}\" (User ID \"{$user->getId()}\") has been verified");
