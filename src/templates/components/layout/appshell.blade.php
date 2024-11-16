@@ -48,13 +48,11 @@
         {{-- JavaScript --}}
         <script src="{{ Router::staticFilePath("js/lib/jquery.min.js") }}"></script>
         <script src="{{ Router::staticFilePath("js/infomessage.js") }}"></script>
-        <script src="{{ Router::staticFilePath("js/Translator.js") }}"></script>
     </head>
     <body class="bg-background overflow-x-hidden">
-        <script>
-            $(document).ready(function() {
-                initTranslator("{{ Router::generate("translations-api") }}");
-            });
+        <script type="module">
+            import { init } from "{{ Router::staticFilePath("js/Translator.js") }}";
+            init("{{ Router::generate("translations-api") }}");
         </script>
 
         <header class="flex justify-between items-center min-h-24 px-content-padding-sm md:px-content-padding-md lg:px-content-padding-lg bg-background-header text-font-header">
@@ -110,7 +108,7 @@
             <div class="header-sidebar-background hidden absolute left-0 top-0 w-full h-full z-100 backdrop-blur"></div>
 
             <script type="module">
-                import Sidebar from "{{ Router::staticFilePath("js/Sidebar.js") }}";
+                import * as Sidebar from "{{ Router::staticFilePath("js/Sidebar.js") }}";
                 Sidebar.init();
             </script>
         </header>
