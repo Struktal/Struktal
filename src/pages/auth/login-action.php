@@ -23,7 +23,7 @@ $validation = \validation\Validator::create([
             \validation\MaxLength::create(256),
         ])
     ])
-])->setErrorMessage(t("Please sign in with your account's credentials."));
+])->setErrorMessage(t("Please log in with your account's credentials."));
 try {
     $post = $validation->getValidatedValue($_POST);
 } catch(validation\ValidationException $e) {
