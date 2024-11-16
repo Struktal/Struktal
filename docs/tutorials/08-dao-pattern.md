@@ -54,8 +54,8 @@ The database tables need to be set up manually. Use the following template to do
 CREATE TABLE IF NOT EXISTS `MyObject` (
     `id` int(11) NOT NULL AUTO_INCREMENT,
     `myAttribute` VARCHAR(255) NOT NULL,
-    `created` DATETIME NOT NULL,
-    `updated` DATETIME NOT NULL,
+    `created` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updated` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 ```
