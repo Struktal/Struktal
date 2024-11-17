@@ -77,5 +77,10 @@
                 </main>
             </div>
         </div>
+
+        <script type="module">
+            import { init } from "{{ Router::staticFilePath("js/DateFormatter.js") }}";
+            init();
+        </script>
     </body>
 </html>
