@@ -18,17 +18,6 @@ Other settings, which might change depending on the deployment, and settings tha
 | `APP_FAVICON`   | URL to the applications' favicon                                  | `/static/img/favicon.png` |
 | `APP_AUTHOR`    | The author of the application that is displayed in the footer     | `Author`                  |
 | `APP_VERSION`   | The version of the application that is displayed in the footer    | `1.0.0`                   |
-| `TIMEZONE`      | The timezone that should be used by the application               | `Europe/Berlin`           |
-
-## Time format settings
-| Field name           | Description                                                 | Default value |
-|----------------------|-------------------------------------------------------------|---------------|
-| `DATE_TECHNICAL`     | The format of a date that is used by the backend            | `Y-m-d`       |
-| `TIME_TECHNICAL`     | The format of a time that is used by the backend            | `H:i:s`       |
-| `DATETIME_TECHNICAL` | The format of a date and time that is used by the backend   | `Y-m-d H:i:s` |
-| `DATE_VISUAL`        | The format how a date is displayed in the frontend          | `d.m.Y`       |
-| `TIME_VISUAL`        | The format how a time is displayed in the frontend          | `H:i`         |
-| `DATETIME_VISUAL`    | The format how a date and time is displayed in the frontend | `d.m.Y H:i`   |
 
 ## Logger settings
 | Field name         | Description                                                                         | Default value   |

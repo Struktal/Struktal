@@ -37,7 +37,8 @@ if(!$user instanceof GenericUser) {
 
 // Send password recovery mail
 $oneTimePassword = User::dao()->generateOneTimePassword();
-$oneTimePasswordExpiration = DateFormatter::technicalDateTime((new DateTime())->modify("+15 minutes"));
+$now = new DateTimeImmutable();
+$oneTimePasswordExpiration = $now->modify("+15 minutes");
 
 $user->setOneTimePassword($oneTimePassword);
 $user->setOneTimePasswordExpiration($oneTimePasswordExpiration);

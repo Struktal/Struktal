@@ -48,7 +48,7 @@ $user = User::dao()->getObject([
     [
         "field" => "oneTimePasswordExpiration",
         "filterType" => DAOFilterType::GREATER_THAN_EQUALS,
-        "filterValue" => DateFormatter::technicalDateTime()
+        "filterValue" => new DateTime()
     ]
 ]);
 if(!$user instanceof User) {

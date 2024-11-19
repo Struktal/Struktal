@@ -106,7 +106,7 @@
     </p>
 
     <script type="module">
-        import PasswordStrength from "{{ Router::staticFilePath("js/auth/PasswordStrength.js") }}";
-        PasswordStrength.init();
+        import * as PasswordStrength from "{{ Router::staticFilePath("js/auth/PasswordStrength.js") }}";
+        PasswordStrength.init("password");
     </script>
 @endcomponent

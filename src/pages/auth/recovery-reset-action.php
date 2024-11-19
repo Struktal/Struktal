@@ -52,7 +52,7 @@ $user = User::dao()->getObject([
     [
         "field" => "oneTimePasswordExpiration",
         "filterType" => DAOFilterType::GREATER_THAN_EQUALS,
-        "filterValue" => DateFormatter::technicalDateTime()
+        "filterValue" => new DateTime()
     ]
 ]);
 if(!$user instanceof User) {
@@ -106,6 +106,7 @@ if(!preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d\W]).{8,}$/", $post["password"])
 $user->setPassword($post["password"]);
 $user->setOneTimePassword(null);
 $user->setOneTimePasswordExpiration(null);
+$user->setUpdated(new DateTimeImmutable());
 User::dao()->save($user);
 
 Logger::getLogger("Recovery")->info("Changed password for user with email \"{$user->getEmail()}\" (User ID \"{$user->getId()}\")");

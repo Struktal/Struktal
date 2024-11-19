@@ -7,7 +7,7 @@ To create a route for a page, you have to add a new entry to the `📄 src/confi
 
   GET parameters can be added to the route by using the following syntax: `{type:name}`
 
-  Supported types are `b` (boolean), `d` (date (without time)), `f` (float), `i` (integer), and `s` (string).
+  Supported types are `b` (boolean), `f` (float), `i` (integer), and `s` (string).
 
   The name of the parameter is used to identify the parameter within the `$_GET` array.
 - `$routeTo` - The PHP file that should be executed when the route is accessed
