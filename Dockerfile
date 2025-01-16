@@ -6,7 +6,7 @@ RUN apk update && apk upgrade
 RUN apk --no-cache add tzdata
 
 # Install PHP, composer, nodejs and npm
-RUN apk --no-cache add php83 php83-fpm composer git nodejs npm
+RUN apk --no-cache add php83 php83-fpm composer nodejs npm git
 
 # Install PHP packages
 RUN apk --no-cache add php-session php-tokenizer php-mysqli php-pdo php-pdo_mysql php-curl php-gd php-intl php-mbstring php-xml php-simplexml php-dom php-ctype php-apcu
