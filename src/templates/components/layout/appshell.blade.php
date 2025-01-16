@@ -47,6 +47,9 @@
 
         {{-- JavaScript --}}
         <script src="{{ Router::staticFilePath("js/lib/jquery.min.js") }}"></script>
+        @if($_SERVER["HTTP_HOST"] === "localhost:3000" || $_SERVER["HTTP_HOST"] === "127.0.0.1:3000")
+            <script src="{{ Router::staticFilePath("js/lib/LiveUpdate.js") }}"></script>
+        @endif
         <script src="{{ Router::staticFilePath("js/infomessage.js") }}"></script>
     </head>
     <body class="bg-background overflow-x-hidden">
