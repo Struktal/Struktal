@@ -35,7 +35,7 @@ services:
             - "./framework:/app/framework"
             - "./public:/app/public"
             - "./src:/app/src"
-            - "./secrets:/app/secrets"
+            - "./config:/app/config"
             - "./app-logs:/app/logs"
             - "./app-files:/app/files"
         ports:

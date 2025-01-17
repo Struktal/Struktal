@@ -79,8 +79,8 @@ For deployments to a web server,
 - Clone the newly created repository onto your local machine.
 - Configure the `📄 composer.json` file according to your needs: Change the applications' name, description and license, and add required dependencies. If you don't have the Docker Compose plugin installed, but instead use `docker-compose`, you have to change the syntax of the `dev` command.
 - Configure `📄 src/config/app-config.php` according to your needs, except for secrets such as database credentials. They are treated in separate, non-tracked configuration files.
-- Configure `📄 secrets/config.secret.json.example` with the same values as in the previous step, so **don't** include secrets such as database credentials in this file as well. They are treated in the copies of this file, wich won't be tracked by git.
-- Copy `📄 secrets/config.secret.json.example` to `📄 secrets/config.secret.json` and configure it according to your needs. This file is ignored by the `.gitignore` file and therefore not included in the repository. You can also store secrets such as database credentials in this file. It's recommended to remove all fields that are already defined in `📄 src/config/app-config.php` and should not change from this file.
+- Configure `📄 config/config.json.dist` with the same values as in the previous step, so **don't** include secrets such as database credentials in this file as well. They are treated in the copies of this file, wich won't be tracked by git.
+- Copy `📄 config/config.json.dist` to `📄 config/config.json` and configure it according to your needs. This file is ignored by the `.gitignore` file and therefore not included in the repository. You can also store secrets such as database credentials in this file. It's recommended to remove all fields that are already defined in `📄 src/config/app-config.php` and should not change from this file.
 - Configure `📄 public/deployment/deploy-config.json` according to your needs.
 - Commit and push the changes to the repository.
 
@@ -88,14 +88,14 @@ For deployments to a web server,
 - Create and configure the `📄 docker-compose.yml` file according to your requirements. The easiest way to do this is by simply cloning the newly created repository onto the server that the Docker container should run on, and then configuring it.
     - Change the `image` name / link
     - Change the access credentials for the database
-- Copy `📄 secrets/config.secret.json` from your local setup to the `📁 secrets/` directory on the server, or configure the file directly on the server, depending on your needs.
+- Copy `📄 config/config.json` from your local setup to the `📁 config/` directory on the server, or configure the file directly on the server, depending on your needs.
     - Change the database access credentials, as configured in the `📄 docker-compose.yml` file
 - Run `docker-compose up -d` to start the container. This will pull the image from the GitHub Container Registry and start the container.
 
 ### Deployment setup - Apache web server
 The deployment to an Apache web server is a bit more complex than the Docker deployment, as you have to set up the server yourself. However, the following steps will guide you through the process:
 - Clone the newly created repository onto the web server, e.g. to `/var/www/your-application-name`. This should be done as the web server user, or alternatively, you can set the files' owner afterward through `chown` command.
-- Copy `📄 secrets/config.secret.json` from your local setup to the `📁 secrets/` directory on the server, or copy the `📄 secrets/config.secret.json.example` file to `📄 secrets/config.secret.json` and configure it according to the servers needs.
+- Copy `📄 config/config.json` from your local setup to the `📁 config/` directory on the server, or copy the `📄 config/config.json.dist` file to `📄 config/config.json` and configure it according to the servers needs.
 - Run `composer build` within the repository directory to install the required dependencies and generate the required application structure. Make sure to run this command as the web server user, too.
 - Set up a virtual host for the website. The `DocumentRoot` should point to the directory where you've cloned the repository to, and then `📁 public/`. If you've used the example path from above, the `DocumentRoot` should be set to `/var/www/your-application-name/public`.
 
