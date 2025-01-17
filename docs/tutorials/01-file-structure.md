@@ -37,8 +37,8 @@ Also note that after running the `composer build` command, a symlink is created 
 
 There are the following files and subdirectories:
 - `📁 deployment/` - Files that are required for the automatic deployment of the application
-- `.htaccess` - Apache configuration file that redirects all requests to the `📁 public/routes-handler.php` file, except for requests to the `📁 public/static/` directory
-- `routes-handler.php` - PHP script that handles all requests to the web server and redirects them to the correct PHP script in the `📁 src/pages/` directory
+- `.htaccess` - Apache configuration file that redirects all requests to the `📁 public/front-controller.php` file, except for requests to the `📁 public/static/` directory
+- `front-controller.php` - PHP script that handles all requests to the web server and redirects them to the correct PHP script in the `📁 src/pages/` directory (see https://en.wikipedia.org/wiki/Front_controller)
 
 ### `secrets` directory
 The `📁 secrets/` directory contains all files that are required for the application to work, but shouldn't be committed to the repository. Files that end with `.example` are not ignored.
