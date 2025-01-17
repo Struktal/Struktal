@@ -4,11 +4,11 @@ Before you start working with the framework and developing your application, it'
 ## Root directory
 The root directory contains the following files and subdirectories:
 - `📁 .github/` - GitHub Actions workflows
+- [`📁 config/`](#config-directory)
 - `📁 docker/` - Docker files which are mounted into the image when building it
 - `📁 docs/` - Documentation files for the framework (can be deleted or modified)
 - [`📁 framework/`](#framework-directory)
 - [`📁 public/`](#public-directory)
-- [`📁 secrets/`](#secrets-directory)
 - [`📁 src/`](#src-directory)
 - `📁 tests/` - Test files for the framework and for your application
 - `📁 template-cache/` - BladeOne template cache files
@@ -17,6 +17,13 @@ The root directory contains the following files and subdirectories:
 - `Dockerfile` - Docker file for building the image
 - `docker-compose.yml` - Docker compose file for running the image
 - `README.md` - Framework README (can be deleted or modified)
+
+### `config` directory
+The `📁 config/` directory contains all files that are required for the application to work, but shouldn't be committed to the repository. Files that end with `.dist` are not ignored.
+
+There are the following files and subdirectories:
+- `config.json` - Secret application settings or keys
+- `config.json.dist` - Example file for `config.json` that can be committed to the repository
 
 ### `framework` directory
 The `📁 framework/` directory contains all files that are required by the framework itself and your application. If you're working on an application, it's recommended not to edit the files in this directory in order to keep compatibility with newer versions.
@@ -37,15 +44,8 @@ Also note that after running the `composer build` command, a symlink is created 
 
 There are the following files and subdirectories:
 - `📁 deployment/` - Files that are required for the automatic deployment of the application
-- `.htaccess` - Apache configuration file that redirects all requests to the `📁 public/routes-handler.php` file, except for requests to the `📁 public/static/` directory
-- `routes-handler.php` - PHP script that handles all requests to the web server and redirects them to the correct PHP script in the `📁 src/pages/` directory
-
-### `secrets` directory
-The `📁 secrets/` directory contains all files that are required for the application to work, but shouldn't be committed to the repository. Files that end with `.example` are not ignored.
-
-There are the following files and subdirectories:
-- `config.secret.json` - Secret application settings or keys
-- `config.secret.json.example` - Example file for `config.secret.json` that can be committed to the repository
+- `.htaccess` - Apache configuration file that redirects all requests to the `📁 public/front-controller.php` file, except for requests to the `📁 public/static/` directory
+- `front-controller.php` - PHP script that handles all requests to the web server and redirects them to the correct PHP script in the `📁 src/pages/` directory (see https://en.wikipedia.org/wiki/Front_controller)
 
 ### `src` directory
 The `📁 src/` directory contains (basically all of) your applications' logic.

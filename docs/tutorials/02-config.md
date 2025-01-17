@@ -2,7 +2,7 @@
 The framework provides a configuration file that allows you to configure the functions of the framework and your application.
 
 The (static) configuration file is located in the `📁 src/config/` directory and is named `app-config.php`. It should configure settings which are the same for all environments or deployments (e.g. the application settings, time formats, Class Loader settings, ...). Those settings are typically committed to the repository.
-Other settings, which might change depending on the deployment, and settings that should not be committed to the repository (e.g. database or SMTP server credentials, API keys, SEO settings, ...) can be overwritten in the `📄 secrets/config.secret.json` file. This file is included in the `📄 src/config/app-config.php` file.
+Other settings, which might change depending on the deployment, and settings that should not be committed to the repository (e.g. database or SMTP server credentials, API keys, SEO settings, ...) can be overwritten in the `📄 config/config.json` file. This file is included in the `📄 src/config/app-config.php` file.
 
 ## Router settings
 | Field name        | Description                                                                                                                             | Default value |

@@ -28,7 +28,7 @@ services:
         environment:
             TZ: "UTC"
         volumes:
-            - "./secrets:/app/secrets"
+            - "./config:/app/config"
             - "./app-logs:/app/logs"
             - "./app-files:/app/files"
         ports:

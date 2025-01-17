@@ -35,11 +35,11 @@ services:
             - "./framework:/app/framework"
             - "./public:/app/public"
             - "./src:/app/src"
-            - "./secrets:/app/secrets"
+            - "./config:/app/config"
             - "./app-logs:/app/logs"
             - "./app-files:/app/files"
-            - "./vendor:/app/vendor"
         ports:
             - "3000:80"
+            - "5173:5173"
         networks:
             - "app"
