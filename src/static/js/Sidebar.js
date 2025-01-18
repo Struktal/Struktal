@@ -10,17 +10,17 @@ let shown = false;
  */
 export const init = () => {
     // Click on burger button
-    $("#header-sidebar-open").on("click", () => {
+    document.getElementById("header-sidebar-open").addEventListener("click", () => {
         open();
     });
 
     // Click on close button
-    $("#header-sidebar-close").on("click", () => {
+    document.getElementById("header-sidebar-close").addEventListener("click", () => {
         close();
     });
 
-    // Click on sidebar backgrund
-    $(".header-sidebar-background").on("click", () => {
+    // Click on sidebar background
+    document.querySelector(".header-sidebar-background").addEventListener("click", () => {
         close();
     });
 }
@@ -30,9 +30,8 @@ export const init = () => {
  */
 export const open = () => {
     // Show sidebar
-    $(".header-sidebar-popup").removeClass("translate-x-full");
-    $(".header-sidebar-popup").removeClass("hidden");
-    $(".header-sidebar-background").removeClass("hidden");
+    document.querySelector(".header-sidebar-popup").classList.remove("translate-x-full", "hidden");
+    document.querySelector(".header-sidebar-background").classList.remove("hidden");
 
     // Disable scrolling
     document.querySelector('html').scrollTop = window.scrollY;
@@ -47,11 +46,11 @@ export const open = () => {
  */
 export const close = () => {
     // Hide sidebar
-    $(".header-sidebar-popup").addClass("translate-x-full");
+    document.querySelector(".header-sidebar-popup").classList.add("translate-x-full");
     setTimeout(() => {
-        $(".header-sidebar-popup").addClass("hidden");
+        document.querySelector(".header-sidebar-popup").classList.add("hidden");
     }, 500);
-    $(".header-sidebar-background").addClass("hidden");
+    document.querySelector(".header-sidebar-popup").classList.remove("hidden");
 
     // Enable scrolling
     document.body.style.overflow = null;
