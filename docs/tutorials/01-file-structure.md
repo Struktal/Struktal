@@ -40,7 +40,7 @@ There are the following files and subdirectories:
 
 ### `public` directory
 The `📁 public/` directory contains files that are directly accessible via the web server.
-Also note that after running the `composer build` command, a symlink is created for `📁 public/static/`, which links to the `📁 src/static/` directory, which contains static code, such as CSS, JavaScript, and images.
+Also note that a symlink is created for `📁 public/static/`, which links to the `📁 src/static/` directory, which contains static code, such as CSS, JavaScript, and images.
 
 There are the following files and subdirectories:
 - `📁 deployment/` - Files that are required for the automatic deployment of the application

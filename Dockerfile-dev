@@ -47,8 +47,5 @@ RUN npx tailwindcss --input src/static/css/base.css --output src/static/css/styl
 # Setup crontab
 RUN crontab -u nginx /app/src/cronjobs/.crontab
 
-# Build the application
-RUN cd /app && composer build
-
 EXPOSE 80
 ENTRYPOINT ["/app/entrypoint-dev.sh"]
