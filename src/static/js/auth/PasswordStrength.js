@@ -1,16 +1,16 @@
 export const init = (elementId) => {
     const pwStrength = passwordStrength;
 
-    let element = document.getElementById(elementId);
+    const element = document.getElementById(elementId);
     if(!element) {
         return;
     }
 
     element.addEventListener("input", () => {
-        let text = element.value;
+        const text = element.value;
 
         // Calculate strength
-        let passwordStrengthBar = document.getElementById("password-strength-indicator-bar");
+        const passwordStrengthBar = document.getElementById("password-strength-indicator-bar");
         let passwordStrength = pwStrength(text);
         if(passwordStrength < 40) {
             passwordStrengthBar.setAttribute("data-strength", "0");
@@ -25,7 +25,7 @@ export const init = (elementId) => {
         passwordStrengthBar.style.width = passwordStrength + "%";
 
         document.querySelectorAll(".password-requirement").forEach((requirement) => {
-            let regex = new RegExp(requirement.getAttribute("data-regex"));
+            const regex = new RegExp(requirement.getAttribute("data-regex"));
             if(regex.test(text)) {
                 requirement.setAttribute("data-met", "true");
             } else {

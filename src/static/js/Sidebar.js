@@ -34,11 +34,11 @@ export const open = () => {
     document.querySelector(".header-sidebar-background").classList.remove("hidden");
 
     // Disable scrolling
-    document.querySelector('html').scrollTop = window.scrollY;
-    document.body.style.overflow = 'hidden';
-    document.body.style.position = 'relative';
-    document.querySelector('html').style.overflow = 'hidden';
-    document.querySelector('html').style.position = 'relative';
+    document.querySelector("html").scrollTop = window.scrollY;
+    document.body.style.overflow = "hidden";
+    document.body.style.position = "relative";
+    document.querySelector("html").style.overflow = "hidden";
+    document.querySelector("html").style.position = "relative";
 }
 
 /**
@@ -55,12 +55,8 @@ export const close = () => {
     // Enable scrolling
     document.body.style.overflow = null;
     document.body.style.position = null;
-    document.querySelector('html').style.overflow = null;
-    document.querySelector('html').style.position = null;
+    document.querySelector("html").style.overflow = null;
+    document.querySelector("html").style.position = null;
 }
 
-export default {
-    init,
-    open,
-    close
-};
+export default { init, open, close };

@@ -49,7 +49,6 @@
         @if($_SERVER["HTTP_HOST"] === "localhost:3000" || $_SERVER["HTTP_HOST"] === "127.0.0.1:3000")
             <script src="{{ Router::staticFilePath("js/lib/LiveUpdate.js") }}"></script>
         @endif
-        <script src="{{ Router::staticFilePath("js/infomessage.js") }}"></script>
     </head>
     <body class="flex flex-row h-full overflow-x-hidden bg-gradient-to-br from-primary to-primary-effect text-font">
         <script type="module">
