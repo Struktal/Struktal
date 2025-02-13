@@ -90,6 +90,7 @@ For deployments to a web server,
     - Change the access credentials for the database
 - Copy `📄 config/config.json` from your local setup to the `📁 config/` directory on the server, or configure the file directly on the server, depending on your needs.
     - Change the database access credentials, as configured in the `📄 docker-compose.yml` file
+    - Make sure to set the `PRODUCTION` field to `true`, which will hide error messages from the user
 - Run `docker-compose up -d` to start the container. This will pull the image from the GitHub Container Registry and start the container.
 
 ### Deployment setup - Apache web server
