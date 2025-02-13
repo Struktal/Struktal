@@ -46,7 +46,7 @@
         <link rel="stylesheet" href="{{ Router::staticFilePath("css/style.css") }}">
 
         {{-- JavaScript --}}
-        @if($_SERVER["HTTP_HOST"] === "localhost:3000" || $_SERVER["HTTP_HOST"] === "127.0.0.1:3000")
+        @if(!Config::$APP_SETTINGS["PRODUCTION"])
             <script src="{{ Router::staticFilePath("js/lib/LiveUpdate.js") }}"></script>
         @endif
     </head>
@@ -120,7 +120,7 @@
             {!! $slot !!}
         </main>
 
-        <footer class="min-h-24 px-content-padding-sm md:px-content-padding-md lg:px-content-padding-lg bg-background-header text-font-footer">
+        <footer class="mb-4 px-content-padding-sm md:px-content-padding-md lg:px-content-padding-lg bg-background-header text-font-footer">
             <hr class="my-4">
             <div class="flex justify-start items-center uppercase">
                 <img src="{{ Router::staticFilePath("img/logo.svg") }}"
