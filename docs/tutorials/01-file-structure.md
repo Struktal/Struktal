@@ -7,9 +7,9 @@ The root directory contains the following files and subdirectories:
 - [`📁 config/`](#config-directory)
 - `📁 docker/` - Docker files which are mounted into the image when building it
 - `📁 docs/` - Documentation files for the framework (can be deleted or modified)
-- [`📁 framework/`](#framework-directory)
 - [`📁 public/`](#public-directory)
 - [`📁 src/`](#src-directory)
+- [`📁 struktal/`](#struktal-directory)
 - `📁 tests/` - Test files for the framework and for your application
 - `📁 template-cache/` - BladeOne template cache files
 - `.dockerignore` and `.gitignore`
@@ -24,19 +24,6 @@ The `📁 config/` directory contains all files that are required for the applic
 There are the following files and subdirectories:
 - `config.json` - Secret application settings or keys
 - `config.json.dist` - Example file for `config.json` that can be committed to the repository
-
-### `framework` directory
-The `📁 framework/` directory contains all files that are required by the framework itself and your application. If you're working on an application, it's recommended not to edit the files in this directory in order to keep compatibility with newer versions.
-
-There are the following files and subdirectories:
-- `📁 config/`
-    - `Config.class.php` - Predefined configurable variables and parameters
-- `📁 src/` - The frameworks source code
-    - `📁 dao/` - Predefined DAO classes for predefined objects
-    - `📁 enum/` - Predefined enums
-    - `📁 lib/` - Various classes and utilities that are often used in the application code
-    - `📁 object/` - Predefined objects that can be used with the data access object pattern
-- `📄 framework.php` - The primary framework file that imports all necessary files
 
 ### `public` directory
 The `📁 public/` directory contains files that are directly accessible via the web server.
@@ -63,3 +50,16 @@ There are the following files and subdirectories:
 - `📁 static/` - Static files that are directly accessible via the web server, without any PHP magic
 - `📁 templates/` - BladeOne template files that are used to display the page contents
 - `📁 translations/` - Translation files for the application
+
+### `struktal` directory
+The `📁 struktal/` directory contains all files that are required by the framework itself and your application. If you're working on an application, it's recommended not to edit the files in this directory in order to keep compatibility with newer versions.
+
+There are the following files and subdirectories:
+- `📁 config/`
+    - `Config.class.php` - Predefined configurable variables and parameters
+- `📁 src/` - The frameworks source code
+    - `📁 dao/` - Predefined DAO classes for predefined objects
+    - `📁 enum/` - Predefined enums
+    - `📁 lib/` - Various classes and utilities that are often used in the application code
+    - `📁 object/` - Predefined objects that can be used with the data access object pattern
+- `📄 start.php` - The primary framework file that imports all necessary files

@@ -58,12 +58,12 @@ class Config {
         ];
 
         self::$MAIL_SETTINGS = [
-            "MAIL_DEFAULT_SENDER_EMAIL" => "mail@framework",
-            "MAIL_DEFAULT_SENDER_NAME" => "Framework",
-            "MAIL_DEFAULT_REPLY_TO" => "reply@framework",
-            "MAIL_DEFAULT_SUBJECT" => "Framework Mail",
+            "MAIL_DEFAULT_SENDER_EMAIL" => "mail@struktal",
+            "MAIL_DEFAULT_SENDER_NAME" => "Struktal",
+            "MAIL_DEFAULT_REPLY_TO" => "reply@struktal",
+            "MAIL_DEFAULT_SUBJECT" => "Struktal",
             "MAIL_REDIRECT_ALL_MAILS" => false,
-            "MAIL_REDIRECT_ALL_MAILS_TO" => "redirect@framework"
+            "MAIL_REDIRECT_ALL_MAILS_TO" => "redirect@struktal"
         ];
 
         self::$CLASS_LOADER_SETTINGS = [

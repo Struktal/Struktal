@@ -14,16 +14,16 @@ services:
         environment:
             TZ: "UTC"
             MYSQL_ROOT_PASSWORD: "root" # ADJUST
-            MYSQL_DATABASE: "framework-app" # ADJUST
-            MYSQL_USER: "framework-app" # ADJUST
-            MYSQL_PASSWORD: "framework-app" # ADJUST
+            MYSQL_DATABASE: "struktal-app" # ADJUST
+            MYSQL_USER: "struktal-app" # ADJUST
+            MYSQL_PASSWORD: "struktal-app" # ADJUST
         volumes:
             - "database:/var/lib/mysql"
         networks:
             - "app"
 
     app:
-        image: "ghcr.io/jensostertag/php-framework:latest" # ADJUST
+        image: "ghcr.io/struktal/struktal:latest" # ADJUST
         restart: "always"
         environment:
             TZ: "UTC"
@@ -37,13 +37,13 @@ services:
             - "app"
 
     backup:
-        image: "ghcr.io/jensostertag/mysql-backup:latest"
+        image: "ghcr.io/struktal/mysql-backup:latest"
         restart: "always"
         environment:
             TZ: "UTC"
             DB_HOST: "database"
-            DB_USER: "framework-app" # ADJUST
-            DB_PASS: "framework-app" # ADJUST
-            DB_DATABASE: "framework-app" # ADJUST
+            DB_USER: "struktal-app" # ADJUST
+            DB_PASS: "struktal-app" # ADJUST
+            DB_DATABASE: "struktal-app" # ADJUST
         volumes:
             - "./database-backup:/backup"

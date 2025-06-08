@@ -18,9 +18,9 @@
     },
     "DATABASE_SETTINGS": {
         "DB_HOST": "database",
-        "DB_USER": "framework-app",
-        "DB_PASS": "framework-app",
-        "DB_NAME": "framework-app",
+        "DB_USER": "struktal-app",
+        "DB_PASS": "struktal-app",
+        "DB_NAME": "struktal-app",
         "DB_USE": true
     },
     "MAIL_SETTINGS": {
@@ -30,12 +30,12 @@
         "MAIL_SMTP_PASS": "password",
         "MAIL_SMTP_SECURE": "tls",
         "MAIL_SMTP_AUTH": true,
-        "MAIL_DEFAULT_SENDER_EMAIL": "mail@framework",
-        "MAIL_DEFAULT_SENDER_NAME": "Framework",
-        "MAIL_DEFAULT_REPLY_TO": "mail@framework",
-        "MAIL_DEFAULT_SUBJECT": "Framework",
+        "MAIL_DEFAULT_SENDER_EMAIL": "mail@struktal",
+        "MAIL_DEFAULT_SENDER_NAME": "Struktal",
+        "MAIL_DEFAULT_REPLY_TO": "mail@struktal",
+        "MAIL_DEFAULT_SUBJECT": "Struktal",
         "MAIL_REDIRECT_ALL_MAILS": false,
-        "MAIL_REDIRECT_ALL_MAILS_TO": "mail@framework"
+        "MAIL_REDIRECT_ALL_MAILS_TO": "mail@struktal"
     },
     "SEO_SETTINGS": {
         "SEO_DEFAULT_DESCRIPTION": "Description",

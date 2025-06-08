@@ -2,7 +2,7 @@
 
 <!--![Header](docs/img/header.jpg)-->
 
-# PHP-Framework
+# Struktal
 
 ### Powerful and feature-rich PHP framework designed to simplify web development
 
@@ -109,10 +109,10 @@ This framework contains the following dependencies:
 - **TailwindCSS** - GitHub: [tailwindlabs/tailwindcss](https://github.com/tailwindlabs/tailwindcss), licensed under [MIT license](https://github.com/tailwindlabs/tailwindcss/blob/next/LICENSE)
 - **pest** - GitHub: [pestphp/pest](https://github.com/pestphp/pest), licensed under [MIT license](https://github.com/pestphp/pest/blob/2.x/LICENSE.md)
 - **PHPMailer** - GitHub: [PHPMailer/PHPMailer](https://github.com/PHPMailer/PHPMailer), licensed under [LGPL-2.1 license](https://github.com/PHPMailer/PHPMailer/blob/master/LICENSE)
-- **Curl-Adapter** - GitHub: [JensOstertag/curl-adapter](https://github.com/JensOstertag/curl-adapter), licensed under [MIT license](https://github.com/JensOstertag/curl-adapter/blob/main/LICENSE-MIT)
-- **GeocodingUtil** - GitHub: [JensOstertag/geocoding-util](https://github.com/JensOstertag/geocoding-util), licensed under [GPL-2.0 license](https://github.com/JensOstertag/geocoding-util/blob/main/LICENSE-GPL2)
-- **UploadHelper** - GitHub: [JensOstertag/uploadhelper](https://github.com/JensOstertag/uploadhelper), licensed under [MIT license](https://github.com/JensOstertag/uploadhelper/blob/main/LICENSE-MIT)
-- **CSVReader** - GitHub: [JensOstertag/csvreader](https://github.com/JensOstertag/csvreader), licensed under [MIT license](https://github.com/JensOstertag/csvreader/blob/main/LICENSE)
+- **Curl-Adapter** - GitHub: [Struktal/curl-adapter](https://github.com/Struktal/curl-adapter), licensed under [MIT license](https://github.com/Struktal/curl-adapter/blob/main/LICENSE-MIT)
+- **GeocodingUtil** - GitHub: [Struktal/geocoding-util](https://github.com/Struktal/geocoding-util), licensed under [GPL-2.0 license](https://github.com/Struktal/geocoding-util/blob/main/LICENSE-GPL2)
+- **UploadHelper** - GitHub: [Struktal/uploadhelper](https://github.com/Struktal/uploadhelper), licensed under [MIT license](https://github.com/Struktal/uploadhelper/blob/main/LICENSE-MIT)
+- **CSVReader** - GitHub: [Struktal/csvreader](https://github.com/Struktal/csvreader), licensed under [MIT license](https://github.com/Struktal/csvreader/blob/main/LICENSE)
 
 ## License
 This software is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.

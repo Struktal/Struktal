@@ -32,12 +32,12 @@ Config::$MAIL_SETTINGS["MAIL_SMTP_USER"] = Config::configSecret()["MAIL_SETTINGS
 Config::$MAIL_SETTINGS["MAIL_SMTP_PASS"] = Config::configSecret()["MAIL_SETTINGS"]["MAIL_SMTP_PASS"] ?? "password";
 Config::$MAIL_SETTINGS["MAIL_SMTP_SECURE"] = Config::configSecret()["MAIL_SETTINGS"]["MAIL_SMTP_SECURE"] ?? "tls";
 Config::$MAIL_SETTINGS["MAIL_SMTP_AUTH"] = Config::configSecret()["MAIL_SETTINGS"]["MAIL_SMTP_AUTH"] ?? true;
-Config::$MAIL_SETTINGS["MAIL_DEFAULT_SENDER_EMAIL"] = Config::configSecret()["MAIL_SETTINGS"]["MAIL_DEFAULT_SENDER_EMAIL"] ?? "mail@framework";
-Config::$MAIL_SETTINGS["MAIL_DEFAULT_SENDER_NAME"] = Config::configSecret()["MAIL_SETTINGS"]["MAIL_DEFAULT_SENDER_NAME"] ?? "Framework";
-Config::$MAIL_SETTINGS["MAIL_DEFAULT_REPLY_TO"] = Config::configSecret()["MAIL_SETTINGS"]["MAIL_DEFAULT_REPLY_TO"] ?? "mail@framework";
-Config::$MAIL_SETTINGS["MAIL_DEFAULT_SUBJECT"] = Config::configSecret()["MAIL_SETTINGS"]["MAIL_DEFAULT_SUBJECT"] ?? "Framework";
+Config::$MAIL_SETTINGS["MAIL_DEFAULT_SENDER_EMAIL"] = Config::configSecret()["MAIL_SETTINGS"]["MAIL_DEFAULT_SENDER_EMAIL"] ?? "mail@struktal";
+Config::$MAIL_SETTINGS["MAIL_DEFAULT_SENDER_NAME"] = Config::configSecret()["MAIL_SETTINGS"]["MAIL_DEFAULT_SENDER_NAME"] ?? "Struktal";
+Config::$MAIL_SETTINGS["MAIL_DEFAULT_REPLY_TO"] = Config::configSecret()["MAIL_SETTINGS"]["MAIL_DEFAULT_REPLY_TO"] ?? "mail@struktal";
+Config::$MAIL_SETTINGS["MAIL_DEFAULT_SUBJECT"] = Config::configSecret()["MAIL_SETTINGS"]["MAIL_DEFAULT_SUBJECT"] ?? "Struktal";
 Config::$MAIL_SETTINGS["MAIL_REDIRECT_ALL_MAILS"] = Config::configSecret()["MAIL_SETTINGS"]["MAIL_REDIRECT_ALL_MAILS"] ?? false;
-Config::$MAIL_SETTINGS["MAIL_REDIRECT_ALL_MAILS_TO"] = Config::configSecret()["MAIL_SETTINGS"]["MAIL_REDIRECT_ALL_MAILS_TO"] ?? "mail@framework";
+Config::$MAIL_SETTINGS["MAIL_REDIRECT_ALL_MAILS_TO"] = Config::configSecret()["MAIL_SETTINGS"]["MAIL_REDIRECT_ALL_MAILS_TO"] ?? "mail@struktal";
 
 // ClassLoader settings
 Config::$CLASS_LOADER_SETTINGS["CLASS_LOADER_IGNORE_FILES"][] = "Config.class.php";

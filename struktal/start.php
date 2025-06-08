@@ -4,20 +4,20 @@
 require_once(__APP_DIR__ . "/vendor/autoload.php");
 
 // ClassLoader
-require_once(__APP_DIR__ . "/framework/src/ClassLoader.class.php");
+require_once(__APP_DIR__ . "/struktal/src/ClassLoader.class.php");
 $classLoader = ClassLoader::getInstance();
 
 // Load Logger
-$classLoader->loadClass(__APP_DIR__ . "/framework/src/Logger.class.php");
+$classLoader->loadClass(__APP_DIR__ . "/struktal/src/Logger.class.php");
 
 // Load Comm
-$classLoader->loadClass(__APP_DIR__ . "/framework/src/Comm.class.php");
+$classLoader->loadClass(__APP_DIR__ . "/struktal/src/Comm.class.php");
 
 // Load Router
-$classLoader->loadClass(__APP_DIR__ . "/framework/src/Router.class.php");
+$classLoader->loadClass(__APP_DIR__ . "/struktal/src/Router.class.php");
 
 // Configuration files
-require_once(__APP_DIR__ . "/framework/config/Config.class.php");
+require_once(__APP_DIR__ . "/struktal/config/Config.class.php");
 Config::init();
 require_once(__APP_DIR__ . "/src/config/app-config.php");
 
@@ -25,16 +25,16 @@ require_once(__APP_DIR__ . "/src/config/app-config.php");
 require_once(__APP_DIR__ . "/src/config/app-routes.php");
 
 // Load enums
-$classLoader->loadEnums(__APP_DIR__ . "/framework/src/enum/");
+$classLoader->loadEnums(__APP_DIR__ . "/struktal/src/enum/");
 
 // Load libraries
-$classLoader->loadClasses(__APP_DIR__ . "/framework/src/lib/");
+$classLoader->loadClasses(__APP_DIR__ . "/struktal/src/lib/");
 
 // Load objects
-$classLoader->loadClasses(__APP_DIR__ . "/framework/src/object/");
+$classLoader->loadClasses(__APP_DIR__ . "/struktal/src/object/");
 
 // Load DAOs
-$classLoader->loadClasses(__APP_DIR__ . "/framework/src/dao/");
+$classLoader->loadClasses(__APP_DIR__ . "/struktal/src/dao/");
 
 // Load extra enums and classes
 foreach(Config::$CLASS_LOADER_SETTINGS["CLASS_LOADER_IMPORT_PATHS"] as $path) {

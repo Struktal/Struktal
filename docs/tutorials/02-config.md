@@ -29,13 +29,13 @@ Other settings, which might change depending on the deployment, and settings tha
 | `LOG_ERROR_REPORT` | The email addresses that should receive an email when an error occurs               | `[]`            |
 
 ## Database settings
-| Field name | Description                                                          | Default value   |
-|------------|----------------------------------------------------------------------|-----------------|
-| `DB_HOST`  | Database hostname                                                    | `database`      |
-| `DB_USER`  | Database username                                                    | `framework-app` |
-| `DB_PASS`  | Database password                                                    | `framework-app` |
-| `DB_NAME`  | Database name                                                        | `framework-app` |
-| `DB_USE`   | Whether the database connection should be established upon app start | `true`          |
+| Field name | Description                                                          | Default value  |
+|------------|----------------------------------------------------------------------|----------------|
+| `DB_HOST`  | Database hostname                                                    | `database`     |
+| `DB_USER`  | Database username                                                    | `struktal-app` |
+| `DB_PASS`  | Database password                                                    | `struktal-app` |
+| `DB_NAME`  | Database name                                                        | `struktal-app` |
+| `DB_USE`   | Whether the database connection should be established upon app start | `true`         |
 
 ## Mail settings
 | Field name                   | Description                                                                                               | Default value    |
@@ -46,12 +46,12 @@ Other settings, which might change depending on the deployment, and settings tha
 | `MAIL_SMTP_PASS`             | The password of the SMTP server                                                                           | `password`       |
 | `MAIL_SMTP_SECURE`           | The security protocol that should be used for the SMTP connection                                         | `tls`            |
 | `MAIL_SMTP_AUTH`             | Whether the SMTP server requires authentication                                                           | `true`           |
-| `MAIL_DEFAULT_SENDER_EMAIL`  | The default sender email address                                                                          | `mail@framework` |
-| `MAIL_DEFAULT_SENDER_NAME`   | The default sender name                                                                                   | `Framework`      |
-| `MAIL_DEFAULT_REPLY_TO`      | The default reply-to email address                                                                        | `mail@framework` |
-| `MAIL_DEFAULT_SUBJECT`       | The default subject of an email                                                                           | `Framework`      |
+| `MAIL_DEFAULT_SENDER_EMAIL`  | The default sender email address                                                                          | `mail@struktal`  |
+| `MAIL_DEFAULT_SENDER_NAME`   | The default sender name                                                                                   | `Struktal`       |
+| `MAIL_DEFAULT_REPLY_TO`      | The default reply-to email address                                                                        | `mail@struktal`  |
+| `MAIL_DEFAULT_SUBJECT`       | The default subject of an email                                                                           | `Struktal`       |
 | `MAIL_REDIRECT_ALL_MAILS`    | Whether all mails should be redirected to a specific email address for testing purposes                   | `false`          |
-| `MAIL_REDIRECT_ALL_MAILS_TO` | The email address to which all mails should be redirected (if `MAIL_REDIRECT_ALL_MAILS` is set to `true`) | `mail@framework` |
+| `MAIL_REDIRECT_ALL_MAILS_TO` | The email address to which all mails should be redirected (if `MAIL_REDIRECT_ALL_MAILS` is set to `true`) | `mail@struktal`  |
 
 > [!IMPORTANT]
 > In Docker deployments, you won't be able to send emails without configuring the mail settings. For Apache web server deployments, you can work around this by configuring another mail service on the machine. Doing this will result in the email wrapper class not working as expected.
