@@ -23,5 +23,4 @@ function t(string $message, array $variables = []): string {
 }
 
 // Start the router
-$router = new Router();
-$router->startRouter();
+Router->startRouter();

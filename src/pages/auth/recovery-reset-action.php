@@ -2,7 +2,7 @@
 
 // Check whether the user is already logged in
 if(Auth::isLoggedIn()) {
-    Comm::redirect(Router::generate("index"));
+    Comm::redirect(Router->generate("index"));
 }
 
 // Check whether a one-time password has been specified
@@ -25,7 +25,7 @@ try {
     $session = $sessionValidation->getValidatedValue($_SESSION);
 } catch(validation\ValidationException $e) {
     new InfoMessage($e->getMessage(), InfoMessageType::ERROR);
-    Comm::redirect(Router::generate("auth-login"));
+    Comm::redirect(Router->generate("auth-login"));
 }
 
 $otpId = $session["authRecoveryOtpId"];
@@ -38,7 +38,7 @@ unset($_SESSION["authRecoveryOtp"]);
 // Generate redirect link for error cases
 $otpIdEncoded = urlencode(base64_encode($otpId));
 $otpEncoded = urlencode($otp);
-$resetLink = Router::generate("auth-recovery-reset") . "?otpid=" . $otpIdEncoded . "&otp=" . $otpEncoded;
+$resetLink = Router->generate("auth-recovery-reset") . "?otpid=" . $otpIdEncoded . "&otp=" . $otpEncoded;
 
 // Find the user from the one-time password
 $user = User::dao()->getObject([
@@ -58,12 +58,12 @@ $user = User::dao()->getObject([
 if(!$user instanceof User) {
     Logger::getLogger("Recovery")->info("Attempted to recover password, but couldn't find user with otpid \"{$otpId}\"");
     new InfoMessage(t("The URL has already been invalidated. Please log in or request a new password recovery email."), InfoMessageType::ERROR);
-    Comm::redirect(Router::generate("auth-login"));
+    Comm::redirect(Router->generate("auth-login"));
 }
 if(!password_verify($otp, $user->getOneTimePassword())) {
     Logger::getLogger("Recovery")->info("Attempted to recover password, but one-time password does not match");
     new InfoMessage(t("The URL has already been invalidated. Please log in or request a new password recovery email."), InfoMessageType::ERROR);
-    Comm::redirect(Router::generate("auth-login"));
+    Comm::redirect(Router->generate("auth-login"));
 }
 
 // Check whether form fields are given
@@ -111,4 +111,4 @@ User::dao()->save($user);
 
 Logger::getLogger("Recovery")->info("Changed password for user with email \"{$user->getEmail()}\" (User ID \"{$user->getId()}\")");
 
-Comm::redirect(Router::generate("auth-recovery-reset-complete"));
+Comm::redirect(Router->generate("auth-recovery-reset-complete"));

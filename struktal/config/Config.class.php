@@ -37,7 +37,7 @@ class Config {
             "APP_NAME" => "Application",
             "WEBSITE_TITLE" => "Application",
             "APP_URL" => "http://localhost:3000",
-            "APP_FAVICON" => Router::staticFilePath("img/favicon.png"),
+            "APP_FAVICON" => "/img/favicon.png",
             "APP_AUTHOR" => "Author",
             "APP_VERSION" => "1.0.0",
             "PRODUCTION" => true
@@ -74,7 +74,7 @@ class Config {
         self::$SEO_SETTINGS = [
             "SEO_DEFAULT_DESCRIPTION" => "Description",
             "SEO_KEYWORDS" => [],
-            "SEO_IMAGE_PREVIEW" => Router::staticFilePath("img/seo/preview.png"),
+            "SEO_IMAGE_PREVIEW" => "/img/seo/preview.png",
             "SEO_OPENGRAPH" => [
                 "OPENGRAPH_SITE_NAME" => null,
             ],

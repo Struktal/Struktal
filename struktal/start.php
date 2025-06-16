@@ -13,16 +13,10 @@ $classLoader->loadClass(__APP_DIR__ . "/struktal/src/Logger.class.php");
 // Load Comm
 $classLoader->loadClass(__APP_DIR__ . "/struktal/src/Comm.class.php");
 
-// Load Router
-$classLoader->loadClass(__APP_DIR__ . "/struktal/src/Router.class.php");
-
 // Configuration files
 require_once(__APP_DIR__ . "/struktal/config/Config.class.php");
 Config::init();
 require_once(__APP_DIR__ . "/src/config/app-config.php");
-
-// Initialize routes
-require_once(__APP_DIR__ . "/src/config/app-routes.php");
 
 // Load enums
 $classLoader->loadEnums(__APP_DIR__ . "/struktal/src/enum/");
@@ -47,6 +41,13 @@ unset($classLoader);
 // Setup Composer libraries
 use eftec\bladeone\BladeOne;
 const Blade = new BladeOne(__APP_DIR__ . "/src/templates", __APP_DIR__ . "/template-cache", BladeOne::MODE_DEBUG);
+
+use struktal\Router\Router;
+const Router = new Router();
+Router->setPagesDirectory(__APP_DIR__ . "/src/pages/");
+Router->setAppUrl(Config::$APP_SETTINGS["APP_URL"]);
+Router->setAppBaseUri(Config::$ROUTER_SETTINGS["ROUTER_BASE_URI"]);
+Router->setStaticDirectoryUri("static/");
 
 // Override BladeOne's include directive to use components with isolated variables
 Blade->directive("include", function($expression) {
@@ -73,6 +74,9 @@ Logger::addCustomLogHandler(Logger::$LOG_ERROR, $sendEmailHandler);
 Logger::addCustomLogHandler(Logger::$LOG_FATAL, $sendEmailHandler);
 unset($sendEmailHandler);
 
+// Initialize routes
+require_once(__APP_DIR__ . "/src/config/app-routes.php");
+
 set_error_handler(function($errno, $errstr, $errfile, $errline) {
     $message = "Error " . $errno . ": ";
     $message .= "\"" . $errstr . "\"";
@@ -86,7 +90,7 @@ set_error_handler(function($errno, $errstr, $errfile, $errline) {
 
     if(Config::$APP_SETTINGS["PRODUCTION"]) {
         // Redirect to error page in production
-        Comm::redirect(Router::generate("500"));
+        Comm::redirect(Router->generate("500"));
     } else {
         // Show stack trace screen in development
         echo Blade->run("components.layout.deverror", [
@@ -116,7 +120,7 @@ set_exception_handler(function($exception) {
 
     if(Config::$APP_SETTINGS["PRODUCTION"]) {
         // Redirect to error page in production
-        Comm::redirect(Router::generate("500"));
+        Comm::redirect(Router->generate("500"));
     } else {
         // Show stack trace screen in development
         $trace = $exception->getTrace();
