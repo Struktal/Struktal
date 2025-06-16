@@ -105,14 +105,15 @@ There are many helpful tutorials and guides available [here](docs/tutorials). Th
 
 ## Dependencies
 This framework contains the following dependencies:
+- **Struktal-Router** - GitHub: [Struktal/struktal-router](https://github.com/Struktal/struktal-router), licensed under [MIT license](https://github.com/Struktal/struktal-router/blob/main/LICENSE)
 - **BladeOne** - GitHub: [EFTEC/BladeOne](https://github.com/EFTEC/BladeOne), licensed under [MIT license](https://github.com/EFTEC/BladeOne/blob/master/LICENSE)
 - **TailwindCSS** - GitHub: [tailwindlabs/tailwindcss](https://github.com/tailwindlabs/tailwindcss), licensed under [MIT license](https://github.com/tailwindlabs/tailwindcss/blob/next/LICENSE)
 - **pest** - GitHub: [pestphp/pest](https://github.com/pestphp/pest), licensed under [MIT license](https://github.com/pestphp/pest/blob/2.x/LICENSE.md)
 - **PHPMailer** - GitHub: [PHPMailer/PHPMailer](https://github.com/PHPMailer/PHPMailer), licensed under [LGPL-2.1 license](https://github.com/PHPMailer/PHPMailer/blob/master/LICENSE)
-- **Curl-Adapter** - GitHub: [Struktal/curl-adapter](https://github.com/Struktal/curl-adapter), licensed under [MIT license](https://github.com/Struktal/curl-adapter/blob/main/LICENSE-MIT)
-- **GeocodingUtil** - GitHub: [Struktal/geocoding-util](https://github.com/Struktal/geocoding-util), licensed under [GPL-2.0 license](https://github.com/Struktal/geocoding-util/blob/main/LICENSE-GPL2)
-- **UploadHelper** - GitHub: [Struktal/uploadhelper](https://github.com/Struktal/uploadhelper), licensed under [MIT license](https://github.com/Struktal/uploadhelper/blob/main/LICENSE-MIT)
-- **CSVReader** - GitHub: [Struktal/csvreader](https://github.com/Struktal/csvreader), licensed under [MIT license](https://github.com/Struktal/csvreader/blob/main/LICENSE)
+- **Struktal-Curl** - GitHub: [Struktal/struktal-curl](https://github.com/Struktal/struktal-curl), licensed under [MIT license](https://github.com/Struktal/struktal-curl/blob/main/LICENSE-MIT)
+- **Struktal-Geocoding-Util** - GitHub: [Struktal/struktal-geocoding-util](https://github.com/Struktal/struktal-geocoding-util), licensed under [GPL-2.0 license](https://github.com/Struktal/geocoding-util/blob/main/LICENSE-GPL2)
+- **Struktal-File-Uploads** - GitHub: [Struktal/struktal-file-uploads](https://github.com/Struktal/struktal-file-uploads), licensed under [MIT license](https://github.com/Struktal/struktal-file-uploads/blob/main/LICENSE-MIT)
+- **Struktal-CSV-Reader** - GitHub: [Struktal/struktal-csv-reader](https://github.com/Struktal/csvreader), licensed under [MIT license](https://github.com/Struktal/struktal-csv-reader/blob/main/LICENSE)
 
 ## License
 This software is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.

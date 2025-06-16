@@ -1,19 +1,20 @@
 {
     "name": "struktal/struktal",
-    "description": "Powerful and feature-rich PHP struktal designed to simplify web development",
+    "description": "Powerful and feature-rich PHP framework designed to simplify web development",
     "license": "MIT",
     "require": {
         "php": ">=8.2",
-        "eftec/bladeone": "4.13.*",
-        "phpmailer/phpmailer": "~v6.9.1",
-        "struktal/curl-adapter": "~1.1.0",
-        "struktal/geocoding-util": "~1.0.0",
-        "struktal/uploadhelper": "~1.0.0",
-        "struktal/csvreader": "~1.0.0",
         "ext-pdo": "*",
         "ext-curl": "*",
         "ext-json": "*",
-        "ext-apcu": "*"
+        "ext-apcu": "*",
+        "eftec/bladeone": "4.13.*",
+        "phpmailer/phpmailer": "~v6.9.1",
+        "struktal/struktal-router": "~1.1.0",
+        "struktal/struktal-curl": "~1.2.0",
+        "struktal/struktal-file-uploads": "~2.0.0",
+        "struktal/struktal-csv-reader": "~1.1.0",
+        "struktal/struktal-geocoding-util": "~1.1.0"
     },
     "require-dev": {
         "pestphp/pest": "~2.33.4"

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e7be27918a429c373aa0644bb6e3441c",
+    "content-hash": "963ddf6c697507a252143b02670abe9a",
     "packages": [
         {
             "name": "eftec/bladeone",
@@ -147,17 +147,17 @@
             "time": "2024-11-24T18:04:13+00:00"
         },
         {
-            "name": "struktal/csvreader",
-            "version": "1.0.0",
+            "name": "struktal/struktal-csv-reader",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Struktal/csvreader.git",
-                "reference": "29a274c66524be7f9a9231b5b443d4342af6b515"
+                "url": "https://github.com/Struktal/struktal-csv-reader.git",
+                "reference": "90a18735120066cab2af1456bce28c865d72d162"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Struktal/csvreader/zipball/29a274c66524be7f9a9231b5b443d4342af6b515",
-                "reference": "29a274c66524be7f9a9231b5b443d4342af6b515",
+                "url": "https://api.github.com/repos/Struktal/struktal-csv-reader/zipball/90a18735120066cab2af1456bce28c865d72d162",
+                "reference": "90a18735120066cab2af1456bce28c865d72d162",
                 "shasum": ""
             },
             "require": {
@@ -173,30 +173,30 @@
             "license": [
                 "MIT"
             ],
-            "description": "A CSV reader library for PHP",
+            "description": "CSV reader library for PHP",
             "keywords": [
                 "csv",
                 "files",
                 "reader"
             ],
             "support": {
-                "issues": "https://github.com/Struktal/csvreader/issues",
-                "source": "https://github.com/Struktal/csvreader/tree/1.0.0"
+                "issues": "https://github.com/Struktal/struktal-csv-reader/issues",
+                "source": "https://github.com/Struktal/struktal-csv-reader/tree/1.1.0"
             },
-            "time": "2025-06-07T06:33:40+00:00"
+            "time": "2025-06-16T18:38:30+00:00"
         },
         {
-            "name": "struktal/curl-adapter",
-            "version": "1.1.0",
+            "name": "struktal/struktal-curl",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Struktal/curl-adapter.git",
-                "reference": "29d9106d35222bd4ac24fddac1422d0ecdfa0091"
+                "url": "https://github.com/Struktal/struktal-curl.git",
+                "reference": "56d354930c80ef3039b7f402cf28ca6e052b9a1b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Struktal/curl-adapter/zipball/29d9106d35222bd4ac24fddac1422d0ecdfa0091",
-                "reference": "29d9106d35222bd4ac24fddac1422d0ecdfa0091",
+                "url": "https://api.github.com/repos/Struktal/struktal-curl/zipball/56d354930c80ef3039b7f402cf28ca6e052b9a1b",
+                "reference": "56d354930c80ef3039b7f402cf28ca6e052b9a1b",
                 "shasum": ""
             },
             "require": {
@@ -220,62 +220,23 @@
                 "wrapper"
             ],
             "support": {
-                "issues": "https://github.com/Struktal/curl-adapter/issues",
-                "source": "https://github.com/Struktal/curl-adapter/tree/1.1.0"
+                "issues": "https://github.com/Struktal/struktal-curl/issues",
+                "source": "https://github.com/Struktal/struktal-curl/tree/1.2.0"
             },
-            "time": "2025-06-07T06:35:15+00:00"
+            "time": "2025-06-16T18:30:03+00:00"
         },
         {
-            "name": "struktal/geocoding-util",
-            "version": "1.0.0",
+            "name": "struktal/struktal-file-uploads",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Struktal/geocoding-util.git",
-                "reference": "6e2c80e746d26446f318518ea3b6ccf7498d2560"
+                "url": "https://github.com/Struktal/struktal-file-uploads.git",
+                "reference": "fda677f221e5fb43bdae0d7d9c025760f16c8372"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Struktal/geocoding-util/zipball/6e2c80e746d26446f318518ea3b6ccf7498d2560",
-                "reference": "6e2c80e746d26446f318518ea3b6ccf7498d2560",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=8.0.0",
-                "struktal/curl-adapter": "1.1.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "struktal\\Geocoding\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-2.0-only"
-            ],
-            "description": "A simple PHP library for the Nominatim Geocoding API",
-            "keywords": [
-                "geocode",
-                "nominatim"
-            ],
-            "support": {
-                "issues": "https://github.com/Struktal/geocoding-util/issues",
-                "source": "https://github.com/Struktal/geocoding-util/tree/1.0.0"
-            },
-            "time": "2025-06-08T07:26:03+00:00"
-        },
-        {
-            "name": "struktal/uploadhelper",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Struktal/uploadhelper.git",
-                "reference": "ae32891d8189f2469e389527ef05d9719adc21a2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Struktal/uploadhelper/zipball/ae32891d8189f2469e389527ef05d9719adc21a2",
-                "reference": "ae32891d8189f2469e389527ef05d9719adc21a2",
+                "url": "https://api.github.com/repos/Struktal/struktal-file-uploads/zipball/fda677f221e5fb43bdae0d7d9c025760f16c8372",
+                "reference": "fda677f221e5fb43bdae0d7d9c025760f16c8372",
                 "shasum": ""
             },
             "require": {
@@ -284,7 +245,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "struktal\\UploadHelper\\": "src/"
+                    "struktal\\FileUpload\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -297,10 +258,86 @@
                 "upload"
             ],
             "support": {
-                "issues": "https://github.com/Struktal/uploadhelper/issues",
-                "source": "https://github.com/Struktal/uploadhelper/tree/1.0.0"
+                "issues": "https://github.com/Struktal/struktal-file-uploads/issues",
+                "source": "https://github.com/Struktal/struktal-file-uploads/tree/2.0.0"
             },
-            "time": "2025-06-08T07:35:26+00:00"
+            "time": "2025-06-16T18:14:06+00:00"
+        },
+        {
+            "name": "struktal/struktal-geocoding-util",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Struktal/struktal-geocoding-util.git",
+                "reference": "6be59847778fc81f6d14fbfcfff48baeded8c715"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Struktal/struktal-geocoding-util/zipball/6be59847778fc81f6d14fbfcfff48baeded8c715",
+                "reference": "6be59847778fc81f6d14fbfcfff48baeded8c715",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.0.0",
+                "struktal/struktal-curl": "^1.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "struktal\\Geocoding\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-only"
+            ],
+            "description": "PHP library for the Nominatim Geocoding API",
+            "keywords": [
+                "geocode",
+                "nominatim"
+            ],
+            "support": {
+                "issues": "https://github.com/Struktal/struktal-geocoding-util/issues",
+                "source": "https://github.com/Struktal/struktal-geocoding-util/tree/1.1.0"
+            },
+            "time": "2025-06-16T18:33:36+00:00"
+        },
+        {
+            "name": "struktal/struktal-router",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Struktal/struktal-router.git",
+                "reference": "f8641e7511896cdabdf09ed2481d0e96ac46568b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Struktal/struktal-router/zipball/f8641e7511896cdabdf09ed2481d0e96ac46568b",
+                "reference": "f8641e7511896cdabdf09ed2481d0e96ac46568b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "struktal\\Router\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "PHP router for the Struktal framework",
+            "keywords": [
+                "router"
+            ],
+            "support": {
+                "issues": "https://github.com/Struktal/struktal-router/issues",
+                "source": "https://github.com/Struktal/struktal-router/tree/1.1.0"
+            },
+            "time": "2025-06-16T20:18:21+00:00"
         }
     ],
     "packages-dev": [
@@ -509,16 +546,16 @@
         },
         {
             "name": "filp/whoops",
-            "version": "2.18.1",
+            "version": "2.18.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filp/whoops.git",
-                "reference": "8fcc6a862f2e7b94eb4221fd0819ddba3d30ab26"
+                "reference": "59a123a3d459c5a23055802237cb317f609867e5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filp/whoops/zipball/8fcc6a862f2e7b94eb4221fd0819ddba3d30ab26",
-                "reference": "8fcc6a862f2e7b94eb4221fd0819ddba3d30ab26",
+                "url": "https://api.github.com/repos/filp/whoops/zipball/59a123a3d459c5a23055802237cb317f609867e5",
+                "reference": "59a123a3d459c5a23055802237cb317f609867e5",
                 "shasum": ""
             },
             "require": {
@@ -568,7 +605,7 @@
             ],
             "support": {
                 "issues": "https://github.com/filp/whoops/issues",
-                "source": "https://github.com/filp/whoops/tree/2.18.1"
+                "source": "https://github.com/filp/whoops/tree/2.18.3"
             },
             "funding": [
                 {
@@ -576,7 +613,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-06-03T18:56:14+00:00"
+            "time": "2025-06-16T00:02:10+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
