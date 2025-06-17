@@ -54,7 +54,7 @@ class Config {
             "DB_USER" => "username",
             "DB_PASS" => "password",
             "DB_NAME" => "database",
-            "DB_USE" => true
+            "DB_USE" => false
         ];
 
         self::$MAIL_SETTINGS = [
