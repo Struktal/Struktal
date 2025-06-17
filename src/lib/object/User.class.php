@@ -1,5 +1,5 @@
 <?php
 
-class User extends GenericUser {
+class User extends \struktal\ORM\GenericUser {
 
 }

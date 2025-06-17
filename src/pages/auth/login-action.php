@@ -33,7 +33,7 @@ try {
 
 $user = User::dao()->login($post["username"], false, $post["password"]);
 
-if(!$user instanceof GenericUser) {
+if(!$user instanceof User) {
     if($user === 2) {
         $message = t("Before logging in, please verify your account's email address.");
     } else {

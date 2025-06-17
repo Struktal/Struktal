@@ -1,5 +1,5 @@
 <?php
 
-class UserDAO extends GenericUserDAO {
+class UserDAO extends \struktal\ORM\GenericUserDAO {
 
 }

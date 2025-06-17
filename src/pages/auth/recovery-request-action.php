@@ -29,7 +29,7 @@ $user = User::dao()->getObject([
     "emailVerified" => true
 ]);
 
-if(!$user instanceof GenericUser) {
+if(!$user instanceof User) {
     Logger::getLogger("Recovery")->info("Failed to request password recovery for email \"{$post["email"]}\"");
     new InfoMessage(t("An account with this email could not be found. Please check for spelling errors and try again."), InfoMessageType::ERROR);
     Comm::redirect(Router->generate("auth-recovery-request"));

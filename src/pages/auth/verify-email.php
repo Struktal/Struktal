@@ -36,11 +36,11 @@ $otp = urldecode($get["otp"]);
 $user = User::dao()->getObject([
     "id" => $otpId,
     "emailVerified" => false,
-    [
-        "field" => "oneTimePassword",
-        "filterType" => DAOFilterType::NOT_EQUALS,
-        "filterValue" => null
-    ],
+    new \struktal\ORM\DAOFilter(
+        \struktal\ORM\DAOFilterOperator::NOT_EQUALS,
+        "oneTimePassword",
+        null
+    ),
     "oneTimePasswordExpiration" => null
 ]);
 if(!$user instanceof User) {

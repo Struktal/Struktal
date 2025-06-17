@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "963ddf6c697507a252143b02670abe9a",
+    "content-hash": "4b8b89d8e33a38e88be8d32e4f83aad9",
     "packages": [
         {
             "name": "eftec/bladeone",
@@ -301,6 +301,49 @@
                 "source": "https://github.com/Struktal/struktal-geocoding-util/tree/1.1.0"
             },
             "time": "2025-06-16T18:33:36+00:00"
+        },
+        {
+            "name": "struktal/struktal-orm",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Struktal/struktal-orm.git",
+                "reference": "a0950c3a3c06344e2717bba9fcebcd63de4f6be6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Struktal/struktal-orm/zipball/a0950c3a3c06344e2717bba9fcebcd63de4f6be6",
+                "reference": "a0950c3a3c06344e2717bba9fcebcd63de4f6be6",
+                "shasum": ""
+            },
+            "require": {
+                "ext-pdo": "*",
+                "php": ">=8.2.0"
+            },
+            "require-dev": {
+                "pestphp/pest": "~v3.8.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "struktal\\ORM\\": "src/",
+                    "struktal\\ORM\\Database\\": "src/database/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "PHP library implementing the DAO pattern for easier database handling",
+            "keywords": [
+                "database",
+                "objects"
+            ],
+            "support": {
+                "issues": "https://github.com/Struktal/struktal-orm/issues",
+                "source": "https://github.com/Struktal/struktal-orm/tree/1.0.1"
+            },
+            "time": "2025-06-17T13:02:15+00:00"
         },
         {
             "name": "struktal/struktal-router",
@@ -3966,5 +4009,5 @@
     "platform-overrides": {
         "php": "8.2"
     },
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.3.0"
 }

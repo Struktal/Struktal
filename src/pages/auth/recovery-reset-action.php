@@ -44,16 +44,16 @@ $resetLink = Router->generate("auth-recovery-reset") . "?otpid=" . $otpIdEncoded
 $user = User::dao()->getObject([
     "id" => $otpId,
     "emailVerified" => true,
-    [
-        "field" => "oneTimePassword",
-        "filterType" => DAOFilterType::NOT_EQUALS,
-        "filterValue" => null
-    ],
-    [
-        "field" => "oneTimePasswordExpiration",
-        "filterType" => DAOFilterType::GREATER_THAN_EQUALS,
-        "filterValue" => new DateTime()
-    ]
+    new \struktal\ORM\DAOFilter(
+        \struktal\ORM\DAOFilterOperator::NOT_EQUALS,
+        "oneTimePassword",
+        null
+    ),
+    new \struktal\ORM\DAOFilter(
+        \struktal\ORM\DAOFilterOperator::GREATER_THAN_EQUALS,
+        "oneTimePasswordExpiration",
+        new DateTime()
+    )
 ]);
 if(!$user instanceof User) {
     Logger::getLogger("Recovery")->info("Attempted to recover password, but couldn't find user with otpid \"{$otpId}\"");

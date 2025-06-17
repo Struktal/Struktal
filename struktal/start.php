@@ -49,6 +49,14 @@ Router->setAppUrl(Config::$APP_SETTINGS["APP_URL"]);
 Router->setAppBaseUri(Config::$ROUTER_SETTINGS["ROUTER_BASE_URI"]);
 Router->setStaticDirectoryUri("static/");
 
+use struktal\ORM;
+ORM\Database\Database::connect(
+    Config::$DB_SETTINGS["DB_HOST"],
+    Config::$DB_SETTINGS["DB_NAME"],
+    Config::$DB_SETTINGS["DB_USER"],
+    Config::$DB_SETTINGS["DB_PASS"]
+);
+
 // Override BladeOne's include directive to use components with isolated variables
 Blade->directive("include", function($expression) {
     $code = Blade->phpTag . " Blade->startComponent($expression); ?>";
