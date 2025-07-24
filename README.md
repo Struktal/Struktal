@@ -110,6 +110,8 @@ This framework contains the following dependencies:
 - **TailwindCSS** - GitHub: [tailwindlabs/tailwindcss](https://github.com/tailwindlabs/tailwindcss), licensed under [MIT license](https://github.com/tailwindlabs/tailwindcss/blob/next/LICENSE)
 - **pest** - GitHub: [pestphp/pest](https://github.com/pestphp/pest), licensed under [MIT license](https://github.com/pestphp/pest/blob/2.x/LICENSE.md)
 - **PHPMailer** - GitHub: [PHPMailer/PHPMailer](https://github.com/PHPMailer/PHPMailer), licensed under [LGPL-2.1 license](https://github.com/PHPMailer/PHPMailer/blob/master/LICENSE)
+- **Struktal-Auth** - GitHub: [Struktal/struktal-auth](https://github.com/Struktal/struktal-auth), licensed under [MIT license](https://github.com/Struktal/struktal-auth/blob/main/LICENSE)
+- **Struktal-Validation** - GitHub: [Struktal/struktal-validation](https://github.com/Struktal/struktal-validation), licensed under [MIT license](https://github.com/Struktal/struktal-validation/blob/main/LICENSE)
 - **Struktal-Curl** - GitHub: [Struktal/struktal-curl](https://github.com/Struktal/struktal-curl), licensed under [MIT license](https://github.com/Struktal/struktal-curl/blob/main/LICENSE-MIT)
 - **Struktal-Geocoding-Util** - GitHub: [Struktal/struktal-geocoding-util](https://github.com/Struktal/struktal-geocoding-util), licensed under [GPL-2.0 license](https://github.com/Struktal/geocoding-util/blob/main/LICENSE-GPL2)
 - **Struktal-File-Uploads** - GitHub: [Struktal/struktal-file-uploads](https://github.com/Struktal/struktal-file-uploads), licensed under [MIT license](https://github.com/Struktal/struktal-file-uploads/blob/main/LICENSE-MIT)
