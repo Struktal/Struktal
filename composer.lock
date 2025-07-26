@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "eb9cb116dfbc27f9ea5596365a63ad3f",
+    "content-hash": "162cdc2f2c26079628a33205a2423de1",
     "packages": [
         {
             "name": "eftec/bladeone",
@@ -425,16 +425,16 @@
         },
         {
             "name": "struktal/struktal-validation",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Struktal/struktal-validation.git",
-                "reference": "0a5c8634d5ca894e03e156fdb6c997a1d41b798c"
+                "reference": "6156d2799b93e1e965ea2cd81b06be1ebd0920c6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Struktal/struktal-validation/zipball/0a5c8634d5ca894e03e156fdb6c997a1d41b798c",
-                "reference": "0a5c8634d5ca894e03e156fdb6c997a1d41b798c",
+                "url": "https://api.github.com/repos/Struktal/struktal-validation/zipball/6156d2799b93e1e965ea2cd81b06be1ebd0920c6",
+                "reference": "6156d2799b93e1e965ea2cd81b06be1ebd0920c6",
                 "shasum": ""
             },
             "require": {
@@ -463,9 +463,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Struktal/struktal-validation/issues",
-                "source": "https://github.com/Struktal/struktal-validation/tree/1.0.1"
+                "source": "https://github.com/Struktal/struktal-validation/tree/1.0.2"
             },
-            "time": "2025-07-26T12:35:15+00:00"
+            "time": "2025-07-26T12:56:20+00:00"
         }
     ],
     "packages-dev": [
