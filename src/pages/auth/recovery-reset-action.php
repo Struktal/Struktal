@@ -6,24 +6,23 @@ if(Auth->isLoggedIn()) {
 }
 
 // Check whether a one-time password has been specified
-$sessionValidation = \validation\Validator::create([
-    \validation\IsRequired::create(),
-    \validation\IsArray::create(),
-    \validation\HasChildren::create([
-        "authRecoveryOtpId" => \validation\Validator::create([
-            \validation\IsRequired::create(),
-            \validation\IsInteger::create()
-        ]),
-        "authRecoveryOtp" => \validation\Validator::create([
-            \validation\IsRequired::create(),
-            \validation\IsString::create(),
-            \validation\MinLength::create(1)
-        ])
-    ], true)
-])->setErrorMessage(t("An error has occurred. Please try again later."));
+$sessionValidation = Validation->create()
+    ->withErrorMessage(t("An error has occurred. Please try again later."))
+    ->array()
+    ->required()
+    ->children([
+        "authRecoveryOtpId" => Validation->create()
+            ->int()
+            ->build(),
+        "authRecoveryOtp" => Validation->create()
+            ->string()
+            ->minLength(1)
+            ->build()
+    ])
+    ->build();
 try {
     $session = $sessionValidation->getValidatedValue($_SESSION);
-} catch(validation\ValidationException $e) {
+} catch(\struktal\validation\ValidationException $e) {
     new InfoMessage($e->getMessage(), InfoMessageType::ERROR);
     Comm::redirect(Router->generate("auth-login"));
 }
@@ -67,27 +66,26 @@ if(!password_verify($otp, $user->getOneTimePassword())) {
 }
 
 // Check whether form fields are given
-$postValidation = \validation\Validator::create([
-    \validation\IsRequired::create(),
-    \validation\IsArray::create(),
-    \validation\HasChildren::create([
-        "password" => \validation\Validator::create([
-            \validation\IsRequired::create(),
-            \validation\IsString::create(),
-            \validation\MinLength::create(8),
-            \validation\MaxLength::create(256),
-        ]),
-        "password-repeat" => \validation\Validator::create([
-            \validation\IsRequired::create(),
-            \validation\IsString::create(),
-            \validation\MinLength::create(8),
-            \validation\MaxLength::create(256),
-        ])
+$postValidation = Validation->create()
+    ->withErrorMessage(t("Please fill out all the required fields."))
+    ->array()
+    ->required()
+    ->children([
+        "password" => Validation->create()
+            ->string()
+            ->minLength(8)
+            ->maxLength(256)
+            ->build(),
+        "password-repeat" => Validation->create()
+            ->string()
+            ->minLength(8)
+            ->maxLength(256)
+            ->build()
     ])
-])->setErrorMessage(t("Please fill out all the required fields."));
+    ->build();
 try {
     $post = $postValidation->getValidatedValue($_POST);
-} catch(validation\ValidationException $e) {
+} catch(\struktal\validation\ValidationException $e) {
     new InfoMessage($e->getMessage(), InfoMessageType::ERROR);
     Comm::redirect($resetLink);
 }

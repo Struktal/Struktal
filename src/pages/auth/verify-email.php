@@ -6,25 +6,24 @@ if(Auth->isLoggedIn()) {
 }
 
 // Check whether a one-time password has been specified
-$validation = \validation\Validator::create([
-    \validation\IsRequired::create(),
-    \validation\IsArray::create(),
-    \validation\HasChildren::create([
-        "otpid" => \validation\Validator::create([
-            \validation\IsRequired::create(),
-            \validation\IsString::create(),
-            \validation\MinLength::create(1)
-        ]),
-        "otp" => \validation\Validator::create([
-            \validation\IsRequired::create(),
-            \validation\IsString::create(),
-            \validation\MinLength::create(1)
-        ])
+$validation = Validation->create()
+    ->withErrorMessage(t("An error has occurred. Please try again later."))
+    ->array()
+    ->required()
+    ->children([
+        "otpid" => Validation->create()
+            ->string()
+            ->minLength(1)
+            ->build(),
+        "otp" => Validation->create()
+            ->string()
+            ->minLength(1)
+            ->build()
     ])
-])->setErrorMessage(t("An error has occurred. Please try again later."));
+    ->build();
 try {
     $get = $validation->getValidatedValue($_GET);
-} catch(validation\ValidationException $e) {
+} catch(\struktal\validation\ValidationException $e) {
     new InfoMessage($e->getMessage(), InfoMessageType::ERROR);
     Comm::redirect(Router->generate("auth-login"));
 }

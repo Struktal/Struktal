@@ -6,20 +6,21 @@ if(Auth->isLoggedIn()) {
 }
 
 // Check whether form fields are given
-$validation = \validation\Validator::create([
-    \validation\IsRequired::create(),
-    \validation\IsArray::create(),
-    \validation\HasChildren::create([
-        "email" => \validation\Validator::create([
-            \validation\IsRequired::create(),
-            \validation\IsString::create(),
-            \validation\IsEmail::create()->setErrorMessage(t("The specified email address is invalid. Please check for spelling errors and try again."))
-        ])
+$validation = Validation->create()
+    ->withErrorMessage(t("Please enter your account's verified email address."))
+    ->array()
+    ->required()
+    ->children([
+        "email" => Validation->create()
+            ->string()
+            ->email()
+            ->withErrorMessage(t("The specified email address is invalid. Please check for spelling errors and try again."))
+            ->build()
     ])
-])->setErrorMessage(t("Please enter your account's verified email address."));
+    ->build();
 try {
     $post = $validation->getValidatedValue($_POST);
-} catch(validation\ValidationException $e) {
+} catch(\struktal\validation\ValidationException $e) {
     new InfoMessage($e->getMessage(), InfoMessageType::ERROR);
     Comm::redirect(Router->generate("auth-recovery-request"));
 }
