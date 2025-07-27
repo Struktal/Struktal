@@ -11,7 +11,7 @@ class TailwindUtil {
         }
         return $class;
     }
-    public static string $inputLabel = "text-sm font-bold data-[required]:after:content-['*'] data-[required]:after:text-primary";
+    public static string $inputLabel = "text-sm font-bold data-required:after:content-['*'] data-required:after:text-primary";
     public static string $input = "w-full px-2 py-1 bg-background border border-gray outline-primary rounded placeholder:text-font-light";
     public static string $checkbox = "px-2 py-1 bg-background border border-gray outline-primary rounded placeholder:text-font-light";
     public static string $radio = "px-2 py-1 bg-background border border-gray outline-primary rounded placeholder:text-font-light";

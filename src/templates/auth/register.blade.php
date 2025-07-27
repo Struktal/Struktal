@@ -1,7 +1,7 @@
-@component("components.layout.authshell")
+@component("components.shells.authshell")
     <p class="mb-2">
         {{ t("Already have an account?") }}
-        <a class="text-primary hover:text-primary-effect cursor-pointer transition-all"
+        <a class="text-primary hover:text-primary-effect transition-all"
            href="{{ Router->generate("auth-login") }}">
             {{ t("Click here to log in.") }}
         </a>

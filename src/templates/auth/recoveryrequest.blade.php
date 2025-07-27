@@ -1,4 +1,4 @@
-@component("components.layout.authshell")
+@component("components.shells.authshell")
     <p class="mb-2">
         {{ t("Please enter your account's verified email address below. You will then receive an email with instructions about how to recover your password.") }}
     </p>
@@ -22,7 +22,7 @@
             {{ t("Send instructions") }}
         </button>
 
-        <a class="text-sm text-gray hover:text-gray-effect cursor-pointer transition-all"
+        <a class="text-sm text-gray hover:text-gray-effect transition-all"
            href="{{ Router->generate("auth-login") }}">
             {{ t("Log in instead?") }}
         </a>

@@ -1,4 +1,59 @@
-@tailwind base;
+@import "tailwindcss";
+
+@source "../templates/**/*.blade.php";
+@source inline("w-full", "h-full");
+@source inline("flex", "inline-flex", "justify-around", "items-center", "gap-1");
+@source inline("text-sm", "font-bold", "data-[required]:after:content-['*']", "data-[required]:after:text-primary");
+@source inline("{p{x,y,},gap}-{1,2,4}");
+@source inline("border", "outline-primary", "rounded", "placeholder:text-font-light");
+@source inline("disabled:opacity-75");
+@source inline("{hover:,focus:,disabled:,disabled:hover:,}{bg,border,text,fill}-{primary,secondary,gray,background,danger,warning,safe,info,current}");
+@source inline("{hover:,focus:,disabled:,disabled:hover:,}{bg,border,text,fill}-{primary,secondary,gray,background,danger,warning,safe,info,current}-{effect,font}");
+
+@theme {
+    --color-transparent: transparent;
+    --color-current: currentColor;
+
+    --color-background: #ffffff;
+    --color-background-header: #ffffff;
+    --color-background-footer: #ffffff;
+
+    --color-font: #000000;
+    --color-font-light: #aaaaaa;
+    --color-font-invert: #ffffff;
+    --color-font-header: #000000;
+    --color-font-footer: #666666;
+
+    --color-gray: #aaaaaa;
+    --color-gray-light: #dddddd;
+    --color-gray-dark: #666666;
+    --color-gray-effect: #666666;
+    --color-gray-font: #ffffff;
+
+    --color-primary: #2f7cff;
+    --color-primary-effect: #275fda;
+    --color-primary-font: #ffffff;
+
+    --color-secondary: #ff2f7c;
+    --color-secondary-effect: #da275f;
+    --color-secondary-font: #ffffff;
+
+    --color-danger: #f45c4a;
+    --color-danger-effect: #e14332;
+    --color-danger-font: #ffffff;
+
+    --color-warning: #f3c033;
+    --color-warning-effect: #d9ac1e;
+    --color-warning-font: #ffffff;
+
+    --color-safe: #4dbb5f;
+    --color-safe-effect: #3a9e4d;
+    --color-safe-font: #ffffff;
+
+    --color-info: #2f7cff;
+    --color-info-effect: #275fda;
+    --color-info-font: #ffffffff;
+}
 
 /*
  *  Import font by a link:
@@ -11,27 +66,27 @@
  *  The font can then be used in CSS under the name "Font".
  */
 
-@layer base {
-    h1 {
-        @apply text-3xl;
-    }
-
-    h2 {
-        @apply text-2xl;
-    }
-
-    h3 {
-        @apply text-xl;
-    }
-
-    h1, h2, h3 {
-        @apply font-bold tracking-tight;
-    }
-
-    h4, h5, h6 {
-        @apply font-bold;
-    }
+h1 {
+    @apply text-3xl;
 }
 
-@tailwind components;
-@tailwind utilities;
+h2 {
+    @apply text-2xl;
+}
+
+h3 {
+    @apply text-xl;
+}
+
+h1, h2, h3 {
+    @apply font-bold tracking-tight;
+}
+
+h4, h5, h6 {
+    @apply font-bold;
+}
+
+a,
+button:not(:disabled) {
+    @apply cursor-pointer;
+}

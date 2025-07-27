@@ -1,4 +1,4 @@
-@component("components.layout.authshell")
+@component("components.shells.authshell")
     @foreach($messages as $message)
         <p class="mb-2">
             {{ $message }}

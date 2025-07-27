@@ -19,7 +19,7 @@ This file is the script that gets executed when the user visits the page. In thi
 
 `📄 src/templates/example.blade.php`:
 ```bladehtml
-@component("components.layout.appshell", ["title" => "Example"])
+@component("components.shells.appshell", ["title" => "Example"])
     {{ $variable }}
 @endcomponent
 ```

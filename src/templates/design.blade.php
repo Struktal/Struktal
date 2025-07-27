@@ -1,4 +1,4 @@
-@component("components.layout.appshell")
+@component("components.shells.appshell")
     <h1 class="mb-8">
         Design
     </h1>
@@ -167,42 +167,19 @@
         </div>
 
         <div class="mb-4">
-            <h3>Info messages</h3>
+            <h3>Info</h3>
             <div class="flex flex-wrap gap-4">
                 <div class="flex gap-2 items-center font-mono">
-                    <div class="w-8 h-8 bg-infomessage-none-background border border-infomessage-none-border rounded"></div>
-                    <p>
-                        infomessage-none-background<br>
-                        infomessage-none-border
-                    </p>
+                    <div class="w-8 h-8 bg-info border border-gray rounded"></div>
+                    info
                 </div>
                 <div class="flex gap-2 items-center font-mono">
-                    <div class="w-8 h-8 bg-infomessage-info-background border border-infomessage-info-border rounded"></div>
-                    <p>
-                        infomessage-info-background<br>
-                        infomessage-info-border
-                    </p>
+                    <div class="w-8 h-8 bg-info-effect border border-gray rounded"></div>
+                    info-effect
                 </div>
                 <div class="flex gap-2 items-center font-mono">
-                    <div class="w-8 h-8 bg-infomessage-warning-background border border-infomessage-warning-border rounded"></div>
-                    <p>
-                        infomessage-warning-background<br>
-                        infomessage-warning-border
-                    </p>
-                </div>
-                <div class="flex gap-2 items-center font-mono">
-                    <div class="w-8 h-8 bg-infomessage-error-background border border-infomessage-error-border rounded"></div>
-                    <p>
-                        infomessage-error-background<br>
-                        infomessage-error-border
-                    </p>
-                </div>
-                <div class="flex gap-2 items-center font-mono">
-                    <div class="w-8 h-8 bg-infomessage-success-background border border-infomessage-success-border rounded"></div>
-                    <p>
-                        infomessage-success-background<br>
-                        infomessage-success-border
-                    </p>
+                    <div class="w-8 h-8 bg-info-font border border-gray rounded"></div>
+                    info-font
                 </div>
             </div>
         </div>

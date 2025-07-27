@@ -1,4 +1,4 @@
-@component("components.layout.appshell")
+@component("components.shells.appshell")
     <h1>
         {{ $code }}
     </h1>

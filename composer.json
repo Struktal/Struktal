@@ -35,9 +35,6 @@
             "Composer\\Config::disableProcessTimeout",
             "docker compose -f docker-compose-dev.yml up --build"
         ],
-        "test": "vendor/bin/pest tests",
-        "build": "struktal/src/lib/build/build.sh",
-        "tailwindcss": "struktal/src/lib/tailwindcss/tailwindcss.sh",
-        "tailwindcss-compile": "struktal/src/lib/tailwindcss/tailwindcss.sh --input src/static/css/base.css --output src/static/css/style.css --minify"
+        "test": "vendor/bin/pest tests"
     }
 }
