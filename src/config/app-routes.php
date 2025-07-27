@@ -7,8 +7,6 @@ Router->addRoute("GET|POST", "/500", "errors/500.php", "500");
 
 Router->addRoute("POST", "/translations-api", "translations/api.php", "translations-api");
 
-Router->addRoute("GET", "/design", "design.php", "design");
-
 // Authentication
 Router->addRoute("GET", "/auth/login", "auth/login.php", "auth-login");
 Router->addRoute("POST", "/auth/login", "auth/login-action.php", "auth-login-action");
