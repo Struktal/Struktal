@@ -1,4 +1,4 @@
-@component("components.shells.appshell")
+@component("components.shells.landing")
     <h1>
         {{ $code }}
     </h1>

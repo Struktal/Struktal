@@ -56,7 +56,7 @@
             init("{{ Router->generate("translations-api") }}");
         </script>
 
-        @include("components.layout.header")
+        @include("components.layout.headers.landing")
 
         <div class="px-4">
             <main class="max-w-screen-xl m-auto min-h-[90vh]">
@@ -66,7 +66,7 @@
             </main>
         </div>
 
-        @include("components.layout.footer")
+        @include("components.layout.footers.landing")
 
         <script type="module">
             import { init } from "{{ Router->staticFilePath("js/DateFormatter.js") }}";

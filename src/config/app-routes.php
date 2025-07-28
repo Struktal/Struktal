@@ -23,6 +23,8 @@ Router->addRoute("POST", "/auth/password-recovery/reset", "/auth/recovery-reset-
 Router->addRoute("GET", "/auth/password-recovery/reset/complete", "/auth/recovery-reset-complete.php", "auth-recovery-reset-complete");
 Router->addRoute("GET", "/auth/logout", "auth/logout.php", "auth-logout");
 
+Router->addRoute("GET", "/console", "console.php", "console");
+
 // Error routes
 Router->setError400Route(Router->generate("400"));
 Router->setError404Route(Router->generate("404"));

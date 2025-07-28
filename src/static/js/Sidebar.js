@@ -9,20 +9,50 @@ let shown = false;
  * Initialize the sidebar
  */
 export const init = () => {
-    // Click on burger button
-    document.getElementById("header-sidebar-open").addEventListener("click", () => {
-        open();
-    });
+    updateClasses();
 
-    // Click on close button
-    document.getElementById("header-sidebar-close").addEventListener("click", () => {
-        close();
+    document.querySelectorAll(".sidebar-toggle").forEach((element) => {
+        element.addEventListener("click", () => {
+            toggle();
+        });
     });
+}
 
-    // Click on sidebar background
-    document.querySelector(".header-sidebar-background").addEventListener("click", () => {
-        close();
+export const updateClasses = (element) => {
+    const sidebar = document.querySelector("[data-sidebar-active]");
+    const isActive = sidebar.hasAttribute("data-sidebar-active") && sidebar.getAttribute("data-sidebar-active") === "true";
+
+    document.querySelectorAll("[data-sidebar-active-classes]").forEach((element) => {
+        element.getAttribute("data-sidebar-active-classes").split(" ").forEach((cls) => {
+            if(isActive) {
+                element.classList.add(cls);
+            } else {
+                element.classList.remove(cls);
+            }
+        });
     });
+    document.querySelectorAll("[data-sidebar-inactive-classes]").forEach((element) => {
+        element.getAttribute("data-sidebar-inactive-classes").split(" ").forEach((cls) => {
+            if(isActive) {
+                element.classList.remove(cls);
+            } else {
+                element.classList.add(cls);
+            }
+        });
+    });
+}
+
+export const toggle = () => {
+    const sidebar = document.querySelector("[data-sidebar-active]");
+    const isActive = sidebar.hasAttribute("data-sidebar-active") && sidebar.getAttribute("data-sidebar-active") === "true";
+
+    if(isActive) {
+        sidebar.setAttribute("data-sidebar-active", "false");
+    } else {
+        sidebar.setAttribute("data-sidebar-active", "true");
+    }
+
+    updateClasses();
 }
 
 /**

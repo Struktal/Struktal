@@ -16,16 +16,11 @@
         </div>
 
         {{-- Open sidebar button --}}
-        <button id="header-sidebar-open" class="cursor-pointer">
-            <svg class="w-6 h-6 stroke-current"
-                 viewBox="0 0 24 24"
-                 xmlns="http://www.w3.org/2000/svg"
-            >
-                <path d="M3 12h18M3 6h18M3 18h18"></path>
-            </svg>
+        <button class="cursor-pointer sidebar-toggle">
+            @include("components.icons.menu", [ "class" => "w-6 h-6" ])
         </button>
 
-        @component("components.layout.sidebar")
+        @component("components.layout.sidebars.landing")
             {{-- Account information --}}
             @include("components.layout.accountinfo")
 

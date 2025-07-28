@@ -1,4 +1,4 @@
-@component("components.shells.authshell")
+@component("components.shells.auth")
     <p class="mb-2">
         {{ t("Don't have an account yet?") }}
         <a class="text-primary hover:text-primary-effect transition-all"
