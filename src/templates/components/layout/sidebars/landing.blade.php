@@ -1,5 +1,5 @@
 {{-- Sidebar popup --}}
-<aside class="header-sidebar-popup absolute fixed z-200 top-0 right-0
+<aside class="absolute fixed z-200 top-0 right-0
               h-full w-screen sm:max-w-96
               p-6 bg-background-header border-l border-gray transition-all translate-x-full"
        data-sidebar-active="false"
@@ -16,7 +16,7 @@
 </aside>
 
 {{-- Sidebar background layer --}}
-<div class="header-sidebar-background hidden absolute left-0 top-0 w-full h-full z-100 backdrop-blur"
+<div class="sidebar-toggle hidden absolute left-0 top-0 w-full h-full z-100 backdrop-blur"
      data-sidebar-inactive-classes="hidden"
 ></div>
 

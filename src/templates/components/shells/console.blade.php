@@ -60,7 +60,7 @@
 
         <div class="pt-20 px-4">
             <main class="md:ml-96 transition-all"
-                  data-sidebar-active-classes="md:ml-96 ml-96" data-sidebar-inactive-classes="md:ml-0">
+                  data-sidebar-active-classes="md:ml-96" data-sidebar-inactive-classes="md:ml-0">
                 {!! $slot !!}
             </main>
         </div>

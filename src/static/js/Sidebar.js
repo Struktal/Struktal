@@ -1,15 +1,19 @@
-let elements = {
-    sidebar: null,
-    burger: null,
-    darkBackground: null
-}
-let shown = false;
+let innerWidth = window.innerWidth;
 
 /**
  * Initialize the sidebar
  */
-export const init = () => {
-    updateClasses();
+export const init = (breakpoint = null) => {
+    updateSidebarState(breakpoint);
+
+    window.addEventListener("resize", () => {
+        const previousActive = innerWidth >= breakpoint;
+        const newActive = window.innerWidth >= breakpoint;
+        innerWidth = window.innerWidth;
+        if(previousActive !== newActive) {
+            updateSidebarState(breakpoint);
+        }
+    });
 
     document.querySelectorAll(".sidebar-toggle").forEach((element) => {
         element.addEventListener("click", () => {
@@ -18,7 +22,18 @@ export const init = () => {
     });
 }
 
-export const updateClasses = (element) => {
+const updateSidebarState = (breakpoint = null) => {
+    if(breakpoint !== null) {
+        const sidebarActive = window.innerWidth >= breakpoint ? "true" : "false";
+        document.querySelectorAll("[data-sidebar-active]").forEach((element) => {
+            element.setAttribute("data-sidebar-active", sidebarActive);
+        });
+    }
+
+    updateClasses();
+}
+
+const updateClasses = () => {
     const sidebar = document.querySelector("[data-sidebar-active]");
     const isActive = sidebar.hasAttribute("data-sidebar-active") && sidebar.getAttribute("data-sidebar-active") === "true";
 
@@ -55,38 +70,4 @@ export const toggle = () => {
     updateClasses();
 }
 
-/**
- * Open the sidebar
- */
-export const open = () => {
-    // Show sidebar
-    document.querySelector(".header-sidebar-popup").classList.remove("translate-x-full", "hidden");
-    document.querySelector(".header-sidebar-background").classList.remove("hidden");
-
-    // Disable scrolling
-    document.querySelector("html").scrollTop = window.scrollY;
-    document.body.style.overflow = "hidden";
-    document.body.style.position = "relative";
-    document.querySelector("html").style.overflow = "hidden";
-    document.querySelector("html").style.position = "relative";
-}
-
-/**
- * Close the sidebar
- */
-export const close = () => {
-    // Hide sidebar
-    document.querySelector(".header-sidebar-popup").classList.add("translate-x-full");
-    setTimeout(() => {
-        document.querySelector(".header-sidebar-popup").classList.add("hidden");
-    }, 500);
-    document.querySelector(".header-sidebar-background").classList.add("hidden");
-
-    // Enable scrolling
-    document.body.style.overflow = null;
-    document.body.style.position = null;
-    document.querySelector("html").style.overflow = null;
-    document.querySelector("html").style.position = null;
-}
-
-export default { init, open, close };
+export default { init, toggle };
