@@ -26,7 +26,7 @@
 
             {{-- Sidebar navigation list --}}
             <nav>
-                @include("components.layout.sidebarlist")
+                @include("components.layout.sidebars.landinglist")
             </nav>
         @endcomponent
     </header>

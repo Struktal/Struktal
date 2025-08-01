@@ -20,5 +20,8 @@
 </div>
 
 @component("components.layout.sidebars.console")
-    Sidebar content
+    {{-- Sidebar navigation list --}}
+    <nav>
+        @include("components.layout.sidebars.consolelist")
+    </nav>
 @endcomponent
