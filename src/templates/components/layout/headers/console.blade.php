@@ -1,4 +1,4 @@
-<div class="fixed top-0 w-full h-16 bg-background-header text-font-header">
+<div class="fixed top-0 w-full h-16 bg-surface-100">
     <header class="flex justify-between items-center h-full px-4 shadow">
         <div class="flex items-center">
             {{-- Open sidebar button --}}
@@ -13,7 +13,7 @@
         </div>
 
         <div class="">
-            <div class="w-10 h-10 rounded-full bg-gray">
+            <div class="w-10 h-10 rounded-full bg-surface-500">
             </div>
         </div>
     </header>
@@ -24,4 +24,8 @@
     <nav>
         @include("components.layout.sidebars.consolelist")
     </nav>
+
+    <div class="absolute bottom-0 left-0 w-full bg-surface-200">
+        asdf
+    </div>
 @endcomponent

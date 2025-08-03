@@ -5,5 +5,5 @@
         </span>
     </a>
 
-    <hr class="w-full h-px mt-2 bg-gray border-none">
+    <hr class="w-full h-px mt-2 bg-surface-500 border-none">
 </li>

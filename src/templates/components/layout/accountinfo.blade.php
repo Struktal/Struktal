@@ -24,7 +24,7 @@
 @guest
     <div class="flex items-center justify-end gap-4 my-2">
         {{-- Login button --}}
-        <a class="text-primary hover:text-primary-effect transition-all"
+        <a class="text-primary-500 hover:text-primary-600 transition-all"
            href="{{ Router->generate("auth-login") }}">
             {{ t("Log in") }}
         </a>

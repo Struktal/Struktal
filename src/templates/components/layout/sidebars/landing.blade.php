@@ -1,7 +1,7 @@
 {{-- Sidebar popup --}}
 <aside class="absolute fixed z-200 top-0 right-0
               h-full w-screen sm:max-w-96
-              p-6 bg-background-header border-l border-gray transition-all translate-x-full"
+              p-6 bg-surface-100 border-l border-surface-500 transition-all translate-x-full"
        data-sidebar-active="false"
        data-sidebar-inactive-classes="translate-x-full">
     <div class="flex">

@@ -1,7 +1,7 @@
 @component("components.shells.auth")
     <p class="mb-2">
         {{ t("Don't have an account yet?") }}
-        <a class="text-primary hover:text-primary-effect transition-all"
+        <a class="text-primary-500 hover:text-primary-600 transition-all"
            href="{{ Router->generate("auth-register") }}">
             {{ t("Click here to register.") }}
         </a>
@@ -41,7 +41,7 @@
             {{ t("Log in") }}
         </button>
 
-        <a class="text-sm text-gray hover:text-gray-effect transition-all"
+        <a class="text-sm text-surface-500 hover:text-surface-600 transition-all"
            href="{{ Router->generate("auth-recovery-request") }}">
             {{ t("Forgot password?") }}
         </a>

@@ -5,55 +5,75 @@
 @source inline("flex", "inline-flex", "justify-around", "items-center", "gap-1");
 @source inline("text-sm", "font-bold", "data-[required]:after:content-['*']", "data-[required]:after:text-primary");
 @source inline("{p{x,y,},gap}-{1,2,4}");
-@source inline("border", "outline-primary", "rounded", "placeholder:text-font-light");
+@source inline("border", "rounded", "placeholder:text-font-light");
 @source inline("disabled:opacity-75");
-@source inline("{hover:,focus:,disabled:,disabled:hover:,}{bg,border,text,fill}-{primary,secondary,gray,background,danger,warning,safe,info,current}");
-@source inline("{hover:,focus:,disabled:,disabled:hover:,}{bg,border,text,fill}-{primary,secondary,gray,background,danger,warning,safe,info,current}-{effect,font}");
+@source inline("{dark:,hover:,focus:,disabled:,disabled:hover:,}{bg,border,text,fill}-{transparent,current}");
+@source inline("{dark:,hover:,focus:,disabled:,dark:hover:,dark:focus:,dark:disabled:,disabled:hover:,dark:disabled:hover,}{bg,border,text,fill,outline}-{surface,primary,danger,warning,safe,info}-{100,200,300,400,500,600,700,800,900}");
 @source inline("{md:,}{-,}translate-x-full");
 
 @theme {
     --color-transparent: transparent;
     --color-current: currentColor;
 
-    --color-background: #ffffff;
-    --color-background-header: #ffffff;
-    --color-background-footer: #ffffff;
+    --color-surface-100: hsl(0, 0%, 97%);
+    --color-surface-200: hsl(0, 0%, 90%);
+    --color-surface-300: hsl(0, 0%, 80%);
+    --color-surface-400: hsl(0, 0%, 70%);
+    --color-surface-500: hsl(0, 0%, 60%);
+    --color-surface-600: hsl(0, 0%, 50%);
+    --color-surface-700: hsl(0, 0%, 40%);
+    --color-surface-800: hsl(0, 0%, 30%);
+    --color-surface-900: hsl(0, 0%, 20%);
 
-    --color-font: #000000;
-    --color-font-light: #aaaaaa;
-    --color-font-invert: #ffffff;
-    --color-font-header: #000000;
-    --color-font-footer: #666666;
+    --color-primary-100: hsl(218, 100%, 97%);
+    --color-primary-200: hsl(218, 100%, 90%);
+    --color-primary-300: hsl(218, 100%, 80%);
+    --color-primary-400: hsl(218, 100%, 70%);
+    --color-primary-500: hsl(218, 100%, 60%);
+    --color-primary-600: hsl(218, 100%, 50%);
+    --color-primary-700: hsl(218, 100%, 40%);
+    --color-primary-800: hsl(218, 100%, 30%);
+    --color-primary-900: hsl(218, 100%, 20%);
 
-    --color-gray: #aaaaaa;
-    --color-gray-light: #dddddd;
-    --color-gray-dark: #666666;
-    --color-gray-effect: #666666;
-    --color-gray-font: #ffffff;
+    --color-danger-100: hsl(6, 89%, 97%);
+    --color-danger-200: hsl(6, 89%, 90%);
+    --color-danger-300: hsl(6, 89%, 80%);
+    --color-danger-400: hsl(6, 89%, 70%);
+    --color-danger-500: hsl(6, 89%, 60%);
+    --color-danger-600: hsl(6, 89%, 50%);
+    --color-danger-700: hsl(6, 89%, 40%);
+    --color-danger-800: hsl(6, 89%, 30%);
+    --color-danger-900: hsl(6, 89%, 20%);
 
-    --color-primary: #2f7cff;
-    --color-primary-effect: #275fda;
-    --color-primary-font: #ffffff;
+    --color-warning-100: hsl(44, 89%, 97%);
+    --color-warning-200: hsl(44, 89%, 90%);
+    --color-warning-300: hsl(44, 89%, 80%);
+    --color-warning-400: hsl(44, 89%, 70%);
+    --color-warning-500: hsl(44, 89%, 60%);
+    --color-warning-600: hsl(44, 89%, 50%);
+    --color-warning-700: hsl(44, 89%, 40%);
+    --color-warning-800: hsl(44, 89%, 30%);
+    --color-warning-900: hsl(44, 89%, 20%);
 
-    --color-secondary: #ff2f7c;
-    --color-secondary-effect: #da275f;
-    --color-secondary-font: #ffffff;
+    --color-safe-100: hsl(130, 45%, 97%);
+    --color-safe-200: hsl(130, 45%, 90%);
+    --color-safe-300: hsl(130, 45%, 80%);
+    --color-safe-400: hsl(130, 45%, 70%);
+    --color-safe-500: hsl(130, 45%, 60%);
+    --color-safe-600: hsl(130, 45%, 50%);
+    --color-safe-700: hsl(130, 45%, 40%);
+    --color-safe-800: hsl(130, 45%, 30%);
+    --color-safe-900: hsl(130, 45%, 20%);
 
-    --color-danger: #f45c4a;
-    --color-danger-effect: #e14332;
-    --color-danger-font: #ffffff;
-
-    --color-warning: #f3c033;
-    --color-warning-effect: #d9ac1e;
-    --color-warning-font: #ffffff;
-
-    --color-safe: #4dbb5f;
-    --color-safe-effect: #3a9e4d;
-    --color-safe-font: #ffffff;
-
-    --color-info: #2f7cff;
-    --color-info-effect: #275fda;
-    --color-info-font: #ffffffff;
+    --color-info-100: hsl(218, 100%, 97%);
+    --color-info-200: hsl(218, 100%, 90%);
+    --color-info-300: hsl(218, 100%, 80%);
+    --color-info-400: hsl(218, 100%, 70%);
+    --color-info-500: hsl(218, 100%, 60%);
+    --color-info-600: hsl(218, 100%, 50%);
+    --color-info-700: hsl(218, 100%, 40%);
+    --color-info-800: hsl(218, 100%, 30%);
+    --color-info-900: hsl(218, 100%, 20%);
 }
 
 /*

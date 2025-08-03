@@ -13,24 +13,28 @@ export const create = (message, type) => {
     messageElement.classList.add("rounded");
     switch(type) {
         case TYPE_INFO: {
+            // TODO: Adjust classes
             messageElement.classList.add("bg-infomessage-info-background");
             messageElement.classList.add("border-infomessage-info-border");
             messageElement.setAttribute("message-type", "info");
             break;
         }
         case TYPE_WARNING: {
+            // TODO: Adjust classes
             messageElement.classList.add("bg-infomessage-warning-background");
             messageElement.classList.add("border-infomessage-warning-border");
             messageElement.setAttribute("message-type", "warning");
             break;
         }
         case TYPE_ERROR: {
+            // TODO: Adjust classes
             messageElement.classList.add("bg-infomessage-error-background");
             messageElement.classList.add("border-infomessage-error-border");
             messageElement.setAttribute("message-type", "error");
             break;
         }
         case TYPE_SUCCESS: {
+            // TODO: Adjust classes
             messageElement.classList.add("bg-infomessage-success-background");
             messageElement.classList.add("border-infomessage-success-border");
             messageElement.setAttribute("message-type", "success");
