@@ -1,15 +1,9 @@
 @import "tailwindcss";
 
 @source "../templates/**/*.blade.php";
-@source inline("w-full", "h-full");
-@source inline("flex", "inline-flex", "justify-around", "items-center", "gap-1");
-@source inline("text-sm", "font-bold", "data-[required]:after:content-['*']", "data-[required]:after:text-primary");
 @source inline("{p{x,y,},gap}-{1,2,4}");
-@source inline("border", "rounded", "placeholder:text-font-light");
-@source inline("disabled:opacity-75");
-@source inline("{dark:,hover:,focus:,disabled:,disabled:hover:,}{bg,border,text,fill}-{transparent,current}");
-@source inline("{dark:,hover:,focus:,disabled:,dark:hover:,dark:focus:,dark:disabled:,disabled:hover:,dark:disabled:hover,}{bg,border,text,fill,outline}-{surface,primary,danger,warning,safe,info}-{100,200,300,400,500,600,700,800,900}");
-@source inline("{md:,}{-,}translate-x-full");
+@source inline("{dark:,hover:,focus:,disabled:,dark:hover:,dark:focus:,dark:disabled:,disabled:hover:,dark:disabled:hover,}{bg,border,text,fill}-{transparent,current}");
+@source inline("{dark:,hover:,focus:,disabled:,dark:hover:,dark:focus:,dark:disabled:,disabled:hover:,dark:disabled:hover,}{bg,border,text,fill,outline}-{surface,primary,danger,warning,safe,info}-{100..900..100}");
 
 @theme {
     --color-transparent: transparent;
