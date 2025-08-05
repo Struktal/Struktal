@@ -21,13 +21,13 @@
         </button>
 
         @component("components.layout.sidebars.landing")
-            {{-- Account information --}}
-            @include("components.layout.accountinfo")
-
             {{-- Sidebar navigation list --}}
             <nav>
                 @include("components.layout.sidebars.landinglist")
             </nav>
+
+            {{-- Account info --}}
+            @include("components.layout.sidebars.accountinfo")
         @endcomponent
     </header>
 </div>

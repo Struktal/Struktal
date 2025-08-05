@@ -13,8 +13,7 @@
         </div>
 
         <div class="">
-            <div class="w-10 h-10 rounded-full bg-surface-500">
-            </div>
+            {{-- Top Right Elements --}}
         </div>
     </header>
 </div>
@@ -25,7 +24,6 @@
         @include("components.layout.sidebars.consolelist")
     </nav>
 
-    <div class="absolute bottom-0 left-0 w-full bg-surface-200">
-        asdf
-    </div>
+    {{-- Account info --}}
+    @include("components.layout.sidebars.accountinfo")
 @endcomponent
