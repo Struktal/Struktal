@@ -61,6 +61,8 @@
         <div class="pt-20 px-4">
             <main class="md:ml-96 transition-all"
                   data-sidebar-active-classes="md:ml-96" data-sidebar-inactive-classes="md:ml-0">
+                @include("components.layout.infomessagelist")
+
                 {!! $slot !!}
             </main>
         </div>
