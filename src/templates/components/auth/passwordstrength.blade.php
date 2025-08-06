@@ -14,7 +14,7 @@
               id="password-requirement-uppercase" data-regex="[A-Z]">
             {{ t("Uppercase letters") }}
         </span>
-        <span class="password-requirement block before:content-['✘'] data-[met='true']:text-safe-500 data-[met='true']:before:content-['✔'] transition-alle"
+        <span class="password-requirement block before:content-['✘'] data-[met='true']:text-safe-500 data-[met='true']:before:content-['✔'] transition-all"
               id="password-requirement-lowercase" data-regex="[a-z]">
             {{ t("Lowercase letters") }}
         </span>
