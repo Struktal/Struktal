@@ -1,7 +1,7 @@
-@component("components.layout.authshell")
+@component("components.shells.auth")
     <p class="mb-2">
         {{ t("Already have an account?") }}
-        <a class="text-primary hover:text-primary-effect cursor-pointer transition-all"
+        <a class="text-primary-500 hover:text-primary-600 transition-all"
            href="{{ Router->generate("auth-login") }}">
             {{ t("Click here to log in.") }}
         </a>
@@ -69,39 +69,14 @@
                    pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[\d\W]).{8,}">
         </div>
 
-        <span class="block w-full mt-2 bg-gray-light border border-gray-light border-2 rounded-full">
-            <span class="block w-2 h-1 rounded-full data-[strength='0']:bg-danger data-[strength='1']:bg-warning data-[strength='2']:bg-safe transition-all"
-                  id="password-strength-indicator-bar"
-                  data-strength="0"></span>
-        </span>
-
-        <div class="password-requirements text-font-light mb-2">
-            <p>
-                <span class="password-requirement block before:content-['✘'] data-[met='true']:text-safe data-[met='true']:before:content-['✔'] transition-all"
-                      id="password-requirement-length" data-regex=".{8,}">
-                    {{ t("At least 8 characters") }}
-                </span>
-                <span class="password-requirement block before:content-['✘'] data-[met='true']:text-safe data-[met='true']:before:content-['✔'] transition-all"
-                      id="password-requirement-uppercase" data-regex="[A-Z]">
-                    {{ t("Uppercase letters") }}
-                </span>
-                <span class="password-requirement block before:content-['✘'] data-[met='true']:text-safe data-[met='true']:before:content-['✔'] transition-alle"
-                      id="password-requirement-lowercase" data-regex="[a-z]">
-                    {{ t("Lowercase letters") }}
-                </span>
-                <span class="password-requirement block before:content-['✘'] data-[met='true']:text-safe data-[met='true']:before:content-['✔'] transition-all"
-                      id="password-requirement-number" data-regex="[\d\W]">
-                    {{ t("Numbers or special characters") }}
-                </span>
-            </p>
-        </div>
+        @include("components.auth.passwordstrength")
 
         <button class="{{ TailwindUtil::button(true) }} w-full">
             {{ t("Register") }}
         </button>
     </form>
 
-    <p class="text-sm text-gray">
+    <p class="text-sm text-surface-500">
         {{ t("Upon registration, you will receive an email with a link. Please open that link to verify your email address and to get access to your account.") }}
     </p>
 

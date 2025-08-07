@@ -104,7 +104,7 @@ set_error_handler(function($errno, $errstr, $errfile, $errline) {
         Comm::redirect(Router->generate("500"));
     } else {
         // Show stack trace screen in development
-        echo Blade->run("components.layout.deverror", [
+        echo Blade->run("components.shells.deverror", [
             "exceptionName" => "Error " . $errno,
             "exceptionMessage" => $errstr,
             "trace" => [
@@ -135,7 +135,7 @@ set_exception_handler(function($exception) {
     } else {
         // Show stack trace screen in development
         $trace = $exception->getTrace();
-        echo Blade->run("components.layout.deverror", [
+        echo Blade->run("components.shells.deverror", [
             "exceptionName" => get_class($exception),
             "exceptionMessage" => $exception->getMessage(),
             "trace" => [

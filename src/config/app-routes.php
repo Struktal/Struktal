@@ -7,8 +7,6 @@ Router->addRoute("GET|POST", "/500", "errors/500.php", "500");
 
 Router->addRoute("POST", "/translations-api", "translations/api.php", "translations-api");
 
-Router->addRoute("GET", "/design", "design.php", "design");
-
 // Authentication
 Router->addRoute("GET", "/auth/login", "auth/login.php", "auth-login");
 Router->addRoute("POST", "/auth/login", "auth/login-action.php", "auth-login-action");
@@ -24,6 +22,8 @@ Router->addRoute("GET", "/auth/password-recovery/reset", "/auth/recovery-reset.p
 Router->addRoute("POST", "/auth/password-recovery/reset", "/auth/recovery-reset-action.php", "auth-recovery-reset-action");
 Router->addRoute("GET", "/auth/password-recovery/reset/complete", "/auth/recovery-reset-complete.php", "auth-recovery-reset-complete");
 Router->addRoute("GET", "/auth/logout", "auth/logout.php", "auth-logout");
+
+Router->addRoute("GET", "/console", "console.php", "console");
 
 // Error routes
 Router->setError400Route(Router->generate("400"));

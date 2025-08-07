@@ -33,7 +33,7 @@ To run a development environment, you can use
 ```sh
 composer run dev
 ```
-which will build and run a Docker container with the application and a MySQL databse.
+which will build and run a Docker container with the application and a MySQL database.
 You can then access the website on your browser by visiting `http://localhost:3000`.
 
 > [!IMPORTANT]
