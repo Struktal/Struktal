@@ -57,6 +57,9 @@ use struktal\Auth\Auth;
 const Auth = new Auth();
 Auth->setUserObjectName(User::class);
 
+use struktal\validation\ValidationBuilder;
+const Validation = new ValidationBuilder();
+
 // Override BladeOne's include directive to use components with isolated variables
 Blade->directive("include", function($expression) {
     $code = Blade->phpTag . " Blade->startComponent($expression); ?>";

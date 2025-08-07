@@ -6,27 +6,26 @@ if(Auth->isLoggedIn()) {
 }
 
 // Check whether form fields are given
-$validation = \validation\Validator::create([
-    \validation\IsRequired::create(),
-    \validation\IsArray::create(),
-    \validation\HasChildren::create([
-        "username" => \validation\Validator::create([
-            \validation\IsRequired::create(),
-            \validation\IsString::create(),
-            \validation\MinLength::create(5),
-            \validation\MaxLength::create(256),
-        ]),
-        "password" => \validation\Validator::create([
-            \validation\IsRequired::create(),
-            \validation\IsString::create(),
-            \validation\MinLength::create(8),
-            \validation\MaxLength::create(256),
-        ])
+$validation = Validation->create()
+    ->withErrorMessage(t("Please log in with your account's credentials."))
+    ->array()
+    ->required()
+    ->children([
+        "username" => Validation->create()
+            ->string()
+            ->minLength(5)
+            ->maxLength(256)
+            ->build(),
+        "password" => Validation->create()
+            ->string()
+            ->minLength(8)
+            ->maxLength(256)
+            ->build()
     ])
-])->setErrorMessage(t("Please log in with your account's credentials."));
+    ->build();
 try {
     $post = $validation->getValidatedValue($_POST);
-} catch(validation\ValidationException $e) {
+} catch(\struktal\validation\ValidationException $e) {
     new InfoMessage($e->getMessage(), InfoMessageType::ERROR);
     Comm::redirect(Router->generate("auth-login"));
 }

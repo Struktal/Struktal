@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e16bb10bf449c32af3e1fbf2c252dc7c",
+    "content-hash": "6620cd587067f6eb864398bd8de71609",
     "packages": [
         {
             "name": "eftec/bladeone",
@@ -422,6 +422,50 @@
                 "source": "https://github.com/Struktal/struktal-router/tree/1.2.0"
             },
             "time": "2025-08-01T15:39:22+00:00"
+        },
+        {
+            "name": "struktal/struktal-validation",
+            "version": "1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Struktal/struktal-validation.git",
+                "reference": "50c914b4146dd4a663717b8913545eaaa72e1be4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Struktal/struktal-validation/zipball/50c914b4146dd4a663717b8913545eaaa72e1be4",
+                "reference": "50c914b4146dd4a663717b8913545eaaa72e1be4",
+                "shasum": ""
+            },
+            "require": {
+                "ext-pdo": "*",
+                "php": ">=8.2.0",
+                "struktal/struktal-orm": "^1.0.1"
+            },
+            "require-dev": {
+                "pestphp/pest": "~v3.8.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "struktal\\validation\\": "src/",
+                    "struktal\\validation\\internals\\": "src/internals/",
+                    "struktal\\validation\\validators\\": "src/validators/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "PHP library to validate user inputs for APIs or forms",
+            "keywords": [
+                "validation"
+            ],
+            "support": {
+                "issues": "https://github.com/Struktal/struktal-validation/issues",
+                "source": "https://github.com/Struktal/struktal-validation/tree/1.0.3"
+            },
+            "time": "2025-08-01T16:01:44+00:00"
         }
     ],
     "packages-dev": [
