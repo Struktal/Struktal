@@ -17,7 +17,6 @@ Other settings, which might change depending on the deployment, and settings tha
 | `APP_URL`       | The applications' URL                                             | `http://localhost:3000`   |
 | `APP_FAVICON`   | URL to the applications' favicon                                  | `/static/img/favicon.png` |
 | `APP_AUTHOR`    | The author of the application that is displayed in the footer     | `Author`                  |
-| `APP_VERSION`   | The version of the application that is displayed in the footer    | `1.0.0`                   |
 | `PRODUCTION`    | Whether the application runs in a production environment or not   | `true`                    |
 
 ## Logger settings

@@ -1,6 +1,8 @@
 {
     "name": "struktal/struktal",
     "description": "Powerful and feature-rich PHP framework designed to simplify web development",
+    "version": "v1.0.0-alpha",
+    "type": "project",
     "license": "MIT",
     "require": {
         "php": ">=8.2",
@@ -17,7 +19,8 @@
         "struktal/struktal-curl": "^1.2.0",
         "struktal/struktal-file-uploads": "^2.0.0",
         "struktal/struktal-csv-reader": "^1.1.0",
-        "struktal/struktal-geocoding-util": "^1.1.0"
+        "struktal/struktal-geocoding-util": "^1.1.0",
+        "struktal/struktal-composer-reader": "^1.0.0"
     },
     "require-dev": {
         "pestphp/pest": "~2.33.4"

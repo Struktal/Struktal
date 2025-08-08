@@ -60,6 +60,10 @@ Auth->setUserObjectName(User::class);
 use struktal\validation\ValidationBuilder;
 const Validation = new ValidationBuilder();
 
+use struktal\ComposerReader\ComposerReader;
+ComposerReader::setProjectDirectory(__APP_DIR__);
+const ComposerReader = new ComposerReader();
+
 // Override BladeOne's include directive to use components with isolated variables
 Blade->directive("include", function($expression) {
     $code = Blade->phpTag . " Blade->startComponent($expression); ?>";
