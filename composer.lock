@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9e63396a901fcfbde3543406c525138f",
+    "content-hash": "807d42169d20c3159338689d3e0b5030",
     "packages": [
         {
             "name": "eftec/bladeone",
-            "version": "4.13",
+            "version": "4.19",
             "source": {
                 "type": "git",
                 "url": "https://github.com/EFTEC/BladeOne.git",
-                "reference": "a24ce564a681fa3e37b2490952915c403ee9e56a"
+                "reference": "3332fab956de4192ad28053f5d3849d983f5b568"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/EFTEC/BladeOne/zipball/a24ce564a681fa3e37b2490952915c403ee9e56a",
-                "reference": "a24ce564a681fa3e37b2490952915c403ee9e56a",
+                "url": "https://api.github.com/repos/EFTEC/BladeOne/zipball/3332fab956de4192ad28053f5d3849d983f5b568",
+                "reference": "3332fab956de4192ad28053f5d3849d983f5b568",
                 "shasum": ""
             },
             "require": {
@@ -61,9 +61,9 @@
             ],
             "support": {
                 "issues": "https://github.com/EFTEC/BladeOne/issues",
-                "source": "https://github.com/EFTEC/BladeOne/tree/4.13"
+                "source": "https://github.com/EFTEC/BladeOne/tree/4.19"
             },
-            "time": "2024-03-26T21:35:25+00:00"
+            "time": "2025-07-29T12:17:30+00:00"
         },
         {
             "name": "phpmailer/phpmailer",
