@@ -11,7 +11,7 @@
         "ext-json": "*",
         "ext-apcu": "*",
         "eftec/bladeone": "4.13.*",
-        "phpmailer/phpmailer": "~v6.9.1",
+        "phpmailer/phpmailer": "~v6.10.0",
         "struktal/struktal-router": "^1.2.1",
         "struktal/struktal-orm": "^1.0.2",
         "struktal/struktal-auth": "^2.0.1",
