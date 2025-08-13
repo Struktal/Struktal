@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2d380c61c99314811e538b350ee45afb",
+    "content-hash": "26928c9e02f1e922fea2e57b87a0f4ea",
     "packages": [
         {
             "name": "eftec/bladeone",
@@ -382,16 +382,16 @@
         },
         {
             "name": "struktal/struktal-orm",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Struktal/struktal-orm.git",
-                "reference": "a0950c3a3c06344e2717bba9fcebcd63de4f6be6"
+                "reference": "4539a2f496ef785b3e92f3ba9117733a3bf9318c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Struktal/struktal-orm/zipball/a0950c3a3c06344e2717bba9fcebcd63de4f6be6",
-                "reference": "a0950c3a3c06344e2717bba9fcebcd63de4f6be6",
+                "url": "https://api.github.com/repos/Struktal/struktal-orm/zipball/4539a2f496ef785b3e92f3ba9117733a3bf9318c",
+                "reference": "4539a2f496ef785b3e92f3ba9117733a3bf9318c",
                 "shasum": ""
             },
             "require": {
@@ -419,22 +419,22 @@
             ],
             "support": {
                 "issues": "https://github.com/Struktal/struktal-orm/issues",
-                "source": "https://github.com/Struktal/struktal-orm/tree/1.0.1"
+                "source": "https://github.com/Struktal/struktal-orm/tree/1.0.2"
             },
-            "time": "2025-06-17T13:02:15+00:00"
+            "time": "2025-08-12T11:46:47+00:00"
         },
         {
             "name": "struktal/struktal-router",
-            "version": "1.2.0",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Struktal/struktal-router.git",
-                "reference": "93e4ceb05fda6bf4028dd719b408da4d13c77016"
+                "reference": "17bb215855d514ee3cde92c1281711d1beb9394f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Struktal/struktal-router/zipball/93e4ceb05fda6bf4028dd719b408da4d13c77016",
-                "reference": "93e4ceb05fda6bf4028dd719b408da4d13c77016",
+                "url": "https://api.github.com/repos/Struktal/struktal-router/zipball/17bb215855d514ee3cde92c1281711d1beb9394f",
+                "reference": "17bb215855d514ee3cde92c1281711d1beb9394f",
                 "shasum": ""
             },
             "require": {
@@ -456,9 +456,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Struktal/struktal-router/issues",
-                "source": "https://github.com/Struktal/struktal-router/tree/1.2.0"
+                "source": "https://github.com/Struktal/struktal-router/tree/1.2.1"
             },
-            "time": "2025-08-01T15:39:22+00:00"
+            "time": "2025-08-11T13:06:19+00:00"
         },
         {
             "name": "struktal/struktal-validation",
@@ -3002,23 +3002,23 @@
         },
         {
             "name": "sebastian/recursion-context",
-            "version": "5.0.0",
+            "version": "5.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/recursion-context.git",
-                "reference": "05909fb5bc7df4c52992396d0116aed689f93712"
+                "reference": "47e34210757a2f37a97dcd207d032e1b01e64c7a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/recursion-context/zipball/05909fb5bc7df4c52992396d0116aed689f93712",
-                "reference": "05909fb5bc7df4c52992396d0116aed689f93712",
+                "url": "https://api.github.com/repos/sebastianbergmann/recursion-context/zipball/47e34210757a2f37a97dcd207d032e1b01e64c7a",
+                "reference": "47e34210757a2f37a97dcd207d032e1b01e64c7a",
                 "shasum": ""
             },
             "require": {
                 "php": ">=8.1"
             },
             "require-dev": {
-                "phpunit/phpunit": "^10.0"
+                "phpunit/phpunit": "^10.5"
             },
             "type": "library",
             "extra": {
@@ -3053,15 +3053,28 @@
             "homepage": "https://github.com/sebastianbergmann/recursion-context",
             "support": {
                 "issues": "https://github.com/sebastianbergmann/recursion-context/issues",
-                "source": "https://github.com/sebastianbergmann/recursion-context/tree/5.0.0"
+                "security": "https://github.com/sebastianbergmann/recursion-context/security/policy",
+                "source": "https://github.com/sebastianbergmann/recursion-context/tree/5.0.1"
             },
             "funding": [
                 {
                     "url": "https://github.com/sebastianbergmann",
                     "type": "github"
+                },
+                {
+                    "url": "https://liberapay.com/sebastianbergmann",
+                    "type": "liberapay"
+                },
+                {
+                    "url": "https://thanks.dev/u/gh/sebastianbergmann",
+                    "type": "thanks_dev"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/sebastian/recursion-context",
+                    "type": "tidelift"
                 }
             ],
-            "time": "2023-02-03T07:05:40+00:00"
+            "time": "2025-08-10T07:50:56+00:00"
         },
         {
             "name": "sebastian/type",
