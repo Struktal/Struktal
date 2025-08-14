@@ -10,7 +10,7 @@
         "ext-curl": "*",
         "ext-json": "*",
         "ext-apcu": "*",
-        "eftec/bladeone": "4.19",
+        "eftec/bladeone": "^4.19.0",
         "phpmailer/phpmailer": "~v6.10.0",
         "struktal/struktal-router": "^1.2.1",
         "struktal/struktal-orm": "^1.0.2",
