@@ -13,6 +13,8 @@ class Logger {
     private static array $customLogHandlers = [];
     private string $tag;
 
+    private static string $LOG_DIRECTORY = __APP_DIR__ . "/logs/";
+
     private function __construct($tag) {
         $this->tag = $tag;
     }
@@ -34,17 +36,17 @@ class Logger {
     }
 
     private function writeToLogfile(string $message): void {
-        if(!(file_exists(Config::$LOG_SETTINGS["LOG_DIRECTORY"]) && is_dir(Config::$LOG_SETTINGS["LOG_DIRECTORY"]))) {
-            mkdir(Config::$LOG_SETTINGS["LOG_DIRECTORY"]);
+        if(!(file_exists(self::$LOG_DIRECTORY) && is_dir(self::$LOG_DIRECTORY))) {
+            mkdir(self::$LOG_DIRECTORY);
         }
 
-        $logfileName = str_replace("%date%", date("Y-m-d"), Config::$LOG_SETTINGS["LOG_FILENAME"]);
-        $logfile = fopen(Config::$LOG_SETTINGS["LOG_DIRECTORY"] . $logfileName, "a");
+        $logfileName = str_replace("%date%", date("Y-m-d"), "log-%date%.log");
+        $logfile = fopen(self::$LOG_DIRECTORY . $logfileName, "a");
         fwrite($logfile, $message . PHP_EOL);
     }
 
     public function trace($message): void {
-        if(Config::$LOG_SETTINGS["LOG_LEVEL"] >= self::$LOG_TRACE) {
+        if(Config->getLogLevel() >= self::$LOG_TRACE) {
             if(!is_string($message)) {
                 $message = serialize($message);
             }
@@ -61,7 +63,7 @@ class Logger {
     }
 
     public function debug($message): void {
-        if(Config::$LOG_SETTINGS["LOG_LEVEL"] >= self::$LOG_DEBUG) {
+        if(Config->getLogLevel() >= self::$LOG_DEBUG) {
             if(!is_string($message)) {
                 $message = serialize($message);
             }
@@ -78,7 +80,7 @@ class Logger {
     }
 
     public function info($message): void {
-        if(Config::$LOG_SETTINGS["LOG_LEVEL"] >= self::$LOG_INFO) {
+        if(Config->getLogLevel() >= self::$LOG_INFO) {
             if(!is_string($message)) {
                 $message = serialize($message);
             }
@@ -95,18 +97,24 @@ class Logger {
     }
 
     public function warn($message): void {
-        if(Config::$LOG_SETTINGS["LOG_LEVEL"] >= self::$LOG_WARN) {
+        if(Config->getLogLevel() >= self::$LOG_WARN) {
             if(!is_string($message)) {
                 $message = serialize($message);
             }
 
             $lineNumber = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 1)[0]["line"] | 0;
             $this->writeToLogfile("[" . date("Y-m-d H:i:s") . "] [WARN] [{$this->tag}:{$lineNumber}]: " . $message);
+
+            if(!empty(self::$customLogHandlers[self::$LOG_WARN])) {
+                foreach(self::$customLogHandlers[self::$LOG_WARN] as $handler) {
+                    $handler($message);
+                }
+            }
         }
     }
 
     public function error($message): void {
-        if(Config::$LOG_SETTINGS["LOG_LEVEL"] >= self::$LOG_ERROR) {
+        if(Config->getLogLevel() >= self::$LOG_ERROR) {
             if(!is_string($message)) {
                 $message = serialize($message);
             }
@@ -123,7 +131,7 @@ class Logger {
     }
 
     public function fatal($message): void {
-        if(Config::$LOG_SETTINGS["LOG_LEVEL"] >= self::$LOG_FATAL) {
+        if(Config->getLogLevel() >= self::$LOG_FATAL) {
             if(!is_string($message)) {
                 $message = serialize($message);
             }

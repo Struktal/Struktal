@@ -78,9 +78,8 @@ For deployments to a web server,
 ### Local setup
 - Clone the newly created repository onto your local machine.
 - Configure the `📄 composer.json` file according to your needs: Change the applications' name, description and license, and add required dependencies. If you don't have the Docker Compose plugin installed, but instead use `docker-compose`, you have to change the syntax of the `dev` command.
-- Configure `📄 src/config/app-config.php` according to your needs, except for secrets such as database credentials. They are treated in separate, non-tracked configuration files.
-- Configure `📄 config/config.json.dist` with the same values as in the previous step, so **don't** include secrets such as database credentials in this file as well. They are treated in the copies of this file, wich won't be tracked by git.
-- Copy `📄 config/config.json.dist` to `📄 config/config.json` and configure it according to your needs. This file is ignored by the `.gitignore` file and therefore not included in the repository. You can also store secrets such as database credentials in this file. It's recommended to remove all fields that are already defined in `📄 src/config/app-config.php` and should not change from this file.
+- Configure `📄 config/config.json.dist` according to your needs, except for secrets such as database credentials. They are treated in the copy of this file, wich won't be tracked by git.
+- Copy `📄 config/config.json.dist` to `📄 config/config.json` and configure it according to your needs. This file is ignored by the `.gitignore` file and therefore not included in the repository. You can also store secrets such as database credentials in this file.
 - Configure `📄 public/deployment/deploy-config.json` according to your needs.
 - Commit and push the changes to the repository.
 

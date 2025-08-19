@@ -39,7 +39,6 @@ The `📁 src/` directory contains (basically all of) your applications' logic.
 
 There are the following files and subdirectories:
 - `📁 config/`
-    - `app-config.php` - Basic application settings
     - `app-routes.php` - Routes initialization
 - `📁 cronjobs/` - Regularly executed (PHP) scripts
 - `📁 lib/` - Custom classes, utilities, etc. for your application
@@ -55,11 +54,7 @@ There are the following files and subdirectories:
 The `📁 struktal/` directory contains all files that are required by the framework itself and your application. If you're working on an application, it's recommended not to edit the files in this directory in order to keep compatibility with newer versions.
 
 There are the following files and subdirectories:
-- `📁 config/`
-    - `Config.class.php` - Predefined configurable variables and parameters
 - `📁 src/` - The frameworks source code
-    - `📁 dao/` - Predefined DAO classes for predefined objects
     - `📁 enum/` - Predefined enums
     - `📁 lib/` - Various classes and utilities that are often used in the application code
-    - `📁 object/` - Predefined objects that can be used with the data access object pattern
 - `📄 start.php` - The primary framework file that imports all necessary files

@@ -6,7 +6,7 @@
                  class="h-8 w-auto rounded"
             >
             <span class="hidden sm:block ml-2 font-bold">
-                {{ Config::$APP_SETTINGS["APP_NAME"] }}
+                {{ Config->getAppName() }}
             </span>
         </div>
 
@@ -16,7 +16,7 @@
                     &copy;&nbsp;2020&nbsp;-&nbsp;{{ (new DateTime())->format("Y") }}
                 </span>
                 <span>
-                    {{ Config::$APP_SETTINGS["APP_AUTHOR"] }}
+                    {{-- The authors --}}
                 </span>
             </div>
 

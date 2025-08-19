@@ -80,13 +80,13 @@ $mail = new Mail();
 $mail->setSubject(t("Verify your email address"))
      ->setTextBody(
          t("A new \$\$appName\$\$ account has been registered with this email address.", [
-             "appName" => Config::$APP_SETTINGS["APP_NAME"]
+             "appName" => Config->getAppName()
          ]) . "\r\n"
          . t("To verify your email address and to complete the registration process, please open the following link:") . "\r\n"
          . $verificationLink . "\r\n"
          . "\r\n"
          . t("If you haven't registered an account at \$\$appName\$\$, you can ignore this email.", [
-                "appName" => Config::$APP_SETTINGS["APP_NAME"]
+                "appName" => Config->getappName()
          ])
      )
      ->addRecipient($email)

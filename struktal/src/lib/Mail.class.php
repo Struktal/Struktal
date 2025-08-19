@@ -19,26 +19,25 @@ class Mail {
     public function __construct() {
         $this->mail = new PHPMailer();
         $this->mail->isSMTP();
-        $this->mail->Host = Config::$MAIL_SETTINGS["MAIL_SMTP_HOST"];
-        $this->mail->Port = Config::$MAIL_SETTINGS["MAIL_SMTP_PORT"];
-        $this->mail->SMTPAuth = Config::$MAIL_SETTINGS["MAIL_SMTP_AUTH"];
-        $this->mail->Username = Config::$MAIL_SETTINGS["MAIL_SMTP_USER"];
-        $this->mail->Password = Config::$MAIL_SETTINGS["MAIL_SMTP_PASS"];
-        $this->mail->SMTPSecure = Config::$MAIL_SETTINGS["MAIL_SMTP_SECURE"];
+        $this->mail->Host = Config->getSmtpHost();
+        $this->mail->Port = Config->getSmtpPort();
+        $this->mail->SMTPAuth = Config->getSmtpAuth();
+        $this->mail->Username = Config->getSmtpUsername();
+        $this->mail->Password = Config->getSmtpPassword();
+        $this->mail->SMTPSecure = Config->getSmtpSecure();
 
         $this->recipients = [];
         $this->ccRecipients = [];
         $this->bccRecipients = [];
         $this->sender = [
-            Config::$MAIL_SETTINGS["MAIL_DEFAULT_SENDER_EMAIL"],
-            Config::$MAIL_SETTINGS["MAIL_DEFAULT_SENDER_NAME"]
+            "", ""
         ];
         $this->replyTo = [
-            Config::$MAIL_SETTINGS["MAIL_DEFAULT_REPLY_TO"],
+            "",
             null
         ];
 
-        $this->subject = Config::$MAIL_SETTINGS["MAIL_DEFAULT_SUBJECT"];
+        $this->subject = "";
         $this->htmlBody = "";
         $this->textBody = "";
         $this->attachments = [];
@@ -105,7 +104,7 @@ class Mail {
         $this->mail->setFrom($this->sender[0], $this->sender[1]);
         $this->mail->addReplyTo($this->replyTo[0], $this->replyTo[1] ?? "");
 
-        if(!Config::$MAIL_SETTINGS["MAIL_REDIRECT_ALL_MAILS"]) {
+        if(!Config->redirectAllMails()) {
             foreach($this->recipients as $recipient) {
                 $email = $recipient[0];
                 $name = $recipient[1];
@@ -124,7 +123,7 @@ class Mail {
                 $this->mail->addBCC($email, $name ?? "");
             }
         } else {
-            $redirect = Config::$MAIL_SETTINGS["MAIL_REDIRECT_ALL_MAILS_TO"];
+            $redirect = Config->getRedirectMailAddress();
             Logger::getLogger("MAIL")->info("Redirecting mail to " . $redirect);
             $this->mail->addAddress($redirect);
         }

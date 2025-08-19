@@ -7,16 +7,16 @@ require_once(__APP_DIR__ . "/vendor/autoload.php");
 require_once(__APP_DIR__ . "/struktal/src/ClassLoader.class.php");
 $classLoader = ClassLoader::getInstance();
 
+// Setup utility Composer libraries
+use struktal\Config\StruktalConfig;
+StruktalConfig::setConfigFilePath(__APP_DIR__ . "/config/config.json");
+const Config = new StruktalConfig();
+
 // Load Logger
 $classLoader->loadClass(__APP_DIR__ . "/struktal/src/Logger.class.php");
 
 // Load Comm
 $classLoader->loadClass(__APP_DIR__ . "/struktal/src/Comm.class.php");
-
-// Configuration files
-require_once(__APP_DIR__ . "/struktal/config/Config.class.php");
-Config::init();
-require_once(__APP_DIR__ . "/src/config/app-config.php");
 
 // Load enums
 $classLoader->loadEnums(__APP_DIR__ . "/struktal/src/enum/");
@@ -24,11 +24,9 @@ $classLoader->loadEnums(__APP_DIR__ . "/struktal/src/enum/");
 // Load libraries
 $classLoader->loadClasses(__APP_DIR__ . "/struktal/src/lib/");
 
-// Load extra enums and classes
-foreach(Config::$CLASS_LOADER_SETTINGS["CLASS_LOADER_IMPORT_PATHS"] as $path) {
-    $classLoader->loadEnums($path);
-    $classLoader->loadClasses($path);
-}
+// Load project files
+$classLoader->loadClasses(__APP_DIR__ . "/src/lib/");
+$classLoader->loadEnums(__APP_DIR__ . "/src/lib/");
 
 unset($classLoader);
 
@@ -39,17 +37,17 @@ const Blade = new BladeOne(__APP_DIR__ . "/src/templates", __APP_DIR__ . "/templ
 use struktal\Router\Router;
 const Router = new Router();
 Router->setPagesDirectory(__APP_DIR__ . "/src/pages/");
-Router->setAppUrl(Config::$APP_SETTINGS["APP_URL"]);
-Router->setAppBaseUri(Config::$ROUTER_SETTINGS["ROUTER_BASE_URI"]);
+Router->setAppUrl(Config->getappUrl());
+Router->setAppBaseUri(Config->getBaseUri());
 Router->setStaticDirectoryUri("static/");
 
 use struktal\ORM\Database\Database;
-if(Config::$DB_SETTINGS["DB_USE"]) {
+if(Config->databaseEnabled()) {
     Database::connect(
-        Config::$DB_SETTINGS["DB_HOST"],
-        Config::$DB_SETTINGS["DB_NAME"],
-        Config::$DB_SETTINGS["DB_USER"],
-        Config::$DB_SETTINGS["DB_PASS"]
+        Config->getDatabaseHost(),
+        Config->getDatabaseName(),
+        Config->getDatabaseUsername(),
+        Config->getDatabasePassword()
     );
 }
 
@@ -73,14 +71,14 @@ Blade->directive("include", function($expression) {
 
 // Setup logger
 $sendEmailHandler = function(string $message) {
-    if(empty(Config::$LOG_SETTINGS["LOG_ERROR_REPORT"])) {
+    if(empty(Config->getLogRecipients())) {
         return;
     }
 
     $mail = new Mail();
-    $mail->setSubject("[" . Config::$APP_SETTINGS["APP_NAME"] . "] Error report")
+    $mail->setSubject("[" . Config->getAppName() . "] Error report")
         ->setTextBody($message);
-    foreach(Config::$LOG_SETTINGS["LOG_ERROR_REPORT"] as $recipient) {
+    foreach(Config->getLogRecipients() as $recipient) {
         $mail->addRecipient($recipient);
     }
     $mail->send();
@@ -103,9 +101,9 @@ set_error_handler(function($errno, $errstr, $errfile, $errline) {
         error_log($message);
     }
 
-    if(Config::$APP_SETTINGS["PRODUCTION"]) {
+    if(Config->isProduction()) {
         // Redirect to error page in production
-        Comm::redirect(Router->generate("500"));
+        Router->redirect(Router->generate("500"));
     } else {
         // Show stack trace screen in development
         echo Blade->run("components.shells.deverror", [
@@ -133,9 +131,9 @@ set_exception_handler(function($exception) {
         error_log($message);
     }
 
-    if(Config::$APP_SETTINGS["PRODUCTION"]) {
+    if(Config->isProduction()) {
         // Redirect to error page in production
-        Comm::redirect(Router->generate("500"));
+        Router->redirect(Router->generate("500"));
     } else {
         // Show stack trace screen in development
         $trace = $exception->getTrace();
