@@ -8,7 +8,7 @@
 
 Built-in support for data access and manipulation, routing and various other utilities make it easier to handle common web development tasks.
 
-[Introduction](#introduction) • [Application setup](#application-setup) • [Documentation](#documentation) • [Dependencies](#dependencies) • [License](#license)
+[Introduction](#introduction) • [Application setup](#application-setup) • [Dependencies](#dependencies) • [License](#license)
 
 </div>
 
@@ -98,9 +98,6 @@ The deployment to an Apache web server is a bit more complex than the Docker dep
 - Copy `📄 config/config.json` from your local setup to the `📁 config/` directory on the server, or copy the `📄 config/config.json.dist` file to `📄 config/config.json` and configure it according to the servers needs.
 - Run `composer build` within the repository directory to install the required dependencies and generate the required application structure. Make sure to run this command as the web server user, too.
 - Set up a virtual host for the website. The `DocumentRoot` should point to the directory where you've cloned the repository to, and then `📁 public/`. If you've used the example path from above, the `DocumentRoot` should be set to `/var/www/your-application-name/public`.
-
-## Documentation
-There are many helpful tutorials and guides available [here](docs/tutorials). They cover a wide range of topics, from the frameworks basics, setting up an application, using the frameworks features up to deploying the application.
 
 ## Dependencies
 This framework contains the following dependencies:

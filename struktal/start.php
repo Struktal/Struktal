@@ -37,7 +37,7 @@ const Blade = new BladeOne(__APP_DIR__ . "/src/templates", __APP_DIR__ . "/templ
 use struktal\Router\Router;
 const Router = new Router();
 Router->setPagesDirectory(__APP_DIR__ . "/src/pages/");
-Router->setAppUrl(Config->getappUrl());
+Router->setAppUrl(Config->getAppUrl());
 Router->setAppBaseUri(Config->getBaseUri());
 Router->setStaticDirectoryUri("static/");
 
@@ -58,6 +58,22 @@ Auth->setUserObjectName(User::class);
 use struktal\validation\ValidationBuilder;
 const Validation = new ValidationBuilder();
 
+use struktal\MailWrapper\MailWrapper;
+MailWrapper::setSetupFunction(function(MailWrapper $mailWrapper) {
+    $mailWrapper->isSMTP();
+    $mailWrapper->Host = Config->getSmtpHost();
+    $mailWrapper->Port = Config->getSmtpPort();
+    $mailWrapper->SMTPAuth = Config->getSmtpAuth();
+    $mailWrapper->Username = Config->getSmtpUsername();
+    $mailWrapper->Password = Config->getSmtpPassword();
+    $mailWrapper->SMTPSecure = Config->getSmtpSecure();
+    $mailWrapper->CharSet = "UTF-8";
+});
+MailWrapper::setRedirectAllMails(
+    Config->redirectAllMails(),
+    Config->getRedirectMailAddress()
+);
+
 use struktal\ComposerReader\ComposerReader;
 ComposerReader::setProjectDirectory(__APP_DIR__);
 const ComposerReader = new ComposerReader();
@@ -75,11 +91,11 @@ $sendEmailHandler = function(string $message) {
         return;
     }
 
-    $mail = new Mail();
-    $mail->setSubject("[" . Config->getAppName() . "] Error report")
-        ->setTextBody($message);
+    $mail = new struktal\MailWrapper\MailWrapper();
+    $mail->Subject = "[" . Config->getAppName() . "] Error report";
+    $mail->Body = $message;
     foreach(Config->getLogRecipients() as $recipient) {
-        $mail->addRecipient($recipient);
+        $mail->addAddress($recipient);
     }
     $mail->send();
 };

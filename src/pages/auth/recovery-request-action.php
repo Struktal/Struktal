@@ -48,22 +48,20 @@ User::dao()->save($user);
 $otpIdEncoded = urlencode(base64_encode($user->getId()));
 $otpEncoded = urlencode($oneTimePassword);
 $verificationLink = Router->generate("auth-recovery-reset", [], true) . "?otpid=" . $otpIdEncoded . "&otp=" . $otpEncoded;
-$mail = new Mail();
-$mail->setSubject(t("Password recovery"))
-    ->setTextBody(
-        t("You have requested to recover your password for your \$\$appName\$\$ account.", [
-            "appName" => Config->getAppName()
-        ]) . "\r\n"
-        . t("To set a new password, please open the following link:") . "\r\n"
-        . $verificationLink . "\r\n"
-        . t("This link is valid for 15 minutes.") . "\r\n"
-        . "\r\n"
-        . t("If you haven't requested a password recovery for your \$\$appName\$\$ account, you can ignore this email.", [
-            "appName" => Config->getAppName()
-        ])
-    )
-    ->addRecipient($post["email"])
-    ->send();
+$mail = new \struktal\MailWrapper\MailWrapper();
+$mail->Subject = t("Password recovery");
+$mail->Body = t("You have requested to recover your password for your \$\$appName\$\$ account.", [
+        "appName" => Config->getAppName()
+    ]) . "\r\n"
+    . t("To set a new password, please open the following link:") . "\r\n"
+    . $verificationLink . "\r\n"
+    . t("This link is valid for 15 minutes.") . "\r\n"
+    . "\r\n"
+    . t("If you haven't requested a password recovery for your \$\$appName\$\$ account, you can ignore this email.", [
+        "appName" => Config->getAppName()
+    ]);
+$mail->addAddress($post["email"]);
+$mail->send();
 
 Logger::getLogger("Recovery")->info("Requested password recovery for user with email \"{$post["email"]}\" (User ID \"{$user->getId()}\")");
 Comm::redirect(Router->generate("auth-recovery-request-complete"));

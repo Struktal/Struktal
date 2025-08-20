@@ -76,21 +76,19 @@ $user = User::dao()->register($username, $_POST["password"], $email, 1, $oneTime
 $otpIdEncoded = urlencode(base64_encode($user->getId()));
 $otpEncoded = urlencode($oneTimePassword);
 $verificationLink = Router->generate("auth-verify-email", [], true) . "?otpid=" . $otpIdEncoded . "&otp=" . $otpEncoded;
-$mail = new Mail();
-$mail->setSubject(t("Verify your email address"))
-     ->setTextBody(
-         t("A new \$\$appName\$\$ account has been registered with this email address.", [
-             "appName" => Config->getAppName()
-         ]) . "\r\n"
-         . t("To verify your email address and to complete the registration process, please open the following link:") . "\r\n"
-         . $verificationLink . "\r\n"
-         . "\r\n"
-         . t("If you haven't registered an account at \$\$appName\$\$, you can ignore this email.", [
-                "appName" => Config->getappName()
-         ])
-     )
-     ->addRecipient($email)
-     ->send();
+$mail = new \struktal\MailWrapper\MailWrapper();
+$mail->Subject = t("Verify your email address");
+$mail->Body = t("A new \$\$appName\$\$ account has been registered with this email address.", [
+        "appName" => Config->getAppName()
+    ]) . "\r\n"
+    . t("To verify your email address and to complete the registration process, please open the following link:") . "\r\n"
+    . $verificationLink . "\r\n"
+    . "\r\n"
+    . t("If you haven't registered an account at \$\$appName\$\$, you can ignore this email.", [
+        "appName" => Config->getAppName()
+    ]);
+$mail->addAddress($email);
+$mail->send();
 
 Logger::getLogger("Register")->info("New user has been registered (\"{$username}\", \"{$email}\")");
 
