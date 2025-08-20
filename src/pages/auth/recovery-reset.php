@@ -51,12 +51,12 @@ $user = User::dao()->getObject([
     )
 ]);
 if(!$user instanceof User) {
-    Logger::getLogger("Recovery")->info("Attempted to recover password, but couldn't find user with otpid \"{$otpId}\"");
+    Logger->tag("Recovery")->info("Attempted to recover password, but couldn't find user with otpid \"{$otpId}\"");
     new InfoMessage(t("The URL has already been invalidated. Please log in or request a new password recovery email."), InfoMessageType::ERROR);
     Comm::redirect(Router->generate("auth-login"));
 }
 if(!password_verify($otp, $user->getOneTimePassword())) {
-    Logger::getLogger("Recovery")->info("Attempted to recover password, but one-time password does not match");
+    Logger->tag("Recovery")->info("Attempted to recover password, but one-time password does not match");
     new InfoMessage(t("The URL has already been invalidated. Please log in or request a new password recovery email."), InfoMessageType::ERROR);
     Comm::redirect(Router->generate("auth-login"));
 }
@@ -65,6 +65,6 @@ if(!password_verify($otp, $user->getOneTimePassword())) {
 $_SESSION["authRecoveryOtpId"] = $user->getId();
 $_SESSION["authRecoveryOtp"] = $otp;
 
-Logger::getLogger("Recovery")->info("Starting password recovery for user with email \"{$user->getEmail()}\" (User ID \"{$user->getId()}\")");
+Logger->tag("Recovery")->info("Starting password recovery for user with email \"{$user->getEmail()}\" (User ID \"{$user->getId()}\")");
 
 echo Blade->run("auth.recoveryreset");

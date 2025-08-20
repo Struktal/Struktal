@@ -47,7 +47,7 @@ class Translator {
                 if(isset($translations[$message])) {
                     $message = $translations[$message];
                 } else {
-                    Logger::getLogger("Translator")->warn("Translation not found: \"{$message}\"");
+                    Logger->tag("Translator")->warn("Translation not found: \"{$message}\"");
                 }
 
                 fseek(self::$translationFile, 0);
@@ -58,7 +58,7 @@ class Translator {
             if(isset($translations[$message])) {
                 $message = $translations[$message];
             } else {
-                Logger::getLogger("Translator")->warn("Translation not found: \"{$message}\"");
+                Logger->tag("Translator")->warn("Translation not found: \"{$message}\"");
             }
         }
 

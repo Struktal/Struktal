@@ -12,8 +12,11 @@ use struktal\Config\StruktalConfig;
 StruktalConfig::setConfigFilePath(__APP_DIR__ . "/config/config.json");
 const Config = new StruktalConfig();
 
-// Load Logger
-$classLoader->loadClass(__APP_DIR__ . "/struktal/src/Logger.class.php");
+use struktal\Logger\Logger;
+use struktal\Logger\LogLevel;
+Logger::setLogDirectory(__APP_DIR__ . "/logs/");
+Logger::setMinLogLevel(LogLevel::from(Config->getLogLevel()));
+const Logger = new Logger("App");
 
 // Load Comm
 $classLoader->loadClass(__APP_DIR__ . "/struktal/src/Comm.class.php");
@@ -86,21 +89,21 @@ Blade->directive("include", function($expression) {
 });
 
 // Setup logger
-$sendEmailHandler = function(string $message) {
+$sendEmailHandler = function(string $formattedMessage, string $serializedMessage, mixed $originalMessage) {
     if(empty(Config->getLogRecipients())) {
         return;
     }
 
     $mail = new struktal\MailWrapper\MailWrapper();
     $mail->Subject = "[" . Config->getAppName() . "] Error report";
-    $mail->Body = $message;
+    $mail->Body = $formattedMessage;
     foreach(Config->getLogRecipients() as $recipient) {
         $mail->addAddress($recipient);
     }
     $mail->send();
 };
-Logger::addCustomLogHandler(Logger::$LOG_ERROR, $sendEmailHandler);
-Logger::addCustomLogHandler(Logger::$LOG_FATAL, $sendEmailHandler);
+Logger::addCustomLogHandler(LogLevel::ERROR, $sendEmailHandler);
+Logger::addCustomLogHandler(LogLevel::FATAL, $sendEmailHandler);
 unset($sendEmailHandler);
 
 // Initialize routes
@@ -111,7 +114,7 @@ set_error_handler(function($errno, $errstr, $errfile, $errline) {
     $message .= "\"" . $errstr . "\"";
     $message .= " in " . $errfile . " on line " . $errline;
     try {
-        Logger::getLogger("PHP")->error($message);
+        Logger->tag("PHP")->error($message);
     } catch(Error|Exception $e) {
         // If the logger fails, log to the default PHP error log
         error_log($message);
@@ -142,7 +145,7 @@ set_exception_handler(function($exception) {
     $message .= PHP_EOL . $exception->getTraceAsString();
 
     try {
-        Logger::getLogger("PHP")->fatal($message);
+        Logger->tag("PHP")->fatal($message);
     } catch(Error|Exception $e) {
         error_log($message);
     }

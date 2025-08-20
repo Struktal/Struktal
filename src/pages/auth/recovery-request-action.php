@@ -31,7 +31,7 @@ $user = User::dao()->getObject([
 ]);
 
 if(!$user instanceof User) {
-    Logger::getLogger("Recovery")->info("Failed to request password recovery for email \"{$post["email"]}\"");
+    Logger->tag("Recovery")->info("Failed to request password recovery for email \"{$post["email"]}\"");
     new InfoMessage(t("An account with this email could not be found. Please check for spelling errors and try again."), InfoMessageType::ERROR);
     Comm::redirect(Router->generate("auth-recovery-request"));
 }
@@ -63,5 +63,5 @@ $mail->Body = t("You have requested to recover your password for your \$\$appNam
 $mail->addAddress($post["email"]);
 $mail->send();
 
-Logger::getLogger("Recovery")->info("Requested password recovery for user with email \"{$post["email"]}\" (User ID \"{$user->getId()}\")");
+Logger->tag("Recovery")->info("Requested password recovery for user with email \"{$post["email"]}\" (User ID \"{$user->getId()}\")");
 Comm::redirect(Router->generate("auth-recovery-request-complete"));

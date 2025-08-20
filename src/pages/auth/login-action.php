@@ -39,7 +39,7 @@ if($user instanceof \struktal\Auth\LoginError) {
         $message = t("An account with these credentials could not be found. Please check for spelling errors and try again.");
     }
 
-    Logger::getLogger("Login")->info("User \"{$post["username"]}\" failed to log in: " . ($user === 0 ? "User not found" : ($user === 1 ? "Password incorrect" : "Email not verified")));
+    Logger->tag("Login")->info("User \"{$post["username"]}\" failed to log in: " . ($user === 0 ? "User not found" : ($user === 1 ? "Password incorrect" : "Email not verified")));
     new InfoMessage($message, InfoMessageType::ERROR);
     Comm::redirect(Router->generate("auth-login"));
 }
@@ -49,6 +49,6 @@ $user->setOneTimePassword(null);
 $user->setOneTimePasswordExpiration(null);
 User::dao()->save($user);
 
-Logger::getLogger("Login")->info("User \"{$post["username"]}\" has logged in (User ID {$user->getId()})");
+Logger->tag("Login")->info("User \"{$post["username"]}\" has logged in (User ID {$user->getId()})");
 Auth->login($user);
 Comm::redirect(Router->generate("index"));

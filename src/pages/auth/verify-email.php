@@ -43,12 +43,12 @@ $user = User::dao()->getObject([
     "oneTimePasswordExpiration" => null
 ]);
 if(!$user instanceof User) {
-    Logger::getLogger("Email-Verification")->info("Attempted to verify an email, but couldn't find user with otpid \"{$otpId}\"");
+    Logger->tag("Email-Verification")->info("Attempted to verify an email, but couldn't find user with otpid \"{$otpId}\"");
     new InfoMessage(t("The URL has already been invalidated. Please log in or request a new password recovery email."), InfoMessageType::ERROR);
     Comm::redirect(Router->generate("auth-login"));
 }
 if(!password_verify($otp, $user->getOneTimePassword())) {
-    Logger::getLogger("Email-Verification")->info("Attempted to verify an email, but one-time password does not match");
+    Logger->tag("Email-Verification")->info("Attempted to verify an email, but one-time password does not match");
     new InfoMessage(t("The URL has already been invalidated. Please log in or request a new password recovery email."), InfoMessageType::ERROR);
     Comm::redirect(Router->generate("auth-login"));
 }
@@ -60,6 +60,6 @@ $user->setOneTimePasswordExpiration(null);
 $user->setUpdated(new DateTimeImmutable());
 User::dao()->save($user);
 
-Logger::getLogger("Email-Verification")->info("The email address \"{$user->getEmail()}\" (User ID \"{$user->getId()}\") has been verified");
+Logger->tag("Email-Verification")->info("The email address \"{$user->getEmail()}\" (User ID \"{$user->getId()}\") has been verified");
 
 Comm::redirect(Router->generate("auth-verify-email-complete"));

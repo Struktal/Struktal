@@ -42,9 +42,15 @@
 
                     <div class="px-8 py-4 font-[#202020] bg-[#f0f0f0] rounded-b">
                         @php
-                            $fileContents = file($traceItem["file"]);
-                            $startLine = max(0, ($traceItem["line"] - 1) - 3);
-                            $endLine = min(count($fileContents) - 1, ($traceItem["line"] - 1) + 3);
+                            try {
+                                $fileContents = file($traceItem["file"]);
+                                $startLine = max(0, ($traceItem["line"] - 1) - 3);
+                                $endLine = min(count($fileContents) - 1, ($traceItem["line"] - 1) + 3);
+                            } catch(Error|Exception $e) {
+                                $fileContents = ["", "", ""];
+                                $startLine = 0;
+                                $endLine = 2;
+                            }
                         @endphp
 
                         <code class="text-[#202020]">

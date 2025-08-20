@@ -90,6 +90,6 @@ $mail->Body = t("A new \$\$appName\$\$ account has been registered with this ema
 $mail->addAddress($email);
 $mail->send();
 
-Logger::getLogger("Register")->info("New user has been registered (\"{$username}\", \"{$email}\")");
+Logger->tag("Register")->info("New user has been registered (\"{$username}\", \"{$email}\")");
 
 Comm::redirect(Router->generate("auth-register-complete"));
