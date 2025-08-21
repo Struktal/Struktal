@@ -2,7 +2,7 @@
 
 // Check whether the user is already logged in
 if(Auth->isLoggedIn()) {
-    Comm::redirect(Router->generate("index"));
+    Router->redirect(Router->generate("index"));
 }
 
 // Clear old session variables
@@ -29,7 +29,7 @@ try {
     $get = $validation->getValidatedValue($_GET);
 } catch(\struktal\validation\ValidationException $e) {
     new InfoMessage($e->getMessage(), InfoMessageType::ERROR);
-    Comm::redirect(Router->generate("auth-login"));
+    Router->redirect(Router->generate("auth-login"));
 }
 
 $otpId = base64_decode(urldecode($get["otpid"]));
@@ -53,12 +53,12 @@ $user = User::dao()->getObject([
 if(!$user instanceof User) {
     Logger->tag("Recovery")->info("Attempted to recover password, but couldn't find user with otpid \"{$otpId}\"");
     new InfoMessage(t("The URL has already been invalidated. Please log in or request a new password recovery email."), InfoMessageType::ERROR);
-    Comm::redirect(Router->generate("auth-login"));
+    Router->redirect(Router->generate("auth-login"));
 }
 if(!password_verify($otp, $user->getOneTimePassword())) {
     Logger->tag("Recovery")->info("Attempted to recover password, but one-time password does not match");
     new InfoMessage(t("The URL has already been invalidated. Please log in or request a new password recovery email."), InfoMessageType::ERROR);
-    Comm::redirect(Router->generate("auth-login"));
+    Router->redirect(Router->generate("auth-login"));
 }
 
 // Write user details to session

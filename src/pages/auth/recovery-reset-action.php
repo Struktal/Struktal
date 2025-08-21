@@ -2,7 +2,7 @@
 
 // Check whether the user is already logged in
 if(Auth->isLoggedIn()) {
-    Comm::redirect(Router->generate("index"));
+    Router->redirect(Router->generate("index"));
 }
 
 // Check whether a one-time password has been specified
@@ -24,7 +24,7 @@ try {
     $session = $sessionValidation->getValidatedValue($_SESSION);
 } catch(\struktal\validation\ValidationException $e) {
     new InfoMessage($e->getMessage(), InfoMessageType::ERROR);
-    Comm::redirect(Router->generate("auth-login"));
+    Router->redirect(Router->generate("auth-login"));
 }
 
 $otpId = $session["authRecoveryOtpId"];
@@ -57,12 +57,12 @@ $user = User::dao()->getObject([
 if(!$user instanceof User) {
     Logger->tag("Recovery")->info("Attempted to recover password, but couldn't find user with otpid \"{$otpId}\"");
     new InfoMessage(t("The URL has already been invalidated. Please log in or request a new password recovery email."), InfoMessageType::ERROR);
-    Comm::redirect(Router->generate("auth-login"));
+    Router->redirect(Router->generate("auth-login"));
 }
 if(!password_verify($otp, $user->getOneTimePassword())) {
     Logger->tag("Recovery")->info("Attempted to recover password, but one-time password does not match");
     new InfoMessage(t("The URL has already been invalidated. Please log in or request a new password recovery email."), InfoMessageType::ERROR);
-    Comm::redirect(Router->generate("auth-login"));
+    Router->redirect(Router->generate("auth-login"));
 }
 
 // Check whether form fields are given
@@ -87,17 +87,17 @@ try {
     $post = $postValidation->getValidatedValue($_POST);
 } catch(\struktal\validation\ValidationException $e) {
     new InfoMessage($e->getMessage(), InfoMessageType::ERROR);
-    Comm::redirect($resetLink);
+    Router->redirect($resetLink);
 }
 
 // Check passwords
 if($post["password"] !== $post["password-repeat"]) {
     new InfoMessage(t("The specified passwords do not match. Please check for spelling errors and try again."), InfoMessageType::ERROR);
-    Comm::redirect($resetLink);
+    Router->redirect($resetLink);
 }
 if(!preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d\W]).{8,}$/", $post["password"])) {
     new InfoMessage(t("The specified password doesn't fulfill the password requirements. Please choose a safer password."), InfoMessageType::ERROR);
-    Comm::redirect($resetLink);
+    Router->redirect($resetLink);
 }
 
 // Change password
@@ -109,4 +109,4 @@ User::dao()->save($user);
 
 Logger->tag("Recovery")->info("Changed password for user with email \"{$user->getEmail()}\" (User ID \"{$user->getId()}\")");
 
-Comm::redirect(Router->generate("auth-recovery-reset-complete"));
+Router->redirect(Router->generate("auth-recovery-reset-complete"));

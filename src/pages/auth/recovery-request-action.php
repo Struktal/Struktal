@@ -2,7 +2,7 @@
 
 // Check whether the user is already logged in
 if(Auth->isLoggedIn()) {
-    Comm::redirect(Router->generate("index"));
+    Router->redirect(Router->generate("index"));
 }
 
 // Check whether form fields are given
@@ -22,7 +22,7 @@ try {
     $post = $validation->getValidatedValue($_POST);
 } catch(\struktal\validation\ValidationException $e) {
     new InfoMessage($e->getMessage(), InfoMessageType::ERROR);
-    Comm::redirect(Router->generate("auth-recovery-request"));
+    Router->redirect(Router->generate("auth-recovery-request"));
 }
 
 $user = User::dao()->getObject([
@@ -33,7 +33,7 @@ $user = User::dao()->getObject([
 if(!$user instanceof User) {
     Logger->tag("Recovery")->info("Failed to request password recovery for email \"{$post["email"]}\"");
     new InfoMessage(t("An account with this email could not be found. Please check for spelling errors and try again."), InfoMessageType::ERROR);
-    Comm::redirect(Router->generate("auth-recovery-request"));
+    Router->redirect(Router->generate("auth-recovery-request"));
 }
 
 // Send password recovery mail
@@ -64,4 +64,4 @@ $mail->addAddress($post["email"]);
 $mail->send();
 
 Logger->tag("Recovery")->info("Requested password recovery for user with email \"{$post["email"]}\" (User ID \"{$user->getId()}\")");
-Comm::redirect(Router->generate("auth-recovery-request-complete"));
+Router->redirect(Router->generate("auth-recovery-request-complete"));

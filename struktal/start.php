@@ -18,9 +18,6 @@ Logger::setLogDirectory(__APP_DIR__ . "/logs/");
 Logger::setMinLogLevel(LogLevel::from(Config->getLogLevel()));
 const Logger = new Logger("App");
 
-// Load Comm
-$classLoader->loadClass(__APP_DIR__ . "/struktal/src/Comm.class.php");
-
 // Load enums
 $classLoader->loadEnums(__APP_DIR__ . "/struktal/src/enum/");
 
