@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "15a137b81e25abd5fb8acd05b7336fb9",
+    "content-hash": "e63be6d5c899b8c23fed6cc88a00de97",
     "packages": [
         {
             "name": "eftec/bladeone",
@@ -608,6 +608,44 @@
                 "source": "https://github.com/Struktal/struktal-router/tree/1.2.1"
             },
             "time": "2025-08-11T13:06:19+00:00"
+        },
+        {
+            "name": "struktal/struktal-translator",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Struktal/struktal-translator.git",
+                "reference": "3a2e93380a0d00bb939f6e189b413616d1974b99"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Struktal/struktal-translator/zipball/3a2e93380a0d00bb939f6e189b413616d1974b99",
+                "reference": "3a2e93380a0d00bb939f6e189b413616d1974b99",
+                "shasum": ""
+            },
+            "require": {
+                "ext-apcu": "*",
+                "php": ">=8.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "struktal\\Translator\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "PHP library for translating texts in Struktal applications",
+            "keywords": [
+                "translator"
+            ],
+            "support": {
+                "issues": "https://github.com/Struktal/struktal-translator/issues",
+                "source": "https://github.com/Struktal/struktal-translator/tree/1.0.0"
+            },
+            "time": "2025-08-22T08:38:50+00:00"
         },
         {
             "name": "struktal/struktal-validation",
@@ -4567,5 +4605,5 @@
     "platform-overrides": {
         "php": "8.2"
     },
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.2.0"
 }

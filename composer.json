@@ -14,6 +14,7 @@
         "struktal/struktal-config": "^1.0.1",
         "struktal/struktal-logger": "^1.0.1",
         "struktal/struktal-api": "^1.0.0",
+        "struktal/struktal-translator": "^1.0.0",
         "struktal/struktal-router": "^1.2.1",
         "struktal/struktal-orm": "^1.0.2",
         "struktal/struktal-auth": "^2.0.1",

@@ -34,6 +34,13 @@ unset($classLoader);
 use eftec\bladeone\BladeOne;
 const Blade = new BladeOne(__APP_DIR__ . "/src/templates", __APP_DIR__ . "/template-cache", BladeOne::MODE_DEBUG);
 
+use struktal\Translator\Translator;
+use struktal\Translator\LanguageUtil;
+Translator::setTranslationsDirectory(__APP_DIR__ . "/src/translations/");
+Translator::setDomain("messages");
+Translator::setLocale(LanguageUtil::getPreferredLocale());
+const Translator = new Translator();
+
 use struktal\Router\Router;
 const Router = new Router();
 Router->setPagesDirectory(__APP_DIR__ . "/src/pages/");
