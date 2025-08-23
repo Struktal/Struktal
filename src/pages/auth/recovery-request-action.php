@@ -21,7 +21,7 @@ $validation = Validation->create()
 try {
     $post = $validation->getValidatedValue($_POST);
 } catch(\struktal\validation\ValidationException $e) {
-    new InfoMessage($e->getMessage(), InfoMessageType::ERROR);
+    InfoMessage->error($e->getMessage());
     Router->redirect(Router->generate("auth-recovery-request"));
 }
 
@@ -32,7 +32,7 @@ $user = User::dao()->getObject([
 
 if(!$user instanceof User) {
     Logger->tag("Recovery")->info("Failed to request password recovery for email \"{$post["email"]}\"");
-    new InfoMessage(t("An account with this email could not be found. Please check for spelling errors and try again."), InfoMessageType::ERROR);
+    InfoMessage->error(t("An account with this email could not be found. Please check for spelling errors and try again."));
     Router->redirect(Router->generate("auth-recovery-request"));
 }
 

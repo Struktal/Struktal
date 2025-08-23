@@ -31,16 +31,6 @@ $classLoader->loadEnums(__APP_DIR__ . "/src/lib/");
 unset($classLoader);
 
 // Setup Composer libraries
-use eftec\bladeone\BladeOne;
-const Blade = new BladeOne(__APP_DIR__ . "/src/templates", __APP_DIR__ . "/template-cache", BladeOne::MODE_DEBUG);
-
-use struktal\Translator\Translator;
-use struktal\Translator\LanguageUtil;
-Translator::setTranslationsDirectory(__APP_DIR__ . "/src/translations/");
-Translator::setDomain("messages");
-Translator::setLocale(LanguageUtil::getPreferredLocale());
-const Translator = new Translator();
-
 use struktal\Router\Router;
 const Router = new Router();
 Router->setPagesDirectory(__APP_DIR__ . "/src/pages/");
@@ -65,6 +55,16 @@ Auth->setUserObjectName(User::class);
 use struktal\validation\ValidationBuilder;
 const Validation = new ValidationBuilder();
 
+use struktal\Translator\Translator;
+use struktal\Translator\LanguageUtil;
+Translator::setTranslationsDirectory(__APP_DIR__ . "/src/translations/");
+Translator::setDomain("messages");
+Translator::setLocale(LanguageUtil::getPreferredLocale());
+const Translator = new Translator();
+
+use eftec\bladeone\BladeOne;
+const Blade = new BladeOne(__APP_DIR__ . "/src/templates", __APP_DIR__ . "/template-cache", BladeOne::MODE_DEBUG);
+
 use struktal\MailWrapper\MailWrapper;
 MailWrapper::setSetupFunction(function(MailWrapper $mailWrapper) {
     $mailWrapper->isSMTP();
@@ -80,6 +80,9 @@ MailWrapper::setRedirectAllMails(
     Config->redirectAllMails(),
     Config->getRedirectMailAddress()
 );
+
+use struktal\InfoMessage\InfoMessageHandler;
+const InfoMessage = new InfoMessageHandler();
 
 use struktal\ComposerReader\ComposerReader;
 ComposerReader::setProjectDirectory(__APP_DIR__);

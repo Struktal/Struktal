@@ -23,7 +23,7 @@ $sessionValidation = Validation->create()
 try {
     $session = $sessionValidation->getValidatedValue($_SESSION);
 } catch(\struktal\validation\ValidationException $e) {
-    new InfoMessage($e->getMessage(), InfoMessageType::ERROR);
+    InfoMessage->error($e->getMessage());
     Router->redirect(Router->generate("auth-login"));
 }
 
@@ -56,12 +56,12 @@ $user = User::dao()->getObject([
 ]);
 if(!$user instanceof User) {
     Logger->tag("Recovery")->info("Attempted to recover password, but couldn't find user with otpid \"{$otpId}\"");
-    new InfoMessage(t("The URL has already been invalidated. Please log in or request a new password recovery email."), InfoMessageType::ERROR);
+    InfoMessage->error(t("The URL has already been invalidated. Please log in or request a new password recovery email."));
     Router->redirect(Router->generate("auth-login"));
 }
 if(!password_verify($otp, $user->getOneTimePassword())) {
     Logger->tag("Recovery")->info("Attempted to recover password, but one-time password does not match");
-    new InfoMessage(t("The URL has already been invalidated. Please log in or request a new password recovery email."), InfoMessageType::ERROR);
+    InfoMessage->error(t("The URL has already been invalidated. Please log in or request a new password recovery email."));
     Router->redirect(Router->generate("auth-login"));
 }
 
@@ -86,17 +86,17 @@ $postValidation = Validation->create()
 try {
     $post = $postValidation->getValidatedValue($_POST);
 } catch(\struktal\validation\ValidationException $e) {
-    new InfoMessage($e->getMessage(), InfoMessageType::ERROR);
+    InfoMessage->error($e->getMessage());
     Router->redirect($resetLink);
 }
 
 // Check passwords
 if($post["password"] !== $post["password-repeat"]) {
-    new InfoMessage(t("The specified passwords do not match. Please check for spelling errors and try again."), InfoMessageType::ERROR);
+    InfoMessage->error(t("The specified passwords do not match. Please check for spelling errors and try again."));
     Router->redirect($resetLink);
 }
 if(!preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d\W]).{8,}$/", $post["password"])) {
-    new InfoMessage(t("The specified password doesn't fulfill the password requirements. Please choose a safer password."), InfoMessageType::ERROR);
+    InfoMessage->error(t("The specified password doesn't fulfill the password requirements. Please choose a safer password."));
     Router->redirect($resetLink);
 }
 

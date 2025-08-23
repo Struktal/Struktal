@@ -26,7 +26,7 @@ $validation = Validation->create()
 try {
     $post = $validation->getValidatedValue($_POST);
 } catch(\struktal\validation\ValidationException $e) {
-    new InfoMessage($e->getMessage(), InfoMessageType::ERROR);
+    InfoMessage->error($e->getMessage());
     Router->redirect(Router->generate("auth-login"));
 }
 
@@ -40,7 +40,7 @@ if($user instanceof \struktal\Auth\LoginError) {
     }
 
     Logger->tag("Login")->info("User \"{$post["username"]}\" failed to log in: " . ($user === 0 ? "User not found" : ($user === 1 ? "Password incorrect" : "Email not verified")));
-    new InfoMessage($message, InfoMessageType::ERROR);
+    InfoMessage->error($message);
     Router->redirect(Router->generate("auth-login"));
 }
 

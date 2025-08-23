@@ -16,7 +16,7 @@ if(empty(empty($_POST["username"]) || $_POST["email"]) || empty($_POST["password
     keepPostField("username");
     keepPostField("email");
 
-    new InfoMessage(t("Please fill out all the required fields."), InfoMessageType::ERROR);
+    InfoMessage->error(t("Please fill out all the required fields."));
     Router->redirect(Router->generate("auth-register"));
 }
 
@@ -24,13 +24,13 @@ if(empty(empty($_POST["username"]) || $_POST["email"]) || empty($_POST["password
 if(!preg_match("/^(?!.*\.\.)(?!.*\.$)\w[\w.]{2,15}$/", $_POST["username"])) {
     keepPostField("username");
     keepPostField("email");
-    new InfoMessage(t("The specified username is invalid. Please follow the required username scheme."), InfoMessageType::ERROR);
+    InfoMessage->error(t("The specified username is invalid. Please follow the required username scheme."));
     Router->redirect(Router->generate("auth-register"));
 }
 if(!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
     keepPostField("username");
     keepPostField("email");
-    new InfoMessage(t("The specified email address is invalid. Please check for spelling errors and try again."), InfoMessageType::ERROR);
+    InfoMessage->error(t("The specified email address is invalid. Please check for spelling errors and try again."));
     Router->redirect(Router->generate("auth-register"));
 }
 
@@ -43,14 +43,14 @@ if(!empty($existingUsername)) {
     if(empty($existingEmail)) {
         keepPostField("email");
     }
-    new InfoMessage(t("An account with this username already exists. Please choose another one."), InfoMessageType::ERROR);
+    InfoMessage->error(t("An account with this username already exists. Please choose another one."));
     Router->redirect(Router->generate("auth-register"));
 }
 if(!empty($existingUsername) || !empty($existingEmail)) {
     if(empty($existingUsername)) {
         keepPostField("username");
     }
-    new InfoMessage(t("An account with this email already exists. If that is your account, please log in instead."), InfoMessageType::ERROR);
+    InfoMessage->error(t("An account with this email already exists. If that is your account, please log in instead."));
     Router->redirect(Router->generate("auth-register"));
 }
 
@@ -58,13 +58,13 @@ if(!empty($existingUsername) || !empty($existingEmail)) {
 if($_POST["password"] !== $_POST["password-repeat"]) {
     keepPostField("username");
     keepPostField("email");
-    new InfoMessage(t("The specified passwords do not match. Please check for spelling errors and try again."), InfoMessageType::ERROR);
+    InfoMessage->error(t("The specified passwords do not match. Please check for spelling errors and try again."));
     Router->redirect(Router->generate("auth-register"));
 }
 if(!preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d\W]).{8,}$/", $_POST["password"])) {
     keepPostField("username");
     keepPostField("email");
-    new InfoMessage(t("The specified password doesn't fulfill the password requirements. Please choose a safer password."), InfoMessageType::ERROR);
+    InfoMessage->error(t("The specified password doesn't fulfill the password requirements. Please choose a safer password."));
     Router->redirect(Router->generate("auth-register"));
 }
 

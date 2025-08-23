@@ -101,17 +101,25 @@ The deployment to an Apache web server is a bit more complex than the Docker dep
 
 ## Dependencies
 This framework contains the following dependencies:
+- **Struktal-Config** - GitHub: [Struktal/struktal-config](https://github.com/Struktal/struktal-config), licensed under [MIT license](https://github.com/Struktal/struktal-config/blob/main/LICENSE)
+- **Struktal-Logger** - GitHub: [Struktal/struktal-logger](https://github.com/Struktal/struktal-logger), licensed under [MIT license](https://github.com/Struktal/struktal-logger/blob/main/LICENSE)
 - **Struktal-Router** - GitHub: [Struktal/struktal-router](https://github.com/Struktal/struktal-router), licensed under [MIT license](https://github.com/Struktal/struktal-router/blob/main/LICENSE)
-- **BladeOne** - GitHub: [EFTEC/BladeOne](https://github.com/EFTEC/BladeOne), licensed under [MIT license](https://github.com/EFTEC/BladeOne/blob/master/LICENSE)
-- **TailwindCSS** - GitHub: [tailwindlabs/tailwindcss](https://github.com/tailwindlabs/tailwindcss), licensed under [MIT license](https://github.com/tailwindlabs/tailwindcss/blob/next/LICENSE)
-- **pest** - GitHub: [pestphp/pest](https://github.com/pestphp/pest), licensed under [MIT license](https://github.com/pestphp/pest/blob/2.x/LICENSE.md)
-- **PHPMailer** - GitHub: [PHPMailer/PHPMailer](https://github.com/PHPMailer/PHPMailer), licensed under [LGPL-2.1 license](https://github.com/PHPMailer/PHPMailer/blob/master/LICENSE)
+- **Struktal-API** - GitHub: [Struktal/struktal-api](https://github.com/Struktal/struktal-api), licensed under [MIT license](https://github.com/Struktal/struktal-api/blob/main/LICENSE)
+- **Struktal-ORM** - GitHub: [Struktal/struktal-orm](https://github.com/Struktal/struktal-orm), licensed under [MIT license](https://github.com/Struktal/struktal-orm/blob/main/LICENSE)
 - **Struktal-Auth** - GitHub: [Struktal/struktal-auth](https://github.com/Struktal/struktal-auth), licensed under [MIT license](https://github.com/Struktal/struktal-auth/blob/main/LICENSE)
 - **Struktal-Validation** - GitHub: [Struktal/struktal-validation](https://github.com/Struktal/struktal-validation), licensed under [MIT license](https://github.com/Struktal/struktal-validation/blob/main/LICENSE)
+- **Struktal-Translator** - GitHub: [Struktal/struktal-translator](https://github.com/Struktal/struktal-translator), licensed under [MIT license](https://github.com/Struktal/struktal-translator/blob/main/LICENSE)
+- **BladeOne** - GitHub: [EFTEC/BladeOne](https://github.com/EFTEC/BladeOne), licensed under [MIT license](https://github.com/EFTEC/BladeOne/blob/master/LICENSE)
+- **TailwindCSS** - GitHub: [tailwindlabs/tailwindcss](https://github.com/tailwindlabs/tailwindcss), licensed under [MIT license](https://github.com/tailwindlabs/tailwindcss/blob/next/LICENSE)
 - **Struktal-Curl** - GitHub: [Struktal/struktal-curl](https://github.com/Struktal/struktal-curl), licensed under [MIT license](https://github.com/Struktal/struktal-curl/blob/main/LICENSE-MIT)
-- **Struktal-Geocoding-Util** - GitHub: [Struktal/struktal-geocoding-util](https://github.com/Struktal/struktal-geocoding-util), licensed under [GPL-2.0 license](https://github.com/Struktal/geocoding-util/blob/main/LICENSE-GPL2)
+- **Struktal-PHPMailer-Wrapper** - GitHub: [Struktal/struktal-phpmailer-wrapper](https://github.com/Struktal/struktal-phpmailer-wrapper), licensed under [LGPL-2.1 license](https://github.com/Struktal/struktal-phpmailer-wrapper/blob/main/LICENSE)
+- **PHPMailer** - GitHub: [PHPMailer/PHPMailer](https://github.com/PHPMailer/PHPMailer), licensed under [LGPL-2.1 license](https://github.com/PHPMailer/PHPMailer/blob/master/LICENSE)
+- **Struktal-InfoMessages** - GitHub: [Struktal/struktal-infomessages](https://github.com/Struktal/struktal-infomessages), licensed under [MIT license](https://github.com/Struktal/struktal-infomessages/blob/main/LICENSE)
 - **Struktal-File-Uploads** - GitHub: [Struktal/struktal-file-uploads](https://github.com/Struktal/struktal-file-uploads), licensed under [MIT license](https://github.com/Struktal/struktal-file-uploads/blob/main/LICENSE-MIT)
 - **Struktal-CSV-Reader** - GitHub: [Struktal/struktal-csv-reader](https://github.com/Struktal/csvreader), licensed under [MIT license](https://github.com/Struktal/struktal-csv-reader/blob/main/LICENSE)
+- **Struktal-Geocoding-Util** - GitHub: [Struktal/struktal-geocoding-util](https://github.com/Struktal/struktal-geocoding-util), licensed under [GPL-2.0 license](https://github.com/Struktal/geocoding-util/blob/main/LICENSE-GPL2)
+- **Struktal-Composer-Reader** - GitHub: [Struktal/struktal-composer-reader](https://github.com/Struktal/struktal-composer-reader), licensed under [MIT license](https://github.com/Struktal/struktal-composer-reader/blob/main/LICENSE)
+- **pest** - GitHub: [pestphp/pest](https://github.com/pestphp/pest), licensed under [MIT license](https://github.com/pestphp/pest/blob/2.x/LICENSE.md)
 
 ## License
 This software is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
