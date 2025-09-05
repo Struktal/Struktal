@@ -1,3 +1,3 @@
 <?php
 
-echo Blade->run("index");
+echo Blade->run("pages.index");

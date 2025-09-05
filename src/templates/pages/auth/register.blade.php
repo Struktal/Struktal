@@ -1,4 +1,4 @@
-@component("components.shells.auth")
+@component("shells.auth")
     <p class="mb-2">
         {{ t("Already have an account?") }}
         <a class="text-primary-500 hover:text-primary-600 transition-all"
@@ -69,7 +69,7 @@
                    pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[\d\W]).{8,}">
         </div>
 
-        @include("components.auth.passwordstrength")
+        @include("ui.auth.passwordstrength")
 
         <button class="{{ TailwindUtil::button(true) }} w-full">
             {{ t("Register") }}

@@ -1,3 +1,3 @@
 <?php
 
-echo Blade->run("console");
+echo Blade->run("pages.console");

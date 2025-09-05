@@ -1,4 +1,4 @@
-@component("components.shells.console")
+@component("shells.console")
     <h1>
         {{ t("Home") }}
     </h1>

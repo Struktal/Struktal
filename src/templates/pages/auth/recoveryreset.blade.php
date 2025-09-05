@@ -1,4 +1,4 @@
-@component("components.shells.auth")
+@component("shells.auth")
     <p class="mb-2">
         {{ t("Please enter your new password.") }}
     </p>
@@ -34,7 +34,7 @@
                    pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[\d\W]).{8,}">
         </div>
 
-        @include("components.auth.passwordstrength")
+        @include("ui.auth.passwordstrength")
 
         <button class="{{ TailwindUtil::button(true) }} w-full">
             {{ t("Change password") }}

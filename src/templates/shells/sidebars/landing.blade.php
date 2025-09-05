@@ -7,7 +7,7 @@
     <div class="flex">
         {{-- Close sidebar button --}}
         <button class="ml-auto mr-0 cursor-pointer sidebar-toggle">
-            @include("components.icons.close", [ "class" => "w-6 h-6 mt-6 mr-6" ])
+            @include("icons.close", [ "class" => "w-6 h-6 mt-6 mr-6" ])
         </button>
     </div>
 

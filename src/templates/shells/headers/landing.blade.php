@@ -17,17 +17,17 @@
 
         {{-- Open sidebar button --}}
         <button class="cursor-pointer sidebar-toggle">
-            @include("components.icons.menu", [ "class" => "w-6 h-6" ])
+            @include("icons.menu", [ "class" => "w-6 h-6" ])
         </button>
 
-        @component("components.layout.sidebars.landing")
+        @component("shells.sidebars.landing")
             {{-- Sidebar navigation list --}}
             <nav>
-                @include("components.layout.sidebars.landinglist")
+                @include("shells.sidebars.landinglist")
             </nav>
 
             {{-- Account info --}}
-            @include("components.layout.sidebars.accountinfo")
+            @include("shells.sidebars.accountinfo")
         @endcomponent
     </header>
 </div>

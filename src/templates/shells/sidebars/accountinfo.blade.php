@@ -22,7 +22,7 @@
             {{-- Loguot button --}}
             <a class="cursor-pointer"
                href="{{ Router->generate("auth-logout") }}">
-                @include("components.icons.logout", [ "class" => "w-6 h-6 fill-surface-700 hover:fill-surface-900 transition-all" ])
+                @include("icons.logout", [ "class" => "w-6 h-6 fill-surface-700 hover:fill-surface-900 transition-all" ])
             </a>
         </div>
     @endauth

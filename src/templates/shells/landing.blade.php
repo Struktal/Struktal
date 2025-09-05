@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="{{ Translator->getLocaleForHtmlLang() }}">
     <head>
         {{-- Encoding --}}
         <meta charset="utf-8">
@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         {{-- SEO --}}
-        @include("components.layout.metatags", [
+        @include("shells.generic.metatags", [
             "title" => $title ?? null,
             "hideFromSeo" => $hideFromSeo ?? false
         ])
@@ -26,17 +26,17 @@
             init("{{ Router->generate("translations-api") }}");
         </script>
 
-        @include("components.layout.headers.landing")
+        @include("shells.headers.landing")
 
         <div class="px-4">
             <main class="max-w-screen-xl m-auto min-h-[90vh]">
-                @include("components.layout.infomessagelist")
+                @include("shells.generic.infomessagelist")
 
                 {!! $slot !!}
             </main>
         </div>
 
-        @include("components.layout.footers.landing")
+        @include("shells.footers.landing")
 
         <script type="module">
             import { init } from "{{ Router->staticFilePath("js/DateFormatter.js") }}";

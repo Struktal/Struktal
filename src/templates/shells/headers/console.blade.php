@@ -3,7 +3,7 @@
         <div class="flex items-center">
             {{-- Open sidebar button --}}
             <button class="cursor-pointer sidebar-toggle">
-                @include("components.icons.menu", [ "class" => "w-6 h-6" ])
+                @include("icons.menu", [ "class" => "w-6 h-6" ])
             </button>
 
             {{-- Logo --}}
@@ -18,12 +18,12 @@
     </header>
 </div>
 
-@component("components.layout.sidebars.console")
+@component("shells.sidebars.console")
     {{-- Sidebar navigation list --}}
     <nav>
-        @include("components.layout.sidebars.consolelist")
+        @include("shells.sidebars.consolelist")
     </nav>
 
     {{-- Account info --}}
-    @include("components.layout.sidebars.accountinfo")
+    @include("shells.sidebars.accountinfo")
 @endcomponent

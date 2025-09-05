@@ -15,4 +15,4 @@ if(isset($_SESSION["register-email"])) {
     unset($_SESSION["register-email"]);
 }
 
-echo Blade->run("auth.register", $data);
+echo Blade->run("pages.auth.register", $data);
