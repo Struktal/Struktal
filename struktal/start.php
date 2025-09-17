@@ -26,11 +26,11 @@ unset($classLoader);
 
 // Setup Composer libraries
 use struktal\Router\Router;
+Router::setPagesDirectory(__APP_DIR__ . "/src/pages/");
+Router::setAppUrl(Config->getAppUrl());
+Router::setAppBaseUri(Config->getBaseUri());
+Router::setStaticDirectoryUri("static/");
 const Router = new Router();
-Router->setPagesDirectory(__APP_DIR__ . "/src/pages/");
-Router->setAppUrl(Config->getAppUrl());
-Router->setAppBaseUri(Config->getBaseUri());
-Router->setStaticDirectoryUri("static/");
 
 use struktal\ORM\Database\Database;
 if(Config->databaseEnabled()) {
@@ -43,8 +43,8 @@ if(Config->databaseEnabled()) {
 }
 
 use struktal\Auth\Auth;
+Auth::setUserObjectName(User::class);
 const Auth = new Auth();
-Auth->setUserObjectName(User::class);
 
 use struktal\validation\ValidationBuilder;
 const Validation = new ValidationBuilder();
