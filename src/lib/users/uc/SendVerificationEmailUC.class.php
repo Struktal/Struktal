@@ -2,8 +2,16 @@
 
 namespace struktal\users\uc;
 
-class SendVerificationEmailUC {
-    public function execute(string $email): void {
-        // Logic to handle password reset request
+use \struktal\users\dto;
+
+class SendVerificationEmailUC implements \UC {
+    public function execute(\DTO $input): dto\SendVerificationEmailOutputDTO {
+        if(!($input instanceof dto\SendVerificationEmailInputDTO)) {
+            throw new \IncorrectDTOException();
+        }
+
+        $output = new dto\SendVerificationEmailOutputDTO();
+
+        throw new \RuntimeException("Not implemented yet");
     }
 }

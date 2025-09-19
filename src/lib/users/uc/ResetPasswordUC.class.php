@@ -2,8 +2,16 @@
 
 namespace struktal\users\uc;
 
-class ResetPasswordUC {
-    public function execute(string $email): void {
-        // Logic to handle password reset request
+use \struktal\users\dto;
+
+class ResetPasswordUC implements \UC {
+    public function execute(\DTO $input): dto\ResetPasswordOutputDTO {
+        if(!($input instanceof dto\ResetPasswordInputDTO)) {
+            throw new \IncorrectDTOException();
+        }
+
+        $output = new dto\ResetPasswordOutputDTO();
+
+        throw new \RuntimeException("Not implemented yet");
     }
 }

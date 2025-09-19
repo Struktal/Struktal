@@ -2,8 +2,16 @@
 
 namespace struktal\users\uc;
 
+use \struktal\users\dto;
+
 class LogoutUC implements \UC {
-    public function execute(DTO $input): DTO {
-        // TODO: Implement execute() method.
+    public function execute(\DTO $input): dto\LogoutOutputDTO {
+        if(!($input instanceof dto\LogoutInputDTO)) {
+            throw new \IncorrectDTOException();
+        }
+
+        $output = new dto\LogoutOutputDTO();
+
+        throw new \RuntimeException("Not implemented yet");
     }
 }

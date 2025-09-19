@@ -11,8 +11,8 @@ class UserVerificationService {
         return $useCase->execute($input);
     }
 
-    public function checkVerificationToken(dto\CheckVerificationTokenInputDTO $input): dto\CheckVerificationTokenOutputDTO {
-        $useCase = new uc\CheckVerificationTokenUC();
+    public function validateVerificationToken(dto\ValidateVerificationTokenInputDTO $input): dto\ValidateVerificationTokenOutputDTO {
+        $useCase = new uc\ValidateVerificationTokenUC();
         return $useCase->execute($input);
     }
 
@@ -21,8 +21,8 @@ class UserVerificationService {
         return $useCase->execute($input);
     }
 
-    public function checkVerificationStatus(dto\CheckVerificationStatusInputDTO $input): dto\CheckVerificationStatusOutputDTO {
-        $useCase = new uc\CheckVerificationStatusUC();
+    public function getVerificationStatus(dto\GetVerificationStatusInputDTO $input): dto\GetVerificationStatusOutputDTO {
+        $useCase = new uc\GetVerificationStatusUC();
         return $useCase->execute($input);
     }
 }
