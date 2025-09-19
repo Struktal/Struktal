@@ -1,5 +1,7 @@
 <?php
 
+namespace struktal\users\enums;
+
 enum PermissionLevel: int implements \struktal\Auth\PermissionLevel {
     case USER = 0;
 
