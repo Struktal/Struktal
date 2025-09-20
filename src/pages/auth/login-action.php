@@ -11,16 +11,8 @@ $validation = Validation->create()
     ->array()
     ->required()
     ->children([
-        "username" => Validation->create()
-            ->string()
-            ->minLength(5)
-            ->maxLength(256)
-            ->build(),
-        "password" => Validation->create()
-            ->string()
-            ->minLength(8)
-            ->maxLength(256)
-            ->build()
+        "username" => \struktal\users\validations\Validations::username(),
+        "password" => \struktal\users\validations\Validations::password()
     ])
     ->build();
 try {
@@ -30,25 +22,23 @@ try {
     Router->redirect(Router->generate("auth-login"));
 }
 
-$user = User::dao()->login($post["username"], false, $post["password"]);
+$input = new \struktal\users\dto\LoginInputDTO();
+$input->login = $post["username"];
+$input->loginWithEmail = false;
+$input->password = $post["password"];
 
-if($user instanceof \struktal\Auth\LoginError) {
-    if($user === \struktal\Auth\LoginError::EMAIL_NOT_VERIFIED) {
-        $message = t("Before logging in, please verify your account's email address.");
-    } else {
-        $message = t("An account with these credentials could not be found. Please check for spelling errors and try again.");
-    }
-
-    Logger->tag("Login")->info("User \"{$post["username"]}\" failed to log in: " . ($user === 0 ? "User not found" : ($user === 1 ? "Password incorrect" : "Email not verified")));
-    InfoMessage->error($message);
+try {
+    \struktal\users\services\UserService::login($input);
+} catch(\struktal\users\exceptions\UserNotFoundException | \struktal\users\exceptions\InvalidPasswordException $e) {
+    InfoMessage->error(t("An account with these credentials could not be found. Please check for spelling errors and try again."));
+    Router->redirect(Router->generate("auth-login"));
+} catch(\struktal\users\exceptions\UserNotVerifiedException $e) {
+    InfoMessage->error(t("Before logging in, please verify your account's email address."));
+    Router->redirect(Router->generate("auth-login"));
+} catch(\Exception $e) {
+    Logger->tag("Login")->error("An unexpected error occurred during login of user \"{$post["username"]}\": " . $e->getMessage());
+    InfoMessage->error(t("An unexpected error occurred. Please try again later."));
     Router->redirect(Router->generate("auth-login"));
 }
 
-// Reset possibly existing one-time password
-$user->setOneTimePassword(null);
-$user->setOneTimePasswordExpiration(null);
-User::dao()->save($user);
-
-Logger->tag("Login")->info("User \"{$post["username"]}\" has logged in (User ID {$user->getId()})");
-Auth->login($user);
 Router->redirect(Router->generate("index"));
