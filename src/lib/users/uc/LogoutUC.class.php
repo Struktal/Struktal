@@ -12,6 +12,8 @@ class LogoutUC implements \UC {
 
         $output = new dto\LogoutOutputDTO();
 
-        throw new \RuntimeException("Not implemented yet");
+        Auth->logout();
+
+        return $output;
     }
 }
