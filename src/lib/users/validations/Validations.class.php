@@ -18,4 +18,14 @@ class Validations {
             ->maxLength(256)
             ->build();
     }
+
+    public static function email(?string $errorMessage = null) {
+        $validation = Validation->create()
+            ->string()
+            ->email();
+        if($errorMessage !== null) {
+            $validation->withErrorMessage($errorMessage);
+        }
+        return $validation->build();
+    }
 }
