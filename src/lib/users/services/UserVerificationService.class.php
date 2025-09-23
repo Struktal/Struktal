@@ -20,9 +20,4 @@ class UserVerificationService {
         $useCase = new uc\VerifyEmailUC();
         return $useCase->execute($input);
     }
-
-    public static function getVerificationStatus(dto\GetVerificationStatusInputDTO $input): dto\GetVerificationStatusOutputDTO {
-        $useCase = new uc\GetVerificationStatusUC();
-        return $useCase->execute($input);
-    }
 }
