@@ -34,7 +34,7 @@ try {
     Router->redirect(Router->generate("auth-recovery-request"));
 } catch(\Exception $e) {
     Logger->tag("Recovery")->error("An unexpected error occurred during password recovery request for email \"{$post["email"]}\": " . $e->getMessage());
-    InfoMessage->error(t("An unexpected error occurred. Please try again later."));
+    InfoMessage->error(t("An error has occurred. Please try again later."));
     Router->redirect(Router->generate("auth-recovery-request"));
 }
 

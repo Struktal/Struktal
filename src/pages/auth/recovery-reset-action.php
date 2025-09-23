@@ -5,63 +5,51 @@ if(Auth->isLoggedIn()) {
     Router->redirect(Router->generate("index"));
 }
 
-// Check whether a one-time password has been specified
-$sessionValidation = Validation->create()
-    ->withErrorMessage(t("An error has occurred. Please try again later."))
-    ->array()
-    ->required()
-    ->children([
-        "authRecoveryOtpId" => Validation->create()
-            ->int()
-            ->build(),
-        "authRecoveryOtp" => Validation->create()
-            ->string()
-            ->minLength(1)
-            ->build()
-    ])
-    ->build();
+$validatePasswordResetSessionInput = new \struktal\users\dto\ValidatePasswordResetSessionInputDTO();
+
 try {
-    $session = $sessionValidation->getValidatedValue($_SESSION);
-} catch(\struktal\validation\ValidationException $e) {
-    InfoMessage->error($e->getMessage());
+    $validatePasswordResetSessionOutput = \struktal\users\services\UserPasswordResetService::validatePasswordResetSession($validatePasswordResetSessionInput);
+} catch(\Exception $e) {
+    Logger->tag("Recovery")->error("An unexpected error occurred during password recovery reset validation: " . $e->getMessage());
+    InfoMessage->error(t("An error has occurred. Please try again later."));
     Router->redirect(Router->generate("auth-login"));
 }
 
-$otpId = $session["authRecoveryOtpId"];
-$otp = $session["authRecoveryOtp"];
+$clearPasswordResetSessionInput = new \struktal\users\dto\ClearPasswordResetSessionInputDTO();
 
-// Clear old session variables
-unset($_SESSION["authRecoveryOtpId"]);
-unset($_SESSION["authRecoveryOtp"]);
-
-// Generate redirect link for error cases
-$otpIdEncoded = urlencode(base64_encode($otpId));
-$otpEncoded = urlencode($otp);
-$resetLink = Router->generate("auth-recovery-reset") . "?otpid=" . $otpIdEncoded . "&otp=" . $otpEncoded;
-
-// Find the user from the one-time password
-$user = User::dao()->getObject([
-    "id" => $otpId,
-    "emailVerified" => true,
-    new \struktal\ORM\DAOFilter(
-        \struktal\ORM\DAOFilterOperator::NOT_EQUALS,
-        "oneTimePassword",
-        null
-    ),
-    new \struktal\ORM\DAOFilter(
-        \struktal\ORM\DAOFilterOperator::GREATER_THAN_EQUALS,
-        "oneTimePasswordExpiration",
-        new DateTime()
-    )
-]);
-if(!$user instanceof User) {
-    Logger->tag("Recovery")->info("Attempted to recover password, but couldn't find user with otpid \"{$otpId}\"");
-    InfoMessage->error(t("The URL has already been invalidated. Please log in or request a new password recovery email."));
+try {
+    \struktal\users\services\UserPasswordResetService::clearPasswordResetSession($clearPasswordResetSessionInput);
+} catch(\Exception $e) {
+    Logger->tag("Recovery")->error("An unexpected error occurred during password recovery reset session clearing: " . $e->getMessage());
+    InfoMessage->error(t("An error has occurred. Please try again later."));
     Router->redirect(Router->generate("auth-login"));
 }
-if(!password_verify($otp, $user->getOneTimePassword())) {
-    Logger->tag("Recovery")->info("Attempted to recover password, but one-time password does not match");
+
+$validatePasswordResetTokenInput = new \struktal\users\dto\ValidateResetTokenInputDTO();
+$validatePasswordResetTokenInput->otpId = $validatePasswordResetSessionOutput->otpId;
+$validatePasswordResetTokenInput->otp = $validatePasswordResetSessionOutput->otp;
+$validatePasswordResetTokenInput->isUrlEncoded = false;
+
+try {
+    $validatePasswordResetTokenOutput = \struktal\users\services\UserPasswordResetService::validateResetToken($validatePasswordResetTokenInput);
+} catch(\struktal\users\exceptions\InvalidResetTokenException | \struktal\users\exceptions\UserNotFoundException $e) {
     InfoMessage->error(t("The URL has already been invalidated. Please log in or request a new password recovery email."));
+    Router->redirect(Router->generate("auth-login"));
+} catch(\Exception $e) {
+    Logger->tag("Recovery")->error("An unexpected error occurred during password recovery reset token validation: " . $e->getMessage());
+    InfoMessage->error(t("An error has occurred. Please try again later."));
+    Router->redirect(Router->generate("auth-login"));
+}
+
+$generatePasswordResetLinkInput = new \struktal\users\dto\GeneratePasswordResetLinkInputDTO();
+$generatePasswordResetLinkInput->user = $validatePasswordResetTokenOutput->user;
+$generatePasswordResetLinkInput->otp = $validatePasswordResetTokenOutput->otp;
+
+try {
+    $resetLink = \struktal\users\services\UserPasswordResetService::generatePasswordResetLink($generatePasswordResetLinkInput)->link;
+} catch(\Exception $e) {
+    Logger->tag("Recovery")->error("An unexpected error occurred during password recovery reset link generation: " . $e->getMessage());
+    InfoMessage->error(t("An error has occurred. Please try again later."));
     Router->redirect(Router->generate("auth-login"));
 }
 
@@ -71,16 +59,8 @@ $postValidation = Validation->create()
     ->array()
     ->required()
     ->children([
-        "password" => Validation->create()
-            ->string()
-            ->minLength(8)
-            ->maxLength(256)
-            ->build(),
-        "password-repeat" => Validation->create()
-            ->string()
-            ->minLength(8)
-            ->maxLength(256)
-            ->build()
+        "password" => \struktal\users\validations\Validations::password(),
+        "password-repeat" => \struktal\users\validations\Validations::password()
     ])
     ->build();
 try {
@@ -90,23 +70,30 @@ try {
     Router->redirect($resetLink);
 }
 
-// Check passwords
-if($post["password"] !== $post["password-repeat"]) {
+$passwordResetCheckInput = new \struktal\users\dto\PasswordResetCheckInputDTO();
+$passwordResetCheckInput->password = $post["password"];
+$passwordResetCheckInput->passwordRepeat = $post["password-repeat"];
+
+try {
+    $passwordResetCheckOutput = \struktal\users\services\PasswordService::passwordResetCheck($passwordResetCheckInput);
+} catch(\struktal\users\exceptions\PasswordMismatchException $e) {
     InfoMessage->error(t("The specified passwords do not match. Please check for spelling errors and try again."));
     Router->redirect($resetLink);
-}
-if(!preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d\W]).{8,}$/", $post["password"])) {
+} catch(\struktal\users\exceptions\WeakPasswordException $e) {
     InfoMessage->error(t("The specified password doesn't fulfill the password requirements. Please choose a safer password."));
     Router->redirect($resetLink);
 }
 
-// Change password
-$user->setPassword($post["password"]);
-$user->setOneTimePassword(null);
-$user->setOneTimePasswordExpiration(null);
-$user->setUpdated(new DateTimeImmutable());
-User::dao()->save($user);
+$resetPasswordInput = new \struktal\users\dto\ResetPasswordInputDTO();
+$resetPasswordInput->user = $validatePasswordResetTokenOutput->user;
+$resetPasswordInput->password = $passwordResetCheckOutput->password;
 
-Logger->tag("Recovery")->info("Changed password for user with email \"{$user->getEmail()}\" (User ID \"{$user->getId()}\")");
+try {
+    \struktal\users\services\UserPasswordResetService::resetPassword($resetPasswordInput);
+} catch(\Exception $e) {
+    Logger->tag("Recovery")->error("An unexpected error occurred during password recovery reset for user with ID \"{$validatePasswordResetTokenOutput->user->getId()}\": " . $e->getMessage());
+    InfoMessage->error(t("An error has occurred. Please try again later."));
+    Router->redirect($resetLink);
+}
 
 Router->redirect(Router->generate("auth-recovery-reset-complete"));

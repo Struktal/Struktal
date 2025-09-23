@@ -37,7 +37,7 @@ try {
     Router->redirect(Router->generate("auth-login"));
 } catch(\Exception $e) {
     Logger->tag("Login")->error("An unexpected error occurred during login of user \"{$post["username"]}\": " . $e->getMessage());
-    InfoMessage->error(t("An unexpected error occurred. Please try again later."));
+    InfoMessage->error(t("An error has occurred. Please try again later."));
     Router->redirect(Router->generate("auth-login"));
 }
 

@@ -4,7 +4,7 @@ namespace struktal\users\dto;
 
 use \struktal\users\orm;
 
-class ValidateResetTokenOutputDTO implements \DTO {
+class StartPasswordResetSessionInputDTO implements \DTO {
     public orm\User $user;
     public string $otp;
 }

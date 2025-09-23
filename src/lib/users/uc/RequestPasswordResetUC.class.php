@@ -2,6 +2,7 @@
 
 namespace struktal\users\uc;
 
+use \struktal\users\services;
 use \struktal\users\dto;
 use \struktal\users\orm;
 use \struktal\users\exceptions;
@@ -33,9 +34,11 @@ class RequestPasswordResetUC implements \UC {
         $user->setOneTimePasswordExpiration($oneTimePasswordExpiration);
         orm\User::dao()->save($user);
 
-        $otpIdEncoded = urlencode(base64_encode($user->getId()));
-        $otpEncoded = urlencode($oneTimePassword);
-        $verificationLink = Router->generate("auth-recovery-reset", [], true) . "?otpid=" . $otpIdEncoded . "&otp=" . $otpEncoded;
+        $generatePasswordResetLinkInput = new dto\GeneratePasswordResetLinkInputDTO();
+        $generatePasswordResetLinkInput->user = $user;
+        $generatePasswordResetLinkInput->otp = $oneTimePassword;
+        $verificationLink = services\UserPasswordResetService::generatePasswordResetLink($generatePasswordResetLinkInput)->link;
+
         $mail = new \struktal\MailWrapper\MailWrapper();
         $mail->Subject = t("Password recovery");
         $mail->Body = t("You have requested to recover your password for your \$\$appName\$\$ account.", [
