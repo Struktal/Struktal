@@ -2,6 +2,8 @@
 
 namespace struktal\users\dto;
 
-class VerifyEmailInputDTO implements \DTO {
+use \struktal\users\orm;
 
+class VerifyEmailInputDTO implements \DTO {
+    public orm\User $user;
 }

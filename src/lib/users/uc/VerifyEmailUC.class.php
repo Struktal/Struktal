@@ -3,6 +3,7 @@
 namespace struktal\users\uc;
 
 use \struktal\users\dto;
+use \struktal\users\orm;
 
 class VerifyEmailUC implements \UC {
     public function execute(\DTO $input): dto\VerifyEmailOutputDTO {
@@ -12,6 +13,15 @@ class VerifyEmailUC implements \UC {
 
         $output = new dto\VerifyEmailOutputDTO();
 
-        throw new \RuntimeException("Not implemented yet");
+        $user = $input->user;
+        $user->setEmailVerified(true);
+        $user->setOneTimePassword(null);
+        $user->setOneTimePasswordExpiration(null);
+        $user->setUpdated(new \DateTimeImmutable());
+        orm\User::dao()->save($user);
+
+        Logger->tag("Email-Verification")->info("The email address \"{$user->getEmail()}\" (User ID \"{$user->getId()}\") has been verified");
+
+        return $output;
     }
 }

@@ -40,7 +40,7 @@ class ValidateResetTokenUC implements \UC {
         }
         if(!password_verify($otp, $user->getOneTimePassword())) {
             Logger->tag("Recovery")->info("Attempted to recover password, but one-time password does not match");
-            throw new exceptions\InvalidResetTokenException();
+            throw new exceptions\InvalidTokenException();
         }
 
         $output->user = $user;

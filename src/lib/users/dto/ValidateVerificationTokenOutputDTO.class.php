@@ -2,6 +2,8 @@
 
 namespace struktal\users\dto;
 
-class ValidateVerificationTokenOutputDTO implements \DTO {
+use \struktal\users\orm;
 
+class ValidateVerificationTokenOutputDTO implements \DTO {
+    public orm\User $user;
 }

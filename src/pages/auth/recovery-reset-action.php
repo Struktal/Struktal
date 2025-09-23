@@ -32,7 +32,7 @@ $validatePasswordResetTokenInput->isUrlEncoded = false;
 
 try {
     $validatePasswordResetTokenOutput = \struktal\users\services\UserPasswordResetService::validateResetToken($validatePasswordResetTokenInput);
-} catch(\struktal\users\exceptions\InvalidResetTokenException | \struktal\users\exceptions\UserNotFoundException $e) {
+} catch(\struktal\users\exceptions\InvalidTokenException | \struktal\users\exceptions\UserNotFoundException $e) {
     InfoMessage->error(t("The URL has already been invalidated. Please log in or request a new password recovery email."));
     Router->redirect(Router->generate("auth-login"));
 } catch(\Exception $e) {
