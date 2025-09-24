@@ -6,8 +6,8 @@ use \struktal\users\dto;
 use \struktal\users\uc;
 
 class PasswordService {
-    public static function passwordResetCheck(dto\PasswordResetCheckInputDTO $input): dto\PasswordResetCheckOutputDTO {
-        $useCase = new uc\PasswordResetCheckUC();
+    public static function passwordEditCheck(dto\PasswordEditCheckInputDTO $input): dto\PasswordEditCheckOutputDTO {
+        $useCase = new uc\PasswordEditCheckUC();
         return $useCase->execute($input);
     }
 }

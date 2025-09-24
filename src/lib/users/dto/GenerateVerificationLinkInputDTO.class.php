@@ -4,7 +4,7 @@ namespace struktal\users\dto;
 
 use \struktal\users\orm;
 
-class SendVerificationEmailInputDTO implements \DTO {
+class GenerateVerificationLinkInputDTO implements \DTO {
     public orm\User $user;
     public string $otp;
 }

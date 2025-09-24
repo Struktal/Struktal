@@ -2,6 +2,9 @@
 
 namespace struktal\users\dto;
 
-class RegisterOutputDTO implements \DTO {
+use \struktal\users\orm;
 
+class RegisterOutputDTO implements \DTO {
+    public orm\User $user;
+    public string $otp;
 }

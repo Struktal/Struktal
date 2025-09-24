@@ -12,7 +12,7 @@ function keepPostField(string $postField): void {
 }
 
 // Check whether form fields are given
-if(empty(empty($_POST["username"]) || $_POST["email"]) || empty($_POST["password"]) || empty($_POST["password-repeat"])) {
+if(empty($_POST["username"]) || empty($_POST["email"]) || empty($_POST["password"]) || empty($_POST["password-repeat"])) {
     keepPostField("username");
     keepPostField("email");
 
@@ -20,76 +20,65 @@ if(empty(empty($_POST["username"]) || $_POST["email"]) || empty($_POST["password
     Router->redirect(Router->generate("auth-register"));
 }
 
-// Check whether username and email are valid
-if(!preg_match("/^(?!.*\.\.)(?!.*\.$)\w[\w.]{2,15}$/", $_POST["username"])) {
-    keepPostField("username");
-    keepPostField("email");
-    InfoMessage->error(t("The specified username is invalid. Please follow the required username scheme."));
-    Router->redirect(Router->generate("auth-register"));
-}
-if(!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
-    keepPostField("username");
-    keepPostField("email");
-    InfoMessage->error(t("The specified email address is invalid. Please check for spelling errors and try again."));
-    Router->redirect(Router->generate("auth-register"));
-}
+$passwordEditCheckInput = new \struktal\users\dto\PasswordEditCheckInputDTO();
+$passwordEditCheckInput->password = $_POST["password"];
+$passwordEditCheckInput->passwordRepeat = $_POST["password-repeat"];
 
-// Check for existing users with the specified username or email
-$username = strtolower($_POST["username"]);
-$email = strtolower($_POST["email"]);
-$existingUsername = User::dao()->getObjects(["username" => $username]);
-$existingEmail = User::dao()->getObjects(["email" => $email]);
-if(!empty($existingUsername)) {
-    if(empty($existingEmail)) {
-        keepPostField("email");
-    }
-    InfoMessage->error(t("An account with this username already exists. Please choose another one."));
-    Router->redirect(Router->generate("auth-register"));
-}
-if(!empty($existingUsername) || !empty($existingEmail)) {
-    if(empty($existingUsername)) {
-        keepPostField("username");
-    }
-    InfoMessage->error(t("An account with this email already exists. If that is your account, please log in instead."));
-    Router->redirect(Router->generate("auth-register"));
-}
-
-// Check passwords
-if($_POST["password"] !== $_POST["password-repeat"]) {
+try {
+    $passwordEditCheckOutput = \struktal\users\services\PasswordService::passwordEditCheck($passwordEditCheckInput);
+} catch(\struktal\users\exceptions\PasswordMismatchException $e) {
     keepPostField("username");
     keepPostField("email");
     InfoMessage->error(t("The specified passwords do not match. Please check for spelling errors and try again."));
     Router->redirect(Router->generate("auth-register"));
-}
-if(!preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d\W]).{8,}$/", $_POST["password"])) {
+} catch(\struktal\users\exceptions\WeakPasswordException $e) {
     keepPostField("username");
     keepPostField("email");
     InfoMessage->error(t("The specified password doesn't fulfill the password requirements. Please choose a safer password."));
     Router->redirect(Router->generate("auth-register"));
 }
 
-// Register user
-$oneTimePassword = User::dao()->generateOneTimePassword();
-$user = User::dao()->register($username, $_POST["password"], $email, PermissionLevel::USER, $oneTimePassword);
+$registerInput = new \struktal\users\dto\RegisterInputDTO();
+$registerInput->username = $_POST["username"];
+$registerInput->email = $_POST["email"];
+$registerInput->password = $passwordEditCheckOutput->password;
+$registerInput->permissionLevel = \struktal\users\enums\PermissionLevel::USER;
 
-// Send verification email
-$otpIdEncoded = urlencode(base64_encode($user->getId()));
-$otpEncoded = urlencode($oneTimePassword);
-$verificationLink = Router->generate("auth-verify-email", [], true) . "?otpid=" . $otpIdEncoded . "&otp=" . $otpEncoded;
-$mail = new \struktal\MailWrapper\MailWrapper();
-$mail->Subject = t("Verify your email address");
-$mail->Body = t("A new \$\$appName\$\$ account has been registered with this email address.", [
-        "appName" => Config->getAppName()
-    ]) . "\r\n"
-    . t("To verify your email address and to complete the registration process, please open the following link:") . "\r\n"
-    . $verificationLink . "\r\n"
-    . "\r\n"
-    . t("If you haven't registered an account at \$\$appName\$\$, you can ignore this email.", [
-        "appName" => Config->getAppName()
-    ]);
-$mail->addAddress($email);
-$mail->send();
+try {
+    $registerOutput = \struktal\users\services\UserService::register($registerInput);
+} catch(\struktal\users\exceptions\InvalidUsernameException $e) {
+    keepPostField("username");
+    keepPostField("email");
+    InfoMessage->error(t("The specified username is invalid. Please follow the required username scheme."));
+    Router->redirect(Router->generate("auth-register"));
+} catch(\struktal\users\exceptions\InvalidEmailException $e) {
+    keepPostField("username");
+    keepPostField("email");
+    InfoMessage->error(t("The specified email address is invalid. Please check for spelling errors and try again."));
+    Router->redirect(Router->generate("auth-register"));
+} catch(\struktal\users\exceptions\UsernameAlreadyRegisteredException $e) {
+    keepPostField("email");
+    InfoMessage->error(t("An account with this username already exists. Please choose another one."));
+    Router->redirect(Router->generate("auth-register"));
+} catch(\struktal\users\exceptions\EmailAlreadyRegisteredException $e) {
+    keepPostField("username");
+    InfoMessage->error(t("An account with this email already exists. If that is your account, please log in instead."));
+    Router->redirect(Router->generate("auth-register"));
+} catch(\Exception $e) {
+    Logger->tag("Register")->error("An unexpected error occurred during registration of user \"{$registerInput->username}\": " . $e->getMessage());
+    InfoMessage->error(t("An error has occurred. Please try again later."));
+    Router->redirect(Router->generate("auth-register"));
+}
 
-Logger->tag("Register")->info("New user has been registered (\"{$username}\", \"{$email}\")");
+$sendVerificationEmailInput = new \struktal\users\dto\SendVerificationEmailInputDTO();
+$sendVerificationEmailInput->user = $registerOutput->user;
+
+try {
+    \struktal\users\services\UserVerificationService::sendVerificationEmail($sendVerificationEmailInput);
+} catch(\Exception $e) {
+    Logger->tag("Register")->error("An unexpected error occurred during sending of verification email to user with ID \"{$registerOutput->user->getId()}\": " . $e->getMessage());
+    InfoMessage->error(t("An error has occurred. Please try again later."));
+    Router->redirect(Router->generate("auth-register"));
+}
 
 Router->redirect(Router->generate("auth-register-complete"));

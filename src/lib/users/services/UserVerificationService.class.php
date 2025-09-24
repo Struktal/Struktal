@@ -6,6 +6,11 @@ use \struktal\users\dto;
 use \struktal\users\uc;
 
 class UserVerificationService {
+    public static function generateVerificationLink(dto\GenerateVerificationLinkInputDTO $input): dto\GenerateVerificationLinkOutputDTO {
+        $useCase = new uc\GenerateVerificationLinkUC();
+        return $useCase->execute($input);
+    }
+
     public static function sendVerificationEmail(dto\SendVerificationEmailInputDTO $input): dto\SendVerificationEmailOutputDTO {
         $useCase = new uc\SendVerificationEmailUC();
         return $useCase->execute($input);

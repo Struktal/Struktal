@@ -2,6 +2,6 @@
 
 namespace struktal\users\dto;
 
-class PasswordResetCheckOutputDTO implements \DTO {
+class PasswordEditCheckOutputDTO implements \DTO {
     public string $password;
 }

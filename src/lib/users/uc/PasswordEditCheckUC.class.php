@@ -5,13 +5,13 @@ namespace struktal\users\uc;
 use \struktal\users\dto;
 use \struktal\users\exceptions;
 
-class PasswordResetCheckUC implements \UC {
-    public function execute(\DTO $input): dto\PasswordResetCheckOutputDTO {
-        if(!($input instanceof dto\PasswordResetCheckInputDTO)) {
+class PasswordEditCheckUC implements \UC {
+    public function execute(\DTO $input): dto\PasswordEditCheckOutputDTO {
+        if(!($input instanceof dto\PasswordEditCheckInputDTO)) {
             throw new \IncorrectDTOException();
         }
 
-        $output = new dto\PasswordResetCheckOutputDTO();
+        $output = new dto\PasswordEditCheckOutputDTO();
 
         $password = $input->password;
         $passwordRepeat = $input->passwordRepeat;

@@ -70,12 +70,12 @@ try {
     Router->redirect($resetLink);
 }
 
-$passwordResetCheckInput = new \struktal\users\dto\PasswordResetCheckInputDTO();
-$passwordResetCheckInput->password = $post["password"];
-$passwordResetCheckInput->passwordRepeat = $post["password-repeat"];
+$passwordEditCheckInput = new \struktal\users\dto\PasswordEditCheckInputDTO();
+$passwordEditCheckInput->password = $post["password"];
+$passwordEditCheckInput->passwordRepeat = $post["password-repeat"];
 
 try {
-    $passwordResetCheckOutput = \struktal\users\services\PasswordService::passwordResetCheck($passwordResetCheckInput);
+    $passwordEditCheckOutput = \struktal\users\services\PasswordService::passwordEditCheck($passwordEditCheckInput);
 } catch(\struktal\users\exceptions\PasswordMismatchException $e) {
     InfoMessage->error(t("The specified passwords do not match. Please check for spelling errors and try again."));
     Router->redirect($resetLink);
@@ -86,7 +86,7 @@ try {
 
 $resetPasswordInput = new \struktal\users\dto\ResetPasswordInputDTO();
 $resetPasswordInput->user = $validatePasswordResetTokenOutput->user;
-$resetPasswordInput->password = $passwordResetCheckOutput->password;
+$resetPasswordInput->password = $passwordEditCheckOutput->password;
 
 try {
     \struktal\users\services\UserPasswordResetService::resetPassword($resetPasswordInput);

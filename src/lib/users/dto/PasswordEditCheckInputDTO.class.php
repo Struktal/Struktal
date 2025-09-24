@@ -2,7 +2,7 @@
 
 namespace struktal\users\dto;
 
-class PasswordResetCheckInputDTO implements \DTO {
+class PasswordEditCheckInputDTO implements \DTO {
     public string $password;
     public string $passwordRepeat;
 }
