@@ -20,17 +20,13 @@ class ValidateVerificationTokenUC implements \UC {
         // Find the user from the one-time password
         $user = orm\User::dao()->getObject([
             "id" => $otpId,
-            "emailVerified" => true,
+            "emailVerified" => false,
             new \struktal\ORM\DAOFilter(
                 \struktal\ORM\DAOFilterOperator::NOT_EQUALS,
                 "oneTimePassword",
                 null
             ),
-            new \struktal\ORM\DAOFilter(
-                \struktal\ORM\DAOFilterOperator::GREATER_THAN_EQUALS,
-                "oneTimePasswordExpiration",
-                new \DateTimeImmutable()
-            )
+            "oneTimePasswordExpiration" => null
         ]);
         if(!$user instanceof orm\User) {
             Logger->tag("Email-Verification")->info("Attempted to verify an email, but couldn't find user with otpid \"{$otpId}\"");

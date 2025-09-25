@@ -12,12 +12,12 @@ class GeneratePasswordResetLinkUC implements \UC {
 
         $output = new dto\GeneratePasswordResetLinkOutputDTO();
 
-        $otpIdEncoded = urlencode(base64_encode($input->user->getId()));
+        $otpId = $input->user->getId();
+        $otpIdEncoded = urlencode(base64_encode($otpId));
         $otpEncoded = urlencode($input->otp);
         $verificationLink = Router->generate("auth-recovery-reset", [], true) . "?otpid=" . $otpIdEncoded . "&otp=" . $otpEncoded;
 
         $output->link = $verificationLink;
-
         return $output;
     }
 }
