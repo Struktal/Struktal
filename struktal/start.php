@@ -30,8 +30,7 @@ Logger::setMinLogLevel(LogLevel::tryFrom(Config->getLogLevel()) ?? LogLevel::TRA
 const Logger = new Logger("App");
 
 // Load project files
-$classLoader->loadClasses(__APP_DIR__ . "/src/lib/");
-$classLoader->loadEnums(__APP_DIR__ . "/src/lib/");
+$classLoader->loadDirectory(__APP_DIR__ . "/src/lib/");
 
 unset($classLoader);
 
@@ -51,7 +50,7 @@ if(Config->databaseEnabled()) {
     );
 }
 
-Auth::setUserObjectName(User::class);
+Auth::setUserObjectName(\struktal\users\orm\User::class);
 const Auth = new Auth();
 
 const Validation = new ValidationBuilder();
