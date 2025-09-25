@@ -14,6 +14,8 @@ class ValidateResetTokenUC implements \UC {
 
         $output = new dto\ValidateResetTokenOutputDTO();
 
+        $otpId = $input->otpId;
+        $otp = $input->otp;
         if($input->isUrlEncoded) {
             $otpId = base64_decode(urldecode($input->otpId));
             $otp = urldecode($input->otp);
