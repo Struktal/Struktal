@@ -72,6 +72,7 @@ try {
 
 $sendVerificationEmailInput = new \struktal\users\dto\SendVerificationEmailInputDTO();
 $sendVerificationEmailInput->user = $registerOutput->user;
+$sendVerificationEmailInput->otp = $registerOutput->otp;
 
 try {
     \struktal\users\services\UserVerificationService::sendVerificationEmail($sendVerificationEmailInput);

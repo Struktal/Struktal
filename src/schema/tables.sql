@@ -1,5 +1,5 @@
 # User table
-CREATE TABLE IF NOT EXISTS `struktal\users\User` (
+CREATE TABLE IF NOT EXISTS `struktal\users\orm\User` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `username` VARCHAR(255) NOT NULL,
     `password` VARCHAR(255) NOT NULL,
