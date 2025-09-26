@@ -18,7 +18,7 @@ class RegisterUC implements \UC {
         if(!preg_match("/^(?!.*\.\.)(?!.*\.$)\w[\w.]{2,15}$/", $input->username)) {
             throw new exceptions\InvalidUsernameException();
         }
-        if(!filter_var($input->password, FILTER_VALIDATE_EMAIL)) {
+        if(!filter_var($input->email, FILTER_VALIDATE_EMAIL)) {
             throw new exceptions\InvalidEmailException();
         }
 
@@ -31,7 +31,7 @@ class RegisterUC implements \UC {
         if(!empty($existingUsername)) {
             throw new exceptions\UsernameAlreadyRegisteredException();
         }
-        if(!empty($existingUsername) || !empty($existingEmail)) {
+        if(!empty($existingEmail)) {
             throw new exceptions\EmailAlreadyRegisteredException();
         }
 
