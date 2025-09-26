@@ -3,6 +3,8 @@
 namespace struktal\users\uc;
 
 use \struktal\users\dto;
+use \struktal\users\validations;
+use \struktal\users\exceptions;
 
 class ValidatePasswordResetSessionUC implements \UC {
     public function execute(\DTO $input): dto\ValidatePasswordResetSessionOutputDTO {
@@ -14,24 +16,20 @@ class ValidatePasswordResetSessionUC implements \UC {
 
         // Check whether a one-time password has been specified
         $sessionValidation = Validation->create()
-            ->withErrorMessage(t("An error has occurred. Please try again later."))
             ->array()
             ->required()
             ->children([
                 "authRecoveryOtpId" => Validation->create()
                     ->int()
                     ->build(),
-                "authRecoveryOtp" => Validation->create()
-                    ->string()
-                    ->minLength(1)
-                    ->build()
+                "authRecoveryOtp" => validations\Validations::otp()
             ])
             ->build();
         try {
             $session = $sessionValidation->getValidatedValue($_SESSION);
         } catch(\struktal\validation\ValidationException $e) {
-            InfoMessage->error($e->getMessage());
-            Router->redirect(Router->generate("auth-login"));
+            Logger->tag("PasswordReset")->info("Attempted to reset password, but no valid session OTP found");
+            throw new exceptions\InvalidTokenException();
         }
 
         $otpId = $session["authRecoveryOtpId"];

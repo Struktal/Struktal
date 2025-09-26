@@ -18,13 +18,13 @@ class RegisterUC implements \UC {
         if(!preg_match("/^(?!.*\.\.)(?!.*\.$)\w[\w.]{2,15}$/", $input->username)) {
             throw new exceptions\InvalidUsernameException();
         }
-        if(!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
+        if(!filter_var($input->password, FILTER_VALIDATE_EMAIL)) {
             throw new exceptions\InvalidEmailException();
         }
 
         // Check for existing users with the specified username or email
-        $username = strtolower($_POST["username"]);
-        $email = strtolower($_POST["email"]);
+        $username = strtolower($input->username);
+        $email = strtolower($input->email);
         $existingUsername = orm\User::dao()->getObjects([ "username" => $username ]);
         $existingEmail = orm\User::dao()->getObjects([ "email" => $email ]);
 
@@ -37,7 +37,7 @@ class RegisterUC implements \UC {
 
         // Register user
         $oneTimePassword = orm\User::dao()->generateOneTimePassword();
-        $user = orm\User::dao()->register($username, $_POST["password"], $email, $input->permissionLevel, $oneTimePassword);
+        $user = orm\User::dao()->register($username, $input->password, $email, $input->permissionLevel, $oneTimePassword);
 
         Logger->tag("Register")->info("New user has been registered (\"{$username}\", \"{$email}\")");
 

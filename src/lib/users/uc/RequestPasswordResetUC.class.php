@@ -52,7 +52,7 @@ class RequestPasswordResetUC implements \UC {
                 "appName" => Config->getAppName()
             ]);
         try {
-            $mail->addAddress($user->email);
+            $mail->addAddress($user->getEmail());
             $mail->send();
         } catch(\PHPMailer\PHPMailer\Exception $e) {
             Logger->tag("Recovery")->error("Failed to send password recovery email to \"{$input->email}\": " . $e->getMessage());

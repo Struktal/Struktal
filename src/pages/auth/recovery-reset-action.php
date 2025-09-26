@@ -9,6 +9,9 @@ $validatePasswordResetSessionInput = new \struktal\users\dto\ValidatePasswordRes
 
 try {
     $validatePasswordResetSessionOutput = \struktal\users\services\UserPasswordResetService::validatePasswordResetSession($validatePasswordResetSessionInput);
+} catch(\struktal\users\exceptions\InvalidTokenException $e) {
+    InfoMessage->error(t("An error has occurred. Please try again later."));
+    Router->redirect(Router->generate("auth-login"));
 } catch(\Exception $e) {
     Logger->tag("Recovery")->error("An unexpected error occurred during password recovery reset validation: " . $e->getMessage());
     InfoMessage->error(t("An error has occurred. Please try again later."));
