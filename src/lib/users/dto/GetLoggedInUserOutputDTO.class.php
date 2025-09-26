@@ -2,6 +2,8 @@
 
 namespace struktal\users\dto;
 
-class GetLoggedInUserOutputDTO implements \DTO {
+use \struktal\users\orm;
 
+class GetLoggedInUserOutputDTO implements \DTO {
+    public ?orm\User $user;
 }

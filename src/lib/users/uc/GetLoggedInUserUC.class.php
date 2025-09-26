@@ -12,6 +12,13 @@ class GetLoggedInUserUC implements \UC {
 
         $output = new dto\GetLoggedInUserOutputDTO();
 
-        throw new \RuntimeException("Not implemented yet");
+        $user = Auth->getLoggedInUser();
+        if($user instanceof \struktal\users\orm\User) {
+            $output->user = $user;
+        } else {
+            $output->user = null;
+        }
+
+        return $output;
     }
 }
