@@ -1,8 +1,8 @@
 <?php
 
-namespace struktal\users\dto;
+namespace app\users\dto;
 
-use \struktal\users\orm;
+use \app\users\orm;
 
 class ValidateVerificationTokenOutputDTO implements \DTO {
     public orm\User $user;

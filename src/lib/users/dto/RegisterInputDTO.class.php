@@ -1,8 +1,8 @@
 <?php
 
-namespace struktal\users\dto;
+namespace app\users\dto;
 
-use struktal\users\enums\PermissionLevel;
+use \app\users\enums\PermissionLevel;
 
 class RegisterInputDTO implements \DTO {
     public string $username;

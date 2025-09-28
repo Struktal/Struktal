@@ -1,6 +1,6 @@
 <?php
 
-namespace struktal\users\exceptions;
+namespace app\users\exceptions;
 
 class PasswordMismatchException extends \Exception {
 

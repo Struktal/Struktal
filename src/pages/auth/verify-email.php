@@ -11,8 +11,8 @@ $validation = Validation->create()
     ->array()
     ->required()
     ->children([
-        "otpid" => \struktal\users\validations\Validations::otpId(),
-        "otp" => \struktal\users\validations\Validations::otp()
+        "otpid" => \app\users\validations\Validations::otpId(),
+        "otp" => \app\users\validations\Validations::otp()
     ])
     ->build();
 try {
@@ -22,13 +22,13 @@ try {
     Router->redirect(Router->generate("auth-login"));
 }
 
-$validateVerificationTokenInput = new \struktal\users\dto\ValidateVerificationTokenInputDTO();
+$validateVerificationTokenInput = new \app\users\dto\ValidateVerificationTokenInputDTO();
 $validateVerificationTokenInput->otpId = $get["otpid"];
 $validateVerificationTokenInput->otp = $get["otp"];
 
 try {
-    $validateVerificationTokenOutput = \struktal\users\services\UserVerificationService::validateVerificationToken($validateVerificationTokenInput);
-} catch(\struktal\users\exceptions\InvalidTokenException | \struktal\users\exceptions\UserNotFoundException $e) {
+    $validateVerificationTokenOutput = \app\users\services\UserVerificationService::validateVerificationToken($validateVerificationTokenInput);
+} catch(\app\users\exceptions\InvalidTokenException | \app\users\exceptions\UserNotFoundException $e) {
     InfoMessage->error(t("The URL has already been invalidated. Please log in or request a new password recovery email."));
     Router->redirect(Router->generate("auth-login"));
 } catch(\Exception $e) {
@@ -36,10 +36,10 @@ try {
     Router->redirect(Router->generate("auth-login"));
 }
 
-$verifyEmailInput = new \struktal\users\dto\VerifyEmailInputDTO();
+$verifyEmailInput = new \app\users\dto\VerifyEmailInputDTO();
 $verifyEmailInput->user = $validateVerificationTokenOutput->user;
 try {
-    \struktal\users\services\UserVerificationService::verifyEmail($verifyEmailInput);
+    \app\users\services\UserVerificationService::verifyEmail($verifyEmailInput);
 } catch(\Exception $e) {
     InfoMessage->error(t("An error has occurred. Please try again later."));
     Router->redirect(Router->generate("auth-login"));

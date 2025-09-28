@@ -1,10 +1,10 @@
 <?php
 
-namespace struktal\users\uc;
+namespace app\users\uc;
 
-use \struktal\users\dto;
-use \struktal\users\orm;
-use \struktal\users\exceptions;
+use \app\users\dto;
+use \app\users\orm;
+use \app\users\exceptions;
 
 class LoginUC implements \UC {
     public function execute(\DTO $input): dto\LoginOutputDTO {

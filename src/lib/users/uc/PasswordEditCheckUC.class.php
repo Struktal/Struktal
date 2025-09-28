@@ -1,9 +1,9 @@
 <?php
 
-namespace struktal\users\uc;
+namespace app\users\uc;
 
-use \struktal\users\dto;
-use \struktal\users\exceptions;
+use \app\users\dto;
+use \app\users\exceptions;
 
 class PasswordEditCheckUC implements \UC {
     public function execute(\DTO $input): dto\PasswordEditCheckOutputDTO {

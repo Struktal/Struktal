@@ -1,10 +1,10 @@
 <?php
 
-namespace struktal\users\uc;
+namespace app\users\uc;
 
-use \struktal\users\services;
-use \struktal\users\dto;
-use \struktal\users\exceptions;
+use \app\users\services;
+use \app\users\dto;
+use \app\users\exceptions;
 
 class SendVerificationEmailUC implements \UC {
     public function execute(\DTO $input): dto\SendVerificationEmailOutputDTO {

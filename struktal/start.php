@@ -50,7 +50,7 @@ if(Config->databaseEnabled()) {
     );
 }
 
-Auth::setUserObjectName(\struktal\users\orm\User::class);
+Auth::setUserObjectName(\app\users\orm\User::class);
 const Auth = new Auth();
 
 const Validation = new ValidationBuilder();

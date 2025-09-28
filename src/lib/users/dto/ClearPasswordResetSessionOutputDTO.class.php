@@ -1,6 +1,6 @@
 <?php
 
-namespace struktal\users\dto;
+namespace app\users\dto;
 
 class ClearPasswordResetSessionOutputDTO implements \DTO {
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace struktal\users\services;
+namespace app\users\services;
 
-use \struktal\users\dto;
-use \struktal\users\uc;
+use \app\users\dto;
+use \app\users\uc;
 
 class UserVerificationService {
     public static function generateVerificationLink(dto\GenerateVerificationLinkInputDTO $input): dto\GenerateVerificationLinkOutputDTO {

@@ -15,8 +15,8 @@ $validation = Validation->create()
     ->array()
     ->required()
     ->children([
-        "otpid" => \struktal\users\validations\Validations::otpId(),
-        "otp" => \struktal\users\validations\Validations::otp()
+        "otpid" => \app\users\validations\Validations::otpId(),
+        "otp" => \app\users\validations\Validations::otp()
     ])
     ->build();
 try {
@@ -26,14 +26,14 @@ try {
     Router->redirect(Router->generate("auth-login"));
 }
 
-$validateResetTokenInput = new \struktal\users\dto\ValidateResetTokenInputDTO();
+$validateResetTokenInput = new \app\users\dto\ValidateResetTokenInputDTO();
 $validateResetTokenInput->otpId = $get["otpid"];
 $validateResetTokenInput->otp = $get["otp"];
 $validateResetTokenInput->isUrlEncoded = true;
 
 try {
-    $validateResetTokenOutput = \struktal\users\services\UserPasswordResetService::validateResetToken($validateResetTokenInput);
-} catch(\struktal\users\exceptions\InvalidTokenException | \struktal\users\exceptions\UserNotFoundException $e) {
+    $validateResetTokenOutput = \app\users\services\UserPasswordResetService::validateResetToken($validateResetTokenInput);
+} catch(\app\users\exceptions\InvalidTokenException | \app\users\exceptions\UserNotFoundException $e) {
     InfoMessage->error(t("The URL has already been invalidated. Please log in or request a new password recovery email."));
     Router->redirect(Router->generate("auth-login"));
 } catch(\Exception $e) {
@@ -41,12 +41,12 @@ try {
     Router->redirect(Router->generate("auth-login"));
 }
 
-$startPasswordResetSessionInput = new \struktal\users\dto\StartPasswordResetSessionInputDTO();
+$startPasswordResetSessionInput = new \app\users\dto\StartPasswordResetSessionInputDTO();
 $startPasswordResetSessionInput->user = $validateResetTokenOutput->user;
 $startPasswordResetSessionInput->otp = $validateResetTokenOutput->otp;
 
 try {
-    $startPasswordResetSessionOutput = \struktal\users\services\UserPasswordResetService::startPasswordResetSession($startPasswordResetSessionInput);
+    $startPasswordResetSessionOutput = \app\users\services\UserPasswordResetService::startPasswordResetSession($startPasswordResetSessionInput);
 } catch(\Exception $e) {
     InfoMessage->error(t("An error has occurred. Please try again later."));
     Router->redirect(Router->generate("auth-login"));

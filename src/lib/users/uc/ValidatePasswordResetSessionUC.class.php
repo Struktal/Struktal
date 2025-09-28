@@ -1,10 +1,10 @@
 <?php
 
-namespace struktal\users\uc;
+namespace app\users\uc;
 
-use \struktal\users\dto;
-use \struktal\users\validations;
-use \struktal\users\exceptions;
+use \app\users\dto;
+use \app\users\validations;
+use \app\users\exceptions;
 
 class ValidatePasswordResetSessionUC implements \UC {
     public function execute(\DTO $input): dto\ValidatePasswordResetSessionOutputDTO {

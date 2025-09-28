@@ -1,6 +1,6 @@
 <?php
 
-namespace struktal\users\orm;
+namespace app\users\orm;
 
 class UserDAO extends \struktal\ORM\GenericUserDAO {
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace struktal\users\uc;
+namespace app\users\uc;
 
-use \struktal\users\dto;
-use \struktal\users\orm;
+use \app\users\dto;
+use \app\users\orm;
 
 class VerifyEmailUC implements \UC {
     public function execute(\DTO $input): dto\VerifyEmailOutputDTO {

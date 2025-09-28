@@ -1,8 +1,8 @@
 <?php
 
-namespace struktal\users\uc;
+namespace app\users\uc;
 
-use \struktal\users\dto;
+use \app\users\dto;
 
 class LogoutUC implements \UC {
     public function execute(\DTO $input): dto\LogoutOutputDTO {

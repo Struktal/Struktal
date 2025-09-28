@@ -1,6 +1,6 @@
 <?php
 
-namespace struktal\users\validations;
+namespace app\users\validations;
 
 class Validations {
     public static function username(): \struktal\validation\internals\Validator {

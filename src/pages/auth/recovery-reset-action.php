@@ -5,11 +5,11 @@ if(Auth->isLoggedIn()) {
     Router->redirect(Router->generate("index"));
 }
 
-$validatePasswordResetSessionInput = new \struktal\users\dto\ValidatePasswordResetSessionInputDTO();
+$validatePasswordResetSessionInput = new \app\users\dto\ValidatePasswordResetSessionInputDTO();
 
 try {
-    $validatePasswordResetSessionOutput = \struktal\users\services\UserPasswordResetService::validatePasswordResetSession($validatePasswordResetSessionInput);
-} catch(\struktal\users\exceptions\InvalidTokenException $e) {
+    $validatePasswordResetSessionOutput = \app\users\services\UserPasswordResetService::validatePasswordResetSession($validatePasswordResetSessionInput);
+} catch(\app\users\exceptions\InvalidTokenException $e) {
     InfoMessage->error(t("An error has occurred. Please try again later."));
     Router->redirect(Router->generate("auth-login"));
 } catch(\Exception $e) {
@@ -18,24 +18,24 @@ try {
     Router->redirect(Router->generate("auth-login"));
 }
 
-$clearPasswordResetSessionInput = new \struktal\users\dto\ClearPasswordResetSessionInputDTO();
+$clearPasswordResetSessionInput = new \app\users\dto\ClearPasswordResetSessionInputDTO();
 
 try {
-    \struktal\users\services\UserPasswordResetService::clearPasswordResetSession($clearPasswordResetSessionInput);
+    \app\users\services\UserPasswordResetService::clearPasswordResetSession($clearPasswordResetSessionInput);
 } catch(\Exception $e) {
     Logger->tag("Recovery")->error("An unexpected error occurred during password recovery reset session clearing: " . $e->getMessage());
     InfoMessage->error(t("An error has occurred. Please try again later."));
     Router->redirect(Router->generate("auth-login"));
 }
 
-$validatePasswordResetTokenInput = new \struktal\users\dto\ValidateResetTokenInputDTO();
+$validatePasswordResetTokenInput = new \app\users\dto\ValidateResetTokenInputDTO();
 $validatePasswordResetTokenInput->otpId = $validatePasswordResetSessionOutput->otpId;
 $validatePasswordResetTokenInput->otp = $validatePasswordResetSessionOutput->otp;
 $validatePasswordResetTokenInput->isUrlEncoded = false;
 
 try {
-    $validatePasswordResetTokenOutput = \struktal\users\services\UserPasswordResetService::validateResetToken($validatePasswordResetTokenInput);
-} catch(\struktal\users\exceptions\InvalidTokenException | \struktal\users\exceptions\UserNotFoundException $e) {
+    $validatePasswordResetTokenOutput = \app\users\services\UserPasswordResetService::validateResetToken($validatePasswordResetTokenInput);
+} catch(\app\users\exceptions\InvalidTokenException | \app\users\exceptions\UserNotFoundException $e) {
     InfoMessage->error(t("The URL has already been invalidated. Please log in or request a new password recovery email."));
     Router->redirect(Router->generate("auth-login"));
 } catch(\Exception $e) {
@@ -44,12 +44,12 @@ try {
     Router->redirect(Router->generate("auth-login"));
 }
 
-$generatePasswordResetLinkInput = new \struktal\users\dto\GeneratePasswordResetLinkInputDTO();
+$generatePasswordResetLinkInput = new \app\users\dto\GeneratePasswordResetLinkInputDTO();
 $generatePasswordResetLinkInput->user = $validatePasswordResetTokenOutput->user;
 $generatePasswordResetLinkInput->otp = $validatePasswordResetTokenOutput->otp;
 
 try {
-    $resetLink = \struktal\users\services\UserPasswordResetService::generatePasswordResetLink($generatePasswordResetLinkInput)->link;
+    $resetLink = \app\users\services\UserPasswordResetService::generatePasswordResetLink($generatePasswordResetLinkInput)->link;
 } catch(\Exception $e) {
     Logger->tag("Recovery")->error("An unexpected error occurred during password recovery reset link generation: " . $e->getMessage());
     InfoMessage->error(t("An error has occurred. Please try again later."));
@@ -62,8 +62,8 @@ $postValidation = Validation->create()
     ->array()
     ->required()
     ->children([
-        "password" => \struktal\users\validations\Validations::password(),
-        "password-repeat" => \struktal\users\validations\Validations::password()
+        "password" => \app\users\validations\Validations::password(),
+        "password-repeat" => \app\users\validations\Validations::password()
     ])
     ->build();
 try {
@@ -73,26 +73,26 @@ try {
     Router->redirect($resetLink);
 }
 
-$passwordEditCheckInput = new \struktal\users\dto\PasswordEditCheckInputDTO();
+$passwordEditCheckInput = new \app\users\dto\PasswordEditCheckInputDTO();
 $passwordEditCheckInput->password = $post["password"];
 $passwordEditCheckInput->passwordRepeat = $post["password-repeat"];
 
 try {
-    $passwordEditCheckOutput = \struktal\users\services\PasswordService::passwordEditCheck($passwordEditCheckInput);
-} catch(\struktal\users\exceptions\PasswordMismatchException $e) {
+    $passwordEditCheckOutput = \app\users\services\PasswordService::passwordEditCheck($passwordEditCheckInput);
+} catch(\app\users\exceptions\PasswordMismatchException $e) {
     InfoMessage->error(t("The specified passwords do not match. Please check for spelling errors and try again."));
     Router->redirect($resetLink);
-} catch(\struktal\users\exceptions\WeakPasswordException $e) {
+} catch(\app\users\exceptions\WeakPasswordException $e) {
     InfoMessage->error(t("The specified password doesn't fulfill the password requirements. Please choose a safer password."));
     Router->redirect($resetLink);
 }
 
-$resetPasswordInput = new \struktal\users\dto\ResetPasswordInputDTO();
+$resetPasswordInput = new \app\users\dto\ResetPasswordInputDTO();
 $resetPasswordInput->user = $validatePasswordResetTokenOutput->user;
 $resetPasswordInput->password = $passwordEditCheckOutput->password;
 
 try {
-    \struktal\users\services\UserPasswordResetService::resetPassword($resetPasswordInput);
+    \app\users\services\UserPasswordResetService::resetPassword($resetPasswordInput);
 } catch(\Exception $e) {
     Logger->tag("Recovery")->error("An unexpected error occurred during password recovery reset for user with ID \"{$validatePasswordResetTokenOutput->user->getId()}\": " . $e->getMessage());
     InfoMessage->error(t("An error has occurred. Please try again later."));

@@ -11,7 +11,7 @@ $validation = Validation->create()
     ->array()
     ->required()
     ->children([
-        "email" => \struktal\users\validations\Validations::email(t("The specified email address is invalid. Please check for spelling errors and try again."))
+        "email" => \app\users\validations\Validations::email(t("The specified email address is invalid. Please check for spelling errors and try again."))
     ])
     ->build();
 try {
@@ -21,15 +21,15 @@ try {
     Router->redirect(Router->generate("auth-recovery-request"));
 }
 
-$inputDTO = new \struktal\users\dto\RequestPasswordResetInputDTO();
+$inputDTO = new \app\users\dto\RequestPasswordResetInputDTO();
 $inputDTO->email = $post["email"];
 
 try {
-    $user = \struktal\users\services\UserPasswordResetService::requestPasswordReset($inputDTO);
-} catch(\struktal\users\exceptions\UserNotFoundException | \struktal\users\exceptions\UserNotVerifiedException $e) {
+    $user = \app\users\services\UserPasswordResetService::requestPasswordReset($inputDTO);
+} catch(\app\users\exceptions\UserNotFoundException | \app\users\exceptions\UserNotVerifiedException $e) {
     // We don't reveal whether the email address is registered or not
     Router->redirect(Router->generate("auth-recovery-request-complete"));
-} catch(\struktal\users\exceptions\InvalidEmailException $e) {
+} catch(\app\users\exceptions\InvalidEmailException $e) {
     InfoMessage->error(t("The specified email address is invalid. Please check for spelling errors and try again."));
     Router->redirect(Router->generate("auth-recovery-request"));
 } catch(\Exception $e) {

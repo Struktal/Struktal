@@ -1,9 +1,9 @@
 <?php
 
-namespace struktal\users\services;
+namespace app\users\services;
 
-use \struktal\users\dto;
-use \struktal\users\uc;
+use \app\users\dto;
+use \app\users\uc;
 
 class PasswordService {
     public static function passwordEditCheck(dto\PasswordEditCheckInputDTO $input): dto\PasswordEditCheckOutputDTO {

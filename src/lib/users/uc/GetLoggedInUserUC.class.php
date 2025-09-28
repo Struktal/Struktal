@@ -1,8 +1,8 @@
 <?php
 
-namespace struktal\users\uc;
+namespace app\users\uc;
 
-use \struktal\users\dto;
+use \app\users\dto;
 
 class GetLoggedInUserUC implements \UC {
     public function execute(\DTO $input): dto\GetLoggedInUserOutputDTO {
@@ -13,7 +13,7 @@ class GetLoggedInUserUC implements \UC {
         $output = new dto\GetLoggedInUserOutputDTO();
 
         $user = Auth->getLoggedInUser();
-        if($user instanceof \struktal\users\orm\User) {
+        if($user instanceof \app\users\orm\User) {
             $output->user = $user;
         } else {
             $output->user = null;
