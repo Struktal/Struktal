@@ -1,0 +1,28 @@
+<?php
+
+namespace app\users\services;
+
+use \app\users\dto;
+use \app\users\uc;
+
+class UserVerificationService {
+    public static function generateVerificationLink(dto\GenerateVerificationLinkInputDTO $input): dto\GenerateVerificationLinkOutputDTO {
+        $useCase = new uc\GenerateVerificationLinkUC();
+        return $useCase->execute($input);
+    }
+
+    public static function sendVerificationEmail(dto\SendVerificationEmailInputDTO $input): dto\SendVerificationEmailOutputDTO {
+        $useCase = new uc\SendVerificationEmailUC();
+        return $useCase->execute($input);
+    }
+
+    public static function validateVerificationToken(dto\ValidateVerificationTokenInputDTO $input): dto\ValidateVerificationTokenOutputDTO {
+        $useCase = new uc\ValidateVerificationTokenUC();
+        return $useCase->execute($input);
+    }
+
+    public static function verifyEmail(dto\VerifyEmailInputDTO $input): dto\VerifyEmailOutputDTO {
+        $useCase = new uc\VerifyEmailUC();
+        return $useCase->execute($input);
+    }
+}
