@@ -11,8 +11,8 @@ $sessionValidation = Validation->create()
     ->array()
     ->required()
     ->children([
-        "authRecoveryOtpId" => \app\users\validations\Validations::sessionOtpId(),
-        "authRecoveryOtp" => \app\users\validations\Validations::otp()
+        "authRecoveryOtpId" => \app\users\Validations::sessionOtpId(),
+        "authRecoveryOtp" => \app\users\Validations::otp()
     ])
     ->build();
 try {

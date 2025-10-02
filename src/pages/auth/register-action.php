@@ -69,8 +69,8 @@ if(!preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d\W]).{8,}$/", $_POST["password"]
 }
 
 // Register user
-$oneTimePassword = User::dao()->generateOneTimePassword();
-$user = User::dao()->register($username, $_POST["password"], $email, PermissionLevel::USER, $oneTimePassword);
+$oneTimePassword = \app\users\User::dao()->generateOneTimePassword();
+$user = \app\users\User::dao()->register($username, $_POST["password"], $email, \app\users\PermissionLevel::USER, $oneTimePassword);
 
 // Send verification email
 $otpIdEncoded = urlencode(base64_encode($user->getId()));
