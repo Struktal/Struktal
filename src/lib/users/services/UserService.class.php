@@ -1,28 +1,18 @@
 <?php
 
-namespace app\users\services;
-
-use \app\users\dto;
-use \app\users\uc;
+namespace app\users;
 
 class UserService {
-    public static function register(dto\RegisterInputDTO $input): dto\RegisterOutputDTO {
-        $useCase = new uc\RegisterUC();
-        return $useCase->execute($input);
-    }
+    public static function userExists(?string $username, ?string $email): bool {
+        $filters = [];
+        if($username !== null) {
+            $filters["username"] = $username;
+        }
+        if($email !== null) {
+            $filters["email"] = $email;
+        }
 
-    public static function login(dto\LoginInputDTO $input): dto\LoginOutputDTO {
-        $useCase = new uc\LoginUC();
-        return $useCase->execute($input);
-    }
-
-    public static function logout(dto\LogoutInputDTO $input): dto\LogoutOutputDTO {
-        $useCase = new uc\LogoutUC();
-        return $useCase->execute($input);
-    }
-
-    public static function getLoggedInUser(dto\GetLoggedInUserInputDTO $input): dto\GetLoggedInUserOutputDTO {
-        $useCase = new uc\GetLoggedInUserUC();
-        return $useCase->execute($input);
+        $existingUsers = User::dao()->getObjects($filters);
+        return count($existingUsers) > 0;
     }
 }

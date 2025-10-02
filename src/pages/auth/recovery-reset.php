@@ -15,8 +15,8 @@ $validation = Validation->create()
     ->array()
     ->required()
     ->children([
-        "otpid" => \app\users\validations\Validations::otpId(),
-        "otp" => \app\users\validations\Validations::otp()
+        "otpid" => \app\users\Validations::urlOtpId(),
+        "otp" => \app\users\Validations::otp()
     ])
     ->build();
 try {
@@ -26,30 +26,39 @@ try {
     Router->redirect(Router->generate("auth-login"));
 }
 
-$validateResetTokenInput = new \app\users\dto\ValidateResetTokenInputDTO();
-$validateResetTokenInput->otpId = $get["otpid"];
-$validateResetTokenInput->otp = $get["otp"];
-$validateResetTokenInput->isUrlEncoded = true;
+$otpId = base64_decode(urldecode($get["otpid"]));
+$otp = urldecode($get["otp"]);
 
-try {
-    $validateResetTokenOutput = \app\users\services\UserPasswordResetService::validateResetToken($validateResetTokenInput);
-} catch(\app\users\exceptions\InvalidTokenException | \app\users\exceptions\UserNotFoundException $e) {
+// Find the user from the one-time password
+$user = \app\users\User::dao()->getObject([
+    "id" => $otpId,
+    "emailVerified" => true,
+    new \struktal\ORM\DAOFilter(
+        \struktal\ORM\DAOFilterOperator::NOT_EQUALS,
+        "oneTimePassword",
+        null
+    ),
+    new \struktal\ORM\DAOFilter(
+        \struktal\ORM\DAOFilterOperator::GREATER_THAN_EQUALS,
+        "oneTimePasswordExpiration",
+        new DateTime()
+    )
+]);
+if(!$user instanceof \app\users\User) {
+    Logger->tag("Recovery")->info("Attempted to recover password, but couldn't find user with otpid \"{$otpId}\"");
     InfoMessage->error(t("The URL has already been invalidated. Please log in or request a new password recovery email."));
     Router->redirect(Router->generate("auth-login"));
-} catch(\Exception $e) {
-    InfoMessage->error(t("An error has occurred. Please try again later."));
+}
+if(!password_verify($otp, $user->getOneTimePassword())) {
+    Logger->tag("Recovery")->info("Attempted to recover password, but one-time password does not match");
+    InfoMessage->error(t("The URL has already been invalidated. Please log in or request a new password recovery email."));
     Router->redirect(Router->generate("auth-login"));
 }
 
-$startPasswordResetSessionInput = new \app\users\dto\StartPasswordResetSessionInputDTO();
-$startPasswordResetSessionInput->user = $validateResetTokenOutput->user;
-$startPasswordResetSessionInput->otp = $validateResetTokenOutput->otp;
+// Write user details to session
+$_SESSION["authRecoveryOtpId"] = $user->getId();
+$_SESSION["authRecoveryOtp"] = $otp;
 
-try {
-    $startPasswordResetSessionOutput = \app\users\services\UserPasswordResetService::startPasswordResetSession($startPasswordResetSessionInput);
-} catch(\Exception $e) {
-    InfoMessage->error(t("An error has occurred. Please try again later."));
-    Router->redirect(Router->generate("auth-login"));
-}
+Logger->tag("Recovery")->info("Starting password recovery for user with email \"{$user->getEmail()}\" (User ID \"{$user->getId()}\")");
 
 echo Blade->run("pages.auth.recoveryreset");

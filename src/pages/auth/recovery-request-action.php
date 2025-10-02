@@ -11,7 +11,7 @@ $validation = Validation->create()
     ->array()
     ->required()
     ->children([
-        "email" => \app\users\validations\Validations::email(t("The specified email address is invalid. Please check for spelling errors and try again."))
+        "email" => \app\users\Validations::email(t("The specified email address is invalid. Please check for spelling errors and try again."))
     ])
     ->build();
 try {
@@ -21,21 +21,43 @@ try {
     Router->redirect(Router->generate("auth-recovery-request"));
 }
 
-$inputDTO = new \app\users\dto\RequestPasswordResetInputDTO();
-$inputDTO->email = $post["email"];
+$user = \app\users\User::dao()->getObject([
+    "email" => $post["email"],
+    "emailVerified" => true
+]);
 
-try {
-    $user = \app\users\services\UserPasswordResetService::requestPasswordReset($inputDTO);
-} catch(\app\users\exceptions\UserNotFoundException | \app\users\exceptions\UserNotVerifiedException $e) {
-    // We don't reveal whether the email address is registered or not
-    Router->redirect(Router->generate("auth-recovery-request-complete"));
-} catch(\app\users\exceptions\InvalidEmailException $e) {
-    InfoMessage->error(t("The specified email address is invalid. Please check for spelling errors and try again."));
-    Router->redirect(Router->generate("auth-recovery-request"));
-} catch(\Exception $e) {
-    Logger->tag("Recovery")->error("An unexpected error occurred during password recovery request for email \"{$post["email"]}\": " . $e->getMessage());
-    InfoMessage->error(t("An error has occurred. Please try again later."));
+if(!$user instanceof \app\users\User) {
+    Logger->tag("Recovery")->info("Failed to request password recovery for email \"{$post["email"]}\"");
+    InfoMessage->error(t("An account with this email could not be found. Please check for spelling errors and try again."));
     Router->redirect(Router->generate("auth-recovery-request"));
 }
 
+// Send password recovery mail
+$oneTimePassword = \app\users\User::dao()->generateOneTimePassword();
+$now = new DateTimeImmutable();
+$oneTimePasswordExpiration = $now->modify("+15 minutes");
+
+$user->setOneTimePassword($oneTimePassword);
+$user->setOneTimePasswordExpiration($oneTimePasswordExpiration);
+\app\users\User::dao()->save($user);
+
+$otpIdEncoded = urlencode(base64_encode($user->getId()));
+$otpEncoded = urlencode($oneTimePassword);
+$verificationLink = Router->generate("auth-recovery-reset", [], true) . "?otpid=" . $otpIdEncoded . "&otp=" . $otpEncoded;
+$mail = new \struktal\MailWrapper\MailWrapper();
+$mail->Subject = t("Password recovery");
+$mail->Body = t("You have requested to recover your password for your \$\$appName\$\$ account.", [
+        "appName" => Config->getAppName()
+    ]) . "\r\n"
+    . t("To set a new password, please open the following link:") . "\r\n"
+    . $verificationLink . "\r\n"
+    . t("This link is valid for 15 minutes.") . "\r\n"
+    . "\r\n"
+    . t("If you haven't requested a password recovery for your \$\$appName\$\$ account, you can ignore this email.", [
+        "appName" => Config->getAppName()
+    ]);
+$mail->addAddress($post["email"]);
+$mail->send();
+
+Logger->tag("Recovery")->info("Requested password recovery for user with email \"{$post["email"]}\" (User ID \"{$user->getId()}\")");
 Router->redirect(Router->generate("auth-recovery-request-complete"));
