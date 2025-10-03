@@ -20,14 +20,16 @@ if(empty($_POST["username"]) || empty($_POST["email"]) || empty($_POST["password
     Router->redirect(Router->generate("auth-register"));
 }
 
-// Check whether username and email are valid
-if(!preg_match("/^(?!.*\.\.)(?!.*\.$)\w[\w.]{2,15}$/", $_POST["username"])) {
+// Clean up username and email
+try {
+    $username = \app\users\Validations::sanitizeUsername($_POST["username"]);
+    $email = \app\users\Validations::sanitizeEmail($_POST["email"]);
+} catch(\app\users\InvalidUsernameException $e) {
     keepPostField("username");
     keepPostField("email");
     InfoMessage->error(t("The specified username is invalid. Please follow the required username scheme."));
     Router->redirect(Router->generate("auth-register"));
-}
-if(!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
+} catch(\app\users\InvalidEmailException $e) {
     keepPostField("username");
     keepPostField("email");
     InfoMessage->error(t("The specified email address is invalid. Please check for spelling errors and try again."));
@@ -35,18 +37,14 @@ if(!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
 }
 
 // Check for existing users with the specified username or email
-$username = strtolower($_POST["username"]);
-$email = strtolower($_POST["email"]);
-$existingUsername = \app\users\User::dao()->getObjects(["username" => $username]);
-$existingEmail = \app\users\User::dao()->getObjects(["email" => $email]);
-if(!empty($existingUsername)) {
+if(\app\users\UserService::userExists($username, null)) {
     if(empty($existingEmail)) {
         keepPostField("email");
     }
     InfoMessage->error(t("An account with this username already exists. Please choose another one."));
     Router->redirect(Router->generate("auth-register"));
 }
-if(!empty($existingUsername) || !empty($existingEmail)) {
+if(\app\users\UserService::userExists(null, $email)) {
     if(empty($existingUsername)) {
         keepPostField("username");
     }
@@ -55,13 +53,14 @@ if(!empty($existingUsername) || !empty($existingEmail)) {
 }
 
 // Check passwords
-if($_POST["password"] !== $_POST["password-repeat"]) {
+try {
+    \app\users\Validations::checkTwoPasswords($_POST["password"], $_POST["password-repeat"]);
+} catch(\app\users\PasswordMismatchException $e) {
     keepPostField("username");
     keepPostField("email");
     InfoMessage->error(t("The specified passwords do not match. Please check for spelling errors and try again."));
     Router->redirect(Router->generate("auth-register"));
-}
-if(!preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d\W]).{8,}$/", $_POST["password"])) {
+} catch(\app\users\WeakPasswordException $e) {
     keepPostField("username");
     keepPostField("email");
     InfoMessage->error(t("The specified password doesn't fulfill the password requirements. Please choose a safer password."));
