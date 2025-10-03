@@ -22,24 +22,15 @@ try {
     Router->redirect(Router->generate("auth-login"));
 }
 
-$user = \app\users\User::dao()->login($post["username"], false, $post["password"]);
-
-if($user instanceof \struktal\Auth\LoginError) {
-    if($user === \struktal\Auth\LoginError::EMAIL_NOT_VERIFIED) {
-        $message = t("Before logging in, please verify your account's email address.");
-    } else {
-        $message = t("An account with these credentials could not be found. Please check for spelling errors and try again.");
-    }
-
-    Logger->tag("Login")->info("User \"{$post["username"]}\" failed to log in: " . ($user === 0 ? "User not found" : ($user === 1 ? "Password incorrect" : "Email not verified")));
-    InfoMessage->error($message);
+try {
+    $user = \app\users\UserService::login($post["username"], false, $post["password"]);
+} catch(\app\users\UserNotFoundException | \app\users\InvalidPasswordException $e) {
+    InfoMessage->error(t("An account with these credentials could not be found. Please check for spelling errors and try again."));
+    Router->redirect(Router->generate("auth-login"));
+} catch(\app\users\EmailNotVerifiedException $e) {
+    InfoMessage->error(t("Before logging in, please verify your account's email address."));
     Router->redirect(Router->generate("auth-login"));
 }
-
-// Reset possibly existing one-time password
-$user->setOneTimePassword(null);
-$user->setOneTimePasswordExpiration(null);
-\app\users\User::dao()->save($user);
 
 Logger->tag("Login")->info("User \"{$post["username"]}\" has logged in (User ID {$user->getId()})");
 Auth->login($user);
