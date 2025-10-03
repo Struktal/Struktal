@@ -6,16 +6,20 @@ class Validations {
     public static string $USERNAME_REGEX = "(?!.*\.\.)(?!.*\.$)[^\W][\w.]{2,15}";
     public static string $PASSWORD_REGEX = "(?=.*[a-z])(?=.*[A-Z])(?=.*[\d\W]).{8,}";
 
-    public static function checkUsername(string $username): void {
+    public static function sanitizeUsername(string $username): string {
         if(!preg_match("/^" . self::$USERNAME_REGEX . "$/", $username)) {
             throw new InvalidUsernameException();
         }
+
+        return strtolower($username);
     }
 
-    public static function checkEmail(string $email): void {
+    public static function sanitizeEmail(string $email): string {
         if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             throw new InvalidEmailException();
         }
+
+        return strtolower($email);
     }
 
     public static function checkTwoPasswords(string $password, string $passwordRepeat): void {
