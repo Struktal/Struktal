@@ -39,4 +39,40 @@ class UserService {
         $existingUsers = User::dao()->getObjects($filters);
         return count($existingUsers) > 0;
     }
+
+    public static function registerUser(string $username, string $password, string $email, PermissionLevel $permissionLevel, bool $emailVerificationRequired = true): User {
+        $oneTimePassword = "";
+        if($emailVerificationRequired) {
+            $oneTimePassword = User::dao()->generateOneTimePassword();
+        }
+        $user = User::dao()->register($username, $password, $email, $permissionLevel, $oneTimePassword);
+
+        Logger->tag("Register")->info("New user has been registered (\"{$username}\", \"{$email}\")");
+
+        if(!$emailVerificationRequired) {
+            $user->setEmailVerified(true);
+            $user->setOneTimePassword(null);
+            User::dao()->save($user);
+            return $user;
+        }
+
+        $verificationLink = UserVerificationService::generateVerificationLink($user->getId(), $oneTimePassword);
+
+        // Send verification mail
+        $mail = new \struktal\MailWrapper\MailWrapper();
+        $mail->Subject = t("Verify your email address");
+        $mail->Body = t("A new \$\$appName\$\$ account has been registered with this email address.", [
+                "appName" => Config->getAppName()
+            ]) . "\r\n"
+            . t("To verify your email address and to complete the registration process, please open the following link:") . "\r\n"
+            . $verificationLink . "\r\n"
+            . "\r\n"
+            . t("If you haven't registered an account at \$\$appName\$\$, you can ignore this email.", [
+                "appName" => Config->getAppName()
+            ]);
+        $mail->addAddress($email);
+        $mail->send();
+
+        return $user;
+    }
 }
