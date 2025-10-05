@@ -68,6 +68,6 @@ try {
 }
 
 // Register user
-$user = \app\users\UserService::registerUser($username, $_POST["password"], $email, \app\users\PermissionLevel::USER);
+$user = \app\users\UserService::register($username, $_POST["password"], $email, \app\users\PermissionLevel::USER);
 
 Router->redirect(Router->generate("auth-register-complete"));

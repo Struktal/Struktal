@@ -40,7 +40,7 @@ class UserService {
         return count($existingUsers) > 0;
     }
 
-    public static function registerUser(string $username, string $password, string $email, PermissionLevel $permissionLevel, bool $emailVerificationRequired = true): User {
+    public static function register(string $username, string $password, string $email, PermissionLevel $permissionLevel, bool $emailVerificationRequired = true): User {
         $oneTimePassword = "";
         if($emailVerificationRequired) {
             $oneTimePassword = User::dao()->generateOneTimePassword();
@@ -50,9 +50,7 @@ class UserService {
         Logger->tag("Register")->info("New user has been registered (\"{$username}\", \"{$email}\")");
 
         if(!$emailVerificationRequired) {
-            $user->setEmailVerified(true);
-            $user->setOneTimePassword(null);
-            User::dao()->save($user);
+            UserVerificationService::verify($user);
             return $user;
         }
 
