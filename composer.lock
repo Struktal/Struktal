@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d7cc5f2e558416fe1200707027d8ef25",
+    "content-hash": "b2f7be62af261cb59df3ea2e5c39a65f",
     "packages": [
         {
             "name": "eftec/bladeone",
@@ -185,22 +185,23 @@
         },
         {
             "name": "struktal/struktal-auth",
-            "version": "3.1.1",
+            "version": "dev-main",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Struktal/struktal-auth.git",
-                "reference": "b124a3df2c2ea45245ecbabd58703f4b693c561e"
+                "reference": "e9615899bba4402171283fea94ac2045afe2c137"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Struktal/struktal-auth/zipball/b124a3df2c2ea45245ecbabd58703f4b693c561e",
-                "reference": "b124a3df2c2ea45245ecbabd58703f4b693c561e",
+                "url": "https://api.github.com/repos/Struktal/struktal-auth/zipball/e9615899bba4402171283fea94ac2045afe2c137",
+                "reference": "e9615899bba4402171283fea94ac2045afe2c137",
                 "shasum": ""
             },
             "require": {
                 "php": ">=8.2.0",
                 "struktal/struktal-orm": "^2.4.0"
             },
+            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -219,9 +220,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Struktal/struktal-auth/issues",
-                "source": "https://github.com/Struktal/struktal-auth/tree/3.1.1"
+                "source": "https://github.com/Struktal/struktal-auth/tree/main"
             },
-            "time": "2025-09-17T15:45:33+00:00"
+            "time": "2025-10-05T18:03:11+00:00"
         },
         {
             "name": "struktal/struktal-composer-reader",
@@ -4631,7 +4632,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "struktal/struktal-auth": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

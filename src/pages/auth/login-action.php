@@ -33,5 +33,5 @@ try {
 }
 
 Logger->tag("Login")->info("User \"{$post["username"]}\" has logged in (User ID {$user->getId()})");
-Auth->login($user);
+Auth->sessionLogin($user);
 Router->redirect(Router->generate("index"));

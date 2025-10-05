@@ -4,7 +4,7 @@ namespace app\users;
 
 class UserService {
     public static function login(string $username, bool $loginWithEmail, string $password): User {
-        $user = User::dao()->login($username, $loginWithEmail, $password);
+        $user = Auth->checkLoginCredentials($username, $loginWithEmail, $password);
 
         if($user instanceof \struktal\Auth\LoginError) {
             if($user === \struktal\Auth\LoginError::USER_NOT_FOUND) {
@@ -43,9 +43,18 @@ class UserService {
     public static function register(string $username, string $password, string $email, PermissionLevel $permissionLevel, bool $emailVerificationRequired = true): User {
         $oneTimePassword = "";
         if($emailVerificationRequired) {
-            $oneTimePassword = User::dao()->generateOneTimePassword();
+            $oneTimePassword = self::generateOneTimePassword();
         }
-        $user = User::dao()->register($username, $password, $email, $permissionLevel, $oneTimePassword);
+
+        $user = new User();
+        $user->setUsername($username);
+        $user->setPassword($password);
+        $user->setEmail($email);
+        $user->setEmailVerified(false);
+        $user->setPermissionLevel($permissionLevel);
+        $user->setOneTimePassword($oneTimePassword);
+        $user->setOneTimePasswordExpiration(null);
+        User::dao()->save($user);
 
         Logger->tag("Register")->info("New user has been registered (\"{$username}\", \"{$email}\")");
 
@@ -72,5 +81,20 @@ class UserService {
         $mail->send();
 
         return $user;
+    }
+
+    public static function generateOneTimePassword(): string {
+        $chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        $oneTimePassword = "";
+        for($i = 0; $i < 127; $i++) {
+            $oneTimePassword .= $chars[rand(0, strlen($chars) - 1)];
+        }
+
+        // Check whether the generated one-time-password already exists
+        if(sizeof(User::dao()->getObjects([ "oneTimePassword" => $oneTimePassword ])) > 0) {
+            $oneTimePassword = self::generateOneTimePassword();
+        }
+
+        return $oneTimePassword;
     }
 }
