@@ -13,6 +13,6 @@ class UserVerificationService {
         $otpIdEncoded = urlencode(base64_encode($otpId));
         $otpEncoded = urlencode(base64_encode($otp));
 
-        return Router->generate("auth-verify-email", [], true) . "?otpid=" . $otpIdEncoded . "&otp=" . $otpEncoded;;
+        return Router->generate("auth-verify-email", [], true) . "?otpid=" . $otpIdEncoded . "&otp=" . $otpEncoded;
     }
 }
