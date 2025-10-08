@@ -9,4 +9,53 @@ class UserPasswordResetService {
 
         return Router->generate("auth-recovery-reset", [], true) . "?otpid=" . $otpIdEncoded . "&otp=" . $otpEncoded;
     }
+
+    public static function requestRecovery(User $user): void {
+        $oneTimePassword = UserService::generateOneTimePassword();
+
+        $now = new \DateTimeImmutable();
+        $oneTimePasswordExpiration = $now->modify("+15 minutes");
+
+        $user->setONeTimePassword($oneTimePassword);
+        $user->setOneTimePasswordExpiration($oneTimePasswordExpiration);
+        User::dao()->save($user);
+
+        AuthNotificationService::sendEmailVerification($user, $oneTimePassword);
+
+        Logger->tag("Recovery")->info("Requested password recovery for user with email \"{$user->getEmail()}\" (User ID \"{$user->getId()}\")");
+    }
+
+    public static function verifyOtp(int|string $otpId, string $otp, bool $isUrlEncoded): User {
+        if($isUrlEncoded) {
+            $otpId = base64_decode(urldecode($otpId));
+            $otp = urldecode($otp);
+        }
+
+        // Find the user from the one-time password
+        $user = User::dao()->getObject([
+            "id" => $otpId,
+            "emailVerified" => true,
+            new \struktal\ORM\DAOFilter(
+                \struktal\ORM\DAOFilterOperator::NOT_EQUALS,
+                "oneTimePassword",
+                null
+            ),
+            new \struktal\ORM\DAOFilter(
+                \struktal\ORM\DAOFilterOperator::GREATER_THAN_EQUALS,
+                "oneTimePasswordExpiration",
+                new \DateTime()
+            )
+        ]);
+
+        if(!$user instanceof User) {
+            Logger->tag("Recovery")->info("Attempted to recover password, but couldn't find user with otpid \"{$otpId}\"");
+            throw new UserNotFoundException();
+        }
+        if(!password_verify($otp, $user->getOneTimePassword())) {
+            Logger->tag("Recovery")->info("Attempted to recover password, but one-time password does not match");
+            throw new UserNotFoundException();
+        }
+
+        return $user;
+    }
 }
