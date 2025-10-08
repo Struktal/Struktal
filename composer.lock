@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b2f7be62af261cb59df3ea2e5c39a65f",
+    "content-hash": "f7c526666215ffebfe424ff64ef4a3b7",
     "packages": [
         {
             "name": "eftec/bladeone",
@@ -185,7 +185,7 @@
         },
         {
             "name": "struktal/struktal-auth",
-            "version": "dev-main",
+            "version": "4.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Struktal/struktal-auth.git",
@@ -201,7 +201,6 @@
                 "php": ">=8.2.0",
                 "struktal/struktal-orm": "^2.4.0"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -220,7 +219,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Struktal/struktal-auth/issues",
-                "source": "https://github.com/Struktal/struktal-auth/tree/main"
+                "source": "https://github.com/Struktal/struktal-auth/tree/4.0.0"
             },
             "time": "2025-10-05T18:03:11+00:00"
         },
@@ -4632,9 +4631,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "struktal/struktal-auth": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
