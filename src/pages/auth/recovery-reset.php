@@ -26,6 +26,7 @@ try {
     Router->redirect(Router->generate("auth-login"));
 }
 
+// Find the user from the one-time password
 try {
     $user = \app\users\UserPasswordResetService::verifyOtp($get["otpid"], $get["otp"], true);
 } catch(\app\users\UserNotFoundException $e) {

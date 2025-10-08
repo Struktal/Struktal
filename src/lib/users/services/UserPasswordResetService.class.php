@@ -58,4 +58,14 @@ class UserPasswordResetService {
 
         return $user;
     }
+
+    public static function setPassword(User $user, string $newPassword): void {
+        $user->setPassword($newPassword);
+        $user->setOneTimePassword(null);
+        $user->setOneTimePasswordExpiration(null);
+        $user->setUpdated(new \DateTimeImmutable());
+        User::dao()->save($user);
+
+        Logger->tag("Recovery")->info("Changed password for user with email \"{$user->getEmail()}\" (User ID \"{$user->getId()}\")");
+    }
 }

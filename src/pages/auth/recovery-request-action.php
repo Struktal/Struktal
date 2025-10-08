@@ -32,6 +32,7 @@ if(!$user instanceof \app\users\User) {
     Router->redirect(Router->generate("auth-recovery-request"));
 }
 
+// Send password recovery mail
 try {
     \app\users\UserPasswordResetService::requestRecovery($user);
 } catch(\Exception $e) {
