@@ -38,16 +38,12 @@ try {
 
 // Check for existing users with the specified username or email
 if(\app\users\UserService::userExists($username, null)) {
-    if(empty($existingEmail)) {
-        keepPostField("email");
-    }
+    keepPostField("email");
     InfoMessage->error(t("An account with this username already exists. Please choose another one."));
     Router->redirect(Router->generate("auth-register"));
 }
 if(\app\users\UserService::userExists(null, $email)) {
-    if(empty($existingUsername)) {
-        keepPostField("username");
-    }
+    keepPostField("username");
     InfoMessage->error(t("An account with this email already exists. If that is your account, please log in instead."));
     Router->redirect(Router->generate("auth-register"));
 }

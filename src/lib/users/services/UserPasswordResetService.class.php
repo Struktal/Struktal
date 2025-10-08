@@ -16,11 +16,11 @@ class UserPasswordResetService {
         $now = new \DateTimeImmutable();
         $oneTimePasswordExpiration = $now->modify("+15 minutes");
 
-        $user->setONeTimePassword($oneTimePassword);
+        $user->setOneTimePassword($oneTimePassword);
         $user->setOneTimePasswordExpiration($oneTimePasswordExpiration);
         User::dao()->save($user);
 
-        AuthNotificationService::sendEmailVerification($user, $oneTimePassword);
+        AuthNotificationService::sendPasswordRecoveryInstructions($user, $oneTimePassword);
 
         Logger->tag("Recovery")->info("Requested password recovery for user with email \"{$user->getEmail()}\" (User ID \"{$user->getId()}\")");
     }
