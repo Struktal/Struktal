@@ -22,38 +22,15 @@ try {
     Router->redirect(Router->generate("auth-login"));
 }
 
-$otpId = base64_decode(urldecode($get["otpid"]));
-$otp = urldecode($get["otp"]);
-
 // Find the user from the one-time password
-$user = \app\users\User::dao()->getObject([
-    "id" => $otpId,
-    "emailVerified" => false,
-    new \struktal\ORM\DAOFilter(
-        \struktal\ORM\DAOFilterOperator::NOT_EQUALS,
-        "oneTimePassword",
-        null
-    ),
-    "oneTimePasswordExpiration" => null
-]);
-if(!$user instanceof \app\users\User) {
-    Logger->tag("Email-Verification")->info("Attempted to verify an email, but couldn't find user with otpid \"{$otpId}\"");
-    InfoMessage->error(t("The URL has already been invalidated. Please log in or request a new password recovery email."));
-    Router->redirect(Router->generate("auth-login"));
-}
-if(!password_verify($otp, $user->getOneTimePassword())) {
-    Logger->tag("Email-Verification")->info("Attempted to verify an email, but one-time password does not match");
+try {
+    $user = \app\users\UserVerificationService::verifyOtp($get["otpid"], $get["otp"], true);
+} catch(\app\users\UserNotFoundException $e) {
     InfoMessage->error(t("The URL has already been invalidated. Please log in or request a new password recovery email."));
     Router->redirect(Router->generate("auth-login"));
 }
 
 // Update the user object in the database
-$user->setEmailVerified(true);
-$user->setOneTimePassword(null);
-$user->setOneTimePasswordExpiration(null);
-$user->setUpdated(new DateTimeImmutable());
-\app\users\User::dao()->save($user);
-
-Logger->tag("Email-Verification")->info("The email address \"{$user->getEmail()}\" (User ID \"{$user->getId()}\") has been verified");
+\app\users\UserVerificationService::verify($user);
 
 Router->redirect(Router->generate("auth-verify-email-complete"));
