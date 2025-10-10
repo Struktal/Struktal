@@ -6,20 +6,17 @@ if(Auth->isLoggedIn()) {
 }
 
 // Check whether form fields are given
-$validation = Validation->create()
+$post = Validation->create()
     ->withErrorMessage(t("Please enter your account's verified email address."))
     ->array()
     ->required()
     ->children([
         "email" => \app\users\Validations::email(t("The specified email address is invalid. Please check for spelling errors and try again."))
     ])
-    ->build();
-try {
-    $post = $validation->getValidatedValue($_POST);
-} catch(\struktal\validation\ValidationException $e) {
-    InfoMessage->error($e->getMessage());
-    Router->redirect(Router->generate("auth-recovery-request"));
-}
+    ->validate($_POST, function(\struktal\validation\ValidationException $e) {
+        InfoMessage->error($e->getMessage());
+        Router->redirect(Router->generate("auth-recovery-request"));
+    });
 
 $user = \app\users\User::dao()->getObject([
     "email" => $post["email"],

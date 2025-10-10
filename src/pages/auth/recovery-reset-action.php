@@ -6,7 +6,7 @@ if(Auth->isLoggedIn()) {
 }
 
 // Check whether a one-time password has been specified
-$sessionValidation = Validation->create()
+$session = Validation->create()
     ->withErrorMessage(t("An error has occurred. Please try again later."))
     ->array()
     ->required()
@@ -14,13 +14,10 @@ $sessionValidation = Validation->create()
         "authRecoveryOtpId" => \app\users\Validations::sessionOtpId(),
         "authRecoveryOtp" => \app\users\Validations::otp()
     ])
-    ->build();
-try {
-    $session = $sessionValidation->getValidatedValue($_SESSION);
-} catch(\struktal\validation\ValidationException $e) {
-    InfoMessage->error($e->getMessage());
-    Router->redirect(Router->generate("auth-login"));
-}
+    ->validate($_SESSION, function(\struktal\validation\ValidationException $e) {
+        InfoMessage->error($e->getMessage());
+        Router->redirect(Router->generate("auth-login"));
+    });
 
 $otpId = $session["authRecoveryOtpId"];
 $otp = $session["authRecoveryOtp"];
@@ -34,14 +31,14 @@ $recoveryLink = \app\users\UserPasswordResetService::generateRecoveryLink($otpId
 
 // Find the user from the one-time password
 try {
-    $user = \app\users\UserPasswordResetService::verifyOtp($otpId, $otp, true);
+    $user = \app\users\UserPasswordResetService::verifyOtp($otpId, $otp, false);
 } catch(\app\users\UserNotFoundException $e) {
     InfoMessage->error(t("The URL has already been invalidated. Please log in or request a new password recovery email."));
-    Router->redirect($recoveryLink);
+    Router->redirect(Router->generate("auth-login"));
 }
 
 // Check whether form fields are given
-$postValidation = Validation->create()
+$post = Validation->create()
     ->withErrorMessage(t("Please fill out all the required fields."))
     ->array()
     ->required()
@@ -49,13 +46,10 @@ $postValidation = Validation->create()
         "password" => \app\users\Validations::password(),
         "password-repeat" => \app\users\Validations::password()
     ])
-    ->build();
-try {
-    $post = $postValidation->getValidatedValue($_POST);
-} catch(\struktal\validation\ValidationException $e) {
-    InfoMessage->error($e->getMessage());
-    Router->redirect($recoveryLink);
-}
+    ->validate($_POST, function(\struktal\validation\ValidationException $e) use ($recoveryLink) {
+        InfoMessage->error($e->getMessage());
+        Router->redirect($recoveryLink);
+    });
 
 // Check passwords
 try {
