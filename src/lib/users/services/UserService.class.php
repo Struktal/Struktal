@@ -76,7 +76,7 @@ class UserService {
         }
 
         // Check whether the generated one-time-password already exists
-        if(sizeof(User::dao()->getObjects([ "oneTimePassword" => $oneTimePassword ])) > 0) {
+        if(count(User::dao()->getObjects([ "oneTimePassword" => $oneTimePassword ])) > 0) {
             $oneTimePassword = self::generateOneTimePassword();
         }
 
