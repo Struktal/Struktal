@@ -35,7 +35,7 @@
                    id="username"
                    placeholder="{{ t("Username") }}"
                    required
-                   pattern="(?!.*\.\.)(?!.*\.$)[^\W][\w.]{2,15}"
+                   pattern="{!! \app\users\Validations::$USERNAME_REGEX !!}"
                    @if(isset($username)) value="{{ $username }}" @endif>
         </div>
 
@@ -51,7 +51,7 @@
                    id="password"
                    placeholder="{{ t("Password") }}"
                    required
-                   pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[\d\W]).{8,}">
+                   pattern="{!! \app\users\Validations::$PASSWORD_REGEX !!}">
         </div>
 
         <div class="{{ TailwindUtil::inputGroup() }} mb-2">
@@ -66,7 +66,7 @@
                    id="password-repeat"
                    placeholder="{{ t("Password (repeat)") }}"
                    required
-                   pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[\d\W]).{8,}">
+                   pattern="{!! \app\users\Validations::$PASSWORD_REGEX !!}">
         </div>
 
         @include("ui.auth.passwordstrength")

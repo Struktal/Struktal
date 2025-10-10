@@ -1,43 +1,71 @@
 <?php
 
-namespace app\users\services;
-
-use \app\users\dto;
-use \app\users\uc;
+namespace app\users;
 
 class UserPasswordResetService {
-    public static function requestPasswordReset(dto\RequestPasswordResetInputDTO $inputDTO): dto\RequestPasswordResetOutputDTO {
-        $useCase = new uc\RequestPasswordResetUC();
-        return $useCase->execute($inputDTO);
+    public static function generateRecoveryLink(int $otpId, string $otp): string {
+        $otpIdEncoded = urlencode(base64_encode($otpId));
+        $otpEncoded = urlencode($otp);
+
+        return Router->generate("auth-recovery-reset", [], true) . "?otpid=" . $otpIdEncoded . "&otp=" . $otpEncoded;
     }
 
-    public static function generatePasswordResetLink(dto\GeneratePasswordResetLinkInputDTO $input): dto\GeneratePasswordResetLinkOutputDTO {
-        $useCase = new uc\GeneratePasswordResetLinkUC();
-        return $useCase->execute($input);
+    public static function requestRecovery(User $user): void {
+        $oneTimePassword = UserService::generateOneTimePassword();
+
+        $now = new \DateTimeImmutable();
+        $oneTimePasswordExpiration = $now->modify("+15 minutes");
+
+        $user->setOneTimePassword($oneTimePassword);
+        $user->setOneTimePasswordExpiration($oneTimePasswordExpiration);
+        User::dao()->save($user);
+
+        AuthNotificationService::sendPasswordRecoveryInstructions($user, $oneTimePassword);
+
+        Logger->tag("Recovery")->info("Requested password recovery for user with email \"{$user->getEmail()}\" (User ID \"{$user->getId()}\")");
     }
 
-    public static function validateResetToken(dto\ValidateResetTokenInputDTO $input): dto\ValidateResetTokenOutputDTO {
-        $useCase = new uc\ValidateResetTokenUC();
-        return $useCase->execute($input);
+    public static function verifyOtp(int|string $otpId, string $otp, bool $isUrlEncoded): User {
+        if($isUrlEncoded) {
+            $otpId = base64_decode(urldecode($otpId));
+            $otp = urldecode($otp);
+        }
+
+        // Find the user from the one-time password
+        $user = User::dao()->getObject([
+            "id" => $otpId,
+            "emailVerified" => true,
+            new \struktal\ORM\DAOFilter(
+                \struktal\ORM\DAOFilterOperator::NOT_EQUALS,
+                "oneTimePassword",
+                null
+            ),
+            new \struktal\ORM\DAOFilter(
+                \struktal\ORM\DAOFilterOperator::GREATER_THAN_EQUALS,
+                "oneTimePasswordExpiration",
+                new \DateTimeImmutable()
+            )
+        ]);
+
+        if(!$user instanceof User) {
+            Logger->tag("Recovery")->info("Attempted to recover password, but couldn't find user with otpid \"{$otpId}\"");
+            throw new UserNotFoundException();
+        }
+        if(!password_verify($otp, $user->getOneTimePassword())) {
+            Logger->tag("Recovery")->info("Attempted to recover password, but one-time password does not match");
+            throw new UserNotFoundException();
+        }
+
+        return $user;
     }
 
-    public static function resetPassword(dto\ResetPasswordInputDTO $input): dto\ResetPasswordOutputDTO {
-        $useCase = new uc\ResetPasswordUC();
-        return $useCase->execute($input);
-    }
+    public static function setPassword(User $user, string $newPassword): void {
+        $user->setPassword($newPassword);
+        $user->setOneTimePassword(null);
+        $user->setOneTimePasswordExpiration(null);
+        $user->setUpdated(new \DateTimeImmutable());
+        User::dao()->save($user);
 
-    public static function startPasswordResetSession(dto\StartPasswordResetSessionInputDTO $input): dto\StartPasswordResetSessionOutputDTO {
-        $useCase = new uc\StartPasswordResetSessionUC();
-        return $useCase->execute($input);
-    }
-
-    public static function validatePasswordResetSession(dto\ValidatePasswordResetSessionInputDTO $input): dto\ValidatePasswordResetSessionOutputDTO {
-        $useCase = new uc\ValidatePasswordResetSessionUC();
-        return $useCase->execute($input);
-    }
-
-    public static function clearPasswordResetSession(dto\ClearPasswordResetSessionInputDTO $input): dto\ClearPasswordResetSessionOutputDTO {
-        $useCase = new uc\ClearPasswordResetSessionUC();
-        return $useCase->execute($input);
+        Logger->tag("Recovery")->info("Changed password for user with email \"{$user->getEmail()}\" (User ID \"{$user->getId()}\")");
     }
 }

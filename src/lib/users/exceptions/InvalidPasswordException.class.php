@@ -1,6 +1,6 @@
 <?php
 
-namespace app\users\exceptions;
+namespace app\users;
 
 class InvalidPasswordException extends \Exception {
 

@@ -11,7 +11,7 @@ $validation = Validation->create()
     ->array()
     ->required()
     ->children([
-        "email" => \app\users\validations\Validations::email(t("The specified email address is invalid. Please check for spelling errors and try again."))
+        "email" => \app\users\Validations::email(t("The specified email address is invalid. Please check for spelling errors and try again."))
     ])
     ->build();
 try {
@@ -21,19 +21,22 @@ try {
     Router->redirect(Router->generate("auth-recovery-request"));
 }
 
-$inputDTO = new \app\users\dto\RequestPasswordResetInputDTO();
-$inputDTO->email = $post["email"];
+$user = \app\users\User::dao()->getObject([
+    "email" => $post["email"],
+    "emailVerified" => true
+]);
 
-try {
-    $user = \app\users\services\UserPasswordResetService::requestPasswordReset($inputDTO);
-} catch(\app\users\exceptions\UserNotFoundException | \app\users\exceptions\UserNotVerifiedException $e) {
-    // We don't reveal whether the email address is registered or not
-    Router->redirect(Router->generate("auth-recovery-request-complete"));
-} catch(\app\users\exceptions\InvalidEmailException $e) {
-    InfoMessage->error(t("The specified email address is invalid. Please check for spelling errors and try again."));
+if(!$user instanceof \app\users\User) {
+    Logger->tag("Recovery")->info("Failed to request password recovery for email \"{$post["email"]}\"");
+    InfoMessage->error(t("An account with this email could not be found. Please check for spelling errors and try again."));
     Router->redirect(Router->generate("auth-recovery-request"));
+}
+
+// Send password recovery mail
+try {
+    \app\users\UserPasswordResetService::requestRecovery($user);
 } catch(\Exception $e) {
-    Logger->tag("Recovery")->error("An unexpected error occurred during password recovery request for email \"{$post["email"]}\": " . $e->getMessage());
+    Logger->tag("Recovery")->error("Failed to send password recovery email to user with email \"{$post["email"]}\" (User ID \"{$user->getId()}\")", ["exception" => $e]);
     InfoMessage->error(t("An error has occurred. Please try again later."));
     Router->redirect(Router->generate("auth-recovery-request"));
 }

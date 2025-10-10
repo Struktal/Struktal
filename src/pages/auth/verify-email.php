@@ -11,8 +11,8 @@ $validation = Validation->create()
     ->array()
     ->required()
     ->children([
-        "otpid" => \app\users\validations\Validations::otpId(),
-        "otp" => \app\users\validations\Validations::otp()
+        "otpid" => \app\users\Validations::urlOtpId(),
+        "otp" => \app\users\Validations::otp()
     ])
     ->build();
 try {
@@ -22,27 +22,15 @@ try {
     Router->redirect(Router->generate("auth-login"));
 }
 
-$validateVerificationTokenInput = new \app\users\dto\ValidateVerificationTokenInputDTO();
-$validateVerificationTokenInput->otpId = $get["otpid"];
-$validateVerificationTokenInput->otp = $get["otp"];
-
+// Find the user from the one-time password
 try {
-    $validateVerificationTokenOutput = \app\users\services\UserVerificationService::validateVerificationToken($validateVerificationTokenInput);
-} catch(\app\users\exceptions\InvalidTokenException | \app\users\exceptions\UserNotFoundException $e) {
+    $user = \app\users\UserVerificationService::verifyOtp($get["otpid"], $get["otp"], true);
+} catch(\app\users\UserNotFoundException $e) {
     InfoMessage->error(t("The URL has already been invalidated. Please log in or request a new password recovery email."));
     Router->redirect(Router->generate("auth-login"));
-} catch(\Exception $e) {
-    InfoMessage->error(t("An error has occurred. Please try again later."));
-    Router->redirect(Router->generate("auth-login"));
 }
 
-$verifyEmailInput = new \app\users\dto\VerifyEmailInputDTO();
-$verifyEmailInput->user = $validateVerificationTokenOutput->user;
-try {
-    \app\users\services\UserVerificationService::verifyEmail($verifyEmailInput);
-} catch(\Exception $e) {
-    InfoMessage->error(t("An error has occurred. Please try again later."));
-    Router->redirect(Router->generate("auth-login"));
-}
+// Update the user object in the database
+\app\users\UserVerificationService::verify($user);
 
 Router->redirect(Router->generate("auth-verify-email-complete"));

@@ -8,8 +8,8 @@ require_once(__APP_DIR__ . "/struktal/start.php");
 
 session_start();
 
-$loggedInUser = \app\users\services\UserService::getLoggedInUser(new \app\users\dto\GetLoggedInUserInputDTO())->user;
-if($loggedInUser instanceof \app\users\orm\User) {
+$loggedInUser = Auth->getLoggedInUser();
+if($loggedInUser instanceof \app\users\User) {
     Blade->setAuth($loggedInUser->getUsername(), $loggedInUser->getPermissionLevel()->value);
 }
 unset($loggedInUser);

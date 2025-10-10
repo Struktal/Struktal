@@ -11,8 +11,8 @@ $validation = Validation->create()
     ->array()
     ->required()
     ->children([
-        "username" => \app\users\validations\Validations::username(),
-        "password" => \app\users\validations\Validations::password()
+        "username" => \app\users\Validations::username(),
+        "password" => \app\users\Validations::password()
     ])
     ->build();
 try {
@@ -22,23 +22,16 @@ try {
     Router->redirect(Router->generate("auth-login"));
 }
 
-$input = new \app\users\dto\LoginInputDTO();
-$input->login = $post["username"];
-$input->loginWithEmail = false;
-$input->password = $post["password"];
-
 try {
-    \app\users\services\UserService::login($input);
-} catch(\app\users\exceptions\UserNotFoundException | \app\users\exceptions\InvalidPasswordException $e) {
+    $user = \app\users\UserService::login($post["username"], false, $post["password"]);
+} catch(\app\users\UserNotFoundException | \app\users\InvalidPasswordException $e) {
     InfoMessage->error(t("An account with these credentials could not be found. Please check for spelling errors and try again."));
     Router->redirect(Router->generate("auth-login"));
-} catch(\app\users\exceptions\UserNotVerifiedException $e) {
+} catch(\app\users\EmailNotVerifiedException $e) {
     InfoMessage->error(t("Before logging in, please verify your account's email address."));
-    Router->redirect(Router->generate("auth-login"));
-} catch(\Exception $e) {
-    Logger->tag("Login")->error("An unexpected error occurred during login of user \"{$post["username"]}\": " . $e->getMessage());
-    InfoMessage->error(t("An error has occurred. Please try again later."));
     Router->redirect(Router->generate("auth-login"));
 }
 
+Logger->tag("Login")->info("User \"{$post["username"]}\" has logged in (User ID {$user->getId()})");
+Auth->sessionLogin($user);
 Router->redirect(Router->generate("index"));
