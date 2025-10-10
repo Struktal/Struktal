@@ -10,7 +10,7 @@ unset($_SESSION["authRecoveryOtpId"]);
 unset($_SESSION["authRecoveryOtp"]);
 
 // Check whether a one-time password has been specified
-$validation = Validation->create()
+$get = Validation->create()
     ->withErrorMessage(t("An error has occurred. Please try again later."))
     ->array()
     ->required()
@@ -18,13 +18,10 @@ $validation = Validation->create()
         "otpid" => \app\users\Validations::urlOtpId(),
         "otp" => \app\users\Validations::otp()
     ])
-    ->build();
-try {
-    $get = $validation->getValidatedValue($_GET);
-} catch(\struktal\validation\ValidationException $e) {
-    InfoMessage->error($e->getMessage());
-    Router->redirect(Router->generate("auth-login"));
-}
+    ->validate($_GET, function(\struktal\validation\ValidationException $e) {
+        InfoMessage->error($e->getMessage());
+        Router->redirect(Router->generate("auth-login"));
+    });
 
 // Find the user from the one-time password
 try {

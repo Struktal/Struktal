@@ -6,7 +6,7 @@ if(Auth->isLoggedIn()) {
 }
 
 // Check whether form fields are given
-$validation = Validation->create()
+$post = Validation->create()
     ->withErrorMessage(t("Please log in with your account's credentials."))
     ->array()
     ->required()
@@ -14,13 +14,10 @@ $validation = Validation->create()
         "username" => \app\users\Validations::username(),
         "password" => \app\users\Validations::password()
     ])
-    ->build();
-try {
-    $post = $validation->getValidatedValue($_POST);
-} catch(\struktal\validation\ValidationException $e) {
-    InfoMessage->error($e->getMessage());
-    Router->redirect(Router->generate("auth-login"));
-}
+    ->validate($_POST, function(\struktal\validation\ValidationException $e) {
+        InfoMessage->error($e->getMessage());
+        Router->redirect(Router->generate("auth-login"));
+    });
 
 try {
     $user = \app\users\UserService::login($post["username"], false, $post["password"]);

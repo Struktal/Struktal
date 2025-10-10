@@ -685,16 +685,16 @@
         },
         {
             "name": "struktal/struktal-validation",
-            "version": "2.0.0",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Struktal/struktal-validation.git",
-                "reference": "7affe65e7178dc4cd2a2cad385736850e2ff8c58"
+                "reference": "2edfa3525c73f45b613b9b0f6c418bffa80736bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Struktal/struktal-validation/zipball/7affe65e7178dc4cd2a2cad385736850e2ff8c58",
-                "reference": "7affe65e7178dc4cd2a2cad385736850e2ff8c58",
+                "url": "https://api.github.com/repos/Struktal/struktal-validation/zipball/2edfa3525c73f45b613b9b0f6c418bffa80736bf",
+                "reference": "2edfa3525c73f45b613b9b0f6c418bffa80736bf",
                 "shasum": ""
             },
             "require": {
@@ -723,9 +723,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Struktal/struktal-validation/issues",
-                "source": "https://github.com/Struktal/struktal-validation/tree/2.0.0"
+                "source": "https://github.com/Struktal/struktal-validation/tree/2.1.0"
             },
-            "time": "2025-09-12T12:06:12+00:00"
+            "time": "2025-10-02T09:22:23+00:00"
         }
     ],
     "packages-dev": [
@@ -4631,7 +4631,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
@@ -4640,9 +4640,9 @@
         "ext-curl": "*",
         "ext-json": "*"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "platform-overrides": {
         "php": "8.2"
     },
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }
