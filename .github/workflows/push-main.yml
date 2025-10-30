@@ -28,12 +28,14 @@ jobs:
           - name: "Docker Buildx setup"
             uses: "docker/setup-buildx-action@v3"
 
-          - name: "Build and push image"
+          - name: "Build and push development image"
             uses: "docker/build-push-action@v6"
             with:
                 context: "."
                 push: "true"
-                tags: "ghcr.io/${{ env.REPOSITORYLC }}:latest"
+                tags: |
+                    ghcr.io/${{ env.REPOSITORYLC }}:dev-latest
+                    ghcr.io/${{ env.REPOSITORYLC }}:dev-${{ github.sha }}
                 cache-from: "type=gha"
                 cache-to: "type=gha,mode=max"
 
