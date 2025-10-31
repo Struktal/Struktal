@@ -1,4 +1,4 @@
-name: "Release Image Build"
+name: "Publish new release"
 
 on:
     release:
