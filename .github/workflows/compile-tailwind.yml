@@ -16,9 +16,13 @@ jobs:
               with:
                   node-version: "24"
 
+            - name: "Move Node.js files"
+              run: |
+                  cp docker/nodejs/package.json .
+                  cp docker/nodejs/package-lock.json .
+
             - name: "Install dependencies"
               run: |
-                  cd docker/nodejs
                   npm install
 
             - name: "Compile Tailwind CSS"
@@ -30,5 +34,5 @@ jobs:
                   git config user.name "github-actions[bot]"
                   git config user.email "github-actions[bot]@users.noreply.github.com"
                   git add src/static/css/style.css
-                  git commit -m "Compile Tailwind CSS [skip ci]" || echo "No changes to commit"
+                  git commit -m "chore: Compile Tailwind CSS [skip ci]" || echo "No changes to commit"
                   git push origin main
