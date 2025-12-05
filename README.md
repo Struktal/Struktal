@@ -52,7 +52,7 @@ For Docker deployment,
 - The container has to be accessible from outside (e.g. through port mapping, which is already configured, or a reverse proxy)
 
 For deployments to a web server,
-- The server has to run PHP 8.3 or higher
+- The server has to run PHP 8.5 or higher
 - A MySQL or MariaDB database has to be available (if it's required by the application)
 
 > [!TIP]
