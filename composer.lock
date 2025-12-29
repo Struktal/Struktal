@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6dc2ee5af523cd435e2aebe3f74177ff",
+    "content-hash": "cefe56c60912dcefeec5a6711df704f7",
     "packages": [
         {
             "name": "eftec/bladeone",
@@ -610,16 +610,16 @@
         },
         {
             "name": "struktal/struktal-router",
-            "version": "1.2.1",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Struktal/struktal-router.git",
-                "reference": "17bb215855d514ee3cde92c1281711d1beb9394f"
+                "reference": "96df64340f9b6032180c2a802e08e3efb3d5e23e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Struktal/struktal-router/zipball/17bb215855d514ee3cde92c1281711d1beb9394f",
-                "reference": "17bb215855d514ee3cde92c1281711d1beb9394f",
+                "url": "https://api.github.com/repos/Struktal/struktal-router/zipball/96df64340f9b6032180c2a802e08e3efb3d5e23e",
+                "reference": "96df64340f9b6032180c2a802e08e3efb3d5e23e",
                 "shasum": ""
             },
             "require": {
@@ -641,9 +641,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Struktal/struktal-router/issues",
-                "source": "https://github.com/Struktal/struktal-router/tree/1.2.1"
+                "source": "https://github.com/Struktal/struktal-router/tree/2.0.0"
             },
-            "time": "2025-08-11T13:06:19+00:00"
+            "time": "2025-09-06T20:51:43+00:00"
         },
         {
             "name": "struktal/struktal-translator",
