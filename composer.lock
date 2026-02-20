@@ -529,16 +529,16 @@
         },
         {
             "name": "struktal/struktal-orm",
-            "version": "3.0.0",
+            "version": "3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Struktal/struktal-orm.git",
-                "reference": "927fb89617dd13ec2c9844e0358074d8007e3298"
+                "reference": "f027df098b6db471adf5db56ad199ce4b3407882"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Struktal/struktal-orm/zipball/927fb89617dd13ec2c9844e0358074d8007e3298",
-                "reference": "927fb89617dd13ec2c9844e0358074d8007e3298",
+                "url": "https://api.github.com/repos/Struktal/struktal-orm/zipball/f027df098b6db471adf5db56ad199ce4b3407882",
+                "reference": "f027df098b6db471adf5db56ad199ce4b3407882",
                 "shasum": ""
             },
             "require": {
@@ -570,9 +570,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Struktal/struktal-orm/issues",
-                "source": "https://github.com/Struktal/struktal-orm/tree/3.0.0"
+                "source": "https://github.com/Struktal/struktal-orm/tree/3.0.1"
             },
-            "time": "2026-02-20T19:32:06+00:00"
+            "time": "2026-02-20T21:25:46+00:00"
         },
         {
             "name": "struktal/struktal-phpmailer-wrapper",

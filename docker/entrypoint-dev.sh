@@ -2,6 +2,8 @@
 
 env > /etc/environment
 
+su -s /bin/sh nginx -c "php85 vendor/bin/evolve --config-loader /app/struktal/start.php --evolutions-directory /app/src/schema"
+
 php-fpm85
 nginx
 crond
