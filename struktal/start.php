@@ -90,6 +90,9 @@ Blade->directive("include", function($expression) {
     return $code;
 });
 
+// Setup timezone
+date_default_timezone_set("UTC");
+
 // Setup logger
 $sendEmailHandler = function(string $formattedMessage, string $serializedMessage, mixed $originalMessage) {
     if(empty(Config->getLogRecipients())) {
@@ -107,9 +110,6 @@ $sendEmailHandler = function(string $formattedMessage, string $serializedMessage
 Logger::addCustomLogHandler(LogLevel::ERROR, $sendEmailHandler);
 Logger::addCustomLogHandler(LogLevel::FATAL, $sendEmailHandler);
 unset($sendEmailHandler);
-
-// Initialize routes
-require_once(__APP_DIR__ . "/src/config/app-routes.php");
 
 set_error_handler(function($errno, $errstr, $errfile, $errline) {
     $message = "Error " . $errno . ": ";
@@ -131,6 +131,11 @@ set_error_handler(function($errno, $errstr, $errfile, $errline) {
     } catch(Error|Exception $e) {
         // If the logger fails, log to the default PHP error log
         error_log($message);
+    }
+
+    if(php_sapi_name() === "cli") {
+        // In CLI, just exit after logging the error
+        exit(1);
     }
 
     if(Config->isProduction()) {
@@ -163,6 +168,11 @@ set_exception_handler(function($exception) {
         error_log($message);
     }
 
+    if(php_sapi_name() === "cli") {
+        // In CLI, just exit after logging the error
+        exit(1);
+    }
+
     if(Config->isProduction()) {
         // Redirect to error page in production
         Router->redirect(Router->generate("500"));
@@ -183,5 +193,5 @@ set_exception_handler(function($exception) {
     }
 });
 
-// Setup timezone
-date_default_timezone_set("UTC");
+// Initialize routes
+require_once(__APP_DIR__ . "/src/config/app-routes.php");
