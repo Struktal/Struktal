@@ -16,13 +16,15 @@ WORKDIR /app
 
 # Copy application files
 COPY --chown=nginx:nginx . .
-COPY ./docker/nodejs .
 
 # Link src/static to public/static
 RUN rm -rf /app/public/static && ln -s /app/src/static /app/public/static
 
 # Install composer dependencies
 RUN php85 $(which composer).phar install --no-dev --no-interaction
+
+# Copy docker files
+RUN /app/vendor/struktal/struktal-core/docker/docker-export.sh
 
 # Install npm dependencies
 RUN npm install
@@ -60,11 +62,9 @@ COPY --from=builder --chown=nginx:nginx /app/public ./public
 COPY --from=builder --chown=nginx:nginx /app/src ./src
 COPY --from=builder --chown=nginx:nginx /app/vendor ./vendor
 COPY --from=builder --chown=nginx:nginx /app/composer.json ./composer.json
-COPY --chown=nginx:nginx ./docker/entrypoint.sh .
 
-# Copy server configurations
-COPY ./docker/nginx-config /etc/nginx
-COPY ./docker/php-fpm-config /etc/php85/php-fpm.d
+# Copy docker files
+RUN /app/vendor/struktal/struktal-core/docker/docker-export.sh
 
 # Adjust permissions
 RUN mkdir -p logs && chown -R nginx:nginx logs && \

@@ -16,10 +16,15 @@ RUN chown -R nginx:nginx /app
 
 # Copy application files
 COPY --chown=nginx:nginx . .
-COPY --chown=nginx:nginx ./docker/nodejs .
-COPY --chown=nginx:nginx ./docker/nginx-config /etc/nginx
-COPY --chown=nginx:nginx ./docker/php-fpm-config /etc/php85/php-fpm.d
-COPY --chown=nginx:nginx ./docker/entrypoint-dev.sh .
+
+# Link src/static to public/static
+RUN rm -rf /app/public/static && ln -s /app/src/static /app/public/static
+
+# Install composer dependencies
+RUN php85 $(which composer).phar install --no-dev --no-interaction
+
+# Copy docker files
+RUN /app/vendor/struktal/struktal-core/docker/docker-export.sh
 
 # Adjust permissions
 RUN mkdir -p logs && chown -R nginx:nginx logs && \
@@ -29,12 +34,6 @@ RUN mkdir -p logs && chown -R nginx:nginx logs && \
     chmod 777 /app/files && \
     chmod 777 /app/template-cache && \
     chmod +x /app/entrypoint-dev.sh
-
-# Link src/static to public/static
-RUN rm -rf /app/public/static && ln -s /app/src/static /app/public/static
-
-# Install composer dependencies
-RUN php85 $(which composer).phar install --no-dev --no-interaction
 
 # Install npm dependencies
 RUN npm install
