@@ -10,7 +10,7 @@
         "ext-curl": "*",
         "ext-json": "*",
 
-        "struktal/struktal-core": "^1.0.2"
+        "struktal/struktal-core": "^1.0.3"
     },
     "require-dev": {
         "struktal/struktal-dev-core": "^1.1.0"
@@ -22,6 +22,9 @@
         }
     },
     "scripts": {
+        "post-install-cmd": [
+            "struktal\\core\\StruktalDevCoreInitializer::installPlaywrightDependencies"
+        ],
         "dev": [
             "Composer\\Config::disableProcessTimeout",
             "docker compose -f docker-compose-dev.yml up --build"
