@@ -1,7 +1,5 @@
 <?php
 
-require_once __DIR__ . "/.test-setup.php";
-
 use Playwright\Playwright;
 
 test("Example UI test", function() {
