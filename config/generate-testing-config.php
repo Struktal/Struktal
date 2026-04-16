@@ -18,7 +18,7 @@ $config["LOG_RECIPIENTS"] = [];
 $config["LOG_LEVEL"] = 6;
 
 // Update database settings
-$config["DB_HOST"] = "localhost";
+$config["DB_HOST"] = "127.0.0.1";
 $config["DB_USER"] = "struktal";
 $config["DB_PASS"] = "struktal";
 $config["DB_NAME"] = "struktal";
