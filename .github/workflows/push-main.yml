@@ -76,6 +76,10 @@ jobs:
             run: |
                 composer install --no-interaction --ignore-platform-reqs
 
+          - name: "Generate testing config"
+            run: |
+                php config/generate-testing-config.php
+
           - name: "Run tests"
             run: |
-                composer run-script test
+                composer run test

@@ -29,6 +29,11 @@
             "Composer\\Config::disableProcessTimeout",
             "docker compose -f docker-compose-dev.yml up --build"
         ],
-        "test": "vendor/bin/pest tests"
+        "test": [
+            "Composer\\Config::disableProcessTimeout",
+            "docker compose -f docker-compose-test.yml up -d --build",
+            "vendor/bin/pest",
+            "docker compose -f docker-compose-test.yml down"
+        ]
     }
 }

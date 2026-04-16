@@ -1,0 +1,47 @@
+version: "3"
+
+networks:
+    app:
+
+services:
+    database:
+        image: "mysql:8.2"
+        restart: "no"
+        healthcheck:
+            test: [ "CMD", "mysqladmin", "ping" ]
+            interval: 5s
+            timeout: 3s
+            retries: 5
+        environment:
+            TZ: "UTC"
+            MYSQL_ROOT_PASSWORD: "root"
+            MYSQL_DATABASE: "struktal"
+            MYSQL_USER: "struktal"
+            MYSQL_PASSWORD: "struktal"
+        ports:
+            - "3306:3306"
+        networks:
+            - "app"
+
+    app:
+        build:
+            context: "."
+            dockerfile: "Dockerfile-dev"
+        restart: "no"
+        depends_on:
+            database:
+                condition: service_healthy
+        environment:
+            TZ: "UTC"
+        volumes:
+            - "./struktal:/app/struktal"
+            - "./public:/app/public"
+            - "./src:/app/src"
+            - "./config:/app/config"
+            - "./app-logs:/app/logs"
+            - "./app-files:/app/files"
+        ports:
+            - "3000:80"
+            - "5173:5173"
+        networks:
+            - "app"
