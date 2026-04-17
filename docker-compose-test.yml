@@ -24,29 +24,23 @@ services:
             - "app"
 
     app:
-        build:
-            context: "."
-            dockerfile: "Dockerfile-dev"
+        image: "struktaltest"
         restart: "no"
         depends_on:
             database:
                 condition: service_healthy
         healthcheck:
-            test: [ "CMD-SHELL", "curl -f http://localhost:80/ || exit 1" ]
+            test: [ "CMD-SHELL", "wget -qO- http://localhost:80/ > /dev/null 2>&1 || exit 1" ]
             interval: 5s
             timeout: 3s
             retries: 10
         environment:
             TZ: "UTC"
         volumes:
-            - "./struktal:/app/struktal"
-            - "./public:/app/public"
-            - "./src:/app/src"
             - "./config:/app/config"
             - "./app-logs:/app/logs"
             - "./app-files:/app/files"
         ports:
             - "3000:80"
-            - "5173:5173"
         networks:
             - "app"
