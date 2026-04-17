@@ -79,6 +79,7 @@ jobs:
           - name: "Generate testing config"
             run: |
                 php config/generate-testing-config.php
+                echo "127.0.0.1 database" | sudo tee -a /etc/hosts
 
           - name: "Build test image"
             uses: "docker/build-push-action@v7"
