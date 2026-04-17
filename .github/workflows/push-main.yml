@@ -76,6 +76,26 @@ jobs:
             run: |
                 composer install --no-interaction --ignore-platform-reqs
 
+          - name: "Generate testing config"
+            run: |
+                php config/generate-testing-config.php
+                echo "127.0.0.1 database" | sudo tee -a /etc/hosts
+
+          - name: "Build test image"
+            uses: "docker/build-push-action@v7"
+            with:
+              context: "."
+              push: "false"
+              load: "true"
+              tags: |
+                  struktaltest:latest
+              cache-from: "type=gha"
+
           - name: "Run tests"
             run: |
-                composer run-script test
+                composer run test
+
+          - name: "Dump app logs on failure"
+            if: failure()
+            run: |
+              docker compose -f docker-compose-test.yml logs app
