@@ -22,13 +22,14 @@ jobs:
           - name: "Docker Buildx setup"
             uses: "docker/setup-buildx-action@v4"
 
-          - name: "Build test image"
+          - name: "Build development image"
             uses: "docker/build-push-action@v7"
             with:
                 context: "."
                 push: "false"
                 tags: |
-                    struktaltest:latest
+                    ghcr.io/${{ env.REPOSITORYLC }}:dev-latest
+                    ghcr.io/${{ env.REPOSITORYLC }}:dev-${{ github.sha }}
                 cache-from: "type=gha"
                 cache-to: "type=gha,mode=max"
 
@@ -59,6 +60,17 @@ jobs:
             - name: "Generate testing config"
               run: |
                   php config/generate-testing-config.php
+
+            - name: "Build test image"
+              uses: "docker/build-push-action@v7"
+              with:
+                context: "."
+                push: "false"
+                load: "true"
+                tags: |
+                    struktaltest
+                cache-from: "type=gha"
+                cache-to: "type=gha,mode=max"
 
             - name: "Run tests"
               run: |

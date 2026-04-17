@@ -50,16 +50,6 @@ jobs:
                 cache-from: "type=gha"
                 cache-to: "type=gha,mode=max"
 
-          - name: "Build test image"
-            uses: "docker/build-push-action@v7"
-            with:
-                context: "."
-                push: "false"
-                tags: |
-                    struktaltest:latest
-                cache-from: "type=gha"
-                cache-to: "type=gha,mode=max"
-
     test:
         runs-on: "ubuntu-latest"
 
@@ -89,6 +79,17 @@ jobs:
           - name: "Generate testing config"
             run: |
                 php config/generate-testing-config.php
+
+          - name: "Build test image"
+            uses: "docker/build-push-action@v7"
+            with:
+              context: "."
+              push: "false"
+              load: "true"
+              tags: |
+                  struktaltest
+              cache-from: "type=gha"
+              cache-to: "type=gha,mode=max"
 
           - name: "Run tests"
             run: |
