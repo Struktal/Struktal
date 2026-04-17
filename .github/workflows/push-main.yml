@@ -87,9 +87,8 @@ jobs:
               push: "false"
               load: "true"
               tags: |
-                  struktaltest
+                  struktaltest:latest
               cache-from: "type=gha"
-              cache-to: "type=gha,mode=max"
 
           - name: "Run tests"
             run: |
