@@ -299,16 +299,16 @@
         },
         {
             "name": "struktal/struktal-core",
-            "version": "1.0.2",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Struktal/struktal-core.git",
-                "reference": "5ab25bf7e85a3a7db008308a3d7e584267fe044d"
+                "reference": "9ce8e9a4c8f0ab74e643abe1d6c3f26f566f4ab5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Struktal/struktal-core/zipball/5ab25bf7e85a3a7db008308a3d7e584267fe044d",
-                "reference": "5ab25bf7e85a3a7db008308a3d7e584267fe044d",
+                "url": "https://api.github.com/repos/Struktal/struktal-core/zipball/9ce8e9a4c8f0ab74e643abe1d6c3f26f566f4ab5",
+                "reference": "9ce8e9a4c8f0ab74e643abe1d6c3f26f566f4ab5",
                 "shasum": ""
             },
             "require": {
@@ -323,6 +323,7 @@
                 "struktal/struktal-file-uploads": "^2.0.0",
                 "struktal/struktal-geocoding-util": "^1.1.0",
                 "struktal/struktal-infomessages": "^1.0.0",
+                "struktal/struktal-job-executor": "^1.0.0",
                 "struktal/struktal-logger": "^1.0.2",
                 "struktal/struktal-orm": "^3.0.1",
                 "struktal/struktal-phpmailer-wrapper": "^1.0.0",
@@ -347,9 +348,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Struktal/struktal-core/issues",
-                "source": "https://github.com/Struktal/struktal-core/tree/1.0.2"
+                "source": "https://github.com/Struktal/struktal-core/tree/1.0.3"
             },
-            "time": "2026-03-19T13:54:54+00:00"
+            "time": "2026-04-16T12:44:47+00:00"
         },
         {
             "name": "struktal/struktal-csv-reader",
@@ -543,6 +544,43 @@
                 "source": "https://github.com/Struktal/struktal-infomessages/tree/1.0.0"
             },
             "time": "2025-08-23T14:33:07+00:00"
+        },
+        {
+            "name": "struktal/struktal-job-executor",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Struktal/struktal-job-executor.git",
+                "reference": "7ff69156320916ae06139a48796ae82a62e89fe4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Struktal/struktal-job-executor/zipball/7ff69156320916ae06139a48796ae82a62e89fe4",
+                "reference": "7ff69156320916ae06139a48796ae82a62e89fe4",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "struktal\\jobexecutor\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "PHP library for executing jobs in a separate PHP process",
+            "keywords": [
+                "job-executor"
+            ],
+            "support": {
+                "issues": "https://github.com/Struktal/struktal-job-executor/issues",
+                "source": "https://github.com/Struktal/struktal-job-executor/tree/1.0.0"
+            },
+            "time": "2026-04-14T16:55:56+00:00"
         },
         {
             "name": "struktal/struktal-logger",
@@ -2587,6 +2625,142 @@
             "time": "2026-04-15T05:05:59+00:00"
         },
         {
+            "name": "playwright-php/playwright",
+            "version": "v1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/playwright-php/playwright.git",
+                "reference": "4eba6c6515cc69e226778a1bc05ca5a644b11b14"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/playwright-php/playwright/zipball/4eba6c6515cc69e226778a1bc05ca5a644b11b14",
+                "reference": "4eba6c6515cc69e226778a1bc05ca5a644b11b14",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.2",
+                "psr/clock": "^1.0",
+                "psr/log": "^3.0",
+                "symfony/console": "^6.4 || ^7.3 || ^8.0",
+                "symfony/process": "^6.4 || ^7.3 || ^8.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.40",
+                "monolog/monolog": "^3.9",
+                "phpstan/phpstan": "^2.1",
+                "phpunit/phpunit": "^11.5",
+                "symfony/var-dumper": "^6.4 || ^7.3 || ^8.0"
+            },
+            "bin": [
+                "bin/playwright-install"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/Testing/functions.php"
+                ],
+                "psr-4": {
+                    "Playwright\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Simon André",
+                    "email": "smn.andre@gmail.com",
+                    "homepage": "https://github.com/smnandre"
+                },
+                {
+                    "name": "Playwright PHP Contributors",
+                    "homepage": "https://github.com/playwright-php"
+                }
+            ],
+            "description": "Modern PHP library for Playwright automation: browsing, scraping, screenshots, testing, and more.",
+            "keywords": [
+                "automation",
+                "browser",
+                "chromium",
+                "firefox",
+                "headless",
+                "php",
+                "playwright",
+                "scraping",
+                "screenshots",
+                "test",
+                "testing",
+                "web",
+                "webkit"
+            ],
+            "support": {
+                "issues": "https://github.com/playwright-php/playwright/issues",
+                "source": "https://github.com/playwright-php/playwright/tree/v1.2.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/smnandre",
+                    "type": "github"
+                }
+            ],
+            "time": "2026-02-25T18:47:13+00:00"
+        },
+        {
+            "name": "psr/clock",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/clock.git",
+                "reference": "e41a24703d4560fd0acb709162f73b8adfc3aa0d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/clock/zipball/e41a24703d4560fd0acb709162f73b8adfc3aa0d",
+                "reference": "e41a24703d4560fd0acb709162f73b8adfc3aa0d",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.0 || ^8.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Clock\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "https://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for reading the clock.",
+            "homepage": "https://github.com/php-fig/clock",
+            "keywords": [
+                "clock",
+                "now",
+                "psr",
+                "psr-20",
+                "time"
+            ],
+            "support": {
+                "issues": "https://github.com/php-fig/clock/issues",
+                "source": "https://github.com/php-fig/clock/tree/1.0.0"
+            },
+            "time": "2022-11-25T14:36:26+00:00"
+        },
+        {
             "name": "psr/container",
             "version": "2.0.2",
             "source": {
@@ -3691,21 +3865,22 @@
         },
         {
             "name": "struktal/struktal-dev-core",
-            "version": "1.0.0",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Struktal/struktal-dev-core.git",
-                "reference": "aebc44f9224b4dae132e213704ebf46f641ae844"
+                "reference": "860efb3bfab91e330cc7048ddce4505279f4a7a2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Struktal/struktal-dev-core/zipball/aebc44f9224b4dae132e213704ebf46f641ae844",
-                "reference": "aebc44f9224b4dae132e213704ebf46f641ae844",
+                "url": "https://api.github.com/repos/Struktal/struktal-dev-core/zipball/860efb3bfab91e330cc7048ddce4505279f4a7a2",
+                "reference": "860efb3bfab91e330cc7048ddce4505279f4a7a2",
                 "shasum": ""
             },
             "require": {
                 "pestphp/pest": "^4.5.0",
-                "php": ">=8.3.0"
+                "php": ">=8.3.0",
+                "playwright-php/playwright": "^1.2.0"
             },
             "type": "library",
             "notification-url": "https://packagist.org/downloads/",
@@ -3718,9 +3893,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Struktal/struktal-dev-core/issues",
-                "source": "https://github.com/Struktal/struktal-dev-core/tree/1.0.0"
+                "source": "https://github.com/Struktal/struktal-dev-core/tree/1.1.0"
             },
-            "time": "2026-04-15T07:08:34+00:00"
+            "time": "2026-04-16T09:07:54+00:00"
         },
         {
             "name": "symfony/console",
@@ -4698,7 +4873,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
@@ -4707,6 +4882,6 @@
         "ext-curl": "*",
         "ext-json": "*"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.9.0"
 }
