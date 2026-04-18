@@ -81,6 +81,9 @@ jobs:
                 php config/generate-testing-config.php
                 echo "127.0.0.1 database" | sudo tee -a /etc/hosts
 
+          - name: "Docker Buildx setup (for test image)"
+            uses: "docker/setup-buildx-action@v4"
+
           - name: "Build test image"
             uses: "docker/build-push-action@v7"
             with:
@@ -89,7 +92,10 @@ jobs:
               load: "true"
               tags: |
                   struktaltest:latest
-              cache-from: "type=gha"
+              cache-from: "type=gha,scope=test"
+              cache-to: "type=gha,scope=test,mode=max"
+              build-args: |
+                  BUILDKIT_INLINE_CACHE=1
 
           - name: "Run tests"
             run: |
